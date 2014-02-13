@@ -11,8 +11,6 @@ class Index
 
     public function actionDefault()
     {
-        echo 'TEST';
-        die;
     }
 
 } 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use T4\Orm\Model;
 
@@ -24,7 +24,8 @@ class Page
                 'type' => 'int'
             ],
         ],
-        'extensions' => ['tree'],
     ];
+
+    static protected $extensions = ['tree'];
 
 }

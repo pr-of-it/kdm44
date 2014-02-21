@@ -17,175 +17,55 @@
     </div>
 </div>
 
-<section id="widget-grid">
-    <div class="row">
-        <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Размещенные на сайте </h2>
-        <!-- NEW WIDGET START -->
-        <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+<div class="row">
 
-            <!-- Widget ID (each widget will need unique ID)-->
+    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Размещенные на сайте </h2>
 
-            <!-- end widget -->
+    <div class="well col-sm-12 col-md-12 col-lg-12">
+        <div class="panel-group smart-accordion-default" id="accordion">
 
-            <div class="jarviswidget well transparent" id="wid-id-sections" data-widget-colorbutton="false"
-                 data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false"
-                 data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false"
-                 role="widget" style="">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="false"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-
-                -->
-                <header role="heading">
-                    <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-                    <h2>Секции </h2>
-                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
-
-                <!-- widget div-->
-                <div role="content">
-
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-
-                    </div>
-                    <!-- end widget edit box -->
-
-                    <!-- widget content -->
-                    <div class="widget-body" style="min-height: 0">
-
-                        <div class="panel-group smart-accordion-default" id="accordion">
-
-                            {% for sectionId, section in sections %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion"
-                                                               href="#collapse{{sectionId}}"> <i
-                                            class="fa fa-lg fa-angle-down pull-right"></i> <i
-                                            class="fa fa-lg fa-angle-up pull-right"></i> #{{sectionId}}&nbsp;&ndash; {{section.name}} </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
-                                    <div class="panel-body">
-                                        <table class="table table-bordered table-condensed">
-                                            <thead>
-                                            <tr>
-                                                <th>Column name</th>
-                                                <th>Column name</th>
-                                                <th>Column name</th>
-                                                <th>Column name</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>Row 1</td>
-                                                <td>Row 2</td>
-                                                <td>Row 3</td>
-                                                <td>Row 4</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Row 1</td>
-                                                <td>Row 2</td>
-                                                <td>Row 3</td>
-                                                <td>Row 4</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Row 1</td>
-                                                <td>Row 2</td>
-                                                <td>Row 3</td>
-                                                <td>Row 4</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-
-                        </div>
-
-                    </div>
-                    <!-- end widget content -->
-
+            {% for sectionId, section in sections %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{sectionId}}">
+                            <i class="fa fa-lg fa-angle-down pull-right"></i>
+                            <i class="fa fa-lg fa-angle-up pull-right"></i>
+                            #{{sectionId}}&nbsp;&ndash; {{section.name}}
+                        </a>
+                    </h4>
                 </div>
-                <!-- end widget div -->
-
+                <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
+                    <div class="panel-body">
+                        111
+                    </div>
+                </div>
             </div>
-        </article>
-        <!-- WIDGET END -->
+            {% endfor %}
+
+        </div>
     </div>
 
+</div>
+
+<div class="row">
+    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
+</div>
+
+<section>
     <div class="row">
-        <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные </h2>
-        <!-- NEW WIDGET START -->
-        <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
 
-            <div class="jarviswidget well" id="wid-id-blocks" data-widget-colorbutton="false"
-                 data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false"
-                 data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false"
-                 role="widget" style="">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            {% for path, block in blocksAvaliable %}
+            {% include '_block_available.html' %}
+            {% endfor %}
 
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="false"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-
-                -->
-                <header role="heading">
-                    <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-                    <h2>Доступные блоки </h2>
-                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
-
-                <!-- widget div-->
-                <div role="content">
-
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-
-                    </div>
-                    <!-- end widget edit box -->
-
-                    <!-- widget content -->
-                    <div class="widget-body" style="min-height: 0">
-
-                        {% for path, block in blocksAvaliable %}
-                            <blockquote class="col-xs-12 col-md-6">
-                                {{ block.title }}
-                            </blockquote>
-                            <blockquote class="col-xs-12 col-md-6">
-                                {{ block.title }}
-                            </blockquote>
-                            <blockquote class="col-xs-12 col-md-6">
-                                {{ block.title }}
-                            </blockquote>
-                            <blockquote class="col-xs-12 col-md-6">
-                                {{ block.title }}
-                            </blockquote>
-                        {% endfor %}
-
-                    </div>
-                    <!-- end widget content -->
-
-                </div>
-                <!-- end widget div -->
-
-            </div>
         </article>
-        <!-- WIDGET END -->
     </div>
 </section>
+
+
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    pageSetUp();
+</script>

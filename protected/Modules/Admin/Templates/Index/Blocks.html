@@ -37,7 +37,7 @@
                 </div>
                 <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
                     <div class="panel-body">
-                        111
+                        Блоки...
                     </div>
                 </div>
             </div>
@@ -52,18 +52,19 @@
     <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
 </div>
 
-<section>
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <!-- row -->
     <div class="row">
-        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
 
-            {% for path, block in blocksAvaliable %}
-            {% include '_block_available.html' %}
-            {% endfor %}
+    {% for path, block in blocksAvaliable %}
+    {% include '_block_available.html' %}
+    {% endfor %}
 
-        </article>
     </div>
+    <!-- end row -->
 </section>
-
+<!-- end widget grid -->
 
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!

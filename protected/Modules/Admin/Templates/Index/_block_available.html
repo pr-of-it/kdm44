@@ -1,23 +1,31 @@
-<div class="jarviswidget col-xs-6 col-sm-6 col-md-6 col-lg-4 jarviswidget-sortable" id="wid-id-0" role="widget">
-    <header role="heading">
-        <h2 class="font-md">{{block.title}}</h2>
-        <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span>
-    </header>
-    <!-- widget div-->
-    <div role="content" style="display: block;">
-        <!-- widget edit box -->
-        <div class="jarviswidget-editbox"><!-- This area used as dropdown edit box --></div>
-        <!-- end widget edit box -->
-        <!-- widget content -->
-        <div class="widget-body">
-            <p>{{block.desc}}</p>
+<!-- NEW WIDGET START -->
+<article class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <!-- Widget ID (each widget will need unique ID)-->
+    <div class="jarviswidget" id="wid-id-{{loop.index0}}" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false">
+        <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+        -->
+        <header>
+            <h2><strong>{{block.title}}</strong></h2>
+        </header>
+        <!-- widget div-->
+        <div>
+            <!-- widget content -->
+            <div class="widget-body">
+                <p>{{block.desc}}</p>
+            </div>
+            <!-- end widget content -->
         </div>
-        <!-- end widget content -->
+        <!-- end widget div -->
     </div>
-    <!-- end widget div -->
-</div>
-
-
-
-
-
+    <!-- end widget -->
+</article>
+<!-- WIDGET END -->

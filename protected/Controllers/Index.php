@@ -8,8 +8,8 @@ class Index
     extends Controller
 {
 
-    public function actionDefault() {
-        $this->data->content = 'Hello, T4!';
+    public function actionDefault()
+    {
     }
 
-} 
+}

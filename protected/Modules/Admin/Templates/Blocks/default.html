@@ -37,7 +37,11 @@
                 </div>
                 <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
                     <div class="panel-body">
-                        Блоки...
+
+                        <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="block-drop-area" style="width: 100%; min-height: 120px; background-color: lightyellow; border: 1px dashed gray;">
+
+                        </section>
+
                     </div>
                 </div>
             </div>
@@ -53,13 +57,13 @@
 </div>
 
 <!-- widget grid -->
-<section id="widget-grid" class="">
+<section id="widget-grid">
     <!-- row -->
     <div class="row">
 
-    {% for path, block in blocksAvaliable %}
-    {% include '_block_available.html' %}
-    {% endfor %}
+        {% for path, block in blocksAvailable %}
+        {% include '_block_available.html' %}
+        {% endfor %}
 
     </div>
     <!-- end row -->
@@ -68,5 +72,15 @@
 
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    pageSetUp();
+    //pageSetUp();
+    $(".block-draggable").draggable({handle: "header", cursor: "move", revert: "invalid"});
+    $(".block-drop-area").droppable({
+        accept: '.block-draggable',
+        drop: function (event, ui) {
+            $.get('/admin/blocks/setupBlock.json', {
+                sectionId: $(this).attr('data-section-id'),
+                blockPath: ui.draggable.attr('data-block-path')
+            });
+        }
+    });
 </script>

@@ -14,11 +14,4 @@ class Index
     {
     }
 
-    public function actionBlocks()
-    {
-        $this->data->sections = $this->app->config->sections;
-        $this->data->blocksAvaliable = $this->app->config->blocks;
-        $this->data->blocksInstalled = Block::findAll();
-    }
-
 }

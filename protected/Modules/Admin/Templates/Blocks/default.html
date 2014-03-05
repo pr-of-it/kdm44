@@ -38,7 +38,7 @@
                 <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
                     <div class="panel-body">
 
-                        <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="well block-drop-area" style="background-color: lightyellow; border: 1px dashed gray;">
+                        <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="well section block-drop-area" style="background-color: lightyellow; border: 1px dashed gray;">
                             <div class="row" style="min-height: 100px;">
                             {% for path, block in blocksInstalled[sectionId] %}
                             {% include '_block_installed.html' %}
@@ -78,6 +78,31 @@
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
     //pageSetUp();
 
+    /**
+     * Сохранение параметров блока
+     */
+    saveBlockOptions = function (button, event) {
+        event.preventDefault();
+        button.removeClass('btn-success');
+        button.addClass('btn-warning');
+        var blockId = button.parents("article").attr('data-block-id');
+        var data = button.parents("form").serializeArray();
+        $.get('/admin/blocks/updateBlockOptions.json', {
+            id: blockId,
+            options: data
+        }, function (data) {
+            button.removeClass('btn-warning');
+            button.addClass('btn-success');
+        });
+        return false;
+    };
+    $("section.section article form input[type='submit']").click(function (event) {
+        saveBlockOptions($(this), event);
+    });
+
+    /**
+     * Настройка изменения порядка блоков
+     */
     $( ".block-drop-area .row" ).sortable({
         handle: "header",
         cursor: "move",
@@ -91,6 +116,9 @@
     });
     $( ".block-drop-area .row" ).disableSelection();
 
+    /**
+     * Перенос блоков из доступных в секцию - установка блоков
+     */
     $(".block-available-draggable").draggable({handle: "header", cursor: "move", revert: true});
     $("section.block-drop-area .row").droppable({
         accept: '.block-available-draggable',
@@ -111,6 +139,9 @@
                     installedBlock.find('form :disabled').removeAttr('disabled');
                     installedBlock.find('form').append('<div class="form-group"><div class="col-sm-offset-4 col-sm-8"><input type="submit" value="Сохранить" class="btn btn-default"></div></div>');
                     $('#section-'+sectionId+' .row').append(installedBlock);
+                    installedBlock.find('form input[type=submit]').click(function (event) {
+                        saveBlockOptions($(this), event);
+                    });
                 };
             });
         }

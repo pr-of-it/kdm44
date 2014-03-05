@@ -16,6 +16,7 @@ class Blocks
         $this->data->blocksAvailable = $this->app->config->blocks;
 
         $installed = Block::findAll(['order' => '`order`']);
+        $this->data->blocksInstalledCount = count($installed);
         $this->data->blocksInstalled = [];
         foreach ($installed as &$block) {
             $block->title = $this->app->config->blocks->{$block->path}->title;

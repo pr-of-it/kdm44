@@ -1,7 +1,6 @@
-<!-- NEW WIDGET START -->
-<article class="col-xs-12 col-sm-6 col-md-4 col-lg-3 block-available-draggable" data-block-path="{{path}}">
+<article class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-block-id="{{block.PK}}">
     <!-- Widget ID (each widget will need unique ID)-->
-    <div class="jarviswidget" id="block-available-wid-{{loop.index0}}" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false">
+    <div class="jarviswidget" id="block-installed-section-{{sectionId}}-wid-{{loop.index0}}" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false">
         <!-- widget options:
             usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
             data-widget-colorbutton="false"
@@ -14,7 +13,7 @@
             data-widget-sortable="false"
         -->
         <header>
-            <h2><strong>{{block.title}}</strong></h2>
+            <h2><strong>{{block.title}} [{{block.PK}}]</strong></h2>
         </header>
         <!-- widget div-->
         <div>
@@ -29,4 +28,3 @@
     </div>
     <!-- end widget -->
 </article>
-<!-- WIDGET END -->

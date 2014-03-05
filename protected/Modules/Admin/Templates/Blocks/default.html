@@ -38,8 +38,12 @@
                 <div id="collapse{{sectionId}}" class="panel-collapse collapse{%if 1==sectionId%} in{%endif%}">
                     <div class="panel-body">
 
-                        <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="block-drop-area" style="width: 100%; min-height: 120px; background-color: lightyellow; border: 1px dashed gray;">
-
+                        <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="well block-drop-area" style="background-color: lightyellow; border: 1px dashed gray;">
+                            <div class="row">
+                            {% for path, block in blocksInstalled[sectionId] %}
+                            {% include '_block_installed.html' %}
+                            {% endfor %}
+                            </div>
                         </section>
 
                     </div>
@@ -73,14 +77,45 @@
 <script type="text/javascript">
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
     //pageSetUp();
-    $(".block-draggable").draggable({handle: "header", cursor: "move", revert: "invalid"});
+
+    $( ".block-drop-area .row" ).sortable({
+        handle: "header",
+        cursor: "move",
+        update: function( event, ui ) {
+            var sortedIDs = $(this).sortable("toArray", {attribute: "data-block-id"});
+            $.get('/admin/blocks/sortBlocks.json', {
+                ids: sortedIDs
+            }, function (data) {
+            });
+        }
+    });
+    $( ".block-drop-area .row" ).disableSelection();
+
+    $(".block-available-draggable").draggable({handle: "header", cursor: "move", revert: "invalid"});
     $(".block-drop-area").droppable({
         accept: '.block-draggable',
         drop: function (event, ui) {
+            var sectionId = $(this).attr('data-section-id');
+            var block = ui.draggable;
+            var blockPath = block.attr('data-block-path');
             $.get('/admin/blocks/setupBlock.json', {
-                sectionId: $(this).attr('data-section-id'),
-                blockPath: ui.draggable.attr('data-block-path')
+                sectionId: sectionId,
+                blockPath: blockPath
+            }, function (data) {
+                if (data.result) {
+                    $('#section-'+sectionId).append(block);
+                };
             });
         }
     });
 </script>
+
+<style>
+    article header {
+        cursor: move;
+    }
+    .block-placeholder {
+        height: 50px;
+        border: 1px solid black;
+    }
+</style>

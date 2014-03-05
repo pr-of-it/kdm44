@@ -12,7 +12,7 @@ class Block
         'columns' => [
             'section'   => ['type'=>'int'],
             'path'      => ['type'=>'string'],
-            'params'    => ['type'=>'text'],
+            'options'    => ['type'=>'text'],
             'order'     => ['type'=>'int'],
         ],
     ];

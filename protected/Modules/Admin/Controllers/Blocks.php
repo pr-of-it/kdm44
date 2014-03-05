@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Models\Block;
+use T4\Dbal\QueryBuilder;
 use T4\Mvc\Controller;
 
 class Blocks
@@ -24,6 +25,10 @@ class Blocks
 
     public function actionSetupBlock($sectionId, $blockPath)
     {
+        $query = new QueryBuilder();
+        $query->select('MAX(`order`)')->from(Block::getTableName())->where('section=:section')->params([':section'=>$sectionId]);
+        $maxOrder = (int)$this->app->db->default->query($query->getQuery(), $query->getParams())->fetchScalar();
+
         $block = new Block();
         $block->section = $sectionId;
         $block->path = $blockPath;
@@ -33,7 +38,7 @@ class Blocks
             $params[$optionName] = $options->default;
         }
         $block->options = json_encode($params);
-        $block->order = 0;
+        $block->order = $maxOrder + 10;
 
         if (false !== $block->save()) {
             $this->data->id = $block->getPK();
@@ -49,7 +54,7 @@ class Blocks
         foreach ($ids as $id) {
             $block = Block::findByPK($id);
             $block->order = $order*10;
-            if (!$block->save()) {
+            if (false === $block->save()) {
                 $this->data->result = false;
                 return;
             };

@@ -39,7 +39,7 @@
                     <div class="panel-body">
 
                         <section id="section-{{sectionId}}" data-section-id="{{sectionId}}" class="well block-drop-area" style="background-color: lightyellow; border: 1px dashed gray;">
-                            <div class="row">
+                            <div class="row" style="min-height: 100px;">
                             {% for path, block in blocksInstalled[sectionId] %}
                             {% include '_block_installed.html' %}
                             {% endfor %}
@@ -91,11 +91,11 @@
     });
     $( ".block-drop-area .row" ).disableSelection();
 
-    $(".block-available-draggable").draggable({handle: "header", cursor: "move", revert: "invalid"});
-    $(".block-drop-area").droppable({
-        accept: '.block-draggable',
+    $(".block-available-draggable").draggable({handle: "header", cursor: "move", revert: true});
+    $("section.block-drop-area .row").droppable({
+        accept: '.block-available-draggable',
         drop: function (event, ui) {
-            var sectionId = $(this).attr('data-section-id');
+            var sectionId = $(this).parents('section.block-drop-area').attr('data-section-id');
             var block = ui.draggable;
             var blockPath = block.attr('data-block-path');
             $.get('/admin/blocks/setupBlock.json', {
@@ -103,7 +103,12 @@
                 blockPath: blockPath
             }, function (data) {
                 if (data.result) {
-                    $('#section-'+sectionId).append(block);
+                    var installedBlock = block.clone();
+                    installedBlock.removeClass('ui-draggable').removeClass('ui-draggable-dragging').removeClass('block-available-draggable');
+                    installedBlock.removeAttr('style');
+                    installedBlock.removeAttr('data-block-path');
+                    installedBlock.attr('data-block-id', data.id);
+                    $('#section-'+sectionId+' .row').append(installedBlock);
                 };
             });
         }
@@ -113,9 +118,5 @@
 <style>
     article header {
         cursor: move;
-    }
-    .block-placeholder {
-        height: 50px;
-        border: 1px solid black;
     }
 </style>

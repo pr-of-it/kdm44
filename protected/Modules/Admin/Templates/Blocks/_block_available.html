@@ -13,13 +13,12 @@
             data-widget-collapsed="true"
             data-widget-sortable="false"
         -->
-        <header>
-            <h2><strong>{{block.title}}</strong></h2>
-        </header>
+        <header role="heading"></header>
         <!-- widget div-->
         <div>
             <!-- widget content -->
             <div class="widget-body">
+                <h6 style="margin-top:0"><strong>{{block.title}}</strong></h6>
                 <p>{{block.desc}}</p>
                 <div>{% include '_block_options_default.html' %}</div>
             </div>

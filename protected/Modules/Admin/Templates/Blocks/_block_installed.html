@@ -12,13 +12,16 @@
             data-widget-collapsed="true"
             data-widget-sortable="false"
         -->
-        <header>
-            <h2><strong>{{block.title}}</strong></h2>
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+                <a href="#" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Удалить"><i class="fa fa-times"></i></a>
+            </div>
         </header>
         <!-- widget div-->
         <div>
             <!-- widget content -->
             <div class="widget-body">
+                <h6 style="margin-top:0"><strong>{{block.title}}</strong></h6>
                 <p>{{block.desc}}</p>
                 <div>{% include '_block_options_installed.html' %}</div>
             </div>

@@ -79,6 +79,25 @@
     //pageSetUp();
 
     /**
+     * Удаление (деинсталляция) блока
+     */
+    uninstallBlock = function (button, event) {
+        event.preventDefault();
+        var block = button.parents("article");
+        var blockId = block.attr('data-block-id');
+        $.get('/admin/blocks/uninstallBlock.json', {
+            id: blockId
+        }, function (data) {
+            if (data.result) {
+                block.remove();
+            }
+        });
+    };
+    $("section.section article a.jarviswidget-delete-btn").click(function (event) {
+        uninstallBlock($(this), event);
+    });
+
+    /**
      * Сохранение параметров блока
      */
     saveBlockOptions = function (button, event) {
@@ -138,9 +157,13 @@
                     installedBlock.attr('data-block-id', data.id);
                     installedBlock.find('form :disabled').removeAttr('disabled');
                     installedBlock.find('form').append('<div class="form-group"><div class="col-sm-offset-4 col-sm-8"><input type="submit" value="Сохранить" class="btn btn-default"></div></div>');
+                    installedBlock.find('header').append('<div class="jarviswidget-ctrls" role="menu"><a href="#" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Удалить"><i class="fa fa-times"></i></a></div>');
                     $('#section-'+sectionId+' .row').append(installedBlock);
                     installedBlock.find('form input[type=submit]').click(function (event) {
                         saveBlockOptions($(this), event);
+                    });
+                    installedBlock.find('a.jarviswidget-delete-btn').click(function (event) {
+                        uninstallBlock($(this), event);
                     });
                 };
             });

@@ -15,7 +15,7 @@ class Blocks
         $this->data->sections = $this->app->config->sections;
         $this->data->blocksAvailable = $this->app->config->blocks;
 
-        $installed = Block::findAll(['order'=>'`order`']);
+        $installed = Block::findAll(['order' => '`order`']);
         $this->data->blocksInstalled = [];
         foreach ($installed as &$block) {
             $block->title = $this->app->config->blocks->{$block->path}->title;
@@ -28,7 +28,7 @@ class Blocks
     public function actionSetupBlock($sectionId, $blockPath)
     {
         $query = new QueryBuilder();
-        $query->select('MAX(`order`)')->from(Block::getTableName())->where('section=:section')->params([':section'=>$sectionId]);
+        $query->select('MAX(`order`)')->from(Block::getTableName())->where('section=:section')->params([':section' => $sectionId]);
         $maxOrder = (int)$this->app->db->default->query($query->getQuery(), $query->getParams())->fetchScalar();
 
         $block = new Block();
@@ -50,12 +50,22 @@ class Blocks
         }
     }
 
+    public function actionUninstallBlock($id)
+    {
+        $block = Block::findByPK($id);
+        if (false !== $block->delete()) {
+            $this->data->result = true;
+        } else {
+            $this->data->result = false;
+        }
+    }
+
     public function actionSortBlocks($ids)
     {
         $order = 1;
         foreach ($ids as $id) {
             $block = Block::findByPK($id);
-            $block->order = $order*10;
+            $block->order = $order * 10;
             if (false === $block->save()) {
                 $this->data->result = false;
                 return;

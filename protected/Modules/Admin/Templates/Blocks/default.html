@@ -108,6 +108,8 @@
                     installedBlock.removeAttr('style');
                     installedBlock.removeAttr('data-block-path');
                     installedBlock.attr('data-block-id', data.id);
+                    installedBlock.find('form :disabled').removeAttr('disabled');
+                    installedBlock.find('form').append('<div class="form-group"><div class="col-sm-offset-4 col-sm-8"><input type="submit" value="Сохранить" class="btn btn-default"></div></div>');
                     $('#section-'+sectionId+' .row').append(installedBlock);
                 };
             });

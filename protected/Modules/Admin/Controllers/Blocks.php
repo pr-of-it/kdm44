@@ -14,11 +14,13 @@ class Blocks
     {
         $this->data->sections = $this->app->config->sections;
         $this->data->blocksAvailable = $this->app->config->blocks;
+
         $installed = Block::findAll(['order'=>'`order`']);
         $this->data->blocksInstalled = [];
         foreach ($installed as &$block) {
             $block->title = $this->app->config->blocks->{$block->path}->title;
             $block->desc = $this->app->config->blocks->{$block->path}->desc;
+            $block->options = json_decode($block->options, true);
             $this->data->blocksInstalled[$block->section][] = $block;
         }
     }

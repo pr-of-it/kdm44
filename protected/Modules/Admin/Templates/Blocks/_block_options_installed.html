@@ -1,0 +1,17 @@
+<form class="form-horizontal" role="form">
+    {% for name, value in block.options %}
+    <div class="form-group">
+
+        <label class="col-sm-4 control-label">{{blocksAvailable[block.path].options[name].title}}</label>
+        <div class="col-sm-8">
+            {{ blockOptionInput(name, blocksAvailable[block.path].options[name], value) }}
+        </div>
+
+    </div>
+    {% endfor %}
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <input type="submit" value="Сохранить" class="btn btn-default">
+        </div>
+    </div>
+</form>

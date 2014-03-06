@@ -21,7 +21,8 @@ class Page
                 'length' => 'big',
             ],
             'order' => [
-                'type' => 'int'
+                'type' => 'int',
+                'default' => 0
             ],
         ],
     ];

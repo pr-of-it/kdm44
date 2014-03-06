@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Pages\Models;
 
 use T4\Orm\Model;
 

@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Страницы </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> Всего страниц <span class="txt-color-blue">{{pages|length}}</span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<section class="well">
+    <div class="row">
+
+        <div class="dd" id="tree-nestable">
+            {% set level = 1 %}
+            {% set count = 0 %}
+            <ol class="dd-list">
+            {% for page in pages %}
+
+                {% set current = page.__lvl %}
+
+                {% if current == level %}
+                    {% if count > 0 %}</li>{% endif %}
+                {% endif %}
+
+                {% if current > level %}
+                    <ol class="dd-list">
+                    {% set level = current %}
+                {% endif %}
+
+                {% if current < level %}
+                    {{"</li></ol>"|repeat(level-current)|raw}}</li>
+                    {% set level = current %}
+                {% endif %}
+
+                <li class="dd-item dd3-item" data-id="13">
+                    <div class="dd-handle dd3-handle">Drag</div>
+                    <div class="dd3-content">
+                        {{page.title}}
+                    </div>
+                {% set count = count + 1 %}
+            {% endfor %}
+            {{"</li></ol>"|repeat(current)|raw}}</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    //pageSetUp();
+    // PAGE RELATED SCRIPTS
+    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", runNestables);
+    function runNestables() {
+        $('#tree-nestable').nestable();
+    }
+</script>

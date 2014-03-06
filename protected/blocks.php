@@ -8,7 +8,7 @@ return [
             'id' => [
                 'title' => 'Страница',
                 'type' => 'select:tree',
-                'model' => 'Page',
+                'model' => 'App\Modules\Pages\Models\Page',
                 'default' => 1,
             ]
         ]
@@ -20,7 +20,7 @@ return [
             'id' => [
                 'title' => 'Страница',
                 'type' => 'select:tree',
-                'model' => 'Page',
+                'model' => 'App\Modules\Pages\Models\Page',
                 'default' => 1,
             ]
         ]

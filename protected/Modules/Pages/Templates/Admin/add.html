@@ -24,7 +24,7 @@
             <section>
                 <label class="label">Текст страницы</label>
                 <label class="textarea textarea-resizable">
-                    <textarea rows="3" class="custom-scroll" name="text"></textarea>
+                    <t4:editor name="text" />
                 </label>
             </section>
         </fieldset>
@@ -34,13 +34,3 @@
         </footer>
     </form>
 </div>
-
-<script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    pageSetUp();
-    // PAGE RELATED SCRIPTS
-    {{publish('/Layouts/Admin/SmartAdmin/assets')}}
-    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/ckeditor/ckeditor.js') }}", function () {
-        CKEDITOR.replace('text', { height: '380px', startupFocus : true} );
-    });
-</script>

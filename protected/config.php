@@ -15,5 +15,7 @@ return [
         ],
         'bootstrap' => [
         ],
+        'ckeditor' => [
+        ],
     ],
 ];

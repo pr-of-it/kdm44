@@ -37,4 +37,9 @@ class Admin
         $this->redirect('/admin#/pages/admin');
     }
 
-} 
+    public function actionReorder($ids)
+    {
+        var_dump($ids);die;
+    }
+
+}

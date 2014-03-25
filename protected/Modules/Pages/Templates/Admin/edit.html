@@ -1,35 +1,36 @@
 <div class="well">
     <form class="smart-form" method="post" action="/pages/admin/save">
-        <header>Добавление новой страницы</header>
+        <input type="hidden" name="__id" value="{{page.__id}}">
+        <header>Редактирование страницы</header>
         <fieldset>
             <section>
                 <label class="label">Заголовок страницы</label>
                 <label class="input">
-                    <input type="text" name="title">
+                    <input type="text" name="title" value="{{page.title}}">
                 </label>
             </section>
             <section>
                 <label class="label">Родительская страница</label>
                 <label class="select">
-                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", 0, {"null":true}, {"name":"parent"}) }}
+                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true}, {"name":"parent"}) }}
                     <i></i>
                 </label>
             </section>
             <section>
                 <label class="label">URL (адрес страницы)</label>
                 <label class="input">
-                    <input type="text" name="url">
+                    <input type="text" name="url" value="{{page.url}}">
                 </label>
             </section>
             <section>
                 <label class="label">Текст страницы</label>
                 <label class="textarea textarea-resizable">
-                    <textarea rows="3" class="custom-scroll" name="text"></textarea>
+                    <textarea rows="3" class="custom-scroll" name="text">{{page.text}}</textarea>
                 </label>
             </section>
         </fieldset>
         <footer>
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
             <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
         </footer>
     </form>

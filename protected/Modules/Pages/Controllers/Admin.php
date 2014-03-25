@@ -19,6 +19,11 @@ class Admin
         $this->data->page = new Page();
     }
 
+    public function actionEdit($id)
+    {
+        $this->data->page = Page::findByPK($id);
+    }
+
     public function actionSave()
     {
         if (!empty($_REQUEST[Page::PK])) {
@@ -28,9 +33,8 @@ class Admin
         }
         $page->fill($_REQUEST);
         $page->setParent($_REQUEST['parent']);
-        $page->save();die;
-        // flash !
-        // redirect !!
+        $page->save();
+        $this->redirect('/admin#/pages/admin');
     }
 
 } 

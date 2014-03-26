@@ -52,26 +52,19 @@
 		<!-- HEADER -->
 		<header id="header">
 			<div id="logo-group">
-
 				<!-- PLACE YOUR LOGO HERE -->
 				<span id="logo"> <img src="{{ asset('/Layouts/Admin/SmartAdmin/assets/img/logo.png') }}" alt="SmartAdmin"> </span>
 				<!-- END LOGO PLACEHOLDER -->
-
                 {% include 'SmartAdmin/_dropdowns.html' %}
-
             </div>
-
             {% include 'SmartAdmin/_projects.html' %}
-
             {% include 'SmartAdmin/_pull_right.html' %}
-
 		</header>
 		<!-- END HEADER -->
 
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
 		<aside id="left-panel">
-
 			<!-- User info -->
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
@@ -82,11 +75,8 @@
 				</span>
 			</div>
 			<!-- end user info -->
-
             {% include 'SmartAdmin/_navigation.html' %}
-
 			<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
-
 		</aside>
 		<!-- END NAVIGATION -->
 

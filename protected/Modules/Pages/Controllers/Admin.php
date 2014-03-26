@@ -40,7 +40,8 @@ class Admin
     public function actionDelete($id)
     {
         $page = Page::findByPK($id);
-        $page->delete();
+        if ($page)
+            $page->delete();
         $this->redirect('/admin#/pages/admin');
     }
 

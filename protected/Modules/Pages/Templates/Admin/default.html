@@ -12,7 +12,7 @@
 </div>
 
 <section class="well">
-    <div class="row"><div class="col-sm-4 col-sm-offset-8"><a class="btn btn-primary btn-lg" href="#/pages/admin/add">Добавить страницу</a></div></div>
+    <div class="row"><div class="pull-right"><a class="btn btn-primary btn-lg" href="#/pages/admin/add">Добавить страницу</a></div></div>
     <div class="row">
 
         <div class="dd" id="tree-nestable">
@@ -40,7 +40,8 @@
                 <li class="dd-item dd3-item" data-id="{{page.__id}}">
                     <div class="dd-handle dd3-handle">Drag</div>
                     <div class="dd3-content">
-                        <a href="/admin#/pages/admin/edit/?id={{page.__id}}">{{page.title}}</a>
+                        <a href="/admin#/pages/admin/edit/?id={{page.__id}}">{{page.title}} [{{page.url}}.html]</a>
+                        <span class="pull-right"><a href="/admin#/pages/admin/delete/?id={{page.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a></span>
                     </div>
                 {% set count = count + 1 %}
             {% endfor %}
@@ -59,4 +60,9 @@
     function runNestables() {
         $('#tree-nestable').nestable();
     }
+    $(function() {
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+    });
 </script>

@@ -175,8 +175,13 @@ background:#22262e !important;
 }
 
 .smart-style-1 nav > ul > li > a > i {
-font-size: 17px;
-vertical-align: 0px;
+	font-size: 17px;
+	vertical-align: 0px;
+}
+
+.smart-style-1 nav > ul > li >a b {
+	right: 17px;
+	top: 12px;
 }
 
 .smart-style-1 nav > ul > li > a > i:after {
@@ -529,6 +534,10 @@ body.smart-style-2 {
 
 .smart-style-2 nav>ul>li>a>i {
 	font-size:25px !important;
+}
+
+.smart-style-2 nav > ul > li > a b {
+	top:16px;
 }
 
 .smart-style-2 nav ul ul {

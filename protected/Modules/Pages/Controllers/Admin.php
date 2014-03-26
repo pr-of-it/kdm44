@@ -26,14 +26,21 @@ class Admin
 
     public function actionSave()
     {
-        if (!empty($_REQUEST[Page::PK])) {
-            $page = Page::findByPK($_REQUEST[Page::PK]);
+        if (!empty($_POST[Page::PK])) {
+            $page = Page::findByPK($_POST[Page::PK]);
         } else {
             $page = new Page();
         }
-        $page->fill($_REQUEST);
-        $page->setParent($_REQUEST['parent']);
+        $page->fill($_POST);
+        $page->setParent($_POST['parent']);
         $page->save();
+        $this->redirect('/admin#/pages/admin');
+    }
+
+    public function actionDelete($id)
+    {
+        $page = Page::findByPK($id);
+        $page->delete();
         $this->redirect('/admin#/pages/admin');
     }
 

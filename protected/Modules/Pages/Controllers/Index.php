@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Modules\Pages\Controllers;
 
 use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
 
-class Pages
+class Index
     extends Controller
 {
 
@@ -21,4 +21,4 @@ class Pages
         $this->data->item = $page;
     }
 
-}
+} 

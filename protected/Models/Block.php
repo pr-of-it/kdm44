@@ -7,14 +7,13 @@ use T4\Orm\Model;
 class Block
     extends Model
 {
-
-    static protected $schema = [
+    public static $schema = [
+        'table' => '__blocks',
         'columns' => [
             'section'   => ['type'=>'int'],
             'path'      => ['type'=>'string'],
-            'options'    => ['type'=>'text'],
-            'order'     => ['type'=>'int'],
+            'options'   => ['type'=>'text', 'default'=>'{}'],
+            'order'     => ['type'=>'int', 'default'=>0],
         ],
     ];
-
 }

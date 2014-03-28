@@ -12,7 +12,7 @@
             <section>
                 <label class="label">Родительская страница</label>
                 <label class="select">
-                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true}, {"name":"parent"}) }}
+                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true, 'disabled':[page.__id]}, {"name":"parent"}) }}
                     <i></i>
                 </label>
             </section>

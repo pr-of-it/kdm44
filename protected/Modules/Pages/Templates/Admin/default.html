@@ -38,10 +38,13 @@
                 {% endif %}
 
                 <li class="dd-item dd3-item" data-id="{{page.__id}}">
-                    <div class="dd-handle dd3-handle">Drag</div>
+                    <div class="dd-handle dd3-handle" data-id="{{page.__id}}">Drag</div>
                     <div class="dd3-content">
                         <a href="/admin#/pages/admin/edit/?id={{page.__id}}">{{page.title}} [{{page.url}}.html]</a>
-                        <span class="pull-right"><a href="/pages/admin/delete/?id={{page.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a></span>
+                        <span class="pull-right">
+                            <a href="/admin#/pages/admin/edit/?id={{page.__id}}" class=""><i class="fa fa-edit"></i></a>
+                            <a href="/pages/admin/delete/?id={{page.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
+                        </span>
                     </div>
                 {% set count = count + 1 %}
             {% endfor %}
@@ -61,6 +64,9 @@
         $('#tree-nestable').nestable();
     }
     $(function() {
+        $('.dd-handle').mouseup(function() {
+            console.log(111);
+        });
         $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });

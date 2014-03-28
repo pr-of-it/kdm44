@@ -35,71 +35,42 @@
         </div>
     </div>
 
-<hr>
+    <nav class="container">
+        <ul class="nav nav-tabs nav-justified" id="top">
+            <li class="active"><a href="#">Главная</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">О нас<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Планы</a></li>
+                    <li><a href="#">Аппарат</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Обращения граждан</a></li>
+                    <li><a href="#">Нормативные документы</a></li>
+                    <li><a href="#">Программы</a></li>
+                    <li><a href="#">Отчеты</a></li>
+                    <li><a href="#">Статистика</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Учреждения</a></li>
+            <li><a href="#">Коллеги</a></li>
+            <li><a href="#">Совещательные органы</a></li>
+            <li><a href="#">Конкурсы</a></li>
+            <li><a href="#">Мультимедиа</a></li>
+            <li><a href="#">Трудовые отряды</a></li>
+            <li><a href="#">Общественные организации</a></li>
+            <li><a href="#">Патриот</a></li>
+        </ul>
+    </nav>
 
-<div class="navbar navbar-default" role="navigation">
+
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">T4 Site</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            {% if not app.user %}
-            <form class="navbar-form navbar-right" role="form" action="/login.html" method="post">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" name="email">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Пароль" class="form-control" name="password">
-                </div>
-                <button type="submit" class="btn btn-success">Вход</button>
-            </form>
-            {% else %}
-            <a href="/logout.html"><button type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button></a>
-            <p class="navbar-text navbar-right">Hello, {{app.user.email}}!</p>
-            {% endif %}
-        </div><!--/.navbar-collapse -->
-    </div>
-</div>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-</div>
-
-<div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Heading 1</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading 2</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading 3</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="row">
+            <div class="col-md-3">1</div>
+            <div class="col-md-6">{% block content %}{% endblock %}</div>
+            <div class="col-md-3">3</div>
         </div>
     </div>
 
-    <hr>
-
-    <footer>
-        <p>&copy; T4 Development 2014</p>
-    </footer>
-</div> <!-- /container -->
 
 </body>
 </html>

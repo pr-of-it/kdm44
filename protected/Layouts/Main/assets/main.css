@@ -18,6 +18,8 @@ body {
     font-size: 2.1em;
 }
 
+nav #top>li {
+}
 nav #top>li>a {
     min-height:56px;
 }

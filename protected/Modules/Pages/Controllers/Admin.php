@@ -31,9 +31,10 @@ class Admin
         } else {
             $page = new Page();
         }
-        $page->fill($_POST);
-        $page->setParent($_POST['parent']);
-        $page->save();
+        $page
+            ->fill($_POST)
+            ->setParent($_POST['parent'])
+            ->save();
         $this->redirect('/admin#/pages/admin');
     }
 

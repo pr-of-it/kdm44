@@ -1,7 +1,11 @@
 <div class="well">
     <form class="smart-form" method="post" action="/pages/admin/save">
+        {% if page.isNew %}
+        <header>Добавление страницы</header>
+        {% else %}
         <input type="hidden" name="__id" value="{{page.__id}}">
         <header>Редактирование страницы</header>
+        {% endif %}
         <fieldset>
             <section>
                 <label class="label">Заголовок страницы</label>
@@ -12,7 +16,11 @@
             <section>
                 <label class="label">Родительская страница</label>
                 <label class="select">
+                    {% if page.isNew %}
+                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true}, {"name":"parent"}) }}
+                    {% else %}
                     {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true, 'disabled':[page.__id]}, {"name":"parent"}) }}
+                    {% endif %}
                     <i></i>
                 </label>
             </section>

@@ -14,14 +14,13 @@ class Admin
         $this->data->pages = Page::findAllTree();
     }
 
-    public function actionAdd()
+    public function actionEdit($id=null)
     {
-        $this->data->page = new Page();
-    }
-
-    public function actionEdit($id)
-    {
-        $this->data->page = Page::findByPK($id);
+        if (null === $id || 'new' == $id) {
+            $this->data->page = new Page();
+        } else {
+            $this->data->page = Page::findByPK($id);
+        }
     }
 
     public function actionSave()

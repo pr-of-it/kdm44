@@ -25,4 +25,22 @@ return [
             ]
         ]
     ],
+    '/Pages//tree' => [
+        'title' => 'Блок дерева страницы',
+        'desc' => 'Выводит полное дерево страниц',
+        'options' => [
+        ]
+    ],
+    '/Pages//subTree' => [
+        'title' => 'Блок поддерева страницы',
+        'desc' => 'Выводит поддерево страниц, начиная с заданной страницы',
+        'options' => [
+            'id' => [
+                'title' => 'Страница',
+                'type' => 'select:tree',
+                'model' => 'App\Modules\Pages\Models\Page',
+                'default' => 1,
+            ]
+        ]
+    ],
 ];

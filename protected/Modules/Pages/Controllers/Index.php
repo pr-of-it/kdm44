@@ -21,4 +21,15 @@ class Index
         $this->data->item = $page;
     }
 
+    public function actionTree()
+    {
+        $this->data->items = Page::findAllTree();
+    }
+
+    public function actionSubTree($id)
+    {
+        $page = Page::findByPK($id);
+        $this->data->items = $page->findSubTree();
+    }
+
 } 

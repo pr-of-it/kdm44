@@ -56,19 +56,15 @@
 </section>
 
 <script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    //pageSetUp();
-    // PAGE RELATED SCRIPTS
-    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", runNestables);
-    function runNestables() {
-        $('#tree-nestable').nestable();
-    }
     $(function() {
-        $('.dd-handle').mouseup(function() {
-            console.log(111);
+/*
+        loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", function() {
+            $('#tree-nestable').nestable();
         });
+
         $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
+*/
     });
 </script>

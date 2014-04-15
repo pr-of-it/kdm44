@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Components\Identity;
+use App\Components\Auth\Identity;
 use T4\Core\Exception;
 use T4\Core\Std;
 use T4\Mvc\Controller;
@@ -22,7 +22,8 @@ class Index
         $this->data->error = $this->app->flash->error;
         if (!empty($email) && !empty($password)) {
             try {
-                Identity::authenticate($email, $password);
+                $identity = new Identity();
+                $identity->authenticate(new Std(['email'=>$email, 'password'=>$password]));
                 $this->redirect('/');
             } catch (Exception $e) {
                 $this->app->flash->error = $e->getMessage();
@@ -33,7 +34,8 @@ class Index
 
     public function actionLogout()
     {
-        Identity::logout();
+        $identity = new Identity();
+        $identity->logout();
         $this->redirect('/');
     }
 

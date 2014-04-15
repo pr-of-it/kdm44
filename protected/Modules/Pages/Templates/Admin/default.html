@@ -16,7 +16,7 @@
     <div class="row">
 
         <div class="dd" id="tree-nestable">
-            {% set level = 1 %}
+            {% set level = pages[0].__lvl %}
             {% set count = 0 %}
             <ol class="dd-list">
             {% for page in pages %}
@@ -56,19 +56,18 @@
 </section>
 
 <script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    //pageSetUp();
-    // PAGE RELATED SCRIPTS
-    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", runNestables);
-    function runNestables() {
+
+    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", function() {
         $('#tree-nestable').nestable();
-    }
-    $(function() {
         $('.dd-handle').mouseup(function() {
             console.log(111);
         });
+    });
+
+    $(function() {
         $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
     });
+
 </script>

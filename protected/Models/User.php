@@ -13,6 +13,12 @@ class User
             'email'     => ['type'=>'string'],
             'password'  => ['type'=>'string'],
         ],
+        'relations' => [
+            'role'=>[
+                'type'=>self::BELONGS_TO,
+                'model'=>'Role'
+            ]
+        ],
     ];
 
 }

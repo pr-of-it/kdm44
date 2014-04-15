@@ -1,6 +1,4 @@
-{% if error %}
-<div class="alert alert-danger">{{error}}</div>
-{% endif %}
+{% if not app.user %}
 <form class="form-inline" role="form" action="/login" method="post">
     <input type="hidden" name="return" value="{{ return | default('/') }}">
     <div class="form-group">
@@ -13,3 +11,10 @@
     </div>
     <button type="submit" class="btn btn-default btn-sm">Войти</button>
 </form>
+{% else %}
+<p>
+    Добро пожаловать, {{app.user.email}}!
+    {% if app.user.role.name == 'admin' %}<a href="/admin">Панель администратора</a> | {% endif %}
+    <a href="/logout">Выход</a>
+</p>
+{% endif %}

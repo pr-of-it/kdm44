@@ -1,0 +1,58 @@
+<div class="well">
+    <form class="smart-form" method="post" action="/pages/admin/save">
+        {% if page.isNew %}
+        <header>Добавление страницы</header>
+        {% else %}
+        <input type="hidden" name="__id" value="{{page.__id}}">
+        <header>Редактирование страницы</header>
+        {% endif %}
+        <fieldset>
+            <section>
+                <label class="label">Заголовок страницы</label>
+                <label class="input">
+                    <input type="text" name="title" value="{{page.title}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Родительская страница</label>
+                <label class="select">
+                    {% if page.isNew %}
+                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true}, {"name":"parent"}) }}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\Pages\\Models\\\Page", page.__prt, {"null":true, 'disabled':[page.__id]}, {"name":"parent"}) }}
+                    {% endif %}
+                    <i></i>
+                </label>
+            </section>
+            <section>
+                <label class="label">URL (адрес страницы)</label>
+                <label class="input">
+                    <div class="input-group">
+                        <input type="text" name="url" value="{{page.url}}">
+                        <span class="input-group-addon">.html</span>
+                    </div>
+                </label>
+            </section>
+            <section>
+                <label class="label">Текст страницы</label>
+                <label class="textarea textarea-resizable">
+                    <textarea rows="3" class="custom-scroll" name="text">{{page.text}}</textarea>
+                </label>
+            </section>
+        </fieldset>
+        <footer>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        </footer>
+    </form>
+</div>
+
+<script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    pageSetUp();
+    // PAGE RELATED SCRIPTS
+    {{publish('/Layouts/Admin/SmartAdmin/assets')}}
+    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/ckeditor/ckeditor.js') }}", function () {
+        CKEDITOR.replace('text', { height: '380px', startupFocus : true} );
+    });
+</script>

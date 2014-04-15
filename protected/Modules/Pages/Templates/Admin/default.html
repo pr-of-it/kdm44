@@ -56,18 +56,14 @@
 </section>
 
 <script type="text/javascript">
-
-    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", function() {
-        $('#tree-nestable').nestable();
-        $('.dd-handle').mouseup(function() {
-            console.log(111);
-        });
-    });
-
     $(function() {
+/*
+        loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", function() {
+            $('#tree-nestable').nestable();
+        });
+*/
         $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
     });
-
 </script>

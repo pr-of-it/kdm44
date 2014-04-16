@@ -23,7 +23,7 @@ class Index
         );
     }
 
-    public function actionNewsByTopic($id)
+    public function actionNewsByTopic($id, $count=20)
     {
         $this->data->topic = NewsTopic::findByPK($id);
         $this->data->items = NewsStory::findAllByColumn(
@@ -31,7 +31,7 @@ class Index
             $id,
             [
                 'order' => 'published DESC',
-                'limit' => 5,
+                'limit' => $count,
             ]
         );
     }

@@ -1,0 +1,21 @@
+{% extends 'Main/Inner.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/news/">Новости</a></li>
+</ol>
+
+<h2 style="margin-top: 0">{{topic.title}}</h2>
+
+{% for item in items %}
+<div class="media">
+    <div class="media-body">
+        <h5 class="media-heading"><span class="text-danger">{{item.published|date('d.m.Y')}}</span> <a href="/news/{{item.Pk}}.html">{{item.title}}</a></h5>
+        <p>{{item.lead|raw}}</p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

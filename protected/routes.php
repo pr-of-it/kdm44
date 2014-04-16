@@ -3,5 +3,6 @@
 return [
     'index' => '///',
 
-    'news/<1>' => '/News/Index/Story(id=<1>)'
+    'news/topic/<1>' => '/News/Index/NewsByTopic(id=<1>)',
+    'news/<1>' => '/News/Index/Story(id=<1>)',
 ];

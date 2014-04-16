@@ -67,7 +67,12 @@ return [
                 'type' => 'select:tree',
                 'model' => 'App\Modules\News\Models\NewsTopic',
                 'default' => 1,
-            ]
+            ],
+            'count' => [
+                'title' => 'Число выводимых новостей',
+                'type' => 'int',
+                'default' => 5,
+            ],
         ]
     ]
 

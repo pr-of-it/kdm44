@@ -13,6 +13,6 @@ class NewsTopic
         ]
     ];
 
-    static protected $extension = ['tree'];
+    static protected $extensions = ['tree'];
 
 } 

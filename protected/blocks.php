@@ -3,8 +3,13 @@
 return [
 
     '///Login' => [
-        'name' => 'Блок входа на сайт'
+        'title' => 'Блок входа на сайт',
+        'desc' => 'Форма входа пользователя'
     ],
+
+    /*
+     * Pages
+     */
 
     '/Pages//PageText' => [
         'title' => 'Блок с текстом выбранной страницы',
@@ -48,4 +53,22 @@ return [
             ]
         ]
     ],
+
+    /*
+     * News
+     */
+
+    '/News//NewsByTopic' => [
+        'title' => 'Лента раздела новостей',
+        'desc' => 'Выводит последние новости определенного раздела',
+        'options' => [
+            'id' => [
+                'title' => 'Раздел',
+                'type' => 'select:tree',
+                'model' => 'App\Modules\News\Models\NewsTopic',
+                'default' => 1,
+            ]
+        ]
+    ]
+
 ];

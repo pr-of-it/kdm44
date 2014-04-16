@@ -9,6 +9,10 @@ class Admin
     extends Controller
 {
 
+    protected  $access = [
+        'Default' => ['role.name'=>'admin']
+    ];
+
     public function actionDefault()
     {
         $this->data->users = User::findAll();

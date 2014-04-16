@@ -10,6 +10,14 @@ class Blocks
     extends Controller
 {
 
+    protected  $access = [
+        'Default'               => ['role.name'=>'admin'],
+        'SetupBlock'            => ['role.name'=>'admin'],
+        'UninstallBlock'        => ['role.name'=>'admin'],
+        'SortBlocks'            => ['role.name'=>'admin'],
+        'UpdateBlockOptions'    => ['role.name'=>'admin'],
+    ];
+
     public function actionDefault()
     {
         $this->data->sections = $this->app->config->sections;

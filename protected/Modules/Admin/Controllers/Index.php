@@ -9,6 +9,10 @@ class Index
     extends Controller
 {
 
+    protected  $access = [
+        'Default' => ['role.name'=>'admin']
+    ];
+
     public function actionDefault()
     {
     }

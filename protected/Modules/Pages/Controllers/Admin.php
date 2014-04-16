@@ -9,6 +9,15 @@ class Admin
     extends Controller
 {
 
+    protected  $access = [
+        'Default' => ['role.name'=>'admin'],
+        'Edit' => ['role.name'=>'admin'],
+        'Save' => ['role.name'=>'admin'],
+        'Delete' => ['role.name'=>'admin'],
+        'Reorder' => ['role.name'=>'admin'],
+    ];
+
+
     public function actionDefault()
     {
         $this->data->pages = Page::findAllTree();

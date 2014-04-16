@@ -10,6 +10,19 @@ class Index
     extends Controller
 {
 
+    public function actionStory($id)
+    {
+        $this->data->item = NewsStory::findByPK($id);
+        // TODO: исключить саму новость из списка похожих!
+        $this->data->similar = NewsStory::findAllByColumn(
+            '__newstopic_id', $this->data->item->topic->getPk(),
+            [
+                'order' => 'published DESC',
+                'limit' => 5,
+            ]
+        );
+    }
+
     public function actionNewsByTopic($id)
     {
         $this->data->topic = NewsTopic::findByPK($id);

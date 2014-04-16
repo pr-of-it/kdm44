@@ -1,0 +1,30 @@
+{% extends 'Main/Inner.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/news/">Новости</a></li>
+    <li class="active"><a href="/news/topic/{{item.topic.Pk}}.html">{{item.topic.title}}</a></li>
+</ol>
+
+<h2 style="margin-top: 0">{{item.title}}</h2>
+<div>
+    {{item.lead|raw}}
+    <hr>
+    {{item.text|raw}}
+</div>
+
+<p class="bg-info">Опубликовано: {{item.published|date('d.m.y')}}</p>
+
+<div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h4 class="panel-title">Похожие новости:</h4></div>
+    <ul class="list-group">
+        {% for item in similar %}
+        <li class="list-group-item"><a href="/news/{{item.Pk}}.html">{{item.title}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

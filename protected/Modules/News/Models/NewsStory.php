@@ -16,7 +16,7 @@ class NewsStory
             'text' => ['type'=>'text'],
         ],
         'relations' => [
-            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'Modules\\News\\Models\\NewsTopic']
+            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\NewsTopic']
         ]
     ];
 

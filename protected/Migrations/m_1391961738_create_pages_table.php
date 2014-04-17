@@ -14,6 +14,7 @@ class m_1391961738_create_pages_table
             [
                 'title' => [
                     'type' => 'string',
+                    'length' => 1024,
                 ],
                 'url' => [
                     'type' => 'string',

@@ -16,6 +16,9 @@ class Page
             'url' => [
                 'type' => 'string',
             ],
+            'template' => [
+                'type' => 'string',
+            ],
             'text' => [
                 'type' => 'text',
                 'length' => 'big',

@@ -13,6 +13,8 @@ class Admin
 
     protected  $access = [
         'Default' => ['role.name'=>'admin'],
+        'Edit' => ['role.name'=>'admin'],
+        'Save' => ['role.name'=>'admin'],
     ];
 
 
@@ -26,6 +28,36 @@ class Admin
             'order' => 'published DESC',
             'limit'=>[($page-1)*self::PAGE_SIZE, self::PAGE_SIZE]
         ]);
+    }
+
+    public function actionEdit($id=null)
+    {
+        if (null === $id || 'new' == $id) {
+            $this->data->item = new NewsStory();
+        } else {
+            $this->data->item = NewsStory::findByPK($id);
+        }
+    }
+
+    public function actionSave()
+    {
+        if (!empty($_POST[NewsStory::PK])) {
+            $item = NewsStory::findByPK($_POST[NewsStory::PK]);
+        } else {
+            $item = new NewsStory();
+        }
+        $item
+            ->fill($_POST)
+            ->save();
+        $this->redirect('/admin#/news/admin');
+    }
+
+    public function actionDelete($id)
+    {
+        $item = NewsStory::findByPK($id);
+        if ($item)
+            $item->delete();
+        $this->redirect('/admin#/news/admin');
     }
 
 }

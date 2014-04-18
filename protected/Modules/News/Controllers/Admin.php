@@ -47,8 +47,11 @@ class Admin
             $item = new NewsStory();
         }
         $item
-            ->fill($_POST)
-            ->save();
+            ->fill($_POST);
+        if ($item->isNew()) {
+            $item->published = date('Y-m-d H:i:s', time());
+        }
+        $item->save();
         $this->redirect('/admin#/news/admin');
     }
 

@@ -11,7 +11,7 @@ class m_1397654848_createNewsStories
     public function up()
     {
         $this->createTable('newsstories', [
-            'title' => ['type'=>'string'],
+            'title' => ['type'=>'string', 'length' => 1024],
             'published' => ['type'=>'datetime'],
             'lead' => ['type'=>'text'],
             'text' => ['type'=>'text'],

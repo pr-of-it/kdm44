@@ -58,6 +58,18 @@ return [
      * News
      */
 
+    '/News//' => [
+        'title' => 'Лента новостей',
+        'desc' => 'Выводит последние новости',
+        'options' => [
+            'count' => [
+                'title' => 'Число выводимых новостей',
+                'type' => 'int',
+                'default' => 10,
+            ],
+        ]
+    ],
+
     '/News//NewsByTopic' => [
         'title' => 'Лента раздела новостей',
         'desc' => 'Выводит последние новости определенного раздела',
@@ -65,7 +77,7 @@ return [
             'id' => [
                 'title' => 'Раздел',
                 'type' => 'select:tree',
-                'model' => 'App\Modules\News\Models\NewsTopic',
+                'model' => 'App\Modules\News\Models\Topic',
                 'default' => 1,
             ],
             'count' => [
@@ -74,6 +86,6 @@ return [
                 'default' => 5,
             ],
         ]
-    ]
+    ],
 
 ];

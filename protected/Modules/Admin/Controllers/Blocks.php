@@ -93,6 +93,10 @@ class Blocks
         }
         $opt = [];
         foreach ($options as $option) {
+            if ('template' == $option['name']) {
+                $block->template = $option['value'];
+                continue;
+            }
             $opt[$option['name']] = $option['value'];
         }
         $block->options = json_encode($opt);

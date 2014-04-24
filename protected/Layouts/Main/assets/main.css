@@ -34,7 +34,8 @@ nav.top>ul>li {
 nav.top>ul>li>a {
     line-height: 34px;
 }
-nav.top .dropdown-menu {
+nav.top ul.dropdown-menu {
     margin: 0;
     border:none;
+    font-size: inherit;
 }

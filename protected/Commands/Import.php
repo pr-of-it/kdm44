@@ -53,12 +53,23 @@ class Import
         $dataFile = fopen($dataFileName, 'r');
 
         while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
+
+            $lead = $row[9];
+            preg_match('~\<img(.+?)src="(.+)"(.*?)[\/]?\>~', $lead, $m);
+            if (!empty($m[2])) {
+                $image = $m[2];
+                $lead = str_replace($m[0], '', $lead);
+            } else {
+                $image = '';
+            }
+
             $item = new Story();
             $item->title = $row[2];
             $item->published = date('Y-m-d H:i:s', $row[4]);
-            $item->lead = $row[9];
+            $item->lead = $lead;
+            $item->image = $image;
             $item->text = $row[10];
-            $item->__newstopic_id = $topics[$row[12]]['pk'];
+            $item->__topic_id = $topics[$row[12]]['pk'];
             $item->save();
         }
 

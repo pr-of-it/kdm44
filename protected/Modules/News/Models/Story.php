@@ -13,7 +13,7 @@ class Story
             'title' => ['type'=>'string'],
             'published' => ['type'=>'datetime'],
             'lead' => ['type'=>'text'],
-            'image' => ['type'=>'string'],
+            'image' => ['type'=>'string', 'default'=>''],
             'text' => ['type'=>'text'],
         ],
         'relations' => [

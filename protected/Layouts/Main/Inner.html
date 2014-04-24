@@ -6,79 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Молодёжная политика Костромской области</title>
+    <title>Молодёжь Костромской области</title>
 
     {{ publishCss() }}
     <link rel="stylesheet" href="{{asset('/Layouts/Main/assets/main.css')}}">
     {{ publishJs() }}
+    <script src="{{asset('/Layouts/Main/assets/js/bootstrap-hover-dropdown.js')}}"></script>
 
 </head>
 
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6" id="logo">
+    {% include 'Main/__top.html' %}
+
+    {% include 'Main/__menu.html' %}
+    <p></p>
+
+    <div class="container">
+        <div class="row">
             <div class="col-md-3">
-                <a href="/"><img src="{{asset('/Layouts/Main/assets/img/kostroma.png')}}" alt="Молодёжная политика Костромской области" class="img-responsive"></a>
+
+                <t4:section id="1"/>
+
             </div>
-            <div class="col-md-9" id="slogan">
-                <h1><a href="/">Молодёжная политика</a></h1>
-                <h2><a href="/">Костромской области</a></h2>
+
+            <div class="col-md-9">
+                {% block content %}{% endblock %}
             </div>
-        </div>
-        <div class="col-md-6 text-right top-right-block">
-            {% include 'Main/_social.html' %}
-            <div class="top-login-form"><t4:block path="///Login" template="inline" /></div>
+
         </div>
     </div>
-</div>
-
-<nav class="container">
-    <ul class="nav nav-tabs nav-justified" id="top">
-        <li class="active"><a href="#">Главная</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">О нас<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Планы</a></li>
-                <li><a href="#">Аппарат</a></li>
-                <li><a href="#">Контакты</a></li>
-                <li><a href="#">Обращения граждан</a></li>
-                <li><a href="#">Нормативные документы</a></li>
-                <li><a href="#">Программы</a></li>
-                <li><a href="#">Отчеты</a></li>
-                <li><a href="#">Статистика</a></li>
-            </ul>
-        </li>
-        <li><a href="#">Учреждения</a></li>
-        <li><a href="#">Коллеги</a></li>
-        <li><a href="#" style="line-height: inherit">Совещательные органы</a></li>
-        <li><a href="#">Конкурсы</a></li>
-        <li><a href="#">Мультимедиа</a></li>
-        <li><a href="#" style="line-height: inherit">Трудовые отряды</a></li>
-        <li><a href="#" style="line-height: inherit">Общественные организации</a></li>
-        <li><a href="#">Патриот</a></li>
-    </ul>
-</nav>
-<p></p>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-
-            <t4:section id="1" />
-
-        </div>
-
-        <div class="col-md-9">
-            {% block content %}{% endblock %}
-        </div>
-
-    </div>
-</div>
-
 
 </body>
 </html>

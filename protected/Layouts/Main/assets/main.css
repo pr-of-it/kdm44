@@ -15,9 +15,9 @@ body {
     text-transform: uppercase;
 }
 #logo h1 {
-    font-size: 2em;
+    font-size: 2.3em;
 }#logo h2 {
-    font-size: 2.1em;
+    font-size: 1.8em;
 }
 
 .top-right-block {
@@ -27,8 +27,14 @@ body {
     margin-top: 5px;
 }
 
-nav #top>li {
+nav.top>ul>li {
+    display: table-cell;
+    vertical-align: middle;
 }
-nav #top>li>a {
-    min-height:56px;
+nav.top>ul>li>a {
+    line-height: 34px;
+}
+nav.top .dropdown-menu {
+    margin: 0;
+    border:none;
 }

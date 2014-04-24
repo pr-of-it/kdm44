@@ -13,7 +13,7 @@
 </form>
 {% else %}
 <p>
-    Добро пожаловать, {{app.user.email}}!
+    Добро пожаловать, {{app.user.email}}!<br>
     {% if app.user.role.name == 'admin' %}<a href="/admin">Панель администратора</a> | {% endif %}
     <a href="/logout">Выход</a>
 </p>

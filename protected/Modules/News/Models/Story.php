@@ -4,7 +4,7 @@ namespace App\Modules\News\Models;
 
 use T4\Orm\Model;
 
-class NewsStory
+class Story
     extends Model
 {
     static protected $schema = [
@@ -13,10 +13,11 @@ class NewsStory
             'title' => ['type'=>'string'],
             'published' => ['type'=>'datetime'],
             'lead' => ['type'=>'text'],
+            'image' => ['type'=>'string'],
             'text' => ['type'=>'text'],
         ],
         'relations' => [
-            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\NewsTopic']
+            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic']
         ]
     ];
 

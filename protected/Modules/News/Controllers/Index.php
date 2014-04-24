@@ -2,8 +2,8 @@
 
 namespace App\Modules\News\Controllers;
 
-use App\Modules\News\Models\NewsStory;
-use App\Modules\News\Models\NewsTopic;
+use App\Modules\News\Models\Story;
+use App\Modules\News\Models\Topic;
 use T4\Mvc\Controller;
 
 class Index
@@ -12,10 +12,10 @@ class Index
 
     public function actionStory($id)
     {
-        $this->data->item = NewsStory::findByPK($id);
+        $this->data->item = Story::findByPK($id);
         // TODO: исключить саму новость из списка похожих!
-        $this->data->similar = NewsStory::findAllByColumn(
-            '__newstopic_id', $this->data->item->topic->getPk(),
+        $this->data->similar = Story::findAllByColumn(
+            '__topic_id', $this->data->item->topic->getPk(),
             [
                 'order' => 'published DESC',
                 'limit' => 5,
@@ -25,9 +25,9 @@ class Index
 
     public function actionNewsByTopic($id, $count=20)
     {
-        $this->data->topic = NewsTopic::findByPK($id);
-        $this->data->items = NewsStory::findAllByColumn(
-            '__newstopic_id',
+        $this->data->topic = Topic::findByPK($id);
+        $this->data->items = Story::findAllByColumn(
+            '__topic_id',
             $id,
             [
                 'order' => 'published DESC',

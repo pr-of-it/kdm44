@@ -2,7 +2,7 @@
 
 namespace App\Modules\News\Controllers;
 
-use App\Modules\News\Models\NewsStory;
+use App\Modules\News\Models\Story;
 use T4\Mvc\Controller;
 
 class Admin
@@ -20,11 +20,11 @@ class Admin
 
     public function actionDefault($page = 1)
     {
-        $this->data->itemsCount = NewsStory::countAll();
+        $this->data->itemsCount = Story::countAll();
         $this->data->pageSize = self::PAGE_SIZE;
         $this->data->activePage = $page;
 
-        $this->data->items = NewsStory::findAll([
+        $this->data->items = Story::findAll([
             'order' => 'published DESC',
             'limit'=>[($page-1)*self::PAGE_SIZE, self::PAGE_SIZE]
         ]);
@@ -33,18 +33,18 @@ class Admin
     public function actionEdit($id=null)
     {
         if (null === $id || 'new' == $id) {
-            $this->data->item = new NewsStory();
+            $this->data->item = new Story();
         } else {
-            $this->data->item = NewsStory::findByPK($id);
+            $this->data->item = Story::findByPK($id);
         }
     }
 
     public function actionSave()
     {
-        if (!empty($_POST[NewsStory::PK])) {
-            $item = NewsStory::findByPK($_POST[NewsStory::PK]);
+        if (!empty($_POST[Story::PK])) {
+            $item = Story::findByPK($_POST[Story::PK]);
         } else {
-            $item = new NewsStory();
+            $item = new Story();
         }
         $item
             ->fill($_POST);
@@ -57,7 +57,7 @@ class Admin
 
     public function actionDelete($id)
     {
-        $item = NewsStory::findByPK($id);
+        $item = Story::findByPK($id);
         if ($item)
             $item->delete();
         $this->redirect('/admin#/news/admin');

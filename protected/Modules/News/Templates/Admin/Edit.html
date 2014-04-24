@@ -17,9 +17,9 @@
                 <label class="label">Раздел</label>
                 <label class="select">
                     {% if item.isNew %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\\NewsTopic", 0, {"null":true}, {"name":"__newstopic_id"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", 0, {"null":true}, {"name":"__newstopic_id"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\\NewsTopic", item.topic.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"__newstopic_id"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.topic.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"__newstopic_id"}) }}
                     {% endif %}
                     <i></i>
                 </label>

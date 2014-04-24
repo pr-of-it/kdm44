@@ -2,8 +2,8 @@
 
 namespace App\Commands;
 
-use App\Modules\News\Models\NewsStory;
-use App\Modules\News\Models\NewsTopic;
+use App\Modules\News\Models\Story;
+use App\Modules\News\Models\Topic;
 use App\Modules\Pages\Models\Page;
 use T4\Console\Command;
 use T4\Console\Exception;
@@ -33,7 +33,7 @@ class Import
                 $deferred[] = $item;
                 continue;
             }
-            $item = new NewsTopic();
+            $item = new Topic();
             $item->title = $row[3];
             $item->setParent(0);
             $item->save();
@@ -53,7 +53,7 @@ class Import
         $dataFile = fopen($dataFileName, 'r');
 
         while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
-            $item = new NewsStory();
+            $item = new Story();
             $item->title = $row[2];
             $item->published = date('Y-m-d H:i:s', $row[4]);
             $item->lead = $row[9];

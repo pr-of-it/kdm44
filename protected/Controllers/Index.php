@@ -40,4 +40,9 @@ class Index
         $this->redirect('/');
     }
 
+    public function actionBlockHtml($html='')
+    {
+        $this->data->html = $html;
+    }
+
 }

@@ -21,6 +21,12 @@ class Index
         $this->data->item = $page;
     }
 
+    public function actionPageByUrl($url)
+    {
+        $page = Page::findByUrl($url);
+        $this->data->item = $page;
+    }
+
     public function actionTree()
     {
         $this->data->items = Page::findAllTree();

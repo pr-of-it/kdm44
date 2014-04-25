@@ -1,0 +1,15 @@
+{% extends 'Main/Inner.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li class="active">{{item.title}}</li>
+</ol>
+
+<h2 style="margin-top: 0">{{item.title}}</h2>
+<div>
+    {{item.text|raw}}
+</div>
+
+{% endblock %}

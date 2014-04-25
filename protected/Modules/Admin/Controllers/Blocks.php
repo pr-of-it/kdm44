@@ -43,6 +43,7 @@ class Blocks
         $block = new Block();
         $block->section = $sectionId;
         $block->path = $blockPath;
+        $block->template = '';
 
         $params = [];
         foreach ($this->app->config->blocks->{$blockPath}->options as $optionName => $options) {

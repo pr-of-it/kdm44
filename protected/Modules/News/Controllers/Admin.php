@@ -3,6 +3,7 @@
 namespace App\Modules\News\Controllers;
 
 use App\Modules\News\Models\Story;
+use App\Modules\News\Models\Topic;
 use T4\Mvc\Controller;
 
 class Admin
@@ -61,6 +62,42 @@ class Admin
         if ($item)
             $item->delete();
         $this->redirect('/admin#/news/admin');
+    }
+
+    public function actionTopics()
+    {
+        $this->data->items = Topic::findAllTree();
+    }
+
+    public function actionEditTopic($id=null)
+    {
+        if (null === $id || 'new' == $id) {
+            $this->data->item = new Topic();
+        } else {
+            $this->data->item = Topic::findByPK($id);
+        }
+    }
+
+    public function actionSaveTopic()
+    {
+        if (!empty($_POST[Topic::PK])) {
+            $item = Topic::findByPK($_POST[Topic::PK]);
+        } else {
+            $item = new Topic();
+        }
+        $item
+            ->fill($_POST)
+            ->setParent($_POST['parent']);
+        $item->save();
+        $this->redirect('/admin#/news/admin/topics');
+    }
+
+    public function actionDeleteTopic($id)
+    {
+        $item = Topic::findByPK($id);
+        if ($item)
+            $item->delete();
+        $this->redirect('/admin#/news/admin/topics');
     }
 
 }

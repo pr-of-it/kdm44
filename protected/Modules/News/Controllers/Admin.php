@@ -16,6 +16,13 @@ class Admin
         'Default' => ['role.name'=>'admin'],
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
+        'Delete' => ['role.name'=>'admin'],
+        'DeletePhoto' => ['role.name'=>'admin'],
+
+        'Topics' => ['role.name'=>'admin'],
+        'EditTopic' => ['role.name'=>'admin'],
+        'SaveTopic' => ['role.name'=>'admin'],
+        'DeleteTopic' => ['role.name'=>'admin'],
     ];
 
 
@@ -63,6 +70,22 @@ class Admin
             $item->delete();
         $this->redirect('/admin#/news/admin');
     }
+
+    public function actionDeletePhoto($id)
+    {
+        $item = Story::findByPK($id);
+        if ($item) {
+            $item->image = '';
+            $item->save();
+            $this->data = true;
+        } else {
+            $this->data = false;
+        }
+    }
+
+    /**
+     * TOPICS
+     */
 
     public function actionTopics()
     {

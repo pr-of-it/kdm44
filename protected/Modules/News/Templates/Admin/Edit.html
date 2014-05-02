@@ -31,6 +31,15 @@
                 </label>
             </section>
             <section>
+                <label class="label">Главное фото</label>
+                <label class="input">
+                    {% if item.image %}
+                    <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
+                    <p><a href="#" class="btn btn-danger item-image-delete" style="padding: 5px;" data-id="{{item.Pk}}"><i class="fa fa-trash-o"></i> Удалить фото</a></p>
+                    {% endif %}
+                </label>
+            </section>
+            <section>
                 <label class="label">Текст новости</label>
                 <label class="textarea textarea-resizable">
                     <textarea rows="3" class="custom-scroll" name="text">{{item.text}}</textarea>
@@ -52,5 +61,18 @@
     loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/ckeditor/ckeditor.js') }}", function () {
         CKEDITOR.replace('lead', { height: '380px', startupFocus : true} );
         CKEDITOR.replace('text', { height: '380px', startupFocus : true} );
+    });
+
+    $(function () {
+        $('.item-image-delete').click( function () {
+            var $this = $(this);
+            var id = $this.attr('data-id');
+            $.post('/news/admin/deletePhoto.json', {"id":id}, function (r) {
+                if (r) {
+                    $this.parents('label').html('');
+                }
+            });
+            return false;
+        });
     });
 </script>

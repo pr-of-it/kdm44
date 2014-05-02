@@ -55,7 +55,7 @@ class Import
         while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
 
             $lead = $row[9];
-            preg_match('~\<img(.+?)src="(.+)"(.*?)[\/]?\>~', $lead, $m);
+            preg_match('~\<img(.+?)src="(.+?)"(.*?)[\/]?\>~', $lead, $m);
             if (!empty($m[2])) {
                 $image = $m[2];
                 $lead = str_replace($m[0], '', $lead);

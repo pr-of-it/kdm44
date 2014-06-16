@@ -1,4 +1,15 @@
-<div class="well">
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/news/">Новости</a></li>
+    <li>{% if item.isNew %}Добавление новости{% else %}Редактирование новости{% endif %}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
     <form class="smart-form" method="post" action="/news/admin/save">
         {% if item.isNew %}
         <header>Добавление новости</header>
@@ -51,12 +62,12 @@
             <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
         </footer>
     </form>
-</div>
+</section>
 
+{% endblock %}
+
+{% block pagescript %}
 <script type="text/javascript">
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    pageSetUp();
-    // PAGE RELATED SCRIPTS
     {{publish('/Layouts/Admin/SmartAdmin/assets')}}
     loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/ckeditor/ckeditor.js') }}", function () {
         CKEDITOR.replace('lead', { height: '380px', startupFocus : true} );
@@ -76,3 +87,4 @@
         });
     });
 </script>
+{% endblock %}

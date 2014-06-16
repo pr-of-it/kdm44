@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\News\Controllers;
+namespace App\Modules\Admin\Controllers;
 
 use App\Modules\News\Models\Story;
 use App\Modules\News\Models\Topic;
 use T4\Mvc\Controller;
 
-class Admin
+class News
     extends Controller
 {
 
@@ -60,7 +60,7 @@ class Admin
             $item->published = date('Y-m-d H:i:s', time());
         }
         $item->save();
-        $this->redirect('/admin#/news/admin');
+        $this->redirect('/admin/news/');
     }
 
     public function actionDelete($id)
@@ -68,7 +68,7 @@ class Admin
         $item = Story::findByPK($id);
         if ($item)
             $item->delete();
-        $this->redirect('/admin#/news/admin');
+        $this->redirect('/admin/news/');
     }
 
     public function actionDeletePhoto($id)
@@ -112,7 +112,7 @@ class Admin
             ->fill($_POST)
             ->setParent($_POST['parent']);
         $item->save();
-        $this->redirect('/admin#/news/admin/topics');
+        $this->redirect('/admin/news/topics');
     }
 
     public function actionDeleteTopic($id)
@@ -120,7 +120,7 @@ class Admin
         $item = Topic::findByPK($id);
         if ($item)
             $item->delete();
-        $this->redirect('/admin#/news/admin/topics');
+        $this->redirect('/admin/news/topics');
     }
 
 }

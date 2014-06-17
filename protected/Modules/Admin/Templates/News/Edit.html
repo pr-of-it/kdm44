@@ -38,7 +38,7 @@
             <section>
                 <label class="label">Lead (введение)</label>
                 <label class="textarea textarea-resizable">
-                    <textarea rows="3" class="custom-scroll" name="lead">{{item.lead}}</textarea>
+                    <t4:editor>{{item.lead}}</t4:editor>
                 </label>
             </section>
             <section>
@@ -53,7 +53,7 @@
             <section>
                 <label class="label">Текст новости</label>
                 <label class="textarea textarea-resizable">
-                    <textarea rows="3" class="custom-scroll" name="text">{{item.text}}</textarea>
+                    <t4:editor>{{item.text}}</t4:editor>
                 </label>
             </section>
         </fieldset>
@@ -68,12 +68,6 @@
 
 {% block pagescript %}
 <script type="text/javascript">
-    {{publish('/Layouts/Admin/SmartAdmin/assets')}}
-    loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/ckeditor/ckeditor.js') }}", function () {
-        CKEDITOR.replace('lead', { height: '380px', startupFocus : true} );
-        CKEDITOR.replace('text', { height: '380px', startupFocus : true} );
-    });
-
     $(function () {
         $('.item-image-delete').click( function () {
             var $this = $(this);

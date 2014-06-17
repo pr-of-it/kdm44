@@ -18,12 +18,13 @@ return [
     ],
     'extensions' => [
         'jquery' => [
+            'ui' => true,
         ],
         'bootstrap' => [
         ],
-        /*
         'ckeditor' => [
+            'location' => 'local',
         ],
-        */
+
     ],
 ];

@@ -23,11 +23,23 @@ traditional hre="" links. See documentation for details.
         <li>
             <a href="/admin/news/topics/">Разделы</a>
         </li>
-        <li class="active">
+        <li>
             <a href="/admin/news/">Новости</a>
         </li>
     </ul>
 </li>
+
+<script type="text/javascript">
+    $(function() {
+        var url = document.location.pathname;
+        $('nav ul li').each(function() {
+            if ( $(this).find('a').attr('href') == url ) {
+                $(this).addClass('active');
+            }
+        });
+    }
+    );
+</script>
 
 <!--
 <li>

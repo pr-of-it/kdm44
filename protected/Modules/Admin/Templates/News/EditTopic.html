@@ -1,4 +1,15 @@
-<div class="well">
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/news/">Новости</a></li>
+    <li>{% if item.isNew %}Добавление раздела{% else %}Редактирование раздела{% endif %}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
     <form class="smart-form" method="post" action="/news/admin/saveTopic">
         {% if item.isNew %}
         <header>Добавление раздела</header>
@@ -30,4 +41,6 @@
             <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
         </footer>
     </form>
-</div>
+</section>
+
+{% endblock %}

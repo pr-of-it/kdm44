@@ -22,6 +22,9 @@ return [
         ],
         'bootstrap' => [
         ],
+        'fileupload' => [
+
+        ],
         'ckeditor' => [
             'location' => 'local',
         ],

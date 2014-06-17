@@ -4,7 +4,9 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Modules\News\Models\Story;
 use App\Modules\News\Models\Topic;
+use T4\Http\Uploader;
 use T4\Mvc\Controller;
+use T4\Core\Exception;
 
 class News
     extends Controller
@@ -12,7 +14,7 @@ class News
 
     const PAGE_SIZE = 20;
 
-    protected  $access = [
+    protected $access = [
         'Default' => ['role.name'=>'admin'],
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
@@ -24,7 +26,6 @@ class News
         'SaveTopic' => ['role.name'=>'admin'],
         'DeleteTopic' => ['role.name'=>'admin'],
     ];
-
 
     public function actionDefault($page = 1)
     {
@@ -54,8 +55,7 @@ class News
         } else {
             $item = new Story();
         }
-        $item
-            ->fill($_POST);
+        $item->fill($_POST);
         if ($item->isNew()) {
             $item->published = date('Y-m-d H:i:s', time());
         }
@@ -69,6 +69,21 @@ class News
         if ($item)
             $item->delete();
         $this->redirect('/admin/news/');
+    }
+
+    public function actionUploadPhoto()
+    {
+        try {
+            $upload = new Uploader();
+            $upload->setPath('public' . DS . 'news' . DS . 'stories');
+            $image = $upload('image');
+            $this->data = 'foobar';return;
+            $this->data->files = [];
+            $this->data->files[] = $image;
+        } catch (Exception $e) {
+            $this->data->result = false;
+            return;
+        }
     }
 
     public function actionDeletePhoto($id)
@@ -108,19 +123,18 @@ class News
         } else {
             $item = new Topic();
         }
-        $item
-            ->fill($_POST)
-            ->setParent($_POST['parent']);
+        $item->fill($_POST);
         $item->save();
-        $this->redirect('/admin/news/topics');
+        $this->redirect('/admin/news/topics/');
     }
 
     public function actionDeleteTopic($id)
     {
         $item = Topic::findByPK($id);
-        if ($item)
+        if ($item) {
             $item->delete();
-        $this->redirect('/admin/news/topics');
+        }
+        $this->redirect('/admin/news/topics/');
     }
 
 }

@@ -31,16 +31,18 @@
     <table class="table table-striped table-hover table-condensed">
         <tr>
             <th>#</th>
-            <th>Заголовок</th>
             <th>Раздел</th>
+            <th>Заголовок</th>
+            <th>Фото</th>
             <th>Опубликовано</th>
             <th></th>
         </tr>
         {% for item in items %}
         <tr>
             <td><a href="/admin/news/edit/?id={{item.Pk}}">{{item.Pk}}</a></td>
-            <td><a href="/admin/news/edit/?id={{item.Pk}}">{{item.title}}</a></td>
             <td>{{item.topic.title}}</td>
+            <td><a href="/admin/news/edit/?id={{item.Pk}}">{{item.title}}</a></td>
+            <td>{% if item.image %}<i class="fa fa-picture-o"></i>{% endif %}</td>
             <td>{{item.published|date('d.m.Y')}}</td>
             <td style="white-space: nowrap">
                 <a href="/admin/news/edit/?id={{item.Pk}}"><i class="fa fa-edit"></i></a>

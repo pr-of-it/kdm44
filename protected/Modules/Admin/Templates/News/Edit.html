@@ -10,7 +10,7 @@
 {% block content %}
 
 <section class="well">
-    <form class="smart-form" method="post" action="/news/admin/save">
+    <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/news/save">
         {% if item.isNew %}
         <header>Добавление новости</header>
         {% else %}
@@ -28,9 +28,9 @@
                 <label class="label">Раздел</label>
                 <label class="select">
                     {% if item.isNew %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", 0, {"null":true}, {"name":"__newstopic_id"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", 0, {"null":true}, {"name":"topic"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.topic.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"__newstopic_id"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.topic.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"topic"}) }}
                     {% endif %}
                     <i></i>
                 </label>
@@ -38,22 +38,39 @@
             <section>
                 <label class="label">Lead (введение)</label>
                 <label class="textarea textarea-resizable">
-                    <t4:editor>{{item.lead}}</t4:editor>
+                    <t4:editor name="lead">{{item.lead}}</t4:editor>
                 </label>
             </section>
             <section>
                 <label class="label">Главное фото</label>
                 <label class="input">
                     {% if item.image %}
-                    <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
-                    <p><a href="#" class="btn btn-danger item-image-delete" style="padding: 5px;" data-id="{{item.Pk}}"><i class="fa fa-trash-o"></i> Удалить фото</a></p>
+                    <p class="image">
+                        <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
+                    </p>
+                    <p class="delete">
+                        <a href="#" id="item-image-delete" data-id="{{item.Pk}}">
+                            <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить фото</span>
+                        </a>
+                    </p>
+                    <p class="upload">
+                        <span class="btn btn-success" style="padding: 5px;">
+                            <i class="fa fa-upload"></i> <span>Загрузить фото</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="upload" type="file" name="image" data-url="/admin/news/uploadPhoto.json" style="display: none;">
+                        </span>
+                        <br>
+                        <div id="progress" class="progress">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                    </p>
                     {% endif %}
                 </label>
             </section>
             <section>
                 <label class="label">Текст новости</label>
                 <label class="textarea textarea-resizable">
-                    <t4:editor>{{item.text}}</t4:editor>
+                    <t4:editor name="text">{{item.text}}</t4:editor>
                 </label>
             </section>
         </fieldset>
@@ -69,16 +86,30 @@
 {% block pagescript %}
 <script type="text/javascript">
     $(function () {
-        $('.item-image-delete').click( function () {
+
+        $('#item-image-delete').click( function () {
             var $this = $(this);
             var id = $this.attr('data-id');
-            $.post('/news/admin/deletePhoto.json', {"id":id}, function (r) {
+            $.post('/admin/news/deletePhoto.json', {"id":id}, function (r) {
                 if (r) {
-                    $this.parents('label').html('');
+                    $this.parents('label').find('.delete').hide();
+                    $this.parents('label').find('.image').hide();
                 }
             });
             return false;
         });
+
+        $('#upload').fileupload({
+            dataType: 'json',
+            done: function (e, data) {
+                for (i in data) {
+                    alert(i + '=' + data.i);
+                }
+                $('p.image').attr('src', data.files[0]);
+                //$('<p/>').text(file.name).appendTo(document.body);
+            }
+        });
+
     });
 </script>
 {% endblock %}

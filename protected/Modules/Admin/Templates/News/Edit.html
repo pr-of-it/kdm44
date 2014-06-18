@@ -49,7 +49,7 @@
                         <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
                     </p>
                     <p class="delete"{% if not item.image %} style="display:none;"{% endif %}>
-                        <a href="#" id="item-image-delete" data-id="{{item.Pk}}">
+                        <a href="#" id="item-image-delete" data-id="{% if item.isNew %}0{% else %}{{item.Pk}}{% endif %}">
                             <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить фото</span>
                         </a>
                     </p>
@@ -87,12 +87,14 @@
         $('#item-image-delete').click( function () {
             var $this = $(this);
             var id = $this.attr('data-id');
-            $.post('/admin/news/deletePhoto.json', {"id":id}, function (r) {
-                if (r) {
-                    $('p.delete').hide();
-                    $('p.image').hide();
-                }
-            });
+            if (0 != id) {
+                $.post('/admin/news/deletePhoto.json', {"id":id}, function (r) {
+                    if (r) {
+                    }
+                });
+            }
+            $('p.delete').hide();
+            $('p.image').hide();
             return false;
         });
 

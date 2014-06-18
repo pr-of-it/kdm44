@@ -7,6 +7,7 @@ use App\Modules\News\Models\Topic;
 use T4\Http\Uploader;
 use T4\Mvc\Controller;
 use T4\Core\Exception;
+use T4\Core\Std;
 
 class News
     extends Controller
@@ -19,6 +20,7 @@ class News
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
+        'UploadPhoto' => ['role.name'=>'admin'],
         'DeletePhoto' => ['role.name'=>'admin'],
 
         'Topics' => ['role.name'=>'admin'],
@@ -75,11 +77,14 @@ class News
     {
         try {
             $upload = new Uploader();
-            $upload->setPath('public' . DS . 'news' . DS . 'stories');
+            $upload->setPath('/public/news/stories');
             $image = $upload('image');
-            $this->data = 'foobar';return;
+
             $this->data->files = [];
-            $this->data->files[] = $image;
+            $file = &$this->data->files[];
+            $file = new Std;
+            $file->url = $image;
+
         } catch (Exception $e) {
             $this->data->result = false;
             return;

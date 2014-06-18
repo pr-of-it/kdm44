@@ -44,27 +44,24 @@
             <section>
                 <label class="label">Главное фото</label>
                 <label class="input">
-                    {% if item.image %}
-                    <p class="image">
+
+                    <p class="image"{% if not item.image %} style="display:none;"{% endif %}>
                         <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
                     </p>
-                    <p class="delete">
+                    <p class="delete"{% if not item.image %} style="display:none;"{% endif %}>
                         <a href="#" id="item-image-delete" data-id="{{item.Pk}}">
                             <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить фото</span>
                         </a>
                     </p>
+
                     <p class="upload">
                         <span class="btn btn-success" style="padding: 5px;">
                             <i class="fa fa-upload"></i> <span>Загрузить фото</span>
                             <!-- The file input field used as target for the file upload widget -->
                             <input id="upload" type="file" name="image" data-url="/admin/news/uploadPhoto.json" style="display: none;">
+                            <input type="hidden" name="image" value="">
                         </span>
-                        <br>
-                        <div id="progress" class="progress">
-                            <div class="progress-bar progress-bar-success"></div>
-                        </div>
                     </p>
-                    {% endif %}
                 </label>
             </section>
             <section>
@@ -92,8 +89,8 @@
             var id = $this.attr('data-id');
             $.post('/admin/news/deletePhoto.json', {"id":id}, function (r) {
                 if (r) {
-                    $this.parents('label').find('.delete').hide();
-                    $this.parents('label').find('.image').hide();
+                    $('p.delete').hide();
+                    $('p.image').hide();
                 }
             });
             return false;
@@ -102,11 +99,12 @@
         $('#upload').fileupload({
             dataType: 'json',
             done: function (e, data) {
-                for (i in data) {
-                    alert(i + '=' + data.i);
-                }
-                $('p.image').attr('src', data.files[0]);
-                //$('<p/>').text(file.name).appendTo(document.body);
+                $.each(data.result.files, function (index, file) {
+                    $('p.image').find('img').attr('src', file.url);
+                    $('p.upload').find('input[type=hidden]').val(file.url);
+                    $('p.image').show();
+                    $('p.delete').show();
+                });
             }
         });
 

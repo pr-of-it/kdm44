@@ -37,8 +37,8 @@
         </tr>
         {% for item in items %}
         <tr>
-            <td><a href="/admin/news/editTopic/?id={{item.Pk}}">{{item.Pk}}</a></td>
-            <td><a href="/admin/news/editTopic/?id={{item.Pk}}">{{item.title}}</a></td>
+            <td>{{'-- '|repeat(item.__lvl)}}<a href="/admin/news/editTopic/?id={{item.Pk}}">{{item.Pk}}</a></td>
+            <td>{{'-- '|repeat(item.__lvl)}}<a href="/admin/news/editTopic/?id={{item.Pk}}">{{item.title}}</a></td>
             <td style="white-space: nowrap">
                 <a href="/admin/news/editTopic/?id={{item.Pk}}"><i class="fa fa-edit"></i></a>
                 <a href="/admin/news/deleteTopic/?id={{item.Pk}}" class="confirmable"><i class="fa fa-trash-o"></i></a>

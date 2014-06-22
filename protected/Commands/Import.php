@@ -35,7 +35,7 @@ class Import
             }
             $item = new Topic();
             $item->title = $row[3];
-            $item->setParent(0);
+            $item->parent = 0;
             $item->save();
             $processed[$row[0]] = ['pk'=>$item->getPk()];
         }
@@ -69,7 +69,7 @@ class Import
             $item->lead = $lead;
             $item->image = $image;
             $item->text = $row[10];
-            $item->__topic_id = $topics[$row[12]]['pk'];
+            $item->topic = $topics[$row[12]]['pk'];
             $item->save();
         }
 
@@ -99,7 +99,7 @@ class Import
             $item->template = $row[4];
             $item->text = $row[5];
             $item->order = $row[9];
-            $item->setParent( 0==$row[1] ? 0 : $processed[$row[1]] );
+            $item->parent =  0==$row[1] ? 0 : $processed[$row[1]];
             $item->save();
 
             $processed[$row[0]] = $item->getPk();
@@ -120,7 +120,7 @@ class Import
                 $item->template = $row[4];
                 $item->text = $row[5];
                 $item->order = $row[9];
-                $item->setParent( 0==$row[1] ? 0 : $processed[$row[1]] );
+                $item->parent = 0==$row[1] ? 0 : $processed[$row[1]];
                 $item->save();
 
                 $processed[$row[0]] = $item->getPk();

@@ -23,11 +23,14 @@ return [
         'bootstrap' => [
         ],
         'fileupload' => [
-
+            'autoload' => false,
         ],
         'ckeditor' => [
             'location' => 'local',
+            'autoload' => false,
         ],
-
+        'ckfinder' => [
+            'autoload' => false,
+        ],
     ],
 ];

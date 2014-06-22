@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Modules\News\Models\Story;
 use App\Modules\News\Models\Topic;
+use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Controller;
 use T4\Core\Exception;
@@ -43,6 +44,10 @@ class News
 
     public function actionEdit($id=null)
     {
+        $this->app->extensions->fileupload->init();
+        $this->app->extensions->ckeditor->init();
+        $this->app->extensions->ckfinder->init();
+
         if (null === $id || 'new' == $id) {
             $this->data->item = new Story();
         } else {
@@ -68,12 +73,11 @@ class News
     public function actionDelete($id)
     {
         $item = Story::findByPK($id);
-        if ($item)
-            $item->delete();
+        $item->delete();
         $this->redirect('/admin/news/');
     }
 
-    public function actionUploadPhoto()
+    public function actionUploadPhoto($id=null)
     {
         try {
             $upload = new Uploader();
@@ -85,6 +89,13 @@ class News
             $file = new Std;
             $file->url = $image;
 
+            $item = Story::findByPK($id);
+            if ($item) {
+                $item->deleteImage()
+                    ->setImage($image)
+                    ->save();
+            }
+
         } catch (Exception $e) {
             $this->data->result = false;
             return;
@@ -95,8 +106,9 @@ class News
     {
         $item = Story::findByPK($id);
         if ($item) {
-            $item->image = '';
-            $item->save();
+            $item
+                ->deleteImage()
+                ->save();
             $this->data = true;
         } else {
             $this->data = false;

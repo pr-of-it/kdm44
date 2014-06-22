@@ -30,7 +30,7 @@
                     {% if item.isNew %}
                     {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", 0, {"null":true}, {"name":"parent"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.topic.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"parent"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.parent.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"parent"}) }}
                     {% endif %}
                     <i></i>
                 </label>

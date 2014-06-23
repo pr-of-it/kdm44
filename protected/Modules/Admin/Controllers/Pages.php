@@ -1,11 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Степанцев Альберт
+ * Date: 23.06.14
+ * Time: 11:53
+ */
 
-namespace App\Modules\Pages\Controllers;
+namespace App\Modules\Admin\Controllers;
 
 use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
 
-class Admin
+class Pages
     extends Controller
 {
 
@@ -20,38 +26,40 @@ class Admin
 
     public function actionDefault()
     {
-        $this->data->pages = Page::findAllTree();
+        $this->data->items = Page::findAllTree();
     }
 
     public function actionEdit($id=null)
     {
+        $this->app->extensions->ckeditor->init();
+        $this->app->extensions->ckfinder->init();
+
         if (null === $id || 'new' == $id) {
-            $this->data->page = new Page();
+            $this->data->item = new Page();
         } else {
-            $this->data->page = Page::findByPK($id);
+            $this->data->item = Page::findByPK($id);
         }
     }
 
     public function actionSave()
     {
         if (!empty($_POST[Page::PK])) {
-            $page = Page::findByPK($_POST[Page::PK]);
+            $item = Page::findByPK($_POST[Page::PK]);
         } else {
-            $page = new Page();
+            $item = new Page();
         }
-        $page
+        $item
             ->fill($_POST)
-            ->setParent($_POST['parent'])
             ->save();
-        $this->redirect('/admin#/pages/admin');
+        $this->redirect('/admin/pages/');
     }
 
     public function actionDelete($id)
     {
-        $page = Page::findByPK($id);
-        if ($page)
-            $page->delete();
-        $this->redirect('/admin#/pages/admin');
+        $item = Page::findByPK($id);
+        if ($item)
+            $item->delete();
+        $this->redirect('/admin/pages/');
     }
 
     public function actionReorder($ids)

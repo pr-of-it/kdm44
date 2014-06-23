@@ -1,3 +1,12 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li>Страницы</li>
+</ol>
+{% endblock %}
+
+{% block pagehead %}
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
         <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Страницы </h1>
@@ -5,23 +14,26 @@
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
         <ul id="sparks" class="">
             <li class="sparks-info">
-                <h5> Всего страниц <span class="txt-color-blue">{{pages|length}}</span></h5>
+                <h5> Всего страниц <span class="txt-color-blue">{{items|length}}</span></h5>
             </li>
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block content %}
 
 <section class="well">
-    <div class="row"><div class="pull-right"><a class="btn btn-primary btn-lg" href="#/pages/admin/edit?id=new">Добавить страницу</a></div></div>
+    <div class="row"><div class="pull-right"><a class="btn btn-primary btn-lg" href="/admin/pages/edit?id=new">Добавить страницу</a></div></div>
     <div class="row">
 
         <div class="dd" id="tree-nestable" style="width: 100%; max-width: 100%">
-            {% set level = pages[0].__lvl %}
+            {% set level = items[0].__lvl %}
             {% set count = 0 %}
             <ol class="dd-list">
-                {% for page in pages %}
+                {% for item in items %}
 
-                {% set current = page.__lvl %}
+                {% set current = item.__lvl %}
 
                 {% if current == level %}
                 {% if count > 0 %}</li>{% endif %}
@@ -37,13 +49,13 @@
                 {% set level = current %}
                 {% endif %}
 
-                <li class="dd-item dd3-item" data-id="{{page.__id}}">
-                    <div class="dd-handle dd3-handle" data-id="{{page.__id}}">Drag</div>
+                <li class="dd-item dd3-item" data-id="{{item.__id}}">
+                    <div class="dd-handle dd3-handle" data-id="{{item.__id}}">Drag</div>
                     <div class="dd3-content">
-                        <a href="/admin#/pages/admin/edit/?id={{page.__id}}">{{page.title}} [{{page.url}}.html]</a>
+                        <a href="/admin/pages/edit/?id={{item.__id}}">{{item.title}} [{{item.url}}.html]</a>
                         <span class="pull-right">
-                            <a href="/admin#/pages/admin/edit/?id={{page.__id}}" class=""><i class="fa fa-edit"></i></a>
-                            <a href="/pages/admin/delete/?id={{page.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
+                            <a href="/admin/pages/edit/?id={{item.__id}}" class=""><i class="fa fa-edit"></i></a>
+                            <a href="/admin/pages/delete/?id={{item.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
                         </span>
                     </div>
                     {% set count = count + 1 %}
@@ -55,15 +67,14 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block pagescript %}
 <script type="text/javascript">
     $(function() {
-        /*
-         loadScript("{{ asset('/Layouts/Admin/SmartAdmin/assets/js/plugin/jquery-nestable/jquery.nestable.js') }}", function() {
-         $('#tree-nestable').nestable();
-         });
-         */
         $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
     });
 </script>
+{% endblock %}

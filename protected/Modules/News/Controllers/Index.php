@@ -10,7 +10,9 @@ class Index
     extends Controller
 {
 
-    public function actionDefault($count=20)
+    const DEFAULT_STORIES_COUNT = 20;
+
+    public function actionDefault($count=self::DEFAULT_STORIES_COUNT)
     {
         $this->data->items = Story::findAll(
             [
@@ -33,7 +35,7 @@ class Index
         );
     }
 
-    public function actionNewsByTopic($id, $count=20)
+    public function actionNewsByTopic($id, $count=self::DEFAULT_STORIES_COUNT)
     {
         $this->data->topic = Topic::findByPK($id);
         $this->data->items = Story::findAllByColumn(

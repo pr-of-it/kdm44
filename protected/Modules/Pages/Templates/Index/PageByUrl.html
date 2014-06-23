@@ -4,6 +4,11 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
+    {% for i, subpage in item.findAllParents %}
+    {% if 0 != i %}
+    <li><a href="/pages/{{subpage.url}}.html">{{subpage.title}}</a></li>
+    {% endif %}
+    {% endfor %}
     <li class="active">{{item.title}}</li>
 </ol>
 

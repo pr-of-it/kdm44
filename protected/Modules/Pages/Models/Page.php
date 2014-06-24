@@ -2,6 +2,8 @@
 
 namespace App\Modules\Pages\Models;
 
+use T4\Core\Collection;
+use T4\Core\Std;
 use T4\Orm\Model;
 
 class Page
@@ -31,5 +33,19 @@ class Page
     ];
 
     static protected $extensions = ['tree'];
+
+    public function getBreadCrumbs()
+    {
+        $ret = new Collection;
+        foreach ($this->findAllParents() as $i => $parent) {
+            if (0==$i)
+                continue;
+            $p = new Std;
+            $p->url = $parent->url;
+            $p->title = $parent->title;
+            $ret[] = $p;
+        }
+        return $ret;
+    }
 
 }

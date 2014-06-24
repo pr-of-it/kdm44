@@ -12,6 +12,9 @@
 
 <h2 style="margin-top: 0">{{item.title}}</h2>
 <div>
+    {% if item.template=='list' %}
+    <t4:block path="/Pages//SubTree(id={{item.Pk}})" />
+    {% endif %}
     {{item.text|raw}}
 </div>
 

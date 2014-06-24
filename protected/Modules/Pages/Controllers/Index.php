@@ -32,10 +32,13 @@ class Index
         $this->data->items = Page::findAllTree();
     }
 
-    public function actionSubTree($id)
+    public function actionSubTree($id, $includeParent = false)
     {
         $page = Page::findByPK($id);
-        $this->data->items = $page->findSubTree();
+        if ($includeParent)
+            $this->data->items = $page->findSubTree();
+        else
+            $this->data->items = $page->findAllChildren();
     }
 
 } 

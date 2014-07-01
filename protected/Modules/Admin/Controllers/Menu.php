@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Степанцев Альберт
- * Date: 23.06.14
- * Time: 11:53
+ * Date: 01.07.14
+ * Time: 12:57
  */
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Modules\Pages\Models\Page;
+
+use App\Models\Menu as MenuModel;
 use T4\Mvc\Controller;
 
-class Pages
+class Menu
     extends Controller
 {
 
@@ -20,46 +21,41 @@ class Pages
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
-        'Reorder' => ['role.name'=>'admin'],
     ];
-
 
     public function actionDefault()
     {
-        $this->data->items = Page::findAllTree();
+        $this->data->items = MenuModel::findAllTree();
     }
 
     public function actionEdit($id=null)
     {
-        $this->app->extensions->ckeditor->init();
-        $this->app->extensions->ckfinder->init();
-
         if (null === $id || 'new' == $id) {
-            $this->data->item = new Page();
+            $this->data->item = new MenuModel();
         } else {
-            $this->data->item = Page::findByPK($id);
+            $this->data->item = MenuModel::findByPK($id);
         }
     }
 
     public function actionSave()
     {
-        if (!empty($_POST[Page::PK])) {
-            $item = Page::findByPK($_POST[Page::PK]);
+        if (!empty($_POST[MenuModel::PK])) {
+            $item = MenuModel::findByPK($_POST[MenuModel::PK]);
         } else {
-            $item = new Page();
+            $item = new MenuModel();
         }
         $item
             ->fill($_POST)
             ->save();
-        $this->redirect('/admin/pages/');
+        $this->redirect('/admin/menu/');
     }
 
     public function actionDelete($id)
     {
-        $item = Page::findByPK($id);
+        $item = MenuModel::findByPK($id);
         if ($item)
             $item->delete();
-        $this->redirect('/admin/pages/');
+        $this->redirect('/admin/menu/');
     }
 
-}
+} 

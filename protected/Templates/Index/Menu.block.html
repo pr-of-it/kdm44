@@ -1,0 +1,31 @@
+{% set level = items[0].__lvl %}
+{% set count = 0 %}
+<ul class="nav nav-pills nav-justified">
+    {% for item in items %}
+
+    {% set current = item.__lvl %}
+
+    {% if current == level %}
+    {% if count > 0 %}</li>{% endif %}
+    {% endif %}
+
+    {% if current > level %}
+    <ul class="dropdown-menu">
+        {% set level = current %}
+        {% endif %}
+
+        {% if current < level %}
+        {{"</li></ul>"|repeat(level-current)|raw}}</li>
+    {% set level = current %}
+    {% endif %}
+
+    <li data-id="{{item.__id}}"{% if current==0 %} class="dropdown"{% endif %}>
+        {% if current==0 %}
+        <a class="dropdown-toggle" data-hover="dropdown" href="#">{{item.title}}</a>
+        {% else %}
+        <a href="{{item.url}}">{{item.title}}</a>
+        {% endif %}
+        {% set count = count + 1 %}
+        {% endfor %}
+        {{"</li></ul>"|repeat(current)|raw}}</li>
+</ul>

@@ -8,6 +8,20 @@
     <li class="active"><a href="/news/topics/{{item.topic.Pk}}.html">{{item.topic.title}}</a></li>
 </ol>
 
+{% if app.user.role.name == 'admin' %}
+<div class="well pull-right" style="margin: 0 0 10px 10px;">
+    <a href="/admin/news/edit/?id={{item.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
+    <a href="/admin/news/delete/?id={{item.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+    });
+</script>
+{% endif %}
+
 <h2 style="margin-top: 0">{{item.title}}</h2>
 <div>
     {%if item.image %}<div class="pull-left" style="margin-right: 10px;"><img src="{{item.image}}" class="img-responsive"></div>{% endif %}

@@ -14,7 +14,7 @@
 {% else %}
 <p>
     Добро пожаловать, {{app.user.email}}!<br>
-    {% if app.user.role.name == 'admin' %}<a href="/admin">Панель администратора</a> | {% endif %}
+    {% if app.user.role.name == 'admin' %}<a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a> |{% endif %}
     <a href="/logout">Выход</a>
 </p>
 {% endif %}

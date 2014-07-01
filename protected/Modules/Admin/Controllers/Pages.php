@@ -29,13 +29,16 @@ class Pages
         $this->data->items = Page::findAllTree();
     }
 
-    public function actionEdit($id=null)
+    public function actionEdit($id=null, $parent=null)
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
 
         if (null === $id || 'new' == $id) {
             $this->data->item = new Page();
+            if (null !== $parent) {
+                $this->data->item->parent = $parent;
+            }
         } else {
             $this->data->item = Page::findByPK($id);
         }

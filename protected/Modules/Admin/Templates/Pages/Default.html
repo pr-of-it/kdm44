@@ -54,8 +54,9 @@
                     <div class="dd3-content">
                         <a href="/admin/pages/edit/?id={{item.__id}}">{{item.title}} [{{item.url}}.html]</a>
                         <span class="pull-right">
-                            <a href="/admin/pages/edit/?id={{item.__id}}" class=""><i class="fa fa-edit"></i></a>
-                            <a href="/admin/pages/delete/?id={{item.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
+                            <a href="/admin/pages/edit/?id=new&parent={{item.Pk}}" class=""><i class="fa fa-plus"></i></a>
+                            <a href="/admin/pages/edit/?id={{item.Pk}}" class=""><i class="fa fa-edit"></i></a>
+                            <a href="/admin/pages/delete/?id={{item.Pk}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
                         </span>
                     </div>
                     {% set count = count + 1 %}

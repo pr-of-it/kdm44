@@ -25,7 +25,6 @@ class Index
     public function actionStory($id)
     {
         $this->data->item = Story::findByPK($id);
-        // TODO: исключить саму новость из списка похожих!
         $this->data->similar = Story::findAllByColumn(
             '__topic_id', $this->data->item->topic->getPk(),
             [

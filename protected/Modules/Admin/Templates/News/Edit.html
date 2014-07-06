@@ -74,6 +74,7 @@
         <footer>
             <button type="submit" class="btn btn-primary">Сохранить</button>
             <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+            <a href="/admin/news/delete/?id={{item.Pk}}" class="confirmable"><button type="button" class="btn btn-danger">Удалить</button></a>
         </footer>
     </form>
 </section>
@@ -83,6 +84,10 @@
 {% block pagescript %}
 <script type="text/javascript">
     $(function () {
+
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
 
         $('#item-image-delete').click( function () {
             var $this = $(this);

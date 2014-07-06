@@ -49,6 +49,16 @@
                 </label>
             </section>
             <section>
+                <label class="label">Тип страницы (шаблон)</label>
+                <label class="select">
+                    <select name="template">
+                        <option value=""{% if item.template=='' or item.template=='default' %} selected="selected"{% endif %}>---</option>
+                        <option value="list"{% if item.template=='list' %} selected="selected"{% endif %}>list</option>
+                    </select>
+                    <i></i>
+                </label>
+            </section>
+            <section>
                 <label class="label">Текст страницы</label>
                 <label class="textarea textarea-resizable">
                     <t4:editor name="text">{{item.text}}</t4:editor>

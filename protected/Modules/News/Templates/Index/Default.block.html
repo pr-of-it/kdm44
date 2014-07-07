@@ -2,7 +2,7 @@
 <div class="media" style="margin-top: 0; margin-bottom: 15px;">
     <div class="pull-left">
         <span class="label label-info">{{item.published|date('d.m.Y')}}</span>
-        <img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="max-width: 200px">
+        {% if item.image %}<img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="max-width: 200px">{% endif %}
     </div>
     <div class="media-body">
         <h4 class="media-heading"><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h4>

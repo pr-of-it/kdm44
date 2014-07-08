@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Modules\Documents\Models\Category;
+use App\Modules\Documents\Models\Document;
 use T4\Mvc\Controller;
 
 class Documents
@@ -17,6 +18,32 @@ class Documents
 
         'Categories' => ['role.name'=>'admin'],
     ];
+
+    const PAGE_SIZE = 20;
+
+    public function actionDefault($page = 1)
+    {
+        $this->data->itemsTotalCount = Document::countAll();
+        $this->data->pageSize = self::PAGE_SIZE;
+        $this->data->activePage = $page;
+
+        $this->data->items = Document::findAll([
+            'order' => 'published DESC',
+            'limit'=>[($page-1)*self::PAGE_SIZE, self::PAGE_SIZE]
+        ]);
+    }
+
+    public function actionEdit($id=null)
+    {
+        $this->app->extensions->ckeditor->init();
+        $this->app->extensions->ckfinder->init();
+
+        if (null === $id || 'new' == $id) {
+            $this->data->item = new Document();
+        } else {
+            $this->data->item = Document::findByPK($id);
+        }
+    }
 
     public function actionCategories()
     {

@@ -14,7 +14,6 @@ class m_1404826778_createDocuments
             [
                 'title' => [
                     'type' => 'string',
-                    'length' => 1024,
                 ],
                 'url' => [
                     'type' => 'string',

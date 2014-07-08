@@ -13,7 +13,6 @@ class Category
         'columns' => [
             'title' => [
                 'type' => 'string',
-                'length' => 1024,
             ],
             'url' => [
                 'type' => 'string',

@@ -10,7 +10,7 @@
 {% block content %}
 
 <section class="well">
-    <form class="smart-form" method="post" action="/admin/pages/save">
+    <form class="smart-form" method="post" action="/admin/pages/save" enctype="multipart/form-data">
         {% if item.isNew %}
         <header>Добавление страницы</header>
         {% else %}
@@ -64,6 +64,30 @@
                     <t4:editor name="text">{{item.text}}</t4:editor>
                 </label>
             </section>
+            <section>
+                <label class="label">Файл</label>
+                <label class="input">
+
+                    <p class="file"{% if not item.file %} style="display:none;"{% endif %}>
+                    Текущий файл: <span><a href="{{item.file}}" target="_blank">{{item.file}}</a></span>
+                    </p>
+
+                    <p class="delete"{% if not item.file %} style="display:none;"{% endif %}>
+                    <a href="#" id="item-file-delete" data-id="{% if item.isNew %}0{% else %}{{item.Pk}}{% endif %}">
+                        <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить файл</span>
+                    </a>
+                    </p>
+
+                    <p class="upload">
+                        <span class="btn btn-success" style="padding: 5px;">
+                            <i class="fa fa-upload"></i> <span>Загрузить файл</span>
+                            <input type="hidden" name="file" value="{{item.file}}">
+                            <input type="file" name="file" style="display: none;">
+                        </span>
+                    </p>
+
+                </label>
+            </section>
         </fieldset>
         <footer>
             <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -79,9 +103,31 @@
 {% block pagescript %}
 <script type="text/javascript">
     $(function () {
-        $('a.confirmable').click(function () {
+
+        $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
+
+        $('#item-file-delete').click( function () {
+            var $this = $(this);
+            var id = $this.attr('data-id');
+            if (0 != id) {
+                $.post('/admin/pages/deleteFile.json', {"id":id}, function (r) {
+                    if (r) {
+                        $('p.delete').hide();
+                        $('p.file').hide();
+                        $('p.upload input[name=file]').val('');
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('p.upload input[type=file]').on('change', function () {
+            $('p.file').show();
+            $('p.file span').html(this.value);
+        });
+
     });
 </script>
 {% endblock %}

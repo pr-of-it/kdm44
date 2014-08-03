@@ -4,6 +4,8 @@ namespace App\Modules\Pages\Models;
 
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Fs\Helpers;
+use T4\Http\Uploader;
 use T4\Orm\Model;
 
 class Page
@@ -29,6 +31,9 @@ class Page
                 'type' => 'int',
                 'default' => 0
             ],
+            'file' => [
+                'type' => 'string',
+            ],
         ],
     ];
 
@@ -46,6 +51,40 @@ class Page
             $ret[] = $p;
         }
         return $ret;
+    }
+
+    public function beforeSave()
+    {
+        $uploader = new Uploader('file');
+        if ($uploader->isUploaded()) {
+            try {
+                $this->deleteFile();
+                $uploader->setPath('/public/pages');
+                $this->file = $uploader();
+            } catch (Exception $e) {
+                $this->file = null;
+            }
+        }
+        return parent::beforeSave();
+    }
+
+    public function beforeDelete()
+    {
+        $this->deleteFile();
+        return parent::beforeDelete();
+    }
+
+    public function deleteFile()
+    {
+        if ($this->file) {
+            try {
+                Helpers::removeFile(ROOT_PATH_PUBLIC . $this->file);
+                $this->file = '';
+            } catch (\T4\Fs\Exception $e) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

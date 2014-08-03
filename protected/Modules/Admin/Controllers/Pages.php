@@ -20,6 +20,7 @@ class Pages
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
+        'DeleteFile' => ['role.name'=>'admin'],
     ];
 
 
@@ -62,6 +63,18 @@ class Pages
         if ($item)
             $item->delete();
         $this->redirect('/admin/pages/');
+    }
+
+    public function actionDeleteFile($id)
+    {
+        $item = Page::findByPK($id);
+        if ($item) {
+            $item->deleteFile();
+            $item->save();
+            $this->data = true;
+        } else {
+            $this->data = false;
+        }
     }
 
 }

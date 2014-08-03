@@ -79,9 +79,8 @@ class News
     {
         $item = Story::findByPK($id);
         if ($item) {
-            $item
-                ->deleteImage()
-                ->save();
+            $item->deleteImage();
+            $item->save();
             $this->data = true;
         } else {
             $this->data = false;

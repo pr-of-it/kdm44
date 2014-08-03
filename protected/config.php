@@ -21,6 +21,10 @@ return [
             'ui' => true,
         ],
         'bootstrap' => [
+            'location' => 'local',
+            'theme' => [
+                'css' => '/Layouts/Main/assets/css/cosmo/bootstrap.min.css',
+            ],
         ],
         'fileupload' => [
             'autoload' => false,

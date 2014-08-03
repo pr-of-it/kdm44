@@ -48,6 +48,7 @@
                     <p class="image"{% if not item.image %} style="display:none;"{% endif %}>
                         <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
                     </p>
+
                     <p class="delete"{% if not item.image %} style="display:none;"{% endif %}>
                         <a href="#" id="item-image-delete" data-id="{% if item.isNew %}0{% else %}{{item.Pk}}{% endif %}">
                             <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить фото</span>
@@ -57,11 +58,11 @@
                     <p class="upload">
                         <span class="btn btn-success" style="padding: 5px;">
                             <i class="fa fa-upload"></i> <span>Загрузить фото</span>
-                            <!-- The file input field used as target for the file upload widget -->
-                            <input id="upload" type="file" name="image" data-url="/admin/news/uploadPhoto.json" style="display: none;">
-                            <input type="hidden" name="image" value="">
+                            <input type="hidden" name="image" value="{{item.image}}">
+                            <input type="file" name="image" style="display: none;">
                         </span>
                     </p>
+
                 </label>
             </section>
             <section>
@@ -101,18 +102,6 @@
             $('p.delete').hide();
             $('p.image').hide();
             return false;
-        });
-
-        $('#upload').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('p.image').find('img').attr('src', file.url);
-                    $('p.upload').find('input[type=hidden]').val(file.url);
-                    $('p.image').show();
-                    $('p.delete').show();
-                });
-            }
         });
 
     });

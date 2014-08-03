@@ -44,9 +44,7 @@ class News
 
     public function actionEdit($id=null)
     {
-        $this->app->extensions->fileupload->init();
         $this->app->extensions->ckeditor->init();
-        $this->app->extensions->ckfinder->init();
 
         if (null === $id || 'new' == $id) {
             $this->data->item = new Story();
@@ -75,31 +73,6 @@ class News
         $item = Story::findByPK($id);
         $item->delete();
         $this->redirect('/admin/news/');
-    }
-
-    public function actionUploadPhoto($id=null)
-    {
-        try {
-            $upload = new Uploader();
-            $upload->setPath('/public/news/stories');
-            $image = $upload('image');
-
-            $this->data->files = [];
-            $file = &$this->data->files[];
-            $file = new Std;
-            $file->url = $image;
-
-            $item = Story::findByPK($id);
-            if ($item) {
-                $item->deleteImage()
-                    ->setImage($image)
-                    ->save();
-            }
-
-        } catch (Exception $e) {
-            $this->data->result = false;
-            return;
-        }
     }
 
     public function actionDeletePhoto($id)

@@ -1,47 +1,15 @@
-<nav class="container top">
-    <t4:block path="///Menu" />
-    <!--
-    <ul class="nav nav-pills nav-justified">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-hover="dropdown" href="#">Официально</a>
-            <ul class="dropdown-menu">
-                <li><a href="#">О нас</a></li>
-                <li><a href="/pages/uchrejdeniya.html">Учреждения</a></li>
-                <li><a href="/pages/kollegi.html">Коллеги</a></li>
-                <li><a href="#">Методические рекомендации</a></li>
-            </ul>
-        </li>
-        <li><a href="/news/">Новости</a></li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-hover="dropdown" href="/pages/konkyrsu.html">Конкурсы и гранты</a>
-            <ul class="dropdown-menu">
-                <li><a href="/pages/pologeniya.html">Положения</a></li>
-                <li><a href="/pages/protokolu.html">Протоколы</a></li>
-                <li><a href="#">Региональные</a></li>
-                <li><a href="#">Федеральные</a></li>
-                <li><a href="#">Международные</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-hover="dropdown" href="#" style="line-height: 17px;">Общественные объединения</a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Совещательные органы</a></li>
-                <li><a href="#">Общественные организации</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-hover="dropdown" href="#" style="line-height: 17px;">Направления деятельности</a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Трудовые отряды</a></li>
-                <li><a href="#">Росмолодежь</a></li>
-                <li><a href="#">Добровольчество</a></li>
-                <li><a href="#">Летний отдых</a></li>
-                <li><a href="#">Ты - предприниматель</a></li>
-            </ul>
-        </li>
-        <li><a href="#">События</a></li>
-        <li><a href="#">Фото и видео</a></li>
-        <li><a href="http://forumpatriot.ru/" target="_blank">Патриот</a></li>
-    </ul>
-    -->
-</nav>
+<div class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+        <t4:block path="///Menu" />
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control col-lg-8" placeholder="Поиск...">
+        </form>
+    </div>
+</div>

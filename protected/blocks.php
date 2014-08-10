@@ -104,6 +104,19 @@ return [
                 'type' => 'int',
                 'default' => 5,
             ],
+            'color' => [
+                'title' => 'Класс цвета блока',
+                'type' => 'select',
+                'values' => [
+                    'default' => 'default',
+                    'primary' => 'primary',
+                    'success' => 'success',
+                    'warning' => 'warning',
+                    'danger' => 'danger',
+                    'info' => 'info',
+                ],
+                'default' => 'default',
+            ],
         ]
     ],
 

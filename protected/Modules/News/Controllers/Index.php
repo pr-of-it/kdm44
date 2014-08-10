@@ -35,7 +35,7 @@ class Index
         );
     }
 
-    public function actionNewsByTopic($id, $count=self::DEFAULT_STORIES_COUNT)
+    public function actionNewsByTopic($id, $count=self::DEFAULT_STORIES_COUNT, $color='default')
     {
         $this->data->topic = Topic::findByPK($id);
         $this->data->items = Story::findAllByColumn(
@@ -46,6 +46,7 @@ class Index
                 'limit' => $count,
             ]
         );
+        $this->data->color = $color;
     }
 
 }

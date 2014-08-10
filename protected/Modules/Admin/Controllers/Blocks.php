@@ -3,6 +3,8 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Models\Block;
+use T4\Core\Collection;
+use T4\Core\Std;
 use T4\Dbal\QueryBuilder;
 use T4\Mvc\Controller;
 
@@ -25,8 +27,9 @@ class Blocks
 
         $installed = Block::findAll(['order' => '`order`']);
         $this->data->blocksInstalledCount = count($installed);
-        $this->data->blocksInstalled = [];
-        foreach ($installed as &$block) {
+        $this->data->blocksInstalled = new Collection();
+        foreach ($installed as $block) {
+            $block = clone $block;
             $block->title = $this->app->config->blocks->{$block->path}->title;
             $block->desc = $this->app->config->blocks->{$block->path}->desc;
             $block->options = json_decode($block->options, true);

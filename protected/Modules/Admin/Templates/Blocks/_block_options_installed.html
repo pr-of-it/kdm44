@@ -1,12 +1,10 @@
 <form class="form-horizontal" role="form">
-    {% for name, value in block.options %}
+    {% for name, value in block.getAllOptions %}
     <div class="form-group">
-
         <label class="col-sm-4 control-label">{{blocksAvailable[block.path].options[name].title}}</label>
         <div class="col-sm-8">
             {{ blockOptionInput(name, blocksAvailable[block.path].options[name], value) }}
         </div>
-
     </div>
     {% endfor %}
     {% if block.allTemplates %}

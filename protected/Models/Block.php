@@ -20,6 +20,30 @@ class Block
         ],
     ];
 
+    public function getTitle()
+    {
+        return Application::getInstance()->config->blocks->{$this->path}->title;
+    }
+
+    public function getDesc()
+    {
+        return Application::getInstance()->config->blocks->{$this->path}->desc;
+    }
+
+    public function getAllOptions()
+    {
+        $_options = (array)json_decode($this->__data['options'], true);
+        $ret = [];
+        foreach (Application::getInstance()->config->blocks->{$this->path}->options as $name => $option) {
+            if (isset($_options[$name])) {
+                $ret[$name] = $_options[$name];
+            } else {
+                $ret[$name] = isset($option->default) ? $option->default : '';
+            }
+        }
+        return $ret;
+    }
+
     public function getAllTemplates()
     {
         $route = Router::getInstance()->splitInternalPath($this->path);

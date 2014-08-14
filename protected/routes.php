@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'index' => '///',
 
     'news/admin' => '/News/Admin/',

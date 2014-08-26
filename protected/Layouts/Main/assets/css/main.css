@@ -17,8 +17,8 @@ body {
 #logo h1 {
     font-size: 2.3em;
 }#logo h2 {
-    font-size: 1.8em;
-}
+     font-size: 1.8em;
+ }
 
 .top-right-block {
     padding-top: 15px;
@@ -38,4 +38,11 @@ nav.top ul.dropdown-menu {
     margin: 0;
     border:none;
     font-size: inherit;
+}
+
+/* ---- */
+/* Заголовки блоков */
+article[role=block] .panel-heading h6 {
+    font-size: 140%;
+    display: inline;
 }

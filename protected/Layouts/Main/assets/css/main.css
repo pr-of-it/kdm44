@@ -46,3 +46,6 @@ article[role=block] .panel-heading h6 {
     font-size: 140%;
     display: inline;
 }
+article[role=block] .caret {
+    margin-bottom: 4px;
+}

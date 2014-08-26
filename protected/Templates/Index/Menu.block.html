@@ -20,9 +20,9 @@
         {% set level = current %}
         {% endif %}
 
-        <li data-id="{{item.__id}}"{% if (item.__rgt - item.__lft) > 1 %} class="dropdown"{% endif %}>
+        <li data-id="{{item.__id}}"{% if (item.__rgt - item.__lft) > 1 %} class="dropdown{% if current > 0 %} dropdown-submenu{% endif %}"{% endif %}>
             {% if (item.__rgt - item.__lft) > 1 %}
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{item.title}}<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{item.url}}" data-target="#">{{item.title}}</a>
             {% else %}
             <a href="{{item.url}}">{{item.title}}</a>
             {% endif %}
@@ -34,5 +34,4 @@
     {{"</li></ul>"|repeat(current+1)|raw}}
 
     </li>
-
 </ul>

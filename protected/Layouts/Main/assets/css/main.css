@@ -54,14 +54,15 @@ body {
     padding-top: 15px;
     padding-bottom: 20px;
 }
-#logo h1, #logo h2 {
-    margin-top: 0;
-    text-transform: uppercase;
-}
 #logo h1 {
-    font-size: 2.3em;
-}#logo h2 {
-     font-size: 1.8em;
+    margin-top: 0;
+    line-height: 26px;
+}
+#logo h1 span:nth-child(1) {
+    font-size: 28px;
+}
+#logo h1 span:nth-child(3) {
+     font-size: 23px;
  }
 
 .top-right-block {

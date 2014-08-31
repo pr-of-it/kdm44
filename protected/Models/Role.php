@@ -15,7 +15,7 @@ class Role
         'relations' => [
             'users'=>[
                 'type'=>self::HAS_MANY,
-                'model'=>'User'
+                'model'=>'\App\Models\User'
             ]
         ],
     ];

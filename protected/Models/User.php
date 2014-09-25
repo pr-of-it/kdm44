@@ -16,7 +16,7 @@ class User
         'relations' => [
             'role'=>[
                 'type'=>self::BELONGS_TO,
-                'model'=>'Role'
+                'model'=>'\App\Models\Role'
             ]
         ],
     ];

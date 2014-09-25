@@ -14,12 +14,7 @@ class Index
 
     public function actionDefault($count=self::DEFAULT_STORIES_COUNT)
     {
-        $this->data->items = Story::findAll(
-            [
-                'order' => 'published DESC',
-                'limit' => $count,
-            ]
-        );
+        $this->data->topics = Topic::findAll();
     }
 
     public function actionStory($id)

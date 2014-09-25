@@ -7,17 +7,23 @@
     <li class="active">Новости</li>
 </ol>
 
-{% for item in items %}
-<div class="media" style="margin-top: 0; margin-bottom: 15px;">
-    <div class="pull-left">
-        <span class="label label-info">{{item.published|date('d.m.Y')}}</span>
-        {% if item.image %}<img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="max-width: 200px">{% endif %}
+<ul class="nav nav-tabs" role="tablist">
+    {% set active=0 %}
+    {% for topic in topics %}
+    <li{% if not active %} class="active"{% endif %}><a href="#topic-{{topic.Pk}}" role="tab" data-toggle="tab">{{topic.title}}</a></li>
+    {% set active=active+1 %}
+    {% endfor %}
+</ul>
+
+<div class="tab-content">
+    {% set active=0 %}
+    {% for topic in topics %}
+    <div class="tab-pane{% if not active %} active{% endif %}" id="topic-{{topic.Pk}}">
+        <br />
+        <t4:block path="/News//NewsByTopic" template="index" id="{{topic.Pk}}" />
     </div>
-    <div class="media-body">
-        <h4 class="media-heading"><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h4>
-        <div>{{item.lead|striptags|raw}}</div>
-    </div>
+    {% set active=active+1 %}
+    {% endfor %}
 </div>
-{% endfor %}
 
 {% endblock %}

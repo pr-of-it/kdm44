@@ -86,7 +86,8 @@ return [
                 'type' => 'int',
                 'default' => 10,
             ],
-        ]
+        ],
+        'cache' => true,
     ],
 
     '/News//NewsByTopic' => [
@@ -117,7 +118,8 @@ return [
                 ],
                 'default' => 'default',
             ],
-        ]
+        ],
+        'cache' => true,
     ],
 
 ];

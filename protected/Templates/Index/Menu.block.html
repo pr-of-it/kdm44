@@ -20,7 +20,7 @@
     {% endif %}
 
     <li data-id="{{item.Pk}}"{% if item.__rgt-item.__lft>1 %} class="dropdown{% if currentLevel>0 %} dropdown-submenu{% endif %}"{% endif %}>
-        <a href="/{{item.url}}"{% if item.__rgt-item.__lft>1 %} class="dropdown-toggle" data-toggle="dropdown" data-target="#"{% endif %}>
+        <a href="{{item.url}}"{% if item.__rgt-item.__lft>1 %} class="dropdown-toggle" data-toggle="dropdown" data-target="#"{% endif %}>
             {{item.title}}{% if item.__rgt-item.__lft>1 and currentLevel==0 %} <span class="caret"></span>{% endif %}
         </a>
 

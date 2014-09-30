@@ -36,16 +36,16 @@
                 {% set current = item.__lvl %}
 
                 {% if current == level %}
-                {% if count > 0 %}</li>{% endif %}
+                    {% if count > 0 %}</li>{% endif %}
                 {% endif %}
 
                 {% if current > level %}
                 <ol class="dd-list">
-                    {% set level = current %}
-                    {% endif %}
+                {% set level = current %}
+                {% endif %}
 
-                    {% if current < level %}
-                    {{"</li></ol>"|repeat(level-current)|raw}}</li>
+                {% if current < level %}
+                {{"</li></ol>"|repeat(level-current)|raw}}</li>
                 {% set level = current %}
                 {% endif %}
 
@@ -58,9 +58,11 @@
                             <a href="/admin/menu/delete/?id={{item.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
                         </span>
                     </div>
-                    {% set count = count + 1 %}
-                    {% endfor %}
-                    {{"</li></ol>"|repeat(current)|raw}}</li>
+
+                {% set count = count + 1 %}
+                {% endfor %}
+                {{"</li></ol>"|repeat(current)|raw}}</li>
+
             </ol>
         </div>
 

@@ -3,11 +3,9 @@
 namespace App\Controllers;
 
 use App\Components\Auth\Identity;
-use App\Modules\Pages\Models\Page;
 use T4\Core\Exception;
 use T4\Core\Std;
 use T4\Mvc\Controller;
-use T4\Orm\Extensions\Tree;
 
 class Index
     extends Controller

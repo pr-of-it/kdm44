@@ -1,37 +1,33 @@
-{% set level = items[0].__lvl %}
+{% set lastLevel = items[0].__lvl %}
 {% set count = 0 %}
+
 <ul class="nav navbar-nav">
 
     {% for item in items %}
 
-        {% set current = item.__lvl %}
+    {% set currentLevel = item.__lvl %}
 
-        {% if current == level %}
-        {% if count > 0 %}</li>{% endif %}
-        {% endif %}
+    {% if currentLevel == lastLevel and count > 0%}
+    </li>
+    {% endif %}
 
-        {% if current > level %}
-        <ul class="dropdown-menu">
-        {% set level = current %}
-        {% endif %}
+    {% if currentLevel > lastLevel %}
+    <ul class="dropdown-menu" role="menu">
+    {% endif %}
 
-        {% if current < level %}
-        {{"</li></ul>"|repeat(level-current)|raw}}</li>
-        {% set level = current %}
-        {% endif %}
+    {% if currentLevel < lastLevel %}
+    {{"</li></ul>"|repeat(lastLevel-currentLevel)|raw}}</li>
+    {% endif %}
 
-        <li data-id="{{item.__id}}"{% if (item.__rgt - item.__lft) > 1 %} class="dropdown{% if current > 0 %} dropdown-submenu{% endif %}"{% endif %}>
-            {% if (item.__rgt - item.__lft) > 1 %}
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{item.url}}" data-target="#">{{item.title}}</a>
-            {% else %}
-            <a href="{{item.url}}">{{item.title}}</a>
-            {% endif %}
+    <li data-id="{{item.Pk}}"{% if item.__rgt-item.__lft>1 %} class="dropdown{% if currentLevel>0 %} dropdown-submenu{% endif %}"{% endif %}>
+        <a href="/{{item.url}}"{% if item.__rgt-item.__lft>1 %} class="dropdown-toggle" data-toggle="dropdown" data-target="#"{% endif %}>
+            {{item.title}}{% if item.__rgt-item.__lft>1 and currentLevel==0 %} <span class="caret"></span>{% endif %}
+        </a>
 
-        {% set count = count + 1 %}
-
+    {% set lastLevel = currentLevel %}
+    {% set count = count + 1 %}
     {% endfor %}
 
-    {{"</li></ul>"|repeat(current+1)|raw}}
+    {{"</li></ul>"|repeat(currentLevel)|raw}}</li>
 
-    </li>
 </ul>

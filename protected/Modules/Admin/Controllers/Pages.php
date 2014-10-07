@@ -53,6 +53,7 @@ class Pages
         }
         $item
             ->fill($_POST)
+            ->uploadFiles('files')
             ->save();
         $this->redirect('/admin/pages/');
     }

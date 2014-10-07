@@ -6,6 +6,7 @@ use T4\Core\Collection;
 use T4\Core\Std;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
+use T4\Mvc\Application;
 use T4\Orm\Model;
 
 class Page
@@ -56,22 +57,19 @@ class Page
         return $ret;
     }
 
-    public function beforeSave()
+    public function uploadFiles($formFieldName)
     {
-        var_dump($_FILES);die;
-        $uploader = new Uploader('file');
-        if ($uploader->isUploaded()) {
-            try {
-                $this->deleteFiles();
-                $uploader->setPath('/public/pages');
-                $file = new File();
-                $file->file = $uploader();
-                $this->files = new Collection([$file]);
-            } catch (Exception $e) {
-                $this->files = new Collection();
-            }
+        $request = Application::getInstance()->request;
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
+            return $this;
+
+        $uploader = new Uploader($formFieldName);
+        $uploader->setPath('/public/pages');
+        foreach ($uploader() as $uploadedFilePath) {
+            if (false !== $uploadedFilePath)
+                $this->files->append(new File(['file' => $uploadedFilePath]));
         }
-        return parent::beforeSave();
+        return $this;
     }
 
     public function beforeDelete()

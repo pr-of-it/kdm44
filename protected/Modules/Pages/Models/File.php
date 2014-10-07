@@ -19,6 +19,9 @@ class File
         'columns' => [
             'file' => ['type' => 'string'],
         ],
+        'relations' => [
+            'page' => ['type' => self::BELONGS_TO, 'model' => '\App\Modules\Pages\Models\Page'],
+        ],
     ];
 
 } 

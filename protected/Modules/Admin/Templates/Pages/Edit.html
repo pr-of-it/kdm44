@@ -77,8 +77,8 @@
                 </div>
 
                 <ul class="list-group" id="uploads">
-                    <li class="list-group-item reserve" style="display: none">{{element('file', 'files[]')}}</li>
-                    <li class="list-group-item">{{element('file', 'files[]')}}</li>
+                    <li class="list-group-item reserve" style="display: none">{{element('file', 'files[]', {'text':'Выберите файл'})}}</li>
+                    <li class="list-group-item">{{element('file', 'files[]', {'text':'Выберите файл'})}}</li>
                 </ul>
                 <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
                     <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще один файл</button>

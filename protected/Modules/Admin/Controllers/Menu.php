@@ -25,6 +25,7 @@ class Menu
 
     public function actionDefault()
     {
+        $this->app->extensions->jstree->init();
         $this->data->items = MenuModel::findAllTree();
     }
 

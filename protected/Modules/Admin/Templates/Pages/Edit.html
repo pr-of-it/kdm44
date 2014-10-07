@@ -65,7 +65,25 @@
                 </label>
             </section>
             <section>
-                <label class="label">Файл</label>
+                <label class="label">Файлы</label>
+
+                <div class="row" style="margin: inherit">
+                    {% for file in item.files %}
+                    <div class="col-sm-2">
+                        <a href="{{file.file}}" target="_blank"><i class="fa fa-file-o fa-2x"></i> {{file.file}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <ul class="list-group" id="uploads">
+                    <li class="list-group-item reserve" style="display: none">{{element('file', 'files[]')}}</li>
+                    <li class="list-group-item">{{element('file', 'files[]')}}</li>
+                </ul>
+                <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
+                    <span class="btn btn-info"><i class="fa fa-plus-circle fa-2x"></i> Еще один файл</span>
+                </a>
+
+                <!--
                 <label class="input">
 
                     <p class="file"{% if not item.file %} style="display:none;"{% endif %}>
@@ -87,6 +105,7 @@
                     </p>
 
                 </label>
+                -->
             </section>
         </fieldset>
         <footer>

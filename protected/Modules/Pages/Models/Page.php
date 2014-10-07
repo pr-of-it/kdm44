@@ -35,6 +35,9 @@ class Page
                 'type' => 'string',
             ],
         ],
+        'relations' => [
+            'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\Pages\Models\File']
+        ],
     ];
 
     static protected $extensions = ['tree'];
@@ -55,14 +58,17 @@ class Page
 
     public function beforeSave()
     {
+        var_dump($_FILES);die;
         $uploader = new Uploader('file');
         if ($uploader->isUploaded()) {
             try {
-                $this->deleteFile();
+                $this->deleteFiles();
                 $uploader->setPath('/public/pages');
-                $this->file = $uploader();
+                $file = new File();
+                $file->file = $uploader();
+                $this->files = new Collection([$file]);
             } catch (Exception $e) {
-                $this->file = null;
+                $this->files = new Collection();
             }
         }
         return parent::beforeSave();
@@ -70,16 +76,18 @@ class Page
 
     public function beforeDelete()
     {
-        $this->deleteFile();
+        $this->deleteFiles();
+        $this->files = new Collection();
         return parent::beforeDelete();
     }
 
-    public function deleteFile()
+    public function deleteFiles()
     {
-        if ($this->file) {
+        if (!empty($this->files)) {
             try {
-                Helpers::removeFile(ROOT_PATH_PUBLIC . $this->file);
-                $this->file = '';
+                foreach ($this->files as $file) {
+                    Helpers::removeFile(ROOT_PATH_PUBLIC . $file->file);
+                }
             } catch (\T4\Fs\Exception $e) {
                 return false;
             }

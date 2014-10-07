@@ -55,12 +55,10 @@
 		<header id="header">
 			<div id="logo-group">
 				<!-- PLACE YOUR LOGO HERE -->
-				<span id="logo"> <img src="{{ asset('/Layouts/Admin/Smart/assets/img/logo.png') }}" alt="SmartAdmin"> </span>
+                <span id="logo"><a href="/"><span class="btn btn-default btn-sm"><i class="fa fa-home"></i> На сайт</span></a></span>
+
 				<!-- END LOGO PLACEHOLDER -->
-				<!-- Note: The activity badge color changes when clicked and resets the number to 0
-				Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-				<span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 21 </b> </span>
-                {% include('Admin/Smart/__dropdown.html') %}
+                {# include('Admin/Smart/__dropdown.html') #}
 			</div>
             {# include 'Admin/Smart/__projects.html' #}
             {% include 'Admin/Smart/__pullright.html' %}

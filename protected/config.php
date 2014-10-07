@@ -20,11 +20,12 @@ return [
         'jquery' => [
             'ui' => true,
         ],
+        'jstree' => [
+            'autoload' => false,
+        ],
         'bootstrap' => [
             'location' => 'local',
-            'theme' => [
-                'css' => '/Layouts/Main/assets/css/cosmo/bootstrap.min.css',
-            ],
+            'theme' => 'cosmo',
         ],
         'fileupload' => [
             'autoload' => false,

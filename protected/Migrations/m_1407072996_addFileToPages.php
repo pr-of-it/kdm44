@@ -11,7 +11,7 @@ class m_1407072996_addFileToPages
     public function up()
     {
         $this->addColumn('pages', [
-            'file' => 'string',
+            'file' => ['type' => 'string'],
         ]);
     }
 

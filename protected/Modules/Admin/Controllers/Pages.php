@@ -8,6 +8,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
+use App\Modules\Pages\Models\File;
 use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
 
@@ -68,13 +69,12 @@ class Pages
 
     public function actionDeleteFile($id)
     {
-        $item = Page::findByPK($id);
+        $item = File::findByPK($id);
         if ($item) {
-            $item->deleteFile();
-            $item->save();
-            $this->data = true;
+            $item->delete();
+            $this->data->result = true;
         } else {
-            $this->data = false;
+            $this->data->result = false;
         }
     }
 

@@ -69,7 +69,8 @@
 
                 <div class="row" style="margin: inherit">
                     {% for file in item.files %}
-                    <div class="col-sm-2">
+                    <div class="col-sm-3" style="padding: 2em;">
+                        <a href="#" class="item-file-delete" data-id="{{file.Pk}}"><i class="fa fa-trash-o fa-2x text-danger"></i>&nbsp;</a>
                         <a href="{{file.file}}" target="_blank"><i class="fa fa-file-o fa-2x"></i> {{file.file}}</a>
                     </div>
                     {% endfor %}
@@ -80,32 +81,8 @@
                     <li class="list-group-item">{{element('file', 'files[]')}}</li>
                 </ul>
                 <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
-                    <span class="btn btn-info"><i class="fa fa-plus-circle fa-2x"></i> Еще один файл</span>
+                    <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще один файл</button>
                 </a>
-
-                <!--
-                <label class="input">
-
-                    <p class="file"{% if not item.file %} style="display:none;"{% endif %}>
-                    Текущий файл: <span><a href="{{item.file}}" target="_blank">{{item.file}}</a></span>
-                    </p>
-
-                    <p class="delete"{% if not item.file %} style="display:none;"{% endif %}>
-                    <a href="#" id="item-file-delete" data-id="{% if item.isNew %}0{% else %}{{item.Pk}}{% endif %}">
-                        <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить файл</span>
-                    </a>
-                    </p>
-
-                    <p class="upload">
-                        <span class="btn btn-success" style="padding: 5px;">
-                            <i class="fa fa-upload"></i> <span>Загрузить файл</span>
-                            <input type="hidden" name="file" value="{{item.file}}">
-                            <input type="file" name="file" style="display: none;">
-                        </span>
-                    </p>
-
-                </label>
-                -->
             </section>
         </fieldset>
         <footer>
@@ -127,24 +104,17 @@
             return confirm('Вы уверены?');
         });
 
-        $('#item-file-delete').click( function () {
+        $('.item-file-delete').click( function () {
             var $this = $(this);
             var id = $this.attr('data-id');
             if (0 != id) {
                 $.post('/admin/pages/deleteFile.json', {"id":id}, function (r) {
-                    if (r) {
-                        $('p.delete').hide();
-                        $('p.file').hide();
-                        $('p.upload input[name=file]').val('');
+                    if (r.result) {
+                        $this.parent().remove();
                     }
                 });
             }
             return false;
-        });
-
-        $('p.upload input[type=file]').on('change', function () {
-            $('p.file').show();
-            $('p.file span').html(this.value);
         });
 
     });

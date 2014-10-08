@@ -64,7 +64,9 @@ class News
         if ($item->isNew()) {
             $item->published = date('Y-m-d H:i:s', time());
         }
-        $item->save();
+        $item
+            ->uploadImage('image')
+            ->save();
         $this->redirect('/admin/news/');
     }
 
@@ -75,15 +77,15 @@ class News
         $this->redirect('/admin/news/');
     }
 
-    public function actionDeletePhoto($id)
+    public function actionDeleteImage($id)
     {
         $item = Story::findByPK($id);
         if ($item) {
             $item->deleteImage();
             $item->save();
-            $this->data = true;
+            $this->data->result = true;
         } else {
-            $this->data = false;
+            $this->data->result = false;
         }
     }
 

@@ -44,26 +44,14 @@
             <section>
                 <label class="label">Главное фото</label>
                 <label class="input">
-
-                    <p class="image"{% if not item.image %} style="display:none;"{% endif %}>
+                    {% if item.image %}
+                    <p class="image">
                         <img src="{{item.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
+                        <a href="#" class="item-image-delete" data-id="{{item.Pk}}"><i class="fa fa-trash-o fa-2x text-danger"></i>&nbsp;</a>
                     </p>
-
-                    <p class="delete"{% if not item.image %} style="display:none;"{% endif %}>
-                        <a href="#" id="item-image-delete" data-id="{% if item.isNew %}0{% else %}{{item.Pk}}{% endif %}">
-                            <span class="btn btn-danger" style="padding: 5px;"><i class="fa fa-trash-o"></i> Удалить фото</span>
-                        </a>
-                    </p>
-
-                    <p class="upload">
-                        <span class="btn btn-success" style="padding: 5px;">
-                            <i class="fa fa-upload"></i> <span>Загрузить фото</span>
-                            <input type="hidden" name="image" value="{{item.image}}">
-                            <input type="file" name="image" style="display: none;">
-                        </span>
-                    </p>
-
+                    {% endif %}
                 </label>
+                {{element('file', 'image', {'text':'Выберите файл'})}}
             </section>
             <section>
                 <label class="label">Текст новости</label>
@@ -90,17 +78,16 @@
             return confirm('Вы уверены?');
         });
 
-        $('#item-image-delete').click( function () {
+        $('.item-image-delete').click( function () {
             var $this = $(this);
             var id = $this.attr('data-id');
             if (0 != id) {
-                $.post('/admin/news/deletePhoto.json', {"id":id}, function (r) {
-                    if (r) {
+                $.post('/admin/news/deleteImage.json', {"id":id}, function (r) {
+                    if (r.result) {
+                        $this.parent().remove();
                     }
                 });
             }
-            $('p.delete').hide();
-            $('p.image').hide();
             return false;
         });
 

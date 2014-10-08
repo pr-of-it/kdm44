@@ -5,6 +5,7 @@ namespace App\Modules\News\Models;
 use T4\Core\Exception;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
+use T4\Mvc\Application;
 use T4\Orm\Model;
 
 class Story
@@ -24,19 +25,23 @@ class Story
         ]
     ];
 
-    public function beforeSave()
+    public function uploadImage($formFieldName)
     {
-        $uploader = new Uploader('image');
-        if ($uploader->isUploaded()) {
-            try {
+        $request = Application::getInstance()->request;
+        if (!$request->existsFilesData() || !$request->isUploaded($formFieldName) || $request->isUploadedArray($formFieldName))
+            return $this;
+
+        try {
+            $uploader = new Uploader($formFieldName);
+            $uploader->setPath('/public/news/stories');
+            $image = $uploader();
+            if ($this->image)
                 $this->deleteImage();
-                $uploader->setPath('/public/news/stories');
-                $this->image = $uploader();
-            } catch (Exception $e) {
-                $this->image = null;
-            }
+            $this->image = $image;
+        } catch (Exception $e) {
+            $this->image = null;
         }
-        return parent::beforeSave();
+        return $this;
     }
 
     public function beforeDelete()
@@ -49,8 +54,8 @@ class Story
     {
         if ($this->image) {
             try {
-                Helpers::removeFile(ROOT_PATH_PUBLIC . $this->image);
                 $this->image = '';
+                Helpers::removeFile(ROOT_PATH_PUBLIC . $this->image);
             } catch (\T4\Fs\Exception $e) {
                 return false;
             }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Pages\Models;
+namespace App\Modules\News\Models;
 
 use T4\Orm\Model;
 
@@ -9,12 +9,12 @@ class File
 {
 
     static protected $schema = [
-        'table' => 'pagefiles',
+        'table' => 'newsfiles',
         'columns' => [
             'file' => ['type' => 'string'],
         ],
         'relations' => [
-            'page' => ['type' => self::BELONGS_TO, 'model' => '\App\Modules\Pages\Models\Page'],
+            'story' => ['type' => self::BELONGS_TO, 'model' => '\App\Modules\News\Models\Story'],
         ],
     ];
 

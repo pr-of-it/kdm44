@@ -2,6 +2,7 @@
 
 namespace App\Modules\News\Models;
 
+use T4\Core\Collection;
 use T4\Core\Exception;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
@@ -21,7 +22,8 @@ class Story
             'text' => ['type'=>'text'],
         ],
         'relations' => [
-            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic']
+            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic'],
+            'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
         ]
     ];
 
@@ -33,7 +35,7 @@ class Story
 
         try {
             $uploader = new Uploader($formFieldName);
-            $uploader->setPath('/public/news/stories');
+            $uploader->setPath('/public/news/stories/images');
             $image = $uploader();
             if ($this->image)
                 $this->deleteImage();
@@ -44,9 +46,25 @@ class Story
         return $this;
     }
 
+    public function uploadFiles($formFieldName)
+    {
+        $request = Application::getInstance()->request;
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
+            return $this;
+
+        $uploader = new Uploader($formFieldName);
+        $uploader->setPath('/public/news/stories/files');
+        foreach ($uploader() as $uploadedFilePath) {
+            if (false !== $uploadedFilePath)
+                $this->files->append(new File(['file' => $uploadedFilePath]));
+        }
+        return $this;
+    }
+
     public function beforeDelete()
     {
         $this->deleteImage();
+        $this->deleteFiles();
         return parent::beforeDelete();
     }
 
@@ -56,6 +74,21 @@ class Story
             try {
                 $this->image = '';
                 Helpers::removeFile(ROOT_PATH_PUBLIC . $this->image);
+            } catch (\T4\Fs\Exception $e) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function deleteFiles()
+    {
+        if (!empty($this->files)) {
+            try {
+                $this->files = new Collection();
+                foreach ($this->files as $file) {
+                    Helpers::removeFile(ROOT_PATH_PUBLIC . $file->file);
+                }
             } catch (\T4\Fs\Exception $e) {
                 return false;
             }

@@ -4,7 +4,7 @@ return [
     'db' => [
         'default' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
+            'host' => '127.0.0.1',
             'dbname' => 'kdm',
             'user' => 'root',
             'password' => '',

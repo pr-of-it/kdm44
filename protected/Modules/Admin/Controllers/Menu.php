@@ -21,6 +21,8 @@ class Menu
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
+        'Up' => ['role.name'=>'admin'],
+        'Down' => ['role.name'=>'admin'],
     ];
 
     public function actionDefault()
@@ -59,4 +61,28 @@ class Menu
         $this->redirect('/admin/menu/');
     }
 
-} 
+    public function actionUp($id)
+    {
+        $item = MenuModel::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/menu/');
+        $sibling = $item->getPrevSibling();
+        if (!empty($sibling)) {
+            $item->insertBefore($sibling);
+        }
+        $this->redirect('/admin/menu/');
+    }
+
+    public function actionDown($id)
+    {
+        $item = MenuModel::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/menu/');
+        $sibling = $item->getNextSibling();
+        if (!empty($sibling)) {
+            $item->insertAfter($sibling);
+        }
+        $this->redirect('/admin/menu/');
+    }
+
+}

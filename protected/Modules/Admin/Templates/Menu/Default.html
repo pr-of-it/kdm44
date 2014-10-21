@@ -31,7 +31,7 @@
             {% set level = items[0].__lvl %}
             {% set count = 0 %}
             <ol class="dd-list">
-                {% for item in items %}
+                {% for key, item in items %}
 
                 {% set current = item.__lvl %}
 
@@ -54,6 +54,13 @@
                     <div class="dd3-content">
                         <a href="/admin/menu/edit/?id={{item.__id}}">{{item.title}} [{{item.url}}]</a>
                         <span class="pull-right">
+                            {% if items[key-1] is defined and items.existsElement({'__prt':item.__prt, '__lvl':item.__lvl})%}
+                            <a href="/admin/menu/up/?id={{item.__id}}"><i class="fa fa-arrow-up"></i></a>
+                            {% endif %}
+                            {% if items[key+1] is defined%}
+                            <a href="/admin/menu/down/?id={{item.__id}}"><i class="fa fa-arrow-down"></i></a>
+                            {% endif %}
+                            &nbsp;&nbsp;&nbsp;
                             <a href="/admin/menu/edit/?id={{item.__id}}" class=""><i class="fa fa-edit"></i></a>
                             <a href="/admin/menu/delete/?id={{item.__id}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
                         </span>

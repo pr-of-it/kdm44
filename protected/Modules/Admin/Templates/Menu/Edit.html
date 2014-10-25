@@ -28,7 +28,11 @@
                 <label class="label">Родительский элемент</label>
                 <label class="select">
                     {% if item.isNew %}
-                    {{ selectTreeByModel("App\\Models\\\Menu", item.__prt, {"null":true}, {"name":"parent"}) }}
+                    {% if item.parent %}
+                    {{ selectTreeByModel("App\\Models\\\Menu", item.parent.Pk, {"null":true}, {"name":"parent"}) }}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Models\\\Menu", 0, {"null":true}, {"name":"parent"}) }}
+                    {% endif %}
                     {% else %}
                     {{ selectTreeByModel("App\\Models\\\Menu", item.__prt, {"null":true, 'disabled':[item.__id]}, {"name":"parent"}) }}
                     {% endif %}

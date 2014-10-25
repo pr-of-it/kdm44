@@ -31,10 +31,13 @@ class Menu
         $this->data->items = MenuModel::findAllTree();
     }
 
-    public function actionEdit($id=null)
+    public function actionEdit($id=null, $parent=null)
     {
         if (null === $id || 'new' == $id) {
             $this->data->item = new MenuModel();
+            if (null !== $parent) {
+                $this->data->item->parent = $parent;
+            }
         } else {
             $this->data->item = MenuModel::findByPK($id);
         }

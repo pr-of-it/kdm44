@@ -22,6 +22,8 @@ class Pages
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
         'DeleteFile' => ['role.name'=>'admin'],
+        'Up' => ['role.name'=>'admin'],
+        'Down' => ['role.name'=>'admin'],
     ];
 
 
@@ -76,6 +78,30 @@ class Pages
         } else {
             $this->data->result = false;
         }
+    }
+
+    public function actionUp($id)
+    {
+        $item = Page::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/pages/');
+        $sibling = $item->getPrevSibling();
+        if (!empty($sibling)) {
+            $item->insertBefore($sibling);
+        }
+        $this->redirect('/admin/pages/');
+    }
+
+    public function actionDown($id)
+    {
+        $item = Page::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/pages/');
+        $sibling = $item->getNextSibling();
+        if (!empty($sibling)) {
+            $item->insertAfter($sibling);
+        }
+        $this->redirect('/admin/pages/');
     }
 
 }

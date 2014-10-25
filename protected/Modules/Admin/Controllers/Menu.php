@@ -10,19 +10,22 @@ namespace App\Modules\Admin\Controllers;
 
 
 use App\Models\Menu as MenuModel;
+use T4\Core\Exception;
 use T4\Mvc\Controller;
 
 class Menu
     extends Controller
 {
 
-    protected  $access = [
+    protected $access = [
         'Default' => ['role.name'=>'admin'],
         'Edit' => ['role.name'=>'admin'],
         'Save' => ['role.name'=>'admin'],
         'Delete' => ['role.name'=>'admin'],
         'Up' => ['role.name'=>'admin'],
         'Down' => ['role.name'=>'admin'],
+        'MoveBefore' => ['role.name'=>'admin'],
+        'MoveAfter' => ['role.name'=>'admin'],
     ];
 
     public function actionDefault()
@@ -86,6 +89,44 @@ class Menu
             $item->insertAfter($sibling);
         }
         $this->redirect('/admin/menu/');
+    }
+
+    public function actionMoveBefore($id, $to)
+    {
+        try {
+            $item = MenuModel::findByPK($id);
+            if (empty($item)) {
+                throw new Exception('Source element does not exist');
+            }
+            $destination = MenuModel::findByPK($to);
+            if (empty($destination)) {
+                throw new Exception('Destination element does not exist');
+            }
+            $item->insertBefore($destination);
+            $this->data->result = true;
+        } catch (Exception $e) {
+            $this->data->result = false;
+            $this->data->error = $e->getMessage();
+        }
+    }
+
+    public function actionMoveAfter($id, $to)
+    {
+        try {
+            $item = MenuModel::findByPK($id);
+            if (empty($item)) {
+                throw new Exception('Source element does not exist');
+            }
+            $destination = MenuModel::findByPK($to);
+            if (empty($destination)) {
+                throw new Exception('Destination element does not exist');
+            }
+            $item->insertAfter($destination);
+            $this->data->result = true;
+        } catch (Exception $e) {
+            $this->data->result = false;
+            $this->data->error = $e->getMessage();
+        }
     }
 
 }

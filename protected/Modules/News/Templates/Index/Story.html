@@ -6,6 +6,7 @@
     <li><a href="/">Главная страница</a></li>
     <li><a href="/news/">Новости</a></li>
     <li class="active"><a href="/news/topics/{{item.topic.Pk}}.html">{{item.topic.title}}</a></li>
+    <li></li>
 </ol>
 
 {% if app.user.role.name == 'admin' %}
@@ -25,7 +26,7 @@
 <div>
     <span class="label label-info">{{item.published|date('d.m.Y')}}</span>
 </div>
-<h2 style="margin-top: 0">{{item.title}}</h2>
+<h1 style="margin-top: 0">{{item.title}}</h1>
 <div>
     {%if item.image %}<div class="pull-left" style="margin-right: 10px;"><img src="{{item.image}}" class="img-responsive" style="max-width: 300px;"></div>{% endif %}
     {{item.lead|raw}}

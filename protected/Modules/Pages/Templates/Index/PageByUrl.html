@@ -7,6 +7,7 @@
     {% for subpage in item.breadCrumbs %}
     <li><a href="/pages/{{subpage.url}}.html">{{subpage.title}}</a></li>
     {% endfor %}
+    <li></li>
 </ol>
 
 {% if app.user.role.name == 'admin' %}
@@ -23,7 +24,7 @@
 </script>
 {% endif %}
 
-<h2 style="margin-top: 0">{{item.title}}</h2>
+<h1 style="margin-top: 0">{{item.title}}</h1>
 <div>
 
     {% if item.template=='list' %}

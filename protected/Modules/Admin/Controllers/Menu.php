@@ -56,6 +56,9 @@ class Menu
         $item
             ->fill($_POST)
             ->save();
+        if ($item->wasNew()) {
+            $item->moveToFirstPosition();
+        }
         $this->redirect('/admin/menu/');
     }
 

@@ -5,25 +5,17 @@
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
     <li class="active">Новости</li>
+    <li></li>
 </ol>
 
-<ul class="nav nav-tabs" role="tablist">
-    {% set active=0 %}
-    {% for topic in topics %}
-    <li{% if not active %} class="active"{% endif %}><a href="#topic-{{topic.Pk}}" role="tab" data-toggle="tab">{{topic.title}}</a></li>
-    {% set active=active+1 %}
-    {% endfor %}
-</ul>
-
-<div class="tab-content">
-    {% set active=0 %}
-    {% for topic in topics %}
-    <div class="tab-pane{% if not active %} active{% endif %}" id="topic-{{topic.Pk}}">
-        <br />
-        <t4:block path="/News//NewsByTopic" template="index" id="{{topic.Pk}}" />
+{% for topic in topics %}
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h1><a href="/news/topics/{{topic.Pk}}.html">{{topic.title}}</a></h1>
+        <t4:block path="/News//NewsByTopic" template="index" id="{{topic.Pk}}" count="3" />
+        <p class="pull-right"><a href="/news/topics/{{topic.Pk}}.html"><i class="glyphicon glyphicon-chevron-right"></i> все новости раздела</a></p>
     </div>
-    {% set active=active+1 %}
-    {% endfor %}
-</div>
+</section>
+{% endfor %}
 
 {% endblock %}

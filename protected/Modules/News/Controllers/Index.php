@@ -46,14 +46,20 @@ class Index
         if (empty($this->data->topic)) {
             throw new E404Exception;
         }
+
+        $this->data->page = $this->app->request->get->page ?: 1;
+        $this->data->total = Story::countAllByColumn('__topic_id', $this->data->topic->getPk());
+        $this->data->size = $count;
+
         $this->data->items = Story::findAllByColumn(
             '__topic_id',
-            $id,
+            $this->data->topic->getPk(),
             [
                 'order' => 'published DESC',
-                'limit' => $count,
+                'limit' => [($this->data->page-1)*$count, $count]
             ]
         );
+
         $this->data->color = $color;
     }
 

@@ -22,4 +22,6 @@
 </div>
 {% endfor %}
 
+{{widget('pager', {total: total, size: size, active: page})}}
+
 {% endblock %}

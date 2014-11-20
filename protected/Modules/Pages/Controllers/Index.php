@@ -4,6 +4,7 @@ namespace App\Modules\Pages\Controllers;
 
 use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
+use T4\Http\E404Exception;
 
 class Index
     extends Controller

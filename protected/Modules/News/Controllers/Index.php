@@ -35,7 +35,7 @@ class Index
             [
                 'order' => 'published DESC',
                 'limit' => 5,
-                'where' => 't1.__id <> ' . $id,
+                'where' => 't1.__id <> ' . $this->data->item->getPk(),
             ]
         );
     }

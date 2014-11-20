@@ -42,6 +42,7 @@ class News
     public function actionEdit($id=null)
     {
         $this->app->extensions->ckeditor->init();
+        $this->app->extensions->ckfinder->init();
 
         if (null === $id || 'new' == $id) {
             $this->data->item = new Story();

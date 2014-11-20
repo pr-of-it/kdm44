@@ -25,6 +25,9 @@ class Index
     {
         $page = Page::findByUrl($url);
         $this->data->item = $page;
+        if (empty($this->data->item)) {
+            throw new E404Exception;
+        }
     }
 
     public function actionTree()

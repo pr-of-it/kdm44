@@ -38,4 +38,7 @@ return [
             'autoload' => false,
         ],
     ],
+    'errors' => [
+        '404' => '//Index/404'
+    ]
 ];

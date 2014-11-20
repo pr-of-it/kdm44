@@ -1,0 +1,17 @@
+{% extends "Main/NoBlocks.html" %}
+{% block content %}
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{asset('/Layouts/Main/assets/img/404.jpg')}}" alt="Страница не найдена" class="img-responsive">
+            </div>
+            <div class="col-md-8">
+                <h1>К сожалению, страница с таким адресом не существует.</h1>
+                <h3>Перейдите на <a href="/">Главную страницу сайта</a> или попробуйте другие ссылки:</h3>
+                <nav class="nav nav-pills nav-stacked">
+                    <li><a href="/news/">Новости</a></li>
+                    <li><a href="/photo/">Фотогалерея</a></li>
+                    <li><a href="http://forumpatriot.ru/" target="_blank">Форум &laquo;Патриот&raquo;</a></li>
+                </nav>
+            </div>
+        </div>
+{% endblock %}

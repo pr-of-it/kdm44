@@ -15,6 +15,10 @@ class Index
     {
     }
 
+    public function action404()
+    {
+    }
+
     public function actionLogin($email=null, $password=null, $return='/')
     {
         $this->data->error = $this->app->flash->error;

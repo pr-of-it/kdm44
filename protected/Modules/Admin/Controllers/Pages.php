@@ -61,6 +61,9 @@ class Pages
             ->fill($_POST)
             ->uploadFiles('files')
             ->save();
+        if ($item->wasNew()) {
+            $item->moveToFirstPosition();
+        }
         $this->redirect('/admin/pages/');
     }
 

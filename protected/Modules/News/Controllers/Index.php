@@ -38,6 +38,7 @@ class Index
                 'where' => 't1.__id <> ' . $this->data->item->getPk(),
             ]
         );
+        $this->view->meta->title = $this->data->item->title;
     }
 
     public function actionNewsByTopic($id, $count=self::DEFAULT_STORIES_COUNT, $color='default')
@@ -61,6 +62,8 @@ class Index
         );
 
         $this->data->color = $color;
+
+        $this->view->meta->title = $this->data->topic->title;
     }
 
 }

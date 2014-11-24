@@ -29,6 +29,8 @@ class Index
         if (empty($this->data->item)) {
             throw new E404Exception;
         }
+        // TODO: найти способ убрать это во view
+        $this->view->meta->title = $page->title;
     }
 
     public function actionTree()

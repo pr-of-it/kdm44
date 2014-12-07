@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:t4="http://www.w3.org/1999/html">
+<head>
+    <meta>
+    <title>{% if view.meta.title %}{{view.meta.title}} - {% endif %}Молодёжь Костромской области</title>
+    <meta charset='utf-8'>
+
+    {{publish('/Layouts/Kdm/assets')}}
+
+    <!--js-->
+    {{ publishJs() }}
+    <script type="text/javascript" src="{{asset('/Layouts/Kdm/assets/js/jquery.bxslider.min.js')}}"></script>
+    <!--css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/Layouts/Kdm/assets/css/style.css')}}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/Layouts/Kdm/assets/css/jquery.bxslider.css')}}"/>
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin' rel='stylesheet'
+          type='text/css'>
+
+    <script>
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'fade'
+
+            });
+        });
+    </script>
+</head>
+<body>
+<header>
+    {% include 'Kdm/_header_inner.html' %}
+</header>
+
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-9">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!--third column-->
+            <div class="col-md-3">
+                <t4:section id="3" />
+                <!--
+                <div class="section-title text-upp"><strong>скоро</strong></div>
+                <section>
+                    <article>
+                        <div class="main-page-news">
+                            <div class="date-news">20 октября 2014</div>
+                            <div class="title-news color-title">
+                                <strong>
+                                    <a href="" alt="#" title="#" style="color:#de0a05;">В Москве пройдет крупнейший
+                                        чемпионат по современным танцам «Project818 Russian Dance Championship 2014»</a>
+                                </strong>
+                            </div>
+                            <div class="description-news">Чемпионат по танцам проходит при поддержке: Департамента
+                                Культуры Москвы, Чупа Чупс, Dove, Lady Collection, Geometria, продюсерского центра
+                                ClockWork.
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="main-page-news">
+                            <div class="date-news">20 октября 2014</div>
+                            <div class="title-news color-title">
+                                <strong>
+                                    <a href="" alt="#" title="#" style="color:#de0a05;">Молодежные проекты Проекты,
+                                        которые работают в Костромской области. Прими участие в одном из них!</a>
+                                </strong>
+                            </div>
+                            <div class="description-news">Долгие месяцы серьезных исследований, написания бизнес-плана и
+                                поиска инвесторов. Все проекты прошли экспертизу на форумах «Патриот», «Селигер»,
+                                фестивалях и конкурсах. Итак, знакомьтесь!
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                -->
+                <!---->
+                <!--
+                <div class="section-title text-upp"><strong>Пресс-релизы</strong></div>
+                <section>
+                    <article>
+                        <!--
+                        Не знаю как вы будете задавать цвета заголовков, классами red, green, blue или через стили.
+                        Класс будет вещаться на весь блок или только на заголвок? разберетесь
+                        --><!--
+                        <div class="main-page-news title-green">
+                            <div class="date-news">20 октября 2014</div>
+                            <div class="title-news">
+                                <strong>
+                                    <a href="" alt="#" title="#" style="color:#77b400;">События с 07 по 13 апреля 2014
+                                        года</a>
+                                </strong>
+                            </div>
+                            <div class="description-news">Пресс-релиз отдела молодежной политики департамента
+                                образования и науки Костромской области
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row"><t4:section id="4" /></div>
+        <div class="row">
+            <div class="footer">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6"></div>
+
+                        <div class="col-md-6">
+                            <address>
+                                <p class="phone-number">(4942) 34-54-11</p>
+
+                                <p class="mail"><a href="mailto:info@kdm44.ru">info@kdm44.ru</a></p>
+                            </address>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <address>
+                        <p>ОГБУ "МЦ "Кострома". © 2006-2014 г.<br>
+                            156014, г. Кострома, ул. Центральная, дом 25 </p>
+                        <a href="">Все контактные данные </a>
+                    </address>
+                </div>
+                <div class="col-md-4">
+                    <p>Ограничение по возрасту: 0+ </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>

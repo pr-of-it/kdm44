@@ -36,7 +36,7 @@ class Blocks
     {
         $query = new QueryBuilder();
         $query->select('MAX(`order`)')->from(Block::getTableName())->where('section=:section')->params([':section' => $sectionId]);
-        $maxOrder = (int)$this->app->db->default->query($query->getQuery(), $query->getParams())->fetchScalar();
+        $maxOrder = (int)$this->app->db->default->query($query)->fetchScalar();
 
         $block = new Block();
         $block->section = $sectionId;

@@ -35,7 +35,8 @@ class News
 
         $this->data->items = Story::findAll([
             'order' => 'published DESC',
-            'limit'=>[($page-1)*self::PAGE_SIZE, self::PAGE_SIZE]
+            'offset'=> ($page-1)*self::PAGE_SIZE,
+            'limit'=> self::PAGE_SIZE
         ]);
     }
 

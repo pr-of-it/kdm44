@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:t4="http://www.w3.org/1999/html">
 <head>
     <meta>
     <title>{% if view.meta.title %}{{view.meta.title}} - {% endif %}Молодёжь Костромской области</title>
@@ -29,161 +29,15 @@
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="row">
-            <div class="header clearfix">
-                <div class="header-top">
-                    <div class="col-md-8">
-                        <div class="logo">
-                            <a href="/"><img src="{{asset('/Layouts/Kdm/assets/img/kostroma.png')}}" alt="Молодёжная политика Костромской области"
-                                             class="img-responsive"></a>
-                        </div>
-                        <div class="slogan">
-                            <h1><a href="/">Молодёжь Костромской области</a></h1>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="social">
-                            <ul class="social-icons">
-                                <li><a href="" class="icon-twitter"><img src="{{asset('/Layouts/Kdm/assets/img/icon-twitter.png')}}"/></a></li>
-                                <li><a href="" class="icon-mail"><img src="{{asset('/Layouts/Kdm/assets/img/icon-mail.png')}}"/></a></li>
-                                <li><a href="" class="icon-odnoklassniki"><img src="{{asset('/Layouts/Kdm/assets/img/icon-odnoklassniki.png')}}"/></a>
-                                </li>
-                                <li><a href="" class="icon-vkontakte"><img src="{{asset('/Layouts/Kdm/assets/img/icon-vkontakte.png')}}"/></a></li>
-                                <li><a href="" class="icon-facebook"><img src="{{asset('/Layouts/Kdm/assets/img/icon-facebook.png')}}"/></a></li>
-                                <li><a href="" class="icon-google"><img src="{{asset('/Layouts/Kdm/assets/img/icon-google.png')}}"/></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="bxslider">
-                                <li><img src="{{asset('/Layouts/Kdm/assets/img/slider1.jpg')}}"/></li>
-                                <li><img src="{{asset('/Layouts/Kdm/assets/img/slider2.jpg')}}"/></li>
-                                <li><img src="{{asset('/Layouts/Kdm/assets/img/slider3.jpg')}}"/></li>
-                            </ul>
-                            <!--<img src="img/header-body.jpg" alt="" class="img-responsive">-->
-                        </div>
-                    </div>
-
-                </div>
-                <div class="header-bottom">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="main-navigation clearfix">
-                                <ul class="main-navigation-menu">
-                                    <li>
-                                        <div class="dropdown">
-                                            <a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
-                                               data-toggle="dropdown" aria-expanded="true">
-                                                Официально
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                           href="#">Action</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another
-                                                    action</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something
-                                                    else here</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated
-                                                    link</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="">Новости</a>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                            <a href="" class="dropdown-toggle" type="button" id="dropdownMenu2"
-                                               data-toggle="dropdown" aria-expanded="true">
-                                                Конкурсы и гранты
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                           href="#">Action</a></li>
-                                                <li class="dropdown dropdown-sub-menu" role="presentation"><a
-                                                        role="menuitem" tabindex="-1" href="#">Под меню</a>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                                   href="#">Action</a></li>
-                                                        <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                                   href="#">Another action</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something
-                                                    else here</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated
-                                                    link</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                            <a href="" class="dropdown-toggle" type="button" id="dropdownMenu3"
-                                               data-toggle="dropdown" aria-expanded="true">
-                                                Общественные объединения
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Длинный
-                                                    пункт выпадающего списка</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another
-                                                    action</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something
-                                                    else here</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated
-                                                    link</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                            <a href="" class="dropdown-toggle" type="button" id="dropdownMenu4"
-                                               data-toggle="dropdown" aria-expanded="true">
-                                                Официально
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another
-                                                    action</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                            <a href="" class="dropdown-toggle" type="button" id="dropdownMenu5"
-                                               data-toggle="dropdown" aria-expanded="true">
-                                                Фото и видео
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu5">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another
-                                                    action</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="">Патриот</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'Kdm/_header.html' %}
 </header>
 
 <div class="container">
     <div class="content">
         <div class="row">
             <div class="col-md-6">
+                <t4:section id="1" />
+                <!--
                 <section>
                     <article>
                         <div class="main-page-news top-news">
@@ -235,12 +89,14 @@
                             </div>
                         </div>
                     </article>
-
                 </section>
+                -->
             </div>
 
             <!--second column-->
             <div class="col-md-3">
+                <t4:section id="2" />
+                <!--
                 <div class="section-title text-upp federal-news"><strong>Федеральные новости</strong></div>
                 <section>
                     <article>
@@ -277,10 +133,13 @@
                         </div>
                     </article>
                 </section>
+                -->
             </div>
 
             <!--third column-->
             <div class="col-md-3">
+                <t4:section id="3" />
+                <!--
                 <div class="section-title text-upp"><strong>скоро</strong></div>
                 <section>
                     <article>
@@ -315,15 +174,16 @@
                         </div>
                     </article>
                 </section>
-
+                -->
                 <!---->
+                <!--
                 <div class="section-title text-upp"><strong>Пресс-релизы</strong></div>
                 <section>
                     <article>
                         <!--
                         Не знаю как вы будете задавать цвета заголовков, классами red, green, blue или через стили.
                         Класс будет вещаться на весь блок или только на заголвок? разберетесь
-                        -->
+                        --><!--
                         <div class="main-page-news title-green">
                             <div class="date-news">20 октября 2014</div>
                             <div class="title-news">
@@ -338,7 +198,7 @@
                         </div>
                     </article>
                 </section>
-
+                -->
             </div>
         </div>
     </div>

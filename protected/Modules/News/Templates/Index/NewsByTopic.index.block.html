@@ -1,31 +1,14 @@
-<div class="row">
-
-    <div class="col-md-6">
-        {% set item = items[0] %}
-        <div class="media" style="margin-top: 0; margin-bottom: 15px;">
-            <div class="media-body">
-                <span class="label label-info">{{item.published|date('d.m.Y')}}</span>
-                <h4 class="media-heading"><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h4>
-                {% if item.image %}<a href="/news/{{item.Pk}}.html"><img class="media-object img-responsive img-thumbnail" src="{{item.image}}"></a>{% endif %}
-                <div>{{item.lead|striptags|raw}}</div>
-            </div>
+{% for i, item in items %}
+<article>
+    <div class="main-page-news top-news">
+        <div class="date-news">{{item.published|date('d.m.Y')}}</div>
+        <div class="title-news">
+            <strong>
+                <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
+            </strong>
         </div>
+        {% if item.image %}<a href="/news/{{item.Pk}}.html"><img class="img-responsive" src="{{item.image}}"></a>{% endif %}
+        <div class="description-news">{{item.lead|striptags|raw}}</div>
     </div>
-
-    <div class="col-md-6">
-        {% for i, item in items %}
-        {% if i >= 1 %}
-        <div class="media" style="margin-top: 0; margin-bottom: 15px;">
-            <div class="pull-left">
-                <span class="label label-info">{{item.published|date('d.m.Y')}}</span>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading"><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h4>
-                <div>{{item.lead|striptags|raw}}</div>
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-
-</div>
+</article>
+{% endfor %}

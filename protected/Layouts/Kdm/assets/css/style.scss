@@ -1,0 +1,267 @@
+
+/*color*/
+$color-page: #010423;
+$color-section-title: #3f3f3f;
+$color-title: #10437e;
+
+/*bg*/
+$light-background-color: #f0f0f0;
+
+/*base
+--------------------------------------------*/
+
+body {
+  font-family: 'PT Sans', "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 16px;
+  color: $color-page;
+}
+
+h1, .h1 {
+  font-size: 26px;
+}
+
+h2, .h2 {
+  font-size: 30px;
+}
+
+h3, .h3 {
+  font-size: 24px;
+}
+
+h4, .h4 {
+  font-size: 18px;
+}
+a{ color: #10437e}
+/*
+text-style
+*/
+.italic {
+  font-style: italic;
+}
+
+.text-upp {
+  text-transform: uppercase;
+}
+
+/*
+end. text style
+*/
+
+/*header
+--------------------------------------------*/
+.header {
+  position: relative;
+  padding: 10px 0px;
+}
+
+.header-top {
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  position: relative;
+  width: 90px;
+  margin-right: 20px;
+  float: left;
+}
+
+.slogan {
+  position: relative;
+  float: left;
+
+  h1 {
+    margin-top: 28px;
+    a {
+      color: #10437e;
+      text-decoration: none;
+    }
+  }
+}
+
+.social {
+  position: relative;
+  margin-top: 33px;
+  float: right;
+}
+
+.header-body {
+  position: relative;
+  padding: 15px;
+  padding-bottom: 0px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.header-bottom {
+  padding: 0px 15px;
+}
+
+
+/*main-navigation
+--------------------------------------------*/
+.main-navigation {
+  position: relative;
+  background: #2781e2;
+}
+
+//main-navigation menu -> elements.css
+
+/*-------------------------------------------
+                  CONTENT
+--------------------------------------------*/
+.content{
+  padding: 15px 0px;
+}
+
+/*
+default-style-news
+*/
+.section-title{
+  color: $color-section-title;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.main-page-news{
+  position: relative;
+  margin-bottom: 20px;
+
+  .date-news{
+    color:#a1a4a8;
+    font-size: 12px;
+  }
+  .title-news{
+    margin-bottom: 8px;
+    a{
+      font-size: 16px;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+    &.color-title a{
+      color:#de0a05;
+    }
+  }
+  .description-news{
+    color:#000;
+    font-size: 13px;
+  }
+
+  /*
+  colors
+  */
+  &.title-green{
+    .title-news a{
+      color: #77b400;
+    }
+  }
+}
+
+/*
+federal-news
+*/
+.section-title.federal-news{
+  margin-left: 20px;
+}
+.main-page-news.federal-news{
+  background: $light-background-color;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  border-radius: 2px;
+
+  .title-news a{
+    color:$color-title;
+  }
+  .description-news{
+    color:#4d4d4d;
+  }
+}
+/*
+top-news
+*/
+.main-page-news.top-news{
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+
+  .date-news{
+    font-size: 15px;
+  }
+  .title-news a{
+    color:$color-title;
+    font-size: 28px;
+    line-height: 1;
+  }
+  img{
+    margin: 5px 0px 10px 0px;
+  }
+  .description-news{
+    color: $color-page;
+    font-size: 16px;
+  }
+}
+article:first-child .main-page-news.top-news{
+  padding-top: 0px;
+}
+.main-page-news.top-news.top-news-important{
+  background: #2780e4;
+  padding-top: 15px;
+
+  .date-news,
+  .title-news a,
+  .description-news{
+    color:#fff;
+  }
+}
+
+
+/*-------------------------------------------
+                   footer
+--------------------------------------------*/
+.footer{
+  position: relative;
+
+  P{
+    margin-bottom: 0px;
+  }
+  .phone-number,
+  .mail{
+    font-size: 21px;
+  }
+}
+
+/*-------------------------------------------
+                  MEDIA
+--------------------------------------------*/
+@media screen and (max-width: 768px) {
+  .logo {
+    float: none;
+    margin: 0 auto;
+  }
+  .slogan,
+  .social, {
+    float: none;
+    text-align: center;
+    .social-icons {
+      text-align: center;
+    }
+  }
+
+  /*
+  main-navigation-menu
+  */
+  .main-navigation-menu{
+    li{
+      float: none !important;
+    }
+  }
+  .main-navigation-menu > li > a,
+  .main-navigation-menu > li .dropdown:first-child > a {
+    width: 100%;
+  }
+}
+
+@import "elements";

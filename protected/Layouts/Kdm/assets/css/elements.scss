@@ -1,0 +1,108 @@
+
+/*-------------------------------------------
+              social-icons list
+--------------------------------------------*/
+ul.social-icons{
+  padding: 0px;
+
+  li{
+    list-style-type: none;
+    display: inline-block;
+
+    a{
+      display: block;
+      background: #cccccc;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      text-align: center;
+
+      img{
+        vertical-align: top;
+        padding-top: 1px;
+      }
+    }
+    a.icon-twitter:hover{background: #19BFE5};
+    a.icon-mail:hover{background: #2D8BFD};
+    a.icon-odnoklassniki:hover{background: #FA890F};
+    a.icon-vkontakte:hover{background: #4D739C};
+    a.icon-facebook:hover{background: #4B6BAF};
+    a.icon-google:hover{background: #D6492F};
+  }
+}
+
+
+/*-------------------------------------------
+           main-navigation-menu
+--------------------------------------------*/
+.main-navigation-menu {
+  padding: 0px;
+
+  > li {
+    list-style-type: none;
+    float: left;
+
+    > a, .dropdown:first-child > a {
+      color: #fff;
+      display: inline-block;
+      height: 52px;
+      padding: 13px 15px;
+      text-decoration: none;
+
+      &:hover {
+        background-color: #1967be;
+      }
+    }
+
+    .dropdown {
+      &.open {
+        > a {
+          background-color: #1967be;
+        }
+      }
+      /*sub-menu start*/
+      &.dropdown-sub-menu {
+        > .dropdown-menu {
+          top: 0;
+          left: 100%;
+          margin-top: -6px;
+          margin-left: -1px;
+        }
+
+        > a:after {
+          display: block;
+          content: " ";
+          float: right;
+          width: 0;
+          height: 0;
+          border-color: transparent;
+          border-style: solid;
+          border-width: 5px 0 5px 5px;
+          border-left-color: #cccccc;
+          margin-top: 5px;
+          margin-right: -10px;
+        }
+      }
+
+      /*hover*/
+      &.dropdown-sub-menu:hover{
+        .dropdown-menu {
+          display: block;
+        }
+      }
+      /*sub-menu end*/
+
+      .dropdown-menu {
+        margin: 0px;
+        border-radius: 0px;
+        > li {
+          > a:hover {
+            color: #fff;
+            text-decoration: none;
+            background-color: #2781e2;
+          }
+        }
+      }
+    }
+  }
+}

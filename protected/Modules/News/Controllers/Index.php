@@ -57,7 +57,8 @@ class Index
             $this->data->topic->getPk(),
             [
                 'order' => 'published DESC',
-                'limit' => [($this->data->page-1)*$count, $count]
+                'offset' => ($this->data->page-1)*$count,
+                'limit' => $count,
             ]
         );
 

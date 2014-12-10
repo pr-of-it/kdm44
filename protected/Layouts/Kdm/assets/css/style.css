@@ -197,8 +197,10 @@ article:first-child .main-page-news.top-news {
     float: none !important; }
 
   .main-navigation-menu > li > a,
-  .main-navigation-menu > li .dropdown:first-child > a {
-    width: 100%; } }
+  /*.main-navigation-menu > li .dropdown:first-child > a*/ 
+    {
+    width: 100%; } 
+}
 /*-------------------------------------------
               social-icons list
 --------------------------------------------*/

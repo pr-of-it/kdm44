@@ -50,7 +50,7 @@ class Pages
         }
     }
 
-    public function actionSave()
+    public function actionSave($redirect = 0)
     {
         if (!empty($_POST[Page::PK])) {
             $item = Page::findByPK($_POST[Page::PK]);
@@ -64,7 +64,11 @@ class Pages
         if ($item->wasNew()) {
             $item->moveToFirstPosition();
         }
-        $this->redirect('/admin/pages/');
+        if ($redirect) {
+            $this->redirect('/pages/' . $item->url . '.html');
+        } else {
+            $this->redirect('/admin/pages/');        }
+
     }
 
     public function actionDelete($id)

@@ -52,7 +52,7 @@ class News
         }
     }
 
-    public function actionSave()
+    public function actionSave($redirect = 0)
     {
         if (!empty($_POST[Story::PK])) {
             $item = Story::findByPK($_POST[Story::PK]);
@@ -67,7 +67,11 @@ class News
             ->uploadImage('image')
             ->uploadFiles('files')
             ->save();
-        $this->redirect('/admin/news/');
+        if ($redirect) {
+            $this->redirect('/news/' . $item->getPk() . '.html');
+        } else {
+            $this->redirect('/admin/news/');
+        }
     }
 
     public function actionDelete($id)

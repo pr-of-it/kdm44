@@ -22,6 +22,16 @@
 
 </head>
 <body>
+
+{% if app.flash.message is defined %}
+<div class="container">
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{app.flash.message}}
+    </div>
+</div>
+{% endif %}
+
 <header>
     {% include 'Kdm/_header_inner.html' %}
 </header>

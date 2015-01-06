@@ -12,6 +12,18 @@ class Identity
     extends \T4\Auth\Identity
 {
 
+    public function check($data)
+    {
+        $user = User::findByEmail($data->email);
+        if (empty($user)) {
+            throw new Exception('User with email ' . $data->email . ' does not exists', self::ERROR_INVALID_EMAIL);
+        }
+        if (!Helpers::checkPassword($data->password, $user->password)) {
+            throw new Exception('Invalid password', self::ERROR_INVALID_PASSWORD);
+        }
+        return true;
+    }
+
     public function authenticate($data)
     {
         $user = User::findByEmail($data->email);

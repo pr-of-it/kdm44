@@ -1,8 +1,9 @@
-{% extends "Main/NoBlocks.html" %}
+{% extends "Kdm/NoBlocks.html" %}
 {% block content %}
 {% if error %}
 <div class="alert alert-danger">{{error}}</div>
 {% endif %}
+<h2>Вход на сайт</h2>
 <form class="form-horizontal" role="form" action="/login" method="post">
     <input type="hidden" name="return" value="{{ return | default('/') }}">
     <div class="form-group">

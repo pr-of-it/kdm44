@@ -23,21 +23,14 @@ class Import
             throw new Exception('Data file ' . $dataFileName . ' is not found or is not readable');
         $dataFile = fopen($dataFileName, 'r');
 
-        $deferred = [];
         $processed = [];
 
-        while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
+        $connection = Topic::getDbConnection();
+        $sql = 'INSERT INTO `' . Topic::getTableName() . '` (`__id`, `title`) VALUES (:id, :title)';
 
-            // Если родительский объект имеется и его еще нет среди обработанных - отложим
-            if ($row[1] != 0 && !isset($processed[$row[1]])) {
-                $deferred[] = $item;
-                continue;
-            }
-            $item = new Topic();
-            $item->title = $row[3];
-            $item->parent = 0;
-            $item->save();
-            $processed[$row[0]] = ['pk'=>$item->getPk()];
+        while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
+            $connection->execute($sql, [':id' => $row[0], ':title' => $row[3]]);
+            $processed[$row[0]] = ['pk'=>$row[0]];
         }
 
         $topics = $processed;
@@ -52,6 +45,8 @@ class Import
             throw new Exception('Data file ' . $dataFileName . ' is not found or is not readable');
         $dataFile = fopen($dataFileName, 'r');
 
+        $sql = 'INSERT INTO `' . Story::getTableName() . '` (`__id`, `title`, `published`, `lead`, `image`, `text`, `__topic_id`) VALUES (:id, :title, :published, :lead, :image, :text, :topic)';
+
         while ($row = fgetcsv($dataFile, 0, ',', '"', '"')) {
 
             $lead = $row[9];
@@ -63,14 +58,16 @@ class Import
                 $image = '';
             }
 
-            $item = new Story();
-            $item->title = $row[2];
-            $item->published = date('Y-m-d H:i:s', $row[4]);
-            $item->lead = $lead;
-            $item->image = $image;
-            $item->text = $row[10];
-            $item->topic = $topics[$row[12]]['pk'];
-            $item->save();
+            $connection->execute($sql, [
+                ':id' => $row[0],
+                ':title' => $row[2],
+                ':published' => date('Y-m-d H:i:s', $row[4]),
+                ':lead' => $lead,
+                ':image' => $image,
+                ':text' => $row[10],
+                ':topic' => $topics[$row[12]]['pk'],
+            ]);
+
         }
 
     }

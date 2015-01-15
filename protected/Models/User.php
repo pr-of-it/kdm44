@@ -21,4 +21,9 @@ class User
         ],
     ];
 
+    public function hasRole($role)
+    {
+        return ($role == $this->role->name) || ($role == $this->role->title);
+    }
+
 }

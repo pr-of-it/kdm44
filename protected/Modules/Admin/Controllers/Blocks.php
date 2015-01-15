@@ -11,13 +11,10 @@ class Blocks
     extends Controller
 {
 
-    protected  $access = [
-        'Default'               => ['role.name'=>'admin'],
-        'SetupBlock'            => ['role.name'=>'admin'],
-        'UninstallBlock'        => ['role.name'=>'admin'],
-        'SortBlocks'            => ['role.name'=>'admin'],
-        'UpdateBlockOptions'    => ['role.name'=>'admin'],
-    ];
+    protected function access($action)
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
 
     public function actionDefault()
     {

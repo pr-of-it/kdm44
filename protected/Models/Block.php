@@ -46,7 +46,7 @@ class Block
 
     public function getAllTemplates()
     {
-        $route = Router::getInstance()->splitInternalPath($this->path);
+        $route = new Route($this->path);
         $controller = Application::getInstance()->createController($route->module, $route->controller);
         $templates = [];
         foreach ($controller->getTemplatePaths() as $path) {

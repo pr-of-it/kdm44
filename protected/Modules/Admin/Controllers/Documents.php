@@ -10,16 +10,12 @@ class Documents
     extends Controller
 {
 
-    protected $access = [
-        'Default' => ['role.name'=>'admin'],
-        'Edit' => ['role.name'=>'admin'],
-        'Save' => ['role.name'=>'admin'],
-        'Delete' => ['role.name'=>'admin'],
-
-        'Categories' => ['role.name'=>'admin'],
-    ];
-
     const PAGE_SIZE = 20;
+
+    protected function access($action)
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
 
     public function actionDefault($page = 1)
     {

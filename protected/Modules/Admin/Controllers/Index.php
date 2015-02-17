@@ -9,9 +9,10 @@ class Index
     extends Controller
 {
 
-    protected  $access = [
-        'Default' => ['role.name'=>'admin']
-    ];
+    protected function access($action)
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
 
     public function actionDefault()
     {

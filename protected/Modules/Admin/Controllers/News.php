@@ -13,19 +13,10 @@ class News
 
     const PAGE_SIZE = 20;
 
-    protected $access = [
-        'Default' => ['role.name'=>'admin'],
-        'Edit' => ['role.name'=>'admin'],
-        'Save' => ['role.name'=>'admin'],
-        'Delete' => ['role.name'=>'admin'],
-        'DeleteImage' => ['role.name'=>'admin'],
-        'DeleteFile' => ['role.name'=>'admin'],
-
-        'Topics' => ['role.name'=>'admin'],
-        'EditTopic' => ['role.name'=>'admin'],
-        'SaveTopic' => ['role.name'=>'admin'],
-        'DeleteTopic' => ['role.name'=>'admin'],
-    ];
+    protected function access($action)
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
 
     public function actionDefault($page = 1)
     {

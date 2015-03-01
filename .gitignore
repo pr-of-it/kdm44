@@ -1,4 +1,4 @@
 .idea
-/.idea
-www
-/Assets
+www/Assets
+public/Assets
+protected/Cache

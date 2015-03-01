@@ -23,7 +23,7 @@ class User
 
     public function hasRole($role)
     {
-        return ($role == $this->role->name) || ($role == $this->role->title);
+        return !empty($this->role) && ( ($role == $this->role->name) || ($role == $this->role->title) );
     }
 
 }

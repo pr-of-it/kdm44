@@ -87,7 +87,7 @@ return [
                 'default' => 10,
             ],
         ],
-        'cache' => true,
+        'cache' => false,
     ],
 
     '/News//NewsByTopic' => [
@@ -119,7 +119,7 @@ return [
                 'default' => 'default',
             ],
         ],
-        'cache' => true,
+        'cache' => ['time' => 60],
     ],
 
 ];

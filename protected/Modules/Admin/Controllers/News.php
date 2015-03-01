@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\News\Models\File;
 use App\Modules\News\Models\Story;
 use App\Modules\News\Models\Topic;
+use T4\Core\Exception;
 use T4\Mvc\Controller;
 
 class News
@@ -104,10 +105,13 @@ class News
         $this->data->items = Topic::findAllTree();
     }
 
-    public function actionEditTopic($id=null)
+    public function actionEditTopic($id=null, $parent=null)
     {
         if (null === $id || 'new' == $id) {
             $this->data->item = new Topic();
+            if (null !== $parent) {
+                $this->data->item->parent = $parent;
+            }
         } else {
             $this->data->item = Topic::findByPK($id);
         }
@@ -122,6 +126,9 @@ class News
         }
         $item->fill($_POST);
         $item->save();
+        if ($item->wasNew()) {
+            $item->moveToFirstPosition();
+        }
         $this->redirect('/admin/news/topics/');
     }
 
@@ -132,6 +139,68 @@ class News
             $item->delete();
         }
         $this->redirect('/admin/news/topics/');
+    }
+
+    public function actionTopicUp($id)
+    {
+        $item = Topic::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/news/topics');
+        $sibling = $item->getPrevSibling();
+        if (!empty($sibling)) {
+            $item->insertBefore($sibling);
+        }
+        $this->redirect('/admin/news/topics');
+    }
+
+    public function actionTopicDown($id)
+    {
+        $item = Topic::findByPK($id);
+        if (empty($item))
+            $this->redirect('/admin/news/topics');
+        $sibling = $item->getNextSibling();
+        if (!empty($sibling)) {
+            $item->insertAfter($sibling);
+        }
+        $this->redirect('/admin/news/topics');
+    }
+
+    public function actionTopicMoveBefore($id, $to)
+    {
+        try {
+            $item = Topic::findByPK($id);
+            if (empty($item)) {
+                throw new Exception('Source element does not exist');
+            }
+            $destination = Topic::findByPK($to);
+            if (empty($destination)) {
+                throw new Exception('Destination element does not exist');
+            }
+            $item->insertBefore($destination);
+            $this->data->result = true;
+        } catch (Exception $e) {
+            $this->data->result = false;
+            $this->data->error = $e->getMessage();
+        }
+    }
+
+    public function actionTopicMoveAfter($id, $to)
+    {
+        try {
+            $item = Topic::findByPK($id);
+            if (empty($item)) {
+                throw new Exception('Source element does not exist');
+            }
+            $destination = Topic::findByPK($to);
+            if (empty($destination)) {
+                throw new Exception('Destination element does not exist');
+            }
+            $item->insertAfter($destination);
+            $this->data->result = true;
+        } catch (Exception $e) {
+            $this->data->result = false;
+            $this->data->error = $e->getMessage();
+        }
     }
 
 }

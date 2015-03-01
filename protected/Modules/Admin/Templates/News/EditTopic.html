@@ -28,9 +28,13 @@
                 <label class="label">Родительский раздел</label>
                 <label class="select">
                     {% if item.isNew %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", 0, {"null":true}, {"name":"parent"}) }}
+                    {% if item.parent %}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\\Topic", item.parent.Pk, {"null":true}, {"name":"parent"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\News\\Models\\Topic", item.parent.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"parent"}) }}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\\Topic", 0, {"null":true}, {"name":"parent"}) }}
+                    {% endif %}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\News\\Models\\\Topic", item.__prt, {"null":true, 'disabled':[item.__id]}, {"name":"parent"}) }}
                     {% endif %}
                     <i></i>
                 </label>

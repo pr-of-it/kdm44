@@ -55,6 +55,19 @@
                     <div class="dd3-content">
                         <a href="/admin/news/editTopic/?id={{item.__id}}">{{item.title}}</a>
                         <span class="pull-right">
+<!--
+                            {% if items[key-1] is defined and items.existsElement({'__prt':item.__prt, '__lvl':item.__lvl})%}
+                            <a href="/admin/news/topicUp/?id={{item.__id}}"><i class="fa fa-arrow-up"></i></a>
+                            {% else %}
+                            <i class="fa fa-ellipsis-horizontal"></i>
+                            {% endif %}
+                            {% if items[key+1] is defined %}
+                            <a href="/admin/news/topicDown/?id={{item.__id}}"><i class="fa fa-arrow-down"></i></a>
+                            {% else %}
+                            <i class="fa fa-ellipsis-horizontal"></i>
+                            {% endif %}
+                            &nbsp;&nbsp;&nbsp;
+-->
                             <a href="/admin/news/editTopic/?id=new&parent={{item.Pk}}" class=""><i class="fa fa-plus"></i></a>
                             <a href="/admin/news/editTopic/?id={{item.Pk}}" class=""><i class="fa fa-edit"></i></a>
                             <a href="/admin/news/deleteTopic/?id={{item.Pk}}" class="confirmable"><i class="fa fa-trash-o"></i></a>

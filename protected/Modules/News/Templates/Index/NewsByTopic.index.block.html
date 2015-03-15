@@ -7,7 +7,7 @@
                 <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
             </strong>
         </div>
-        {% if item.image %}<a href="/news/{{item.Pk}}.html"><img class="img-responsive" src="{{item.image}}"></a>{% endif %}
+        {% if item.image %}<img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="max-width: 200px">{% endif %}
         <div class="description-news">{{item.lead|striptags|raw}}</div>
     </div>
 </article>

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% if view.meta.title %}{{view.meta.title}} - {% endif %}Молодёжь Костромской области</title>
+    <title>{{app.config.settings.title}}</title>
 
     {{ publishCss() }}
     <link rel="stylesheet" href="{{asset('/Layouts/Main/assets/css/cosmo/bootstrap.min.css')}}">

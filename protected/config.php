@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'settings' => include(__DIR__ . '/settings.php'),
+
     'db' => [
         'default' => [
             'driver' => 'mysql',

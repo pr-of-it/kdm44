@@ -1,0 +1,54 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li>Настройки сайта</li>
+</ol>
+{% endblock %}
+
+{% block pagehead %}
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Настройки сайта </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> Всего настроек <span class="txt-color-blue">{{items|length}}</span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
+    <div class="row"><div class="pull-right"></div></div>
+    <div class="row">
+
+        <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/settings/save">
+            <header>Редактирование настроек</header>
+
+            <fieldset>
+                <section>
+                    <label class="label">Заголовок сайта</label>
+                    <label class="input">
+                        <input type="text" name="settings[title]" value="{{items.title}}">
+                    </label>
+                </section>
+            </fieldset>
+            <footer>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+            </footer>
+
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block pagescript %}
+{% endblock %}

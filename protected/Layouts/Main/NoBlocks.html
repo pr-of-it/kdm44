@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{app.config.settings.title}}</title>
+    <title>{% if view.meta.title %}{{view.meta.title}} - {% endif %}{{app.config.settings.title}}</title>
 
     {{ publishCss() }}
     <link rel="stylesheet" href="{{asset('/Layouts/Main/assets/css/cosmo/bootstrap.min.css')}}">

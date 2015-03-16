@@ -2,7 +2,7 @@
 <html xmlns:t4="http://www.w3.org/1999/html">
 <head>
     <meta>
-    <title>{{app.config.settings.title}}</title>
+    <title>{% if view.meta.title %}{{view.meta.title}} - {% endif %}{{app.config.settings.title}}</title>
     <meta charset='utf-8'>
 
     {{publish('/Layouts/Kdm/assets')}}

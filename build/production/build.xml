@@ -14,7 +14,7 @@
         <echo msg="T4 dir is: ${t4.dir}" />
         <property name="t4.repo" value="https://github.com/pr-of-it/t4.git" />
         <php returnProperty="build.time" function="date">
-            <param value="Y-m-d H:i:s" />
+            <param value="Y-m-d-H-i-s" />
         </php>
         <resolvepath propertyName="current.dir" file="/home/kdm/deploy/${build.branch}/${build.time}" />
         <echo msg="Current build dir is: ${current.dir}" />
@@ -56,6 +56,11 @@
     <target name="copy">
         <mkdir dir="${current.dir}" />
         <echo msg="Mkdir ${current.dir}" />
+        <copy todir="${current.dir}">
+            <fileset dir="${project.dir}" defaultexcludes="true">
+                <include name="**" />
+            </fileset>
+        </copy>
     </target>
 
 

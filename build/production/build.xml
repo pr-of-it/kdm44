@@ -71,7 +71,7 @@
     <!-- Target: configs                               -->
     <!-- ============================================  -->
     <target name="configs">
-        <copy file="${project.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" />
+        <copy file="${current.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" overwrite="true" />
     </target>
 
 

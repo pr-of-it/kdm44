@@ -9,19 +9,25 @@
         <echo msg="Setting local variables..." />
         <resolvepath propertyName="project.dir" file="${project.basedir}" />
         <echo msg="Project source dir is: ${project.dir}" />
-        <resolvepath propertyName="t4.dir" file="${project.dir}/t4"/>
+        <resolvepath propertyName="t4.dir" file="${project.dir}/t4" />
         <echo msg="T4 dir is: ${t4.dir}" />
+        <property name="t4.repo" value="https://github.com/pr-of-it/t4.git" />
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: prepare                               -->
+    <!-- Target: t4                               -->
     <!-- ============================================  -->
-    <!--
     <target name="t4">
         <echo msg="Cloning T4 framework..." />
-        <mkdir dir="./build" />
+        <exec command="git clone https://github.com/pr-of-it/t4.git ${t4.dir}" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
+        <if>
+            <not><equals arg1="0" arg2="${exec.return}" /></not>
+            <then>
+                <fail message="${exec.output}" />
+            </then>
+        </if>
+        <echo msg="${exec.output}" />
     </target>
-    -->
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->

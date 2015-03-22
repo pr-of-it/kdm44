@@ -106,8 +106,16 @@
         <symlink target="/home/kdm/file" link="${current.dir}/public/file" overwrite="true" />
         <symlink target="/home/kdm/public" link="${current.dir}/public/public" overwrite="true" />
         <symlink target="/home/kdm/images" link="${current.dir}/public/images" overwrite="true" />
+        <symlink target="/home/kdm/settings.php" link="${current.dir}/protected/settings.php" overwrite="true" />
     </target>
 
-    <target name="build" depends="vars, t4, composer, copy, configs, migrate, symlinks" />
+    <!-- ============================================  -->
+    <!-- Target: switch                                -->
+    <!-- ============================================  -->
+    <target name="switch">
+        <symlink target="${current.dir}" link="/home/kdm/deploy/${build.branch}/current" overwrite="true" />
+    </target>
+
+    <target name="build" depends="vars, t4, composer, copy, configs, migrate, symlinks, switch" />
 
 </project>

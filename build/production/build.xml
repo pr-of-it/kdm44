@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="KDM" default="vars" basedir=".">
+<project name="KDM" default="build" basedir=".">
 
     <!-- ============================================  -->
     <!-- Target: vars                               -->

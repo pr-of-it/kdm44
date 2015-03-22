@@ -13,6 +13,9 @@
         <resolvepath propertyName="t4.dir" file="${project.dir}/t4" />
         <echo msg="T4 dir is: ${t4.dir}" />
         <property name="t4.repo" value="https://github.com/pr-of-it/t4.git" />
+        <php returnProperty="build.time" expression="date('Y-m-d H:i:s)" />
+        <resolvepath propertyName="current.dir" file="/home/kdm/deploy/${build.branch}/${build.time}" />
+        <echo msg="Current build dir is: ${current.dir}" />
     </target>
 
     <!-- ============================================  -->
@@ -44,6 +47,14 @@
         </if>
         <echo msg="${exec.output}" />
     </target>
+
+    <!-- ============================================  -->
+    <!-- Target: copy                               -->
+    <!-- ============================================  -->
+    <target name="copy">
+        <mkdir dir="${current.dir}"/>
+    </target>
+
 
     <target name="build" depends="vars, t4, composer" />
 

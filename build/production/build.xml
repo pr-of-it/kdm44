@@ -13,7 +13,9 @@
         <resolvepath propertyName="t4.dir" file="${project.dir}/t4" />
         <echo msg="T4 dir is: ${t4.dir}" />
         <property name="t4.repo" value="https://github.com/pr-of-it/t4.git" />
-        <php returnProperty="build.time" expression="date('Y-m-d H:i:s)" />
+        <php returnProperty="build.time" function="date">
+            <param value="Y-m-d H:i:s" />
+        </php>
         <resolvepath propertyName="current.dir" file="/home/kdm/deploy/${build.branch}/${build.time}" />
         <echo msg="Current build dir is: ${current.dir}" />
     </target>

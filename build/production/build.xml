@@ -29,7 +29,22 @@
         <echo msg="${exec.output}" />
     </target>
 
-    <target name="build" depends="vars, t4" />
+    <!-- ============================================  -->
+    <!-- Target: composer                               -->
+    <!-- ============================================  -->
+    <target name="composer">
+        <echo msg="Install composer depedencies for T4 framework..." />
+        <exec command="composer install" dir="${t4.dir}" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
+        <if>
+            <not><equals arg1="0" arg2="${exec.return}" /></not>
+            <then>
+                <fail message="${exec.output}" />
+            </then>
+        </if>
+        <echo msg="${exec.output}" />
+    </target>
+
+    <target name="build" depends="vars, t4, composer" />
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->

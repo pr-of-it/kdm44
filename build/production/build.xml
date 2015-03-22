@@ -57,7 +57,7 @@
     </target>
 
 
-    <target name="build" depends="vars, t4, composer" />
+    <target name="build" depends="vars, t4, composer, copy" />
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->

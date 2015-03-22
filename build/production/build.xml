@@ -3,7 +3,7 @@
 <project name="KDM" default="build" basedir=".">
 
     <!-- ============================================  -->
-    <!-- Target: vars                               -->
+    <!-- Target: vars                                  -->
     <!-- ============================================  -->
     <target name="vars">
         <echo msg="Setting local variables..." />
@@ -21,7 +21,7 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: t4                               -->
+    <!-- Target: t4                                    -->
     <!-- ============================================  -->
     <target name="t4">
         <echo msg="Cloning T4 framework..." />
@@ -36,7 +36,7 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: composer                               -->
+    <!-- Target: composer                              -->
     <!-- ============================================  -->
     <target name="composer">
         <echo msg="Install composer depedencies for T4 framework..." />
@@ -51,7 +51,7 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: copy                               -->
+    <!-- Target: copy                                  -->
     <!-- ============================================  -->
     <target name="copy">
         <mkdir dir="${current.dir}" />
@@ -67,8 +67,15 @@
         <mkdir dir="${current.dir}/protected/Cache" mode="0777" />
     </target>
 
+    <!-- ============================================  -->
+    <!-- Target: configs                               -->
+    <!-- ============================================  -->
+    <target name="configs">
+        <copy file="${project.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" />
+    </target>
 
-    <target name="build" depends="vars, t4, composer, copy" />
+
+    <target name="build" depends="vars, t4, composer, copy, configs" />
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->

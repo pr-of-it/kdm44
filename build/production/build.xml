@@ -74,8 +74,15 @@
         <copy file="${current.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" overwrite="true" />
     </target>
 
+    <target name="symlinks">
+        <symlink link="/home/kdm/files" target="${current.dir}/public/files" />
+        <symlink link="/home/kdm/file" target="${current.dir}/public/file" />
+        <symlink link="/home/kdm/public" target="${current.dir}/public/public" />
+        <symlink link="/home/kdm/images" target="${current.dir}/public/images" />
+    </target>
 
-    <target name="build" depends="vars, t4, composer, copy, configs" />
+
+    <target name="build" depends="vars, t4, composer, copy, configs, symlinks" />
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->

@@ -61,6 +61,10 @@
                 <include name="**" />
             </fileset>
         </copy>
+        <chmod file="${current.dir}/public" mode="0777" />
+        <chmod file="${current.dir}/protected" mode="0777" />
+        <!-- @todo: Зачем это??? -->
+        <mkdir dir="${current.dir}/protected/Cache" mode="0777" />
     </target>
 
 

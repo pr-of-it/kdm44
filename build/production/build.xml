@@ -78,12 +78,11 @@
     <!-- Target: symlinks                              -->
     <!-- ============================================  -->
     <target name="symlinks">
-        <symlink link="/home/kdm/files" target="${current.dir}/public/files" />
-        <symlink link="/home/kdm/file" target="${current.dir}/public/file" />
-        <symlink link="/home/kdm/public" target="${current.dir}/public/public" />
-        <symlink link="/home/kdm/images" target="${current.dir}/public/images" />
+        <symlink target="/home/kdm/files" link="${current.dir}/public/files" overwrite="true" />
+        <symlink target="/home/kdm/file" link="${current.dir}/public/file" overwrite="true" />
+        <symlink target="/home/kdm/public" link="${current.dir}/public/public" overwrite="true" />
+        <symlink target="/home/kdm/images" link="${current.dir}/public/images" overwrite="true" />
     </target>
-
 
     <target name="build" depends="vars, t4, composer, copy, configs, symlinks" />
 

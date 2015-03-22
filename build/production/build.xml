@@ -7,7 +7,7 @@
     <!-- ============================================  -->
     <target name="vars">
         <echo msg="Setting local variables..." />
-        <resolvepath propertyName="project.dir" file="${project.basedir}/../.." />
+        <resolvepath propertyName="project.dir" file="${project.basedir}" />
         <echo msg="Project source dir is: ${project.dir}" />
         <resolvepath propertyName="t4.dir" file="${project.dir}/t4"/>
         <echo msg="T4 dir is: ${t4.dir}" />

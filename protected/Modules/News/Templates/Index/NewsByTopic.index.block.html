@@ -1,4 +1,5 @@
 {% for i, item in items %}
+{% if i < 3 %}
 <article>
     <div class="main-page-news top-news">
         <div class="date-news">{{item.published|date('d.m.Y')}}</div>
@@ -7,8 +8,22 @@
                 <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
             </strong>
         </div>
-        {% if item.image %}<img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="max-width: 200px">{% endif %}
+        {% if item.image %}<div><a href="/news/{{item.Pk}}.html"><img class="media-object img-responsive img-thumbnail" src="{{item.image}}" style="width: 100%"></a></div>{% endif %}
+        <div>{{item.lead|striptags|raw}}</div>
+    </div>
+</article>
+{% else %}
+<article>
+    <div class="main-page-news top-news clearfix">
+        <div class="date-news">{{item.published|date('d.m.Y')}}</div>
+        <div class="title-news">
+            <strong>
+                <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
+            </strong>
+        </div>
+        {% if item.image %}<img class="media-object img-responsive img-thumbnail pull-left" src="{{item.image}}" style="max-width: 200px; margin-right: 10px;">{% endif %}
         <div class="description-news">{{item.lead|striptags|raw}}</div>
     </div>
 </article>
+{% endif %}
 {% endfor %}

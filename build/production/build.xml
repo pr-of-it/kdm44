@@ -72,6 +72,7 @@
     <!-- ============================================  -->
     <target name="configs">
         <copy file="${current.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" overwrite="true" />
+        <symlink target="/home/kdm/settings.php" link="${current.dir}/protected/settings.php" overwrite="true" />
     </target>
 
     <!-- ============================================  -->
@@ -106,7 +107,6 @@
         <symlink target="/home/kdm/file" link="${current.dir}/public/file" overwrite="true" />
         <symlink target="/home/kdm/public" link="${current.dir}/public/public" overwrite="true" />
         <symlink target="/home/kdm/images" link="${current.dir}/public/images" overwrite="true" />
-        <symlink target="/home/kdm/settings.php" link="${current.dir}/protected/settings.php" overwrite="true" />
     </target>
 
     <!-- ============================================  -->

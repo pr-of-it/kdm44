@@ -1,0 +1,15 @@
+{% for i, item in items %}
+<article>
+    <div class="main-page-news top-news clearfix">
+        <div class="date-news">{{item.published|date('d.m.Y')}}</div>
+        <div class="title-news">
+            <strong>
+                <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
+            </strong>
+        </div>
+        {% if item.image %}<img class="media-object img-responsive img-thumbnail pull-left" src="{{item.image}}" style="max-width: 200px; margin-right: 10px;">{% endif %}
+        <div class="description-news">{{item.lead|striptags|raw}}</div>
+    </div>
+</article>
+
+{% endfor %}

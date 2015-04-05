@@ -125,7 +125,7 @@
         button.addClass('btn-warning');
         var blockId = button.parents("article").attr('data-block-id');
         var data = button.parents("form").serializeArray();
-        $.get('/admin/blocks/updateBlockOptions.json', {
+        $.post('/admin/blocks/updateBlockOptions.json', {
             id: blockId,
             options: data
         }, function (data) {

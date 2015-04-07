@@ -6,7 +6,8 @@
     <meta charset='utf-8'>
 
     {{publish('/Layouts/Kdm/assets')}}
-
+    {{ publishCss() }}
+    {% block head %}{% endblock %}
     <!--js-->
     {{ publishJs() }}
     <script type="text/javascript" src="{{asset('/Layouts/Kdm/assets/js/jquery.bxslider.min.js')}}"></script>

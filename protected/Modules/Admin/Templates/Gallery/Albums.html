@@ -1,0 +1,55 @@
+{% extends 'Admin/Smart/blank_.html' %}
+{% import 'Admin/Macros/Tree.html' as Tree %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li><a href="/admin/gallery/">Галерея</a></li>
+    <li>Альбомы</li>
+</ol>
+{% endblock %}
+
+{% block pagehead %}
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Альбомы </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> Всего альбомов <span class="txt-color-blue">{{items.count}}</span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="well">
+    <div class="row">
+        <div class="pull-right"><a class="btn btn-primary btn-lg" href="/admin/gallery/albumEdit?id=new">Добавить альбом</a></div>
+    </div>
+
+
+    <div class="row">
+        {{ Tree.listSortable(items, '/admin/gallery/album') }}
+    </div>
+</section>
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+    $(function () {
+
+        $('a.confirmable').click(function () {
+            return confirm('Вы уверены?');
+        });
+        {{Tree.listSortableJs('/admin/gallery/album')}}
+    });
+</script>
+{% endblock %}
+
+
+
+
+

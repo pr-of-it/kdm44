@@ -1,0 +1,14 @@
+<ol class="breadcrumb">
+    <li>Галерея</li>
+</ol>
+
+<div class="row">
+    {% for item in items %}
+    <div class="col-sm-3">
+        <a href="/gallery/photo?id={{item.Pk}}">
+            <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
+            {{item.title}}
+        </a>
+    </div>
+    {% endfor %}
+</div>

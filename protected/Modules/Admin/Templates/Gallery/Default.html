@@ -1,0 +1,103 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li>Галерея</li>
+</ol>
+{% endblock %}
+
+{% block pagehead %}
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Фотографии </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> Всего фотографий <span class="txt-color-blue">{{itemsCount}}</span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" id="albumtreeform" method="post" enctype="multipart/form-data"
+      action="/admin/gallery/photo">
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Выбрать альбом</label>
+
+        <div class="col-sm-10">
+            {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true}, {"name":"parent","id":"albumselect", "class": "form-control"}) }}
+        </div>
+    </div>
+    <noscript><input type="submit"/></noscript>
+</form>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th class="col-sm-1">#</th>
+        <th class="col-sm-2">Фотография</th>
+        <th class="col-sm-2">Название</th>
+        <th class="col-sm-2">Создана</th>
+        <th></th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{item.Pk}}</td>
+        <td>
+            <a data-toggle="modal" href="#view-pic" data-id="{{item.Pk}}">
+                <img class="img-responsive" src="{{ item.image }}" width="80" alt="{{ item.title }}"/>
+            </a>
+        </td>
+        <td>{{ item.title }}</td>
+        <td>{{item.published|date('d.m.Y H:i')}}</td>
+        <td style="white-space: nowrap">
+            <a class="btn btn-primary btn-sm" href="/admin/gallery/edit/?id={{ item.Pk }}&__album_id={{ item.album.Pk }}"><i class="glyphicon glyphicon-edit"></i></a>
+            <a class="btn btn-danger btn-sm" href="/admin/gallery/delete/?id={{ item.Pk }}"><i class="glyphicon glyphicon-remove"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="row">{{widget('pager', {'total': itemsCount, 'size': pageSize, 'active': activePage, 'url':'/admin/gallery/?page=%d'})}}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="view-pic" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="news-preview-title">Фотография</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+    $(function () {
+        $('a.confirmable').click(function () {
+            return confirm('Вы уверены?');
+        });
+        $('#view-pic').on('show.bs.modal', function (e) {
+            var id = $(e.relatedTarget).attr('data-id');
+            $(this).find('.modal-body').load('/admin/gallery/view?id=' + id);
+        });
+        $('#albumselect').change(function () {
+            $('#albumtreeform').submit();
+        })
+    });
+</script>
+{% endblock %}

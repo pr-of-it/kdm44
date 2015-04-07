@@ -1,0 +1,67 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li><a href="/admin/gallery/">Галерея</a></li>
+    <li><a href="/admin/gallery/albums/">Альбомы</a></li>
+    <li>{% if item.isNew %}Добавление альбома{% else %}Редактирование альбома{% endif %}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
+    <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/gallery/albumSave">
+        {% if item.isNew %}
+        <header>Добавление альбома</header>
+        {% else %}
+        <input type="hidden" name="__id" value="{{item.Pk}}">
+        <header>Редактирование альбома</header>
+        {% endif %}
+        <fieldset>
+            <section>
+                <label class="label">Название альбома</label>
+                <label class="input">
+                    <input type="text" name="title" value="{{item.title}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Родительский альбом</label>
+                <label class="select">
+                    {% if item.isNew %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true}, {"name":"parent",
+                    "class": "form-control"}) }}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", item.parent.Pk, {"null":true,
+                    'disabled':[item.Pk]}, {"name":"parent", "class": "form-control"}) }}
+                    {% endif %}
+                    <i></i>
+             </label>
+           </section>
+            </fieldset>
+
+            <footer>
+                <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
+                </button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+                {% if not item.isNew %}<a href="/admin/gallery/deleteAlbum/?id={{item.Pk}}" class="confirmable">
+                <button type="button" class="btn btn-danger">Удалить</button>
+            </a>{% endif %}
+            </footer>
+
+    </form>
+</section>
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+    $(function () {
+
+        $('a.confirmable').click(function () {
+            return confirm('Вы уверены?');
+        });
+
+    });
+</script>
+{% endblock %}

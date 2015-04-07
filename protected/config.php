@@ -40,6 +40,9 @@ return [
         'ckfinder' => [
             'autoload' => false,
         ],
+        'fotorama'=>[
+            'autoload' => true,
+        ]
     ],
     'errors' => [
         '404' => '//Index/404'

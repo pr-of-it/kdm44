@@ -45,10 +45,10 @@
     </tr>
     <tr>
         <th class="col-sm-1">#</th>
-        <th class="col-sm-2">Фотография</th>
-        <th class="col-sm-2">Название</th>
-        <th class="col-sm-2">Создана</th>
-        <th></th>
+        <th class="col-sm-3">Фотография</th>
+        <th class="col-sm-3">Название</th>
+        <th class="col-sm-3">Создана</th>
+        <th class="col-sm-2"></th>
     </tr>
     {% for photo in photos %}
     <tr>
@@ -61,8 +61,8 @@
         <td>{{ photo.title }}</td>
         <td>{{photo.published|date('d.m.Y H:i')}}</td>
         <td style="white-space: nowrap">
-            <a class="btn btn-primary btn-sm" href="/admin/gallery/edit/?id={{photo.Pk}}&__album_id={{item.Pk}}"><i class="glyphicon glyphicon-edit"></i></a>
-            <a class="btn btn-danger btn-sm" href="/admin/gallery/delete/?__album_id={{item.Pk}}&id={{photo.Pk}}"><i class="glyphicon glyphicon-remove"></i></a>
+            <a href="/admin/gallery/edit/?id={{photo.Pk}}&__album_id={{item.Pk}}"><i class="fa fa-edit"></i></a>
+            <a href="/admin/gallery/delete/?__album_id={{item.Pk}}&id={{photo.Pk}}"><i class="fa fa-trash-o"></i></a>
         </td>
     </tr>
     {% endfor %}

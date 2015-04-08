@@ -39,10 +39,10 @@
 <table class="table table-striped table-hover">
     <tr>
         <th class="col-sm-1">#</th>
-        <th class="col-sm-2">Фотография</th>
-        <th class="col-sm-2">Название</th>
-        <th class="col-sm-2">Создана</th>
-        <th></th>
+        <th class="col-sm-3">Фотография</th>
+        <th class="col-sm-3">Название</th>
+        <th class="col-sm-3">Создана</th>
+        <th class="col-sm-3"></th>
     </tr>
     {% for item in items %}
     <tr>
@@ -55,8 +55,8 @@
         <td>{{ item.title }}</td>
         <td>{{item.published|date('d.m.Y H:i')}}</td>
         <td style="white-space: nowrap">
-            <a class="btn btn-primary btn-sm" href="/admin/gallery/edit/?id={{ item.Pk }}&__album_id={{ item.album.Pk }}"><i class="glyphicon glyphicon-edit"></i></a>
-            <a class="btn btn-danger btn-sm" href="/admin/gallery/delete/?id={{ item.Pk }}"><i class="glyphicon glyphicon-remove"></i></a>
+            <a href="/admin/gallery/edit/?id={{ item.Pk }}&__album_id={{ item.album.Pk }}"><i class="fa fa-edit"></i></a>
+            <a href="/admin/gallery/delete/?id={{ item.Pk }}"><i class="fa fa-trash-o"></i></a>
         </td>
     </tr>
     {% endfor %}

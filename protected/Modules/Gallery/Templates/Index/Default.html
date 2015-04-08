@@ -9,7 +9,7 @@
 {% for item in items %}
     <div class="col-sm-6 col-xs-6">
         <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
-        <a href="/gallery/photo?id={{item.Pk}}"><p>{{item.title}}</p></a>
+        <p> <a href="/gallery/photo?id={{item.Pk}}">{{item.title}}</a></p>
     </div>
 {% endfor %}
 {% endblock %}

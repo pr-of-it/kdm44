@@ -1,9 +1,7 @@
 {% extends 'Admin/Smart/blank_.html' %}
-{% import 'Admin/Macros/Tree.html' as Tree %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
-    <li><a href="/admin/">Админ-панель</a></li>
     <li><a href="/admin/gallery/">Галерея</a></li>
     <li>Альбомы</li>
 </ol>
@@ -12,7 +10,7 @@
 {% block pagehead %}
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark"><i class="fa fa-picture-o fa-fw "></i> Альбомы </h1>
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Альбомы</h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
         <ul id="sparks" class="">
@@ -25,29 +23,94 @@
 {% endblock %}
 
 {% block content %}
+
 <section class="well">
+    <div class="row"><div class="pull-right"><a class="btn btn-primary btn-lg" href="/admin/gallery/AlbumEdit?id=new">Добавить альбом</a></div></div>
     <div class="row">
-        <div class="pull-right"><a class="btn btn-primary btn-lg" href="/admin/gallery/albumEdit?id=new">Добавить альбом</a></div>
-    </div>
-    <div class="row">
-        {{ Tree.listSortable(items, '/admin/gallery/album') }}
+
+        <div class="dd" id="tree-nestable" style="width: 100%; max-width: 100%">
+            {% set level = items[0].__lvl %}
+            {% set count = 0 %}
+            <ol class="dd-list">
+                {% for key, item in items %}
+
+                {% set current = item.__lvl %}
+
+                {% if current == level %}
+                {% if count > 0 %}</li>{% endif %}
+                {% endif %}
+
+                {% if current > level %}
+                <ol class="dd-list">
+                    {% set level = current %}
+                    {% endif %}
+
+                    {% if current < level %}
+                    {{"</li></ol>"|repeat(level-current)|raw}}</li>
+                {% set level = current %}
+                {% endif %}
+
+                <li class="dd-item dd3-item" data-id="{{item.__id}}">
+                    <div class="dd-handle dd3-handle" data-id="{{item.Pk}}">Drag</div>
+                    <div class="dd3-content">
+                        <a href="/admin/gallery/AlbumEdit/?id={{item.Pk}}">{{item.title}}</a>
+                        <span class="pull-right">
+<!--
+                            {% if items[key-1] is defined and items.existsElement({'__prt':item.__prt, '__lvl':item.__lvl})%}
+                            <a href="/admin/news/topicUp/?id={{item.__id}}"><i class="fa fa-arrow-up"></i></a>
+                            {% else %}
+                            <i class="fa fa-ellipsis-horizontal"></i>
+                            {% endif %}
+                            {% if items[key+1] is defined %}
+                            <a href="/admin/news/topicDown/?id={{item.__id}}"><i class="fa fa-arrow-down"></i></a>
+                            {% else %}
+                            <i class="fa fa-ellipsis-horizontal"></i>
+                            {% endif %}
+                            &nbsp;&nbsp;&nbsp;
+-->
+                            <a href="/admin/gallery/AlbumEdit/?id=new&parent={{item.Pk}}" class=""><i class="fa fa-plus"></i></a>
+                            <a href="/admin/gallery/AlbumEdit/?id={{item.Pk}}" class=""><i class="fa fa-edit"></i></a>
+                            <a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
+                        </span>
+                    </div>
+                    {% set count = count + 1 %}
+                    {% endfor %}
+                    {{"</li></ol>"|repeat(current)|raw}}</li>
+            </ol>
+        </div>
+
     </div>
 </section>
+
 {% endblock %}
 
 {% block pagescript %}
 <script type="text/javascript">
-    $(function () {
-
-        $('a.confirmable').click(function () {
+    $(function() {
+        $('a.confirmable').click(function() {
             return confirm('Вы уверены?');
         });
-        {{Tree.listSortableJs('/admin/gallery/album')}}
+
+        $('.dd-list').sortable({
+            handle: ".dd-handle",
+            axis: "y",
+            update: function( event, ui ) {
+                var prevSibling = ui.item.prev();
+                var nextSibling = ui.item.next()
+                if (!$.isEmptyObject(prevSibling) && undefined != prevSibling.attr('data-id')) {
+                    var url = '/admin/gallery/albumMoveAfter.json';
+                    var siblingId = prevSibling.attr('data-id');
+                } else {
+                    var url = '/admin/gallery/albumMoveBefore.json';
+                    var siblingId = nextSibling.attr('data-id');
+                }
+                $.post(url, {id: ui.item.attr('data-id') ,to: siblingId}, function (r) {
+                    if (!r.result) {
+                        alert('ERROR!!!');
+                    }
+                });
+            }
+        });
     });
 </script>
 {% endblock %}
-
-
-
-
-

@@ -1,17 +1,24 @@
 {% extends 'Kdm/Inner.html' %}
 
-
 {% block breadcrumb %}
 <ol class="breadcrumb">
-    <li>Галерея</li>
+    <li><a href="/">Главная страница</a></li>
+    <li class="active">Галерея</li>
+    <li></li>
 </ol>
 {% endblock %}
+
 {% block content %}
 
 {% for item in items %}
-    <div class="col-sm-6 col-xs-6">
-        <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
-        <p> <a href="/gallery/photo?id={{item.Pk}}">{{item.title}}</a></p>
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <a href="/gallery/photo?id={{item.Pk}}"><img src="{{item.getAlbumImage}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
+        <p>
+            <a href="/gallery/photo?id={{item.Pk}}">{{item.title}}</a>
+        </p>
     </div>
+</div>
 {% endfor %}
+
 {% endblock %}

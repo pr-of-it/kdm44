@@ -12,7 +12,7 @@
 {% block pagehead %}
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Альбомы </h1>
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-picture-o fa-fw "></i> Альбомы </h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
         <ul id="sparks" class="">
@@ -29,8 +29,6 @@
     <div class="row">
         <div class="pull-right"><a class="btn btn-primary btn-lg" href="/admin/gallery/albumEdit?id=new">Добавить альбом</a></div>
     </div>
-
-
     <div class="row">
         {{ Tree.listSortable(items, '/admin/gallery/album') }}
     </div>

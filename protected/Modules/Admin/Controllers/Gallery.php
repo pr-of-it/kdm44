@@ -141,14 +141,30 @@ class Gallery
     }
 
 
-    public function actionAlbumEdit($id = null)
+    public function actionAlbumEdit($id = null, $parent=null)
     {
         if (null === $id || 'new' == $id) {
             $this->data->item = new Album();
+            if (null !== $parent) {
+                $this->data->item->parent = $parent;
+            }
         } else {
             $this->data->item = Album::findByPK($id);
         }
     }
+
+    public function actionEditTopic($id=null, $parent=null)
+    {
+        if (null === $id || 'new' == $id) {
+            $this->data->item = new Topic();
+            if (null !== $parent) {
+                $this->data->item->parent = $parent;
+            }
+        } else {
+            $this->data->item = Topic::findByPK($id);
+        }
+    }
+
 
     public function actionAlbumSave()
     {

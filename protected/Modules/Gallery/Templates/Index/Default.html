@@ -6,12 +6,12 @@
     <li>Галерея</li>
 </ol>
 
-    {% for item in items %}
-    <div class="col-sm-6 col-xs-6"  >
-        <a href="/gallery/photo?id={{item.Pk}}">
-            <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
-            <p>{{item.title}}</p>
-        </a>
+{% for item in items %}
+<a href="/gallery/photo?id={{item.Pk}}">
+    <div class="col-sm-6 col-xs-6">
+        <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
+        <p>{{item.title}}</p>
     </div>
-    {% endfor %}
+</a>
+{% endfor %}
 {% endblock %}

@@ -22,10 +22,13 @@
         {% set level = current %}
         {% endif %}
 
-        <li data-id="{{item.Pk}}">
-            <div class="list-group-item">
-                <div class="btn btn-default btn-sm list-sortable-handle" data-id="{{item.Pk}}"><i class="glyphicon glyphicon-resize-vertical"></i></div>&nbsp;&nbsp;
-                {{item.title}}
+
+
+
+
+        <li class="dd-item dd3-item" data-id="{{item.Pk}}">
+            <div class="dd-handle dd3-handle" data-id="{{item.Pk}}">Drag</div>
+            <div class="dd3-content">{{item.title}}
                 <p class="pull-right">
                     {% if item.hasPrevSibling %}
                     <a class="btn btn-info btn-sm" href="{{baselink}}Up/?id={{item.Pk}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
@@ -38,8 +41,9 @@
                     <button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-option-horizontal"></i></button>
                     {% endif %}
                     &nbsp;&nbsp;
-                    <a class="btn btn-primary btn-sm" href="{{baselink}}Edit/?id={{item.Pk}}"><i class="glyphicon glyphicon-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" href="{{baselink}}Delete/?id={{item.Pk}}" class="confirmable"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a href="{{baselink}}Edit/?id=new&parent={{item.Pk}}" class=""><i class="fa fa-plus"></i></a>
+                    <a href="{{baselink}}Edit/?id={{item.Pk}}"><i class="fa fa-edit"></i></a>
+                    <a href="{{baselink}}Delete/?id={{item.Pk}}" class="confirmable"><i class="fa fa-trash-o"></i></a>
                 </p>
             </div>
 

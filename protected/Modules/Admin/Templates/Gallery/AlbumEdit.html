@@ -30,11 +30,13 @@
                 <label class="label">Родительский альбом</label>
                 <label class="select">
                     {% if item.isNew %}
-                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true}, {"name":"parent",
-                    "class": "form-control"}) }}
+                    {% if item.parent %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\\Album", item.parent.Pk, {"null":true}, {"name":"parent"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", item.parent.Pk, {"null":true,
-                    'disabled':[item.Pk]}, {"name":"parent", "class": "form-control"}) }}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true}, {"name":"parent","class": "form-control"}) }}
+                    {% endif %}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", item.parent.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"parent", "class": "form-control"}) }}
                     {% endif %}
                     <i></i>
              </label>

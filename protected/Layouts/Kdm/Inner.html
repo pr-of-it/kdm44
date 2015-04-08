@@ -7,7 +7,7 @@
 
     {{publish('/Layouts/Kdm/assets')}}
     {{ publishCss() }}
-    {% block head %}{% endblock %}
+
     <!--js-->
     {{ publishJs() }}
     <script type="text/javascript" src="{{asset('/Layouts/Kdm/assets/js/jquery.bxslider.min.js')}}"></script>
@@ -20,6 +20,8 @@
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin' rel='stylesheet'
           type='text/css'>
+
+    {% block head %}{% endblock %}
 
     <script>
         $(document).ready(function () {

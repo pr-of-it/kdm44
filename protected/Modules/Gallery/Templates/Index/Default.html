@@ -6,9 +6,9 @@
     <li>Галерея</li>
 </ol>
 
-<div class="row">
+<div class="row col-sm-10">
     {% for item in items %}
-    <div class="col-sm-3">
+    <div class="col-sm-3" style="margin:80px;" >
         <a href="/gallery/photo?id={{item.Pk}}">
             <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
             <p>{{item.title}}</p>

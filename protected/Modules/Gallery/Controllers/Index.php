@@ -26,6 +26,7 @@ class Index extends Controller
 
     public function actionPhoto($id)
     {
+        $this->app->config->extensions->fotorama;
         $album = $this->data->album = Album::findByColumn('__id', $id);
         if ($album->__rgt - $album->__lft > 1) {
             $this->data->items = Album::findAllByQuery('SELECT __id, title FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
@@ -34,7 +35,9 @@ class Index extends Controller
             $this->data->items = Photo::findAllByColumn('__album_id', $id, [
                 'order' => 'published DESC',
             ]);
+
         }
+
     }
 
     public function actionOne($id, $album_id)

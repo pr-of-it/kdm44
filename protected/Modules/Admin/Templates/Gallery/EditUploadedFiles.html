@@ -12,9 +12,8 @@
 </ol>
 {% endblock %}
 
-
+{% block content %}
 <header>{% if item.isNew %}Добавление фотографии{% else %}Редактирование фотографии{% endif %}
-    {% endblock %}
 </header>
 <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/gallery/save/">
     {% for item in items %}

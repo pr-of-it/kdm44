@@ -24,7 +24,7 @@ class Index extends Controller
         ]);
     }
 
-    public function actionPhoto($id)
+    public function actionAlbum($id)
     {
         $this->app->config->extensions->fotorama;
         $album = $this->data->album = Album::findByColumn('__id', $id);
@@ -35,12 +35,10 @@ class Index extends Controller
             $this->data->items = Photo::findAllByColumn('__album_id', $id, [
                 'order' => 'published DESC',
             ]);
-
         }
-
     }
 
-    public function actionOne($id, $album_id)
+    public function actionPhoto($id, $album_id)
     {
         $album = $this->data->album = Album::findByColumn('__id', $album_id);
         if ($album->__prt) {

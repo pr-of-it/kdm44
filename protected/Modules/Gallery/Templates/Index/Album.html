@@ -1,0 +1,40 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block head %}
+<meta name="viewport" content="width=device-width">
+<link href="lib/css/fotorama.css" rel="stylesheet">
+<script src="lib/js/fotorama.js"></script>
+{%endblock%}
+
+{% block content %}
+
+<link href="{{ asset('/Modules/Gallery/Templates/assets/css/gallery.css') }}" rel="stylesheet">
+
+<ol class="breadcrumb" xmlns="http://www.w3.org/1999/html">
+    <li><a href="/gallery/">Галерея</a></li>
+    {% if albumParent %}
+    <li><a href="/gallery/album?id={{albumParent.Pk}}">{{ albumParent.title }}</a></li>
+    {% endif %}
+    <li></li>
+</ol>
+
+<h1>{{ album.title }}</h1>
+{% if album.__rgt - album.__lft > 1  %}
+<div class="row">
+    {% for item in items %}
+    <div class="col-sm-3">
+        <a href="/gallery/album?id={{item.Pk}}">
+            <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
+            <p>{{item.title}}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="700px">
+    {% for item in items %}
+    <div data-img="{{item.image}}"><p class="album-title">{{item.title}}</p></div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

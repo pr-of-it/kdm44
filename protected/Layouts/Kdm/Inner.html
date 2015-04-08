@@ -50,6 +50,9 @@
 <div class="container">
     <div class="content">
         <div class="row">
+            {% block breadcrumb %}{% endblock %}
+        </div>
+        <div class="row">
             <div class="col-md-9 col-xs-12">
                 {% block content %}{% endblock %}
             </div>

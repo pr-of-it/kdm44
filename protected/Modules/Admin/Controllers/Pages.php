@@ -56,28 +56,53 @@ class Pages
         $item->fill($_POST);
 
         //Проверка на наличие страницы с таким же URL
-        $page = Page::findAllByUrl($item->url);
-        if($page) {
-            foreach ($page as $objPage) {
-                if($item->__id !== $objPage->__id) {
-                    $this->app->flash->objPage = $item;
-                    $this->app->flash->urlAlrealyExist = true;
-                    $this->redirect('/admin/pages/edit');
+
+        $count = Page::countAllByColumn('url', $item->url, ['where' => '']); //нужно подставить правильный запрос
+
+        if (false == $item->isNew()) {
+
+            if ($count < 1) {
+                $item
+                    ->uploadFiles('files')
+                    ->save();
+                if ($item->wasNew()) {
+                    $item->moveToFirstPosition();
+                }
+                if ($redirect) {
+                    $this->redirect('/pages/' . $item->url . '.html');
+                } else {
+                    $this->redirect('/admin/pages/');
+                }
+            }
+
+            elseif ($count >= 1) {
+                $this->app->flash->objPage = $item;
+                $this->app->flash->urlAlrealyExist = true;
+                $this->redirect('/admin/pages/edit');
+            }
+        }
+        else {
+            if ($count > 0) {
+                $this->app->flash->objPage = $item;
+                $this->app->flash->urlAlrealyExist = true;
+                $this->redirect('/admin/pages/edit');
+            }
+            else {
+                $item
+                    ->uploadFiles('files')
+                    ->save();
+                if ($item->wasNew()) {
+                    $item->moveToFirstPosition();
+                }
+                if ($redirect) {
+                    $this->redirect('/pages/' . $item->url . '.html');
+                } else {
+                    $this->redirect('/admin/pages/');
                 }
             }
         }
-            $item
-                ->uploadFiles('files')
-                ->save();
-            if ($item->wasNew()) {
-                $item->moveToFirstPosition();
-            }
-            if ($redirect) {
-                $this->redirect('/pages/' . $item->url . '.html');
-            } else {
-                $this->redirect('/admin/pages/');
-            }
-        }
+
+    }
 
     public function actionDelete($id)
     {

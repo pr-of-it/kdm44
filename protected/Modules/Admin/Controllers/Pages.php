@@ -31,7 +31,6 @@ class Pages
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
-
         if (null === $id || 'new' == $id) {
             $this->data->item = new Page();
             if (null !== $parent) {
@@ -40,12 +39,7 @@ class Pages
         } else {
             $this->data->item = Page::findByPK($id);
         }
-        if (isset($this->app->flash->objPage)) {
-            $this->data->item = $this->app->flash->objPage;
-            $this->data->urlAlreadyExist = $this->app->flash->urlAlrealyExist;
-        }
     }
-
     public function actionSave($redirect = 0)
     {
         if (!empty($_POST[Page::PK])) {
@@ -53,55 +47,17 @@ class Pages
         } else {
             $item = new Page();
         }
-        $item->fill($_POST);
-
-        //Проверка на наличие страницы с таким же URL
-
-        $count = Page::countAllByColumn('url', $item->url, ['where' => '']); //нужно подставить правильный запрос
-
-        if (false == $item->isNew()) {
-
-            if ($count < 1) {
-                $item
-                    ->uploadFiles('files')
-                    ->save();
-                if ($item->wasNew()) {
-                    $item->moveToFirstPosition();
-                }
-                if ($redirect) {
-                    $this->redirect('/pages/' . $item->url . '.html');
-                } else {
-                    $this->redirect('/admin/pages/');
-                }
-            }
-
-            elseif ($count >= 1) {
-                $this->app->flash->objPage = $item;
-                $this->app->flash->urlAlrealyExist = true;
-                $this->redirect('/admin/pages/edit');
-            }
+        $item
+            ->fill($_POST)
+            ->uploadFiles('files')
+            ->save();
+        if ($item->wasNew()) {
+            $item->moveToFirstPosition();
         }
-        else {
-            if ($count > 0) {
-                $this->app->flash->objPage = $item;
-                $this->app->flash->urlAlrealyExist = true;
-                $this->redirect('/admin/pages/edit');
-            }
-            else {
-                $item
-                    ->uploadFiles('files')
-                    ->save();
-                if ($item->wasNew()) {
-                    $item->moveToFirstPosition();
-                }
-                if ($redirect) {
-                    $this->redirect('/pages/' . $item->url . '.html');
-                } else {
-                    $this->redirect('/admin/pages/');
-                }
-            }
-        }
-
+        if ($redirect) {
+            $this->redirect('/pages/' . $item->url . '.html');
+        } else {
+            $this->redirect('/admin/pages/');        }
     }
 
     public function actionDelete($id)

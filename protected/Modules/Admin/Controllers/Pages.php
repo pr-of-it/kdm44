@@ -40,6 +40,10 @@ class Pages
         } else {
             $this->data->item = Page::findByPK($id);
         }
+        if (isset($this->app->flash->objPage)) {
+            $this->data->item = $this->app->flash->objPage;
+            $this->data->urlAlreadyExist = $this->app->flash->urlAlrealyExist;
+        }
     }
 
     public function actionSave($redirect = 0)
@@ -49,19 +53,31 @@ class Pages
         } else {
             $item = new Page();
         }
-        $item
-            ->fill($_POST)
-            ->uploadFiles('files')
-            ->save();
-        if ($item->wasNew()) {
-            $item->moveToFirstPosition();
-        }
-        if ($redirect) {
-            $this->redirect('/pages/' . $item->url . '.html');
-        } else {
-            $this->redirect('/admin/pages/');        }
+        $item->fill($_POST);
 
-    }
+        //Проверка на наличие страницы с таким же URL
+        $page = Page::findAllByUrl($item->url);
+        if($page) {
+            foreach ($page as $objPage) {
+                if($item->__id !== $objPage->__id) {
+                    $this->app->flash->objPage = $item;
+                    $this->app->flash->urlAlrealyExist = true;
+                    $this->redirect('/admin/pages/edit');
+                }
+            }
+        }
+            $item
+                ->uploadFiles('files')
+                ->save();
+            if ($item->wasNew()) {
+                $item->moveToFirstPosition();
+            }
+            if ($redirect) {
+                $this->redirect('/pages/' . $item->url . '.html');
+            } else {
+                $this->redirect('/admin/pages/');
+            }
+        }
 
     public function actionDelete($id)
     {

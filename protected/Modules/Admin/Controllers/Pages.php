@@ -32,7 +32,10 @@ class Pages
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
-        if (null === $id || 'new' == $id) {
+        if (isset($this->app->flash->item)) {
+            $this->data->item = $this->app->flash->item;
+        }
+        elseif (null === $id || 'new' == $id) {
             $this->data->item = new Page();
             if (null !== $parent) {
                 $this->data->item->parent = $parent;
@@ -50,14 +53,16 @@ class Pages
         }
         try {
             $item
-            ->fill($_POST)
-            ->uploadFiles('files')
-            ->save();
+                ->fill($_POST)
+                ->uploadFiles('files')
+                ->save();
             if ($item->wasNew()) {
                 $item->moveToFirstPosition();
             }
         } catch (Errors $errors) {
-
+            $this->app->flash->item = $item;
+            $this->app->flash->errors = $errors;
+            $this->redirect('/admin/pages/edit');
         }
         if ($redirect) {
             $this->redirect('/pages/' . $item->url . '.html');

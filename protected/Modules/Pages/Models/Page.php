@@ -4,12 +4,12 @@ namespace App\Modules\Pages\Models;
 
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Dbal\QueryBuilder;
 use T4\Fs\Helpers;
+use T4\Html\Form\Errors;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
-use T4\Dbal\QueryBuilder;
-use T4\Html\Form\Errors;
 
 class Page
     extends Model
@@ -49,7 +49,7 @@ class Page
     {
         $ret = new Collection;
         foreach ($this->findAllParents() as $i => $parent) {
-            if (0==$i)
+            if (0 == $i)
                 continue;
             $p = new Std;
             $p->url = $parent->url;
@@ -92,10 +92,12 @@ class Page
         switch ($count) {
             case 0:
                 return parent::beforeSave();
+                break;
             default:
                 $errors = new Errors();
                 $errors->add('url', 'Страница с такими URL уже существует');
                 throw $errors;
+                break;
         }
     }
 

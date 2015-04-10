@@ -28,17 +28,14 @@ class Pages
         $this->data->items = Page::findAllTree();
     }
 
-    public function actionEdit($id=null, $parent=null)
+    public function actionEdit($id = null, $parent = null)
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
-        if(isset($this->app->flash->errors)) {
-            $this->data->errors = $this->app->flash->errors;
-        }
+
         if (isset($this->app->flash->item)) {
             $this->data->item = $this->app->flash->item;
-        }
-        elseif (null === $id || 'new' == $id) {
+        } elseif (null === $id || 'new' == $id) {
             $this->data->item = new Page();
             if (null !== $parent) {
                 $this->data->item->parent = $parent;
@@ -46,7 +43,12 @@ class Pages
         } else {
             $this->data->item = Page::findByPK($id);
         }
+
+        if (isset($this->app->flash->errors)) {
+            $this->data->errors = $this->app->flash->errors;
+        }
     }
+
     public function actionSave($redirect = 0)
     {
         if (!empty($_POST[Page::PK])) {
@@ -54,7 +56,9 @@ class Pages
         } else {
             $item = new Page();
         }
+
         try {
+
             $item
                 ->fill($_POST)
                 ->uploadFiles('files')
@@ -62,15 +66,18 @@ class Pages
             if ($item->wasNew()) {
                 $item->moveToFirstPosition();
             }
+
         } catch (Errors $errors) {
             $this->app->flash->item = $item;
             $this->app->flash->errors = $errors;
             $this->redirect('/admin/pages/edit');
         }
+
         if ($redirect) {
             $this->redirect('/pages/' . $item->url . '.html');
         } else {
-            $this->redirect('/admin/pages/');        }
+            $this->redirect('/admin/pages/');
+        }
     }
 
     public function actionDelete($id)

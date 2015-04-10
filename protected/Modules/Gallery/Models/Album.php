@@ -38,7 +38,7 @@ class Album
 
     public function getAlbumImage()
     {
-        if ($this->photos->collect('published')) {
+        if (is_array($this->photos->collect('published'))) {
             $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
             return $this->photos->collect('image')[$key];
         } else {
@@ -47,4 +47,8 @@ class Album
 
     }
 
+    public function countPhotos()
+    {
+        return count($this->photos->collect('image'));
+    }
 }

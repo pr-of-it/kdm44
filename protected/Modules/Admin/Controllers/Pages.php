@@ -32,6 +32,9 @@ class Pages
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
+        if(isset($this->app->flash->errors)) {
+            $this->data->errors = $this->app->flash->errors;
+        }
         if (isset($this->app->flash->item)) {
             $this->data->item = $this->app->flash->item;
         }

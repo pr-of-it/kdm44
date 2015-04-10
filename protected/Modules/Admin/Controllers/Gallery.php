@@ -43,7 +43,7 @@ class Gallery
         $this->data->pageSize = self::PAGE_SIZE;
         $this->data->activePage = $page;
         $this->data->albums = Album::findAllByQuery('SELECT __id, title FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
-        if ($album->__prt) {
+        if (!$album->__prt == null) {
             $this->data->albumParent = Album::findByColumn('__id', $album->__prt);
         }
         $this->data->photos = Photo::findAllByColumn('__album_id', $id, [
@@ -58,12 +58,20 @@ class Gallery
         $this->data->item = Photo::findByPK($id);
     }
 
-    public function actionEdit($__album_id, $id = null)
+
+    public function actionEdit($__album_id = null, $id = null)
     {
-        if (null === $id || 'new' == $id) {
-            $this->data->item = new Photo();
-        } else {
+        $this->data->id = $id;
+        if (!null == $id) {
             $this->data->item = Photo::findByPK($id);
+        } else {
+            $uploader = new Uploader('image');
+            $uploader->setPath('/public/gallery/photos');
+            $images = $uploader();
+            $this->data->items = $images;
+        }
+        if (null == $__album_id) {
+            $__album_id = $this->app->request->post->__album_id;
         }
         $album = $this->data->album = Album::findByColumn('__id', $__album_id);
         if ($album->__prt) {
@@ -71,52 +79,23 @@ class Gallery
         }
     }
 
-    public function actionEditUploadedFiles()
-    {
-        $request = $this->app->request;
-        if ($request->isUploadedArray('image')) {
-            $uploader = new Uploader('image');
-            $uploader->setPath('/public/gallery/photos');
-            $images = $uploader();
-            $num = count($images);
-            foreach ($images as $image) {
-                $item = new Photo();
-                $item->fill($this->app->request->post);
-                $item->image = $image;
-                $item->save();
-            }
-        } else {
-            $num = 1;
-            if (!empty($this->app->request->post->id)) {
-                $item = Photo::findByPK($this->app->request->post->id);
-            } else {
-                $item = new Photo();
-            }
-            $item->fill($this->app->request->post);
-            $item
-                ->uploadImage('image')
-                ->save();
-        }
-        $album = $this->data->album = Album::findByColumn('__id', $this->app->request->post->__album_id);
-        if ($album->__prt) {
-            $this->data->albumParent = Album::findByColumn('__id', $album->__prt);
-        }
-        $album_id = $this->data->album_id = $this->app->request->post->__album_id;
-        $this->data->items = Photo::findAllByQuery('SELECT * FROM photos WHERE __album_id=' . $album_id . ' ORDER BY published DESC LIMIT ' . $num);
-    }
-
     public function actionSave()
     {
         $__album_id = $this->app->request->post->__album_id;
-        foreach ($this->app->request->post->id as $id) {
-            static $num = 0;
-            $item = Photo::findByPK($id);
-            $item->title = $this->app->request->post->title[$num];
+        if (!$this->app->request->post->id == null) {
+            $item = Photo::findByPK($this->app->request->post->id);
+            $item->fill($this->app->request->post);
             $item->save();
-            $num++;
-        }
-        if (!$__album_id) {
-            $this->redirect('/admin/gallery/');
+        } else {
+            foreach ($this->app->request->post->image as $image) {
+                static $num = 0;
+                $item = new Photo;
+                $item->title = $this->app->request->post->title[$num];
+                $item->image = $image;
+                $item->__album_id = $this->app->request->post->__album_id;
+                $item->save();
+                $num++;
+            }
         }
         $this->redirect('/admin/gallery/photo?id=' . $__album_id);
     }
@@ -131,6 +110,8 @@ class Gallery
         }
         $this->redirect('/admin/gallery/photo?id=' . $__album_id);
     }
+
+
 
     /**
      * Albums

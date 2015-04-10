@@ -13,12 +13,32 @@
 {% endblock %}
 
 {% block content %}
-
-{% if item.isNew %}Добавление фотографии{% else %}Редактирование фотографии{% endif %}
+<header>{% if id == 0 %} Добавление фотографии {% else %} Редактирование фотографии{% endif %}
+</header>
 
 <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/gallery/save/">
-    <input type="hidden" name="id[]" value="{{item.Pk}}">
-    <input type="hidden" name="image[]" value="{{item.image}}">
+    {% if id == 0 %}
+    {% for item in items %}
+    <input type="hidden" name="image[]" value="{{ item }}">
+    <input type="hidden" name="__album_id" value="{{ album.Pk }}">
+
+    <div class="media">
+        <div class="media-left">
+            <img class="media-object" src="{{ item }}" style="max-width: 200px; max-height: 200px;">
+        </div>
+        <div class="media-body">
+            <div class="col-sm-10"><label for="title" class="col-sm-2 control-label ">Описание</label></div>
+            <div class="col-sm-10">
+                <textarea name="title[]" id="title" cols="10" rows="3" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <br>
+    <input type="hidden" name="id" value="{{item.Pk}}">
+    <input type="hidden" name="image" value="{{item.image}}">
+    <input type="hidden" name="__album_id" value="{{ album.Pk }}">
 
     <div class="media">
         <div class="media-left">
@@ -28,18 +48,21 @@
             <div class="col-sm-10"><label for="title" class="col-sm-2 control-label ">Описание</label></div>
 
             <div class="col-sm-10">
-                <textarea name="title[]" id="title" cols="10" rows="3" class="form-control">{{ item.title }}</textarea>
+                <textarea name="title" id="title" cols="10" rows="3" class="form-control">{{ item.title }}</textarea>
             </div>
         </div>
     </div>
+    {% endif %}
     <br>
 
     <div class="row">
         <footer class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">Сохранить
-            </button>
-            <button type="button" class="btn btn-default"
-                    onclick="window.location.href='/admin/gallery/photo?id={{album.Pk}}'">Отменить
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            {% if not id == 0 %}
+            <a href="/admin/gallery/delete/?__album_id={{album.Pk}}&id={{item.Pk}}" class="confirmable">
+                <button type="button" class="btn btn-danger">Удалить</button></a>
+            {% endif %}
+            <button type="button" class="btn btn-default" onclick="window.location.href='/admin/gallery/photo?id={{album.Pk}}'">Отменить
             </button>
         </footer>
     </div>
@@ -47,9 +70,9 @@
 {% endblock %}
 
 {% block pagescript %}
+
 <script type="text/javascript">
     $(function () {
-
         $('a.confirmable').click(function () {
             return confirm('Вы уверены?');
         });

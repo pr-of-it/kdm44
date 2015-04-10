@@ -8,6 +8,8 @@ use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
+use T4\Dbal\QueryBuilder;
+use T4\Html\Form\Errors;
 
 class Page
     extends Model
@@ -70,6 +72,31 @@ class Page
                 $this->files->append(new File(['file' => $uploadedFilePath]));
         }
         return $this;
+    }
+
+    public function beforeSave()
+    {
+        $query = new QueryBuilder();
+        $query
+            ->select('COUNT(*)')
+            ->from(self::getTableName());
+
+        if ($this->isNew()) {
+            $query->where('url=:url')->params([':url' => $this->url]);
+        } else {
+            $query
+                ->where('url=:url AND __id<>:id')
+                ->params([':url' => $this->url, ':id' => $this->getPk()]);
+        }
+        $count = self::getDbConnection()->query($query)->fetchScalar();
+        switch ($count) {
+            case 0:
+                return parent::beforeSave();
+            default:
+                $errors = new Errors();
+                $errors->add('url', 'Страница с такими URL уже существует');
+                throw $errors;
+        }
     }
 
     public function beforeDelete()

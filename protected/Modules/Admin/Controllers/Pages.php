@@ -11,6 +11,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\Pages\Models\File;
 use App\Modules\Pages\Models\Page;
 use T4\Core\Exception;
+use T4\Html\Form\Errors;
 use T4\Mvc\Controller;
 
 class Pages
@@ -49,8 +50,12 @@ class Pages
         }
         $item
             ->fill($_POST)
-            ->uploadFiles('files')
-            ->save();
+            ->uploadFiles('files');
+        try {
+            $item->save();
+        } catch (Errors $e) {
+
+        }
         if ($item->wasNew()) {
             $item->moveToFirstPosition();
         }

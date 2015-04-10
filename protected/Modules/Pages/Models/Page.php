@@ -8,7 +8,8 @@ use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
-use \T4\Dbal\QueryBuilder;
+use T4\Dbal\QueryBuilder;
+use T4\Html\Form\Errors;
 
 class Page
     extends Model
@@ -81,7 +82,7 @@ class Page
             ->from(self::getTableName());
 
         if ($this->isNew()) {
-            $query->where('`url`=:url')->params([':url' => $this->url]);
+            $query->where('url=:url')->params([':url' => $this->url]);
         } else {
             $query
                 ->where('url=:url AND __id<>:id')
@@ -89,17 +90,12 @@ class Page
         }
         $count = self::getDbConnection()->query($query)->fetchScalar();
         switch ($count) {
-            case (0):
-                return true;
-            case (1):
-                return false;
+            case 0:
+                return parent::beforeSave();
             default:
-                return false;
+                throw new Errors('Страница с таким URL уже существует!');
         }
     }
-
-
-
 
     public function beforeDelete()
     {

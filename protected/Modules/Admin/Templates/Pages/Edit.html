@@ -41,22 +41,15 @@
             </section>
             <section>
                 <label class="label">URL (адрес страницы)</label>
-                {% if urlAlreadyExist %}
-                <p style="color: red; font-weight: bold">Страница с таким URL уже существует!</p>
-                <label class="input">
-                    <div class="input-group">
-                        <input type="text" name="url" value="{{item.url}}" style="border-color: red; background-color: rgba(255, 12, 17, 0.10)">
-                        <span class="input-group-addon">.html</span>
-                    </div>
-                </label>
-                {% else %}
+                {% for error in errors %}
+                <div class="alert alert-danger" role="alert">{{error.message}}</div>
+                {% endfor %}
                 <label class="input">
                     <div class="input-group">
                         <input type="text" name="url" value="{{item.url}}">
                         <span class="input-group-addon">.html</span>
                     </div>
                 </label>
-                {% endif %}
             </section>
             <section>
                 <label class="label">Тип страницы (шаблон)</label>

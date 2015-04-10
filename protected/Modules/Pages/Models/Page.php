@@ -93,7 +93,9 @@ class Page
             case 0:
                 return parent::beforeSave();
             default:
-                throw new Errors('Страница с таким URL уже существует!');
+                $errors = new Errors();
+                $errors->add('url', 'Страница с такими URL уже существует');
+                throw $errors;
         }
     }
 

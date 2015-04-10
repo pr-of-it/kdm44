@@ -48,16 +48,16 @@ class Pages
         } else {
             $item = new Page();
         }
-        $item
-            ->fill($_POST)
-            ->uploadFiles('files');
         try {
-            $item->save();
-        } catch (Errors $e) {
+            $item
+            ->fill($_POST)
+            ->uploadFiles('files')
+            ->save();
+            if ($item->wasNew()) {
+                $item->moveToFirstPosition();
+            }
+        } catch (Errors $errors) {
 
-        }
-        if ($item->wasNew()) {
-            $item->moveToFirstPosition();
         }
         if ($redirect) {
             $this->redirect('/pages/' . $item->url . '.html');

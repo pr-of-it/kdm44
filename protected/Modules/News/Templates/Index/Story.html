@@ -7,15 +7,16 @@
     <li></li>
 </ol>
     {% block meta_extra %}
+
         <meta propery="og:type" content="article">
         <meta property="og:title" content="{{item.title}}">
         <meta property="og:image" content="{{item.image}}">
         <meta property="og:url" content="/news/{{item.Pk}}.html">
-        <meta property="og:description" content="{{item.lead|slice(1,120)}}">
+        <meta property="og:description" content="{{item.short}}">
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@kdm44ru" />
         <meta name="twitter:title" content="{{item.title}}" />
-        <meta name="twitter:description" content="{{item.lead|slice(1,120)}}" />
+        <meta name="twitter:description" content="{{item.short}}" />
         <meta name="twitter:image" content="{{item.image}}" />
     {% endblock %}
 </head>

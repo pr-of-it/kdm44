@@ -27,7 +27,10 @@ class Index
     public function actionStory($id)
     {
         $this->data->item = Story::findByPK($id);
-        if (empty($this->data->item)) {
+        $story=new Story();
+        $this->data->item['short']=$story->getShortLead($this->data->item['lead'],120);
+        if (empty($this->data->item))
+        {
             throw new E404Exception;
         }
         $this->data->similar = Story::findAllByColumn(

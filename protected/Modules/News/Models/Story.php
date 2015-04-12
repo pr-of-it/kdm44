@@ -26,7 +26,20 @@ class Story
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
         ]
     ];
-
+    public function getShortLead($lead,$maxLength)
+    {
+        if ( mb_strlen( $lead ) > $maxLength)
+        {
+            $sourceStr=strip_tags($lead);
+            $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
+            array_pop($words);
+            return implode(' ',$words);
+        }
+        else
+        {
+            return $lead;
+        }
+    }
     public function uploadImage($formFieldName)
     {
         $request = Application::getInstance()->request;

@@ -26,6 +26,7 @@ class Story
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
         ]
     ];
+
     public function getShortLead($maxLength=120)
     {
         if ( mb_strlen( $this->lead) > $maxLength)
@@ -40,6 +41,7 @@ class Story
             return $this->lead;
         }
     }
+
     public function uploadImage($formFieldName)
     {
         $request = Application::getInstance()->request;

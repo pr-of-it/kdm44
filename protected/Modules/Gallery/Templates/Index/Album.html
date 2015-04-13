@@ -18,6 +18,20 @@
     <li></li>
 </ol>
 
+{% if app.user.role.name == 'admin' %}
+<div class="well pull-right" style="margin: 0 0 10px 10px;">
+    <a href="/admin/gallery/edit/?id={% for item in items %}{{item.Pk}}{% endfor %}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
+    <a href="/admin/gallery/delete/?id={{item.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+    });
+</script>
+{% endif %}
+
 <h1>{{ album.title }}</h1>
 {% if album.__rgt - album.__lft > 1  %}
 <div class="row">

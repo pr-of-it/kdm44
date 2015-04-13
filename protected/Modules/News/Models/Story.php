@@ -26,18 +26,18 @@ class Story
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
         ]
     ];
-    public function getShortLead($lead,$maxLength)
+    public function getShortLead($maxLength=120)
     {
-        if ( mb_strlen( $lead ) > $maxLength)
+        if ( mb_strlen( $this->lead) > $maxLength)
         {
-            $sourceStr=strip_tags($lead);
+            $sourceStr=strip_tags($this->lead);
             $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
             array_pop($words);
             return implode(' ',$words);
         }
         else
         {
-            return $lead;
+            return $this->lead;
         }
     }
     public function uploadImage($formFieldName)

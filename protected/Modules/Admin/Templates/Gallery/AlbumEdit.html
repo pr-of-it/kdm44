@@ -16,7 +16,7 @@
         {% if item.isNew %}
         <header>Добавление альбома</header>
         {% else %}
-        <input type="hidden" name="__id" value="{{item.Pk}}">
+        <input type="hidden" name="id" value="{{item.Pk}}">
         <header>Редактирование альбома</header>
         {% endif %}
         <fieldset>

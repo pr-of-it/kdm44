@@ -12,6 +12,7 @@ class Album
     protected static $schema = [
         'columns' => [
             'title' => ['type' => 'string'],
+            'url' => ['type' => 'string'],
             'published' => ['type' => 'datetime'],
 
         ],

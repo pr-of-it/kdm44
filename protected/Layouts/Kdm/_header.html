@@ -2,15 +2,19 @@
     <div class="row">
         <div class="header clearfix">
 
-            <div class="header-top">
+            <div class="header-top" style="margin-bottom: 10px">
                 <div class="col-md-8">
                     {% include 'Kdm/__logo.html' %}
                 </div>
-                {% if  app.user.role.name == 'admin' %}
-                <a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a> |
-                <a href="/logout">Выход</a>
-                {% endif %}
                 <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right; padding: 0">
+                            {% if  app.user.role.name == 'admin' %}
+                            <a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a> |
+                            <a href="/logout">Выход</a>
+                            {% endif %}
+                        </div>
+                    </div>
                     {% include 'Kdm/__social.html' %}
                 </div>
             </div>

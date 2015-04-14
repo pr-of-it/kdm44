@@ -1,7 +1,5 @@
 {% extends 'Kdm/Inner.html' %}
-
 {% block content %}
-
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
     <li><a href="/news/">Новости</a></li>
@@ -9,6 +7,19 @@
     <li></li>
 </ol>
 
+    {% block meta_extra %}
+        <meta propery="og:type" content="article">
+        <meta property="og:title" content="{{item.title}}">
+        <meta property="og:image" content="{{item.image}}">
+        <meta property="og:url" content="/news/{{item.Pk}}.html">
+        <meta property="og:description" content="{{item.getShortLead(120)}}">
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="@kdm44ru" />
+        <meta name="twitter:title" content="{{item.title}}" />
+        <meta name="twitter:description" content="{{item.getShortLead(120)}}" />
+        <meta name="twitter:image:src" content="{{item.image}}" />
+    {% endblock %}
+</head>
 {% if app.user.role.name == 'admin' %}
 <div class="well pull-right" style="margin: 0 0 10px 10px;">
     <a href="/admin/news/edit/?id={{item.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>

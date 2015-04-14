@@ -27,7 +27,8 @@ class Index
     public function actionStory($id)
     {
         $this->data->item = Story::findByPK($id);
-        if (empty($this->data->item)) {
+        if (empty($this->data->item))
+        {
             throw new E404Exception;
         }
         $this->data->similar = Story::findAllByColumn(

@@ -12,7 +12,6 @@ class m_1425813475_createGalleryAlbums
     {
         $this->createTable('albums', [
             'title' => ['type' => 'string'],
-            'url' => ['type' => 'string'],
             'published' => ['type' => 'datetime'],
         ], [
 

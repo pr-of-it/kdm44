@@ -10,14 +10,14 @@
     {% block meta_extra %}
         <meta propery="og:type" content="article">
         <meta property="og:title" content="{{item.title}}">
-        <meta property="og:image" content="http://kdm44.ru{{item.image}}">
-        <meta property="og:url" content="http://kdm44.ru/news/{{item.Pk}}.html">
+        <meta property="og:image" content="{{item.image}}">
+        <meta property="og:url" content="../news/{{item.Pk}}.html">
         <meta property="og:description" content="{{item.getShortLead(120)}}">
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@kdm44ru" />
         <meta name="twitter:title" content="{{item.title}}" />
         <meta name="twitter:description" content="{{item.getShortLead(120)}}" />
-        <meta name="twitter:image:src" content="http://kdm44.ru{{item.image}}" />
+        <meta name="twitter:image:src" content="{{item.image}}" />
     {% endblock %}
 </head>
 {% if app.user.role.name == 'admin' %}

@@ -6,8 +6,8 @@
     <li class="active"><a href="/news/topics/{{item.topic.Pk}}.html">{{item.topic.title}}</a></li>
     <li></li>
 </ol>
-    {% block meta_extra %}
 
+    {% block meta_extra %}
         <meta propery="og:type" content="article">
         <meta property="og:title" content="{{item.title}}">
         <meta property="og:image" content="{{item.image}}">
@@ -17,7 +17,7 @@
         <meta name="twitter:creator" content="@kdm44ru" />
         <meta name="twitter:title" content="{{item.title}}" />
         <meta name="twitter:description" content="{{item.getShortLead(120)}}" />
-        <meta name="twitter:image" content="{{item.image}}" />
+        <meta name="twitter:image:src" content="{{item.image}}" />
     {% endblock %}
 </head>
 {% if app.user.role.name == 'admin' %}

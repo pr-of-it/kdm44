@@ -16,7 +16,7 @@
         {% if item.isNew %}
         <header>Добавление альбома</header>
         {% else %}
-        <input type="hidden" name="__id" value="{{item.Pk}}">
+        <input type="hidden" name="id" value="{{item.Pk}}">
         <header>Редактирование альбома</header>
         {% endif %}
         <fieldset>
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
                 </button>
                 <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
-                {% if not item.isNew %}<a href="/admin/gallery/deleteAlbum/?id={{item.Pk}}" class="confirmable">
+                {% if not item.isNew %}<a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
                 <button type="button" class="btn btn-danger">Удалить</button>
             </a>{% endif %}
             </footer>

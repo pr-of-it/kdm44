@@ -3,14 +3,14 @@ a.album-link {
 }
 
 p.album-title {
-    font-size: 50px;
+    font-size: 25px;
     color: #fff;
     text-shadow: 0 1px 0 #000;
     font-family: Georgia, serif;
     text-align: center;
     height: 100%;
     box-sizing: border-box;
-    padding-top: 360px;
+    padding-top: 390px;
     line-height: normal;
 
 }

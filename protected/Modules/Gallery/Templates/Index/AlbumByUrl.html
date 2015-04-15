@@ -21,7 +21,7 @@
 
 {% if app.user.role.name == 'admin' %}
 <div class="well pull-right" style="margin: 0 0 10px 10px;">
-    <a href="/admin/gallery/AlbumEdit/?id={{album.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
+    <a href="/admin/gallery/AlbumEditContent/?id={{album.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
     <a href="/admin/gallery/AlbumDelete/?id={{album.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
 </div>
 <script type="text/javascript">

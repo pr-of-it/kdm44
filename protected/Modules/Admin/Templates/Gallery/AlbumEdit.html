@@ -31,26 +31,35 @@
                 <label class="select">
                     {% if item.isNew %}
                     {% if item.parent %}
-                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\\Album", item.parent.Pk, {"null":true}, {"name":"parent"}) }}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\\Album", item.parent.Pk, {"null":true},{"name":"parent"}) }}
                     {% else %}
-                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true}, {"name":"parent","class": "form-control"}) }}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0, {"null":true},{"name":"parent","class": "form-control"}) }}
                     {% endif %}
                     {% else %}
                     {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", item.parent.Pk, {"null":true, 'disabled':[item.Pk]}, {"name":"parent", "class": "form-control"}) }}
                     {% endif %}
                     <i></i>
-             </label>
-           </section>
-            </fieldset>
+                </label>
+            </section>
+            <section>
+                <label class="label">URL (адрес альбома)</label>
+                <label class="input">
+                    <div class="input-group">
+                        <input type="text" name="url" value="{{item.url}}">
+                        <span class="input-group-addon">.html</span>
+                    </div>
+                </label>
+            </section>
+        </fieldset>
 
-            <footer>
-                <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
-                </button>
-                <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
-                {% if not item.isNew %}<a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
-                <button type="button" class="btn btn-danger">Удалить</button>
-            </a>{% endif %}
-            </footer>
+        <footer>
+            <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
+            </button>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+            {% if not item.isNew %}<a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
+            <button type="button" class="btn btn-danger">Удалить</button>
+        </a>{% endif %}
+        </footer>
 
     </form>
 </section>

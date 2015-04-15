@@ -11,4 +11,6 @@ return [
     '/pages/<2>/<1>' => '/Pages/Index/PageByUrl(url=<1>)',
     '/pages/<1>' => '/Pages/Index/PageByUrl(url=<1>)',
 
+    '/gallery/albums/<1>' => '/Gallery/Index/AlbumByUrl(url=<1>)',
+
 ];

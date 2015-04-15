@@ -12,8 +12,8 @@ class Album
     protected static $schema = [
         'columns' => [
             'title' => ['type' => 'string'],
+            'url' => ['type' => 'string'],
             'published' => ['type' => 'datetime'],
-
         ],
         'relations' => [
             'photos' => ['type' => self::HAS_MANY, 'model' => Photo::class],

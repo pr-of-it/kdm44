@@ -13,7 +13,7 @@
 {% for item in items %}
     {% if not item.countPhotos == 0 %}
     <div class="col-sm-5 text-center">
-        <a href="/gallery/album?id={{item.Pk}}"><img src="{{item.getAlbumImage}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
+        <a href="/gallery/albums/{{item.url}}.html"><img src="{{item.getAlbumImage}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
         <p>
             <a href="/gallery/album?id={{item.Pk}}">{{item.title}}</a>
         </p>

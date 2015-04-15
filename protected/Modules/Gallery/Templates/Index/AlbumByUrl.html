@@ -11,17 +11,18 @@
 <link href="{{ asset('/Modules/Gallery/Templates/assets/css/gallery.css') }}" rel="stylesheet">
 
 <ol class="breadcrumb" xmlns="http://www.w3.org/1999/html">
+    <li><a href="/">Главная страница</a></li>
     <li><a href="/gallery/">Галерея</a></li>
     {% if albumParent %}
-    <li><a href="/gallery/album?id={{albumParent.Pk}}">{{ albumParent.title }}</a></li>
+    <li><a href="/gallery/albums/{{albumParent.url}}">{{ albumParent.title }}</a></li>
     {% endif %}
     <li></li>
 </ol>
 
 {% if app.user.role.name == 'admin' %}
 <div class="well pull-right" style="margin: 0 0 10px 10px;">
-    <a href="/admin/gallery/edit/?id={% for item in items %}{{item.Pk}}{% endfor %}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
-    <a href="/admin/gallery/delete/?id={{item.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
+    <a href="/admin/gallery/AlbumEdit/?id={{album.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
+    <a href="/admin/gallery/AlbumDelete/?id={{album.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
 </div>
 <script type="text/javascript">
     $(function() {
@@ -37,7 +38,7 @@
 <div class="row">
     {% for item in items %}
     <div class="col-sm-3">
-        <a href="/gallery/album?id={{item.Pk}}">
+        <a href="/gallery/albums/{{item.url}}.html">
             <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
             <p>{{item.title}}</p>
         </a>

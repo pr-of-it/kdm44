@@ -3,7 +3,7 @@
 {% block breadcrumbs %}
 <ol class="breadcrumb">
     <li><a href="/admin/">Админ-панель</a></li>
-    <li><a href="/admin/gallery/albums/">Альбомы</a></li>
+    <li><a href="/admin/gallery/">Альбомы</a></li>
     <li>{% if item.isNew %}Добавление альбома{% else %}Редактирование альбома{% endif %}</li>
 </ol>
 {% endblock %}
@@ -97,7 +97,7 @@
                 <div class="list-group">
                     {% for album in albums %}
                     {% if item.Pk == album.__prt %}
-                    <a href="/admin/gallery/photo?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
+                    <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -105,15 +105,15 @@
         </tr>
 </section>
 <tr>
-    <th class="col-sm-1">#</th>
+    <th class="col-sm-2">Обложка</th>
     <th class="col-sm-3">Фотография</th>
     <th class="col-sm-3">Название</th>
-    <th class="col-sm-3">Создана</th>
+    <th class="col-sm-2">Создана</th>
     <th class="col-sm-2"></th>
 </tr>
 {% for photo in photos %}
 <tr>
-    <td>{{photo.Pk}}</td>
+    <td><input type="radio" name="__photo_id" value="{{photo.Pk}}" {% if photo.Pk == item.__photo_id %} checked {% endif %}></td>
     <td>
         <a data-toggle="modal" href="#view-pic" data-id="{{item.Pk}}">
             <img class="img-responsive" src="{{ photo.image }}" width="80" alt="{{ item.title }}"/>

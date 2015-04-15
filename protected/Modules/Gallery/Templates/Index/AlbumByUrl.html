@@ -14,7 +14,7 @@
     <li><a href="/">Главная страница</a></li>
     <li><a href="/gallery/">Галерея</a></li>
     {% for subalbum in album.getBreadCrumbs %}
-    <li><a href="/gallery/{{subalbum.url}}.html">{{subalbum.title}}</a></li>
+    <li><a href="/gallery/albums/{{subalbum.url}}.html">{{subalbum.title}}</a></li>
     {% endfor %}
     <li></li>
 </ol>

@@ -34,13 +34,14 @@ class Index extends Controller
             throw new E404Exception;
         $this->data->album = $album;
         if ($album->__rgt - $album->__lft > 1) {
-            $this->data->items = Album::findAllByQuery('SELECT __id, url, title FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
+            $this->data->items = Album::findAllByQuery('SELECT * FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
         } else {
-            $this->data->albumParent = Album::findByColumn('__id', $album->__prt);
             $this->data->items = Photo::findAllByColumn('__album_id', $album->Pk, [
                 'order' => 'published DESC',
             ]);
         };
+
+
     }
 
     public function actionPhoto($id, $album_id)

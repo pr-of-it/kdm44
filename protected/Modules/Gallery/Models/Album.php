@@ -3,6 +3,8 @@
 namespace App\Modules\Gallery\Models;
 
 
+use T4\Core\Collection;
+use T4\Core\Std;
 use T4\Orm\Model;
 
 class Album
@@ -45,6 +47,18 @@ class Album
             return $this->photos->collect('image');
         }
 
+    }
+
+    public function getBreadCrumbs()
+    {
+        $ret = new Collection();
+        foreach ($this->findAllParents() as $i => $parent) {
+            $p = new Std;
+            $p->url = $parent->url;
+            $p->title = $parent->title;
+            $ret[] = $p;
+        }
+        return $ret;
     }
 
     public function countPhotos()

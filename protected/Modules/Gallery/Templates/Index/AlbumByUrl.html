@@ -13,9 +13,9 @@
 <ol class="breadcrumb" xmlns="http://www.w3.org/1999/html">
     <li><a href="/">Главная страница</a></li>
     <li><a href="/gallery/">Галерея</a></li>
-    {% if albumParent %}
-    <li><a href="/gallery/albums/{{albumParent.url}}">{{ albumParent.title }}</a></li>
-    {% endif %}
+    {% for subalbum in album.getBreadCrumbs %}
+    <li><a href="/gallery/{{subalbum.url}}.html">{{subalbum.title}}</a></li>
+    {% endfor %}
     <li></li>
 </ol>
 
@@ -37,12 +37,14 @@
 {% if album.__rgt - album.__lft > 1  %}
 <div class="row">
     {% for item in items %}
-    <div class="col-sm-3">
-        <a href="/gallery/albums/{{item.url}}.html">
-            <img src="{{item.getAlbumImage}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
-            <p>{{item.title}}</p>
-        </a>
+    {% if not item.countPhotos == 0 %}
+    <div class="col-sm-5 text-center">
+        <a href="/gallery/albums/{{item.url}}.html"><img src="{{item.getAlbumImage}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
+        <p>
+            <a href="/gallery/albums/{{item.url}}.html">{{item.title}}</a>
+        </p>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% else %}

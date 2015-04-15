@@ -37,7 +37,7 @@
 {% if album.__rgt - album.__lft > 1  %}
 <div class="row">
     {% for item in items %}
-    {% if not item.countPhotos == 0 %}
+    {% if not item.countPhotos == 0 and item.parent.Pk == album.Pk %}
     <div class="col-sm-5 text-center">
         <a href="/gallery/albums/{{item.url}}.html"><img src="{{item.getAlbumImage}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
         <p>

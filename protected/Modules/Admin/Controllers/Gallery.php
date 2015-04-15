@@ -146,6 +146,10 @@ class Gallery
         }
     }
 
+    /**
+     * Photos
+     */
+
 
     public function actionView($id)
     {

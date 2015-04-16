@@ -113,7 +113,7 @@
 </tr>
 {% for photo in photos %}
 <tr>
-    <td><input type="radio" name="__photo_id" value="{{photo.Pk}}" {% if photo.Pk == item.__photo_id %} checked {% endif %}></td>
+    <td><input type="radio" name="__photo_id" value="{{ photo.Pk }}" {% if photo.Pk == item.__photo_id %} checked {% endif %}></td>
     <td>
         <a data-toggle="modal" href="#view-pic" data-id="{{item.Pk}}">
             <img class="img-responsive" src="{{ photo.image }}" width="80" alt="{{ item.title }}"/>

@@ -11,7 +11,7 @@ class m_1429128690_AddCoverToAlbums
     public function up()
     {
         $this->addColumn('albums', [
-            '__photo_id' => ['type' => 'string'],
+            '__photo_id' => ['type' => 'link'],
         ]);
         $this->addIndex('albums', [
             'cover' => ['columns' => ['__photo_id']]

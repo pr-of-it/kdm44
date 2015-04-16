@@ -64,15 +64,11 @@ class Album
 
     public function getCover()
     {
-        if ($this->__photo_id) {
-            return $this->cover->image;
+        if (is_array($this->photos->collect('published'))) {
+            $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
+            return $this->photos->collect('image')[$key];
         } else {
-            if (is_array($this->photos->collect('published'))) {
-                $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
-                return $this->photos->collect('image')[$key];
-            } else {
-                return $this->photos->collect('image');
-            }
+            return $this->photos->collect('image');
         }
     }
 

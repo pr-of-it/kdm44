@@ -43,19 +43,15 @@ class Gallery
 
     public function actionAlbumEditContent($id = null, $page = 1)
     {
-        $this->data->item = Album::findByPK($id);
+        $album = Album::findByPK($id);
         if ($id == null) {
             $id = $this->app->request->post->parent;
         }
+        $this->data->item = $album;
         $this->data->url = $this->app->request->getPath() . '/?page=%d&id=' . $id;
-        $album = $this->data->item = Album::findByColumn('__id', $id);
         $this->data->itemsCount = count(Album::findByPK($id)->photos->collect('__id'));
         $this->data->pageSize = self::PAGE_SIZE;
         $this->data->activePage = $page;
-        $this->data->albums = Album::findAllByQuery('SELECT * FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
-        if (!$album->__prt == null) {
-            $this->data->albumParent = Album::findByColumn('__id', $album->__prt);
-        }
         $this->data->photos = Photo::findAllByColumn('__album_id', $id, [
             'order' => 'published DESC',
             'offset' => ($page - 1) * self::PAGE_SIZE,

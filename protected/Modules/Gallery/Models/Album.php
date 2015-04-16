@@ -19,6 +19,7 @@ class Album
         ],
         'relations' => [
             'photos' => ['type' => self::HAS_MANY, 'model' => Photo::class],
+            'cover' => ['type' => self::HAS_ONE, 'model' => Photo::class],
         ]
     ];
 
@@ -38,15 +39,18 @@ class Album
         $this->photos->delete();
     }
 
-    public function getAlbumImage()
+    public function getCover()
     {
-        if (is_array($this->photos->collect('published'))) {
-            $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
-            return $this->photos->collect('image')[$key];
+        if ($this->__photo_id) {
+            return $this->cover->image;
         } else {
-            return $this->photos->collect('image');
+            if (is_array($this->photos->collect('published'))) {
+                $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
+                return $this->photos->collect('image')[$key];
+            } else {
+                return $this->photos->collect('image');
+            }
         }
-
     }
 
     public function getBreadCrumbs()
@@ -54,6 +58,7 @@ class Album
         $ret = new Collection();
         foreach ($this->findAllParents() as $i => $parent) {
             $p = new Std;
+            $p->Pk = $parent->Pk;
             $p->url = $parent->url;
             $p->title = $parent->title;
             $ret[] = $p;

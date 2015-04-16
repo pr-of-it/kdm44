@@ -11,6 +11,9 @@ class Topic
         'table' => 'newstopics',
         'columns' => [
             'title' => ['type'=>'string'],
+        ],
+        'relations' => [
+            'stories' => ['type' => self::HAS_MANY, 'model' => Story::class]
         ]
     ];
 

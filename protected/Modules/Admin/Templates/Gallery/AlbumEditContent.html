@@ -1,0 +1,206 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li><a href="/admin/gallery/">Альбомы</a></li>
+    {% for subalbum in item.getBreadCrumbs %}
+    <li><a href="/admin/gallery/albumEditContent?id={{subalbum.Pk}}.html">{{subalbum.title}}</a></li>
+    {% endfor %}
+    <li>{% if item.isNew %}Добавление альбома{% else %}Редактирование альбома{% endif %}</li>
+</ol>
+{% endblock %}
+
+{% block pagehead %}
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa fa-picture-o fa-fw "></i> {{ item.title }} </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> Всего фотографий <span class="txt-color-blue">{{itemsCount}}</span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
+
+    <div class="row">
+    <div class="pull-right">
+        <form class="form-horizontal" id="filesform" method="post" enctype="multipart/form-data"
+              action="/admin/gallery/edit/">
+            <input type="hidden" name="__album_id" value="{{item.Pk}}">
+            <input name="image[]" id="filesupload" class="file" type='file' multiple='true' min='1' max='9999'
+                   style="visibility:hidden;"/>
+            <input type="button" class="btn btn-primary btn-lg" id="btn" value="Добавить фотографию"/>
+            <noscript><input type="submit"/></noscript>
+        </form>
+    </div>
+</div>
+
+    <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/gallery/albumSave">
+        {% if item.isNew %}
+        <header>Добавление альбома</header>
+        {% else %}
+        <input type="hidden" name="id" value="{{item.Pk}}">
+        <header>Редактирование альбома</header>
+        {% endif %}
+        <fieldset>
+            <section>
+                <label class="label">Название альбома</label>
+                <label class="input">
+                    <input type="text" name="title" value="{{item.title}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Родительский альбом</label>
+                <label class="select">
+                    {% if item.isNew %}
+                    {% if item.parent %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\\Album", item.parent.Pk,
+                    {"null":true},{"name":"parent"}) }}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", 0,
+                    {"null":true},{"name":"parent","class": "form-control"}) }}
+                    {% endif %}
+                    {% else %}
+                    {{ selectTreeByModel("App\\Modules\\Gallery\\Models\\Album", item.parent.Pk, {"null":true,
+                    'disabled':[item.Pk]}, {"name":"parent", "class": "form-control"}) }}
+                    {% endif %}
+                    <i></i>
+                </label>
+            </section>
+            <section>
+                <label class="label">URL (адрес альбома)</label>
+                <label class="input">
+                    <div class="input-group">
+                        <input type="text" name="url" value="{{item.url}}">
+                        <span class="input-group-addon">.html</span>
+                    </div>
+                </label>
+            </section>
+        </fieldset>
+
+
+</section>
+
+<section class="well">
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th class="col-sm-12" colspan="5">Альбомы</th>
+        </tr>
+        <tr>
+            <td colspan="5" class="col-sm-12">
+                <div class="list-group">
+                    {% for album in item.findAllChildren %}
+                    {% if item.Pk == album.__prt %}
+                    <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </td>
+        </tr>
+</section>
+<tr>
+    <th class="col-sm-2">Обложка</th>
+    <th class="col-sm-3">Фотография</th>
+    <th class="col-sm-3">Название</th>
+    <th class="col-sm-2">Создана</th>
+    <th class="col-sm-2"></th>
+</tr>
+{% for photo in photos %}
+<tr>
+    <td><input type="radio" name="__photo_id" value="{{ photo.Pk }}" {% if photo.Pk == item.__photo_id %} checked {% endif %}></td>
+    <td>
+        <a data-toggle="modal" href="#view-pic" data-id="{{item.Pk}}">
+            <img class="img-responsive" src="{{ photo.image }}" width="80" alt="{{ item.title }}"/>
+        </a>
+    </td>
+    <td>{{ photo.title }}</td>
+    <td>{{photo.published|date('d.m.Y H:i')}}</td>
+    <td style="white-space: nowrap">
+        <a href="/admin/gallery/edit/?id={{photo.Pk}}&__album_id={{item.Pk}}"><i class="fa fa-edit"></i></a>
+        <a href="/admin/gallery/delete/?__album_id={{item.Pk}}&id={{photo.Pk}}"><i
+                class="fa fa-trash-o"></i></a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="row">{{widget('pager', {'total': itemsCount, 'size': pageSize, 'active': activePage, 'url': url})}}
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="view-pic" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="news-preview-title">Фотография</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
+        </button>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        {% if not item.isNew %}<a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
+        <button type="button" class="btn btn-danger">Удалить</button>
+    </a>{% endif %}
+    </div>
+</footer>
+</section>
+</form>
+
+
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+
+    $(function () {
+        $('a.confirmable').click(function () {
+            return confirm('Вы уверены?');
+        });
+
+        $('#view-pic').on('show.bs.modal', function (e) {
+            var id = $(e.relatedTarget).attr('data-id');
+            $(this).find('.modal-body').load('/admin/gallery/view?id=' + id);
+        });
+
+        $('#filesupload').change(function () {
+            $('#filesform').submit();
+        });
+
+        $(function () {
+            $('#btn').click(function () {
+                $('#filesupload').click();
+            });
+        });
+
+        $('#albumselect').change(function () {
+            $('#albumtreeform').submit();
+        })
+
+
+    });
+
+</script>
+{% endblock %}
+

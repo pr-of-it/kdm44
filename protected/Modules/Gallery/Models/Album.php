@@ -3,6 +3,8 @@
 namespace App\Modules\Gallery\Models;
 
 
+use T4\Core\Collection;
+use T4\Core\Std;
 use T4\Orm\Model;
 
 class Album
@@ -12,11 +14,12 @@ class Album
     protected static $schema = [
         'columns' => [
             'title' => ['type' => 'string'],
+            'url' => ['type' => 'string'],
             'published' => ['type' => 'datetime'],
-
         ],
         'relations' => [
             'photos' => ['type' => self::HAS_MANY, 'model' => Photo::class],
+            'cover' => ['type' => self::HAS_ONE, 'model' => Photo::class],
         ]
     ];
 
@@ -36,15 +39,31 @@ class Album
         $this->photos->delete();
     }
 
-    public function getAlbumImage()
+    public function getCover()
     {
-        if (is_array($this->photos->collect('published'))) {
-            $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
-            return $this->photos->collect('image')[$key];
+        if ($this->__photo_id) {
+            return $this->cover->image;
         } else {
-            return $this->photos->collect('image');
+            if (is_array($this->photos->collect('published'))) {
+                $key = array_search(max($this->photos->collect('published')), $this->photos->collect('published'));
+                return $this->photos->collect('image')[$key];
+            } else {
+                return $this->photos->collect('image');
+            }
         }
+    }
 
+    public function getBreadCrumbs()
+    {
+        $ret = new Collection();
+        foreach ($this->findAllParents() as $i => $parent) {
+            $p = new Std;
+            $p->Pk = $parent->Pk;
+            $p->url = $parent->url;
+            $p->title = $parent->title;
+            $ret[] = $p;
+        }
+        return $ret;
     }
 
     public function countPhotos()

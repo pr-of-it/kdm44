@@ -31,17 +31,17 @@
 <section class="well">
 
     <div class="row">
-    <div class="pull-right">
-        <form class="form-horizontal" id="filesform" method="post" enctype="multipart/form-data"
-              action="/admin/gallery/edit/">
-            <input type="hidden" name="__album_id" value="{{item.Pk}}">
-            <input name="image[]" id="filesupload" class="file" type='file' multiple='true' min='1' max='9999'
-                   style="visibility:hidden;"/>
-            <input type="button" class="btn btn-primary btn-lg" id="btn" value="Добавить фотографию"/>
-            <noscript><input type="submit"/></noscript>
-        </form>
+        <div class="pull-right">
+            <form class="form-horizontal" id="filesform" method="post" enctype="multipart/form-data"
+                  action="/admin/gallery/edit/">
+                <input type="hidden" name="__album_id" value="{{item.Pk}}">
+                <input name="image[]" id="filesupload" class="file" type='file' multiple='true' min='1' max='9999'
+                       style="visibility:hidden;"/>
+                <input type="button" class="btn btn-primary btn-lg" id="btn" value="Добавить фотографию"/>
+                <noscript><input type="submit"/></noscript>
+            </form>
+        </div>
     </div>
-</div>
 
     <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/gallery/albumSave">
         {% if item.isNew %}
@@ -100,7 +100,8 @@
                 <div class="list-group">
                     {% for album in item.findAllChildren %}
                     {% if item.Pk == album.__prt %}
-                    <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
+                    <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title
+                        }}</a>
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -116,7 +117,8 @@
 </tr>
 {% for photo in photos %}
 <tr>
-    <td><input type="radio" name="__photo_id" value="{{ photo.Pk }}" {% if photo.Pk == item.__photo_id %} checked {% endif %}></td>
+    <td><input type="radio" name="__photo_id" value="{{ photo.Pk }}" {% if photo.Pk== item.__photo_id %} checked {%
+               endif %}></td>
     <td>
         <a data-toggle="modal" href="#view-pic" data-id="{{item.Pk}}">
             <img class="img-responsive" src="{{ photo.image }}" width="80" alt="{{ item.title }}"/>
@@ -157,12 +159,13 @@
 
 <footer>
     <div class="pull-right">
-        <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}
-        </button>
+        <a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
+            <button type="button" class="btn btn-danger">Удалить</button>
+        </a>
         <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
-        {% if not item.isNew %}<a href="/admin/gallery/AlbumDelete/?id={{item.Pk}}" class="confirmable">
-        <button type="button" class="btn btn-danger">Удалить</button>
-    </a>{% endif %}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <input id="redirectAfterSave" type="hidden" name="redirect" value="0" />
+        <button type="submit" class="btn btn-primary" onclick="$('#redirectAfterSave').val(1)">Сохранить и посмотреть</button>
     </div>
 </footer>
 </section>

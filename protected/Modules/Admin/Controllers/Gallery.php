@@ -59,7 +59,7 @@ class Gallery
         ]);
     }
 
-    public function actionAlbumSave()
+    public function actionAlbumSave($redirect = 0)
     {
         if (!empty($this->app->request->post->id)) {
             $item = Album::findByPK($this->app->request->post->id);
@@ -68,6 +68,9 @@ class Gallery
         }
         $item->fill($this->app->request->post);
         $item->save();
+        if ($redirect) {
+            $this->redirect('/gallery/albums/' . $item->url . '.html');
+        }
         $this->redirect('/admin/gallery/');
     }
 

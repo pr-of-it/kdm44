@@ -10,7 +10,7 @@ class m_1429201837_NewsImages extends Migration
     public function up()
     {
         $this->createTable('newsimages',
-            ['image' => ['type' => 'string'],
+            ['path' => ['type' => 'string'],
              '__story_id' => ['type' => 'link']],
             ['story' => ['columns' => ['__story_id']]]);
     }

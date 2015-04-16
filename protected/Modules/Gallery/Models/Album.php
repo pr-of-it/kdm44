@@ -19,7 +19,7 @@ class Album
         ],
         'relations' => [
             'photos' => ['type' => self::HAS_MANY, 'model' => Photo::class],
-            'cover' => ['type' => self::BELONGS_TO, 'model' => Photo::class],
+            'cover' => ['type' => self::HAS_ONE, 'model' => Photo::class],
         ]
     ];
 
@@ -39,7 +39,7 @@ class Album
         $this->photos->delete();
     }
 
-    public function getAlbumImage()
+    public function isCover()
     {
         if ($this->__photo_id) {
             return $this->cover->image;
@@ -60,6 +60,19 @@ class Album
             $p = new Std;
             $p->url = $parent->url;
             $p->title = $parent->title;
+            $ret[] = $p;
+        }
+        return $ret;
+    }
+
+    public function getChildren()
+    {
+        $ret = new Collection();
+        foreach ($this->findAllChildren() as $i => $child) {
+            $p = new Std;
+            $p->Pk = $child->Pk;
+            $p->title = $child->title;
+            $p->prt = $child->__prt;
             $ret[] = $p;
         }
         return $ret;

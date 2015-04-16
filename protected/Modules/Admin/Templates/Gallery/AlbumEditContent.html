@@ -95,8 +95,8 @@
         <tr>
             <td colspan="5" class="col-sm-12">
                 <div class="list-group">
-                    {% for album in albums %}
-                    {% if item.Pk == album.__prt %}
+                    {% for album in item.Children %}
+                    {% if item.Pk == album.prt %}
                     <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
                     {% endif %}
                     {% endfor %}

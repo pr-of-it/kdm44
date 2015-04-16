@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\Gallery\Models\Album;
 use App\Modules\Gallery\Models\Photo;
 use T4\Core\Exception;
+use T4\Html\Form\Errors;
 use T4\Http\Uploader;
 use T4\Mvc\Controller;
 
@@ -31,7 +32,9 @@ class Gallery
 
     public function actionAlbumEdit($id = null, $parent = null)
     {
-        if (null === $id || 'new' == $id) {
+        if (isset($this->app->flash->item)) {
+            $this->data->item = $this->app->flash->item;
+        } elseif (null === $id || 'new' == $id) {
             $this->data->item = new Album();
             if (null !== $parent) {
                 $this->data->item->parent = $parent;
@@ -39,12 +42,18 @@ class Gallery
         } else {
             $this->data->item = Album::findByPK($id);
         }
+        if (isset($this->app->flash->errors)) {
+            $this->data->errors = $this->app->flash->errors;
+        }
     }
 
     public function actionAlbumEditContent($id = null, $page = 1)
     {
         $album = Album::findByPK($id);
-        if ($id == null) {
+
+        if (isset($this->app->flash->item)) {
+            $this->data->item = $this->app->flash->item;
+        } elseif ($id == null) {
             $id = $this->app->request->post->parent;
         }
         $this->data->item = $album;
@@ -57,17 +66,32 @@ class Gallery
             'offset' => ($page - 1) * self::PAGE_SIZE,
             'limit' => self::PAGE_SIZE
         ]);
+        if (isset($this->app->flash->errors)) {
+            $this->data->errors = $this->app->flash->errors;
+        }
     }
 
     public function actionAlbumSave($redirect = 0)
     {
-        if (!empty($this->app->request->post->id)) {
-            $item = Album::findByPK($this->app->request->post->id);
+        $id = $this->app->request->post->id;
+        if (!empty($id)) {
+            $item = Album::findByPK($id);
         } else {
             $item = new Album();
         }
-        $item->fill($this->app->request->post);
-        $item->save();
+        try {
+            $item->fill($this->app->request->post);
+            $item->save();
+
+        } catch (Errors $errors) {
+            $this->app->flash->item = $item;
+            $this->app->flash->errors = $errors;
+            if (!empty($id)) {
+                $this->redirect('/admin/gallery/albumEditContent?id=' . $id);
+            } else
+                $this->redirect('/admin/gallery/albumEdit');
+        }
+
         if ($redirect) {
             $this->redirect('/gallery/albums/' . $item->url . '.html');
         }

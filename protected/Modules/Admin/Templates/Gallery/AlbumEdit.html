@@ -3,13 +3,16 @@
 {% block breadcrumbs %}
 <ol class="breadcrumb">
     <li><a href="/admin/">Админ-панель</a></li>
-    <li><a href="/admin/gallery/">Галерея</a></li>
-    <li><a href="/admin/gallery/albums/">Альбомы</a></li>
+    <li><a href="/admin/gallery/">Альбомы</a></li>
     <li>{% if item.isNew %}Добавление альбома{% else %}Редактирование альбома{% endif %}</li>
 </ol>
 {% endblock %}
 
 {% block content %}
+
+{% for error in errors %}
+<div class="alert alert-danger" role="alert">{{error.message}}</div>
+{% endfor %}
 
 <section class="well">
     <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/gallery/albumSave">

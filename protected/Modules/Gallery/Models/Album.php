@@ -5,6 +5,8 @@ namespace App\Modules\Gallery\Models;
 
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Dbal\QueryBuilder;
+use T4\Html\Form\Errors;
 use T4\Orm\Model;
 
 class Album
@@ -30,8 +32,30 @@ class Album
         if ($this->isNew()) {
             $this->published = date('Y-m-d H:i:s', time());
         }
+        $query = new QueryBuilder();
+        $query
+            ->select('COUNT(*)')
+            ->from(self::getTableName());
 
-        return parent::beforeSave();
+        if ($this->isNew()) {
+            $query->where('url=:url')->params([':url' => $this->url]);
+        } else {
+            $query
+                ->where('url=:url AND __id<>:id')
+                ->params([':url' => $this->url, ':id' => $this->getPk()]);
+        }
+        $count = self::getDbConnection()->query($query)->fetchScalar();
+
+        switch ($count) {
+            case 0:
+                return parent::beforeSave();
+                break;
+            default:
+                $errors = new Errors();
+                $errors->add('url', 'Альбом с такими URL уже существует');
+                throw $errors;
+                break;
+        }
     }
 
     public function afterDelete()

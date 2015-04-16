@@ -22,6 +22,7 @@ class Index extends Controller
             'offset' => ($page - 1) * self::PAGE_SIZE,
             'limit' => self::PAGE_SIZE,
             'where' => '__prt = 0',
+            'order' => 'published DESC',
         ]);
     }
 

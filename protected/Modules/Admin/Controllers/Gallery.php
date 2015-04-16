@@ -82,6 +82,9 @@ class Gallery
         try {
             $item->fill($this->app->request->post);
             $item->save();
+            if ($item->wasNew()) {
+                $item->moveToFirstPosition();
+            }
 
         } catch (Errors $errors) {
             $this->app->flash->item = $item;

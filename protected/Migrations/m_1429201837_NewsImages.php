@@ -16,7 +16,7 @@ class m_1429201837_NewsImages extends Migration
 
     public function down()
     {
-        $this->dropTable('NewsImages');
+        $this->dropTable('newsimages');
     }
 
 }

@@ -39,7 +39,7 @@ class Album
         $this->photos->delete();
     }
 
-    public function isCover()
+    public function getCover()
     {
         if ($this->__photo_id) {
             return $this->cover->image;
@@ -58,21 +58,9 @@ class Album
         $ret = new Collection();
         foreach ($this->findAllParents() as $i => $parent) {
             $p = new Std;
+            $p->Pk = $parent->Pk;
             $p->url = $parent->url;
             $p->title = $parent->title;
-            $ret[] = $p;
-        }
-        return $ret;
-    }
-
-    public function getChildren()
-    {
-        $ret = new Collection();
-        foreach ($this->findAllChildren() as $i => $child) {
-            $p = new Std;
-            $p->Pk = $child->Pk;
-            $p->title = $child->title;
-            $p->prt = $child->__prt;
             $ret[] = $p;
         }
         return $ret;

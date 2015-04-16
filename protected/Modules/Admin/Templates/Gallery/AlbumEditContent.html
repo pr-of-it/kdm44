@@ -4,6 +4,9 @@
 <ol class="breadcrumb">
     <li><a href="/admin/">Админ-панель</a></li>
     <li><a href="/admin/gallery/">Альбомы</a></li>
+    {% for subalbum in item.getBreadCrumbs %}
+    <li><a href="/admin/gallery/albumEditContent?id={{subalbum.Pk}}.html">{{subalbum.title}}</a></li>
+    {% endfor %}
     <li>{% if item.isNew %}Добавление альбома{% else %}Редактирование альбома{% endif %}</li>
 </ol>
 {% endblock %}
@@ -95,8 +98,8 @@
         <tr>
             <td colspan="5" class="col-sm-12">
                 <div class="list-group">
-                    {% for album in item.Children %}
-                    {% if item.Pk == album.prt %}
+                    {% for album in item.findAllChildren %}
+                    {% if item.Pk == album.__prt %}
                     <a href="/admin/gallery/albumEditContent?id={{ album.Pk }}" class="list-group-item">{{ album.title }}</a>
                     {% endif %}
                     {% endfor %}

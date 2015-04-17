@@ -1,5 +1,5 @@
 <ul class="bxslider">
-    <li><a href="#"><img src="/file/slider/slider1.jpg"/></a></li>
-    <li><img src="/file/slider/slider2.jpg"/></li>
-    <li><img src="/file/slider/slider3.jpg"/></li>
+    {% for slide in app.config.settings.slider %}
+    <li><a href={{slide.link}}><img src="{{slide.path}}"/></a></li>
+    {% endfor %}
 </ul>

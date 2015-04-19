@@ -8,6 +8,12 @@
 
 namespace App\Modules\News\Models;
 
+use T4\Core\Collection;
+use T4\Core\Exception;
+use T4\Fs\Helpers;
+use T4\Http\Uploader;
+use T4\Mvc\Application;
+use T4\Orm\Model;
 
 class Image extends Model
 {
@@ -17,7 +23,7 @@ class Image extends Model
             'path' => ['type'=>'string']
         ],
         'relations' => [
-            'story' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Story'],
+            'story' => ['type'=>self::BELONGS_TO, 'model'=>'\App\Modules\News\Models\Story'],
         ]
     ];
 }

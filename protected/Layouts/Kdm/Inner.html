@@ -11,6 +11,7 @@
     <!--js-->
     {{ publishJs() }}
     <script type="text/javascript" src="{{asset('/Layouts/Kdm/assets/js/jquery.bxslider.min.js')}}"></script>
+    <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
     <!--css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('/Layouts/Main/assets/css/cosmo/bootstrap.min.css')}}">
@@ -20,9 +21,8 @@
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin' rel='stylesheet'
           type='text/css'>
-
+    {% block meta_extra %} {% endblock %}
     {% block head %}{% endblock %}
-
     <script>
         $(document).ready(function () {
             $('.bxslider').bxSlider({
@@ -32,7 +32,6 @@
     </script>
 </head>
 <body>
-
 {% if app.flash.message is defined %}
 <div class="container">
     <div class="alert alert-info alert-dismissible" role="alert">

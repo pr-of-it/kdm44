@@ -4,6 +4,7 @@ namespace App\Modules\Gallery\Controllers;
 
 use App\Modules\Gallery\Models\Album;
 use App\Modules\Gallery\Models\Photo;
+use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
 
@@ -21,21 +22,27 @@ class Index extends Controller
             'offset' => ($page - 1) * self::PAGE_SIZE,
             'limit' => self::PAGE_SIZE,
             'where' => '__prt = 0',
+            'order' => 'published DESC',
         ]);
     }
 
-    public function actionAlbum($id)
+
+    public function actionAlbumByUrl($url)
     {
         $this->app->config->extensions->fotorama;
-        $album = $this->data->album = Album::findByColumn('__id', $id);
+        $album = Album::findByUrl($url);
+        if (empty($album))
+            throw new E404Exception;
+        $this->data->album = $album;
         if ($album->__rgt - $album->__lft > 1) {
-            $this->data->items = Album::findAllByQuery('SELECT __id, title FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
+            $this->data->items = Album::findAllByQuery('SELECT * FROM albums WHERE __lft >' . $album->__lft . ' AND __rgt <' . $album->__rgt);
         } else {
-            $this->data->albumParent = Album::findByColumn('__id', $album->__prt);
-            $this->data->items = Photo::findAllByColumn('__album_id', $id, [
+            $this->data->items = Photo::findAllByColumn('__album_id', $album->Pk, [
                 'order' => 'published DESC',
             ]);
-        }
+        };
+
+
     }
 
     public function actionPhoto($id, $album_id)

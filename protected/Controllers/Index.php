@@ -15,6 +15,14 @@ class Index
 
     public function actionDefault()
     {
+        if (!$this->app->user) {
+            return false; // добавить линк на авторизацию /login
+        } else {
+            $string = trim($this->app->user['email']);
+            $name = substr($string, 0, strpos($string, '@'));
+            $welcome = 'Hello, ' . $name;
+            return true; // добавить линк на смену пароля /password
+        }
     }
 
     public function action404()

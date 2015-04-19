@@ -39,14 +39,23 @@
                 </section>
                 <section>
                     <label class="label">Слайдер</label>
-                    <div class="row">
-                    {% for slide in app.config.settings.slider %}
-
-                    {% endfor %}
-                        </div>
+                    <table class="table table-striped table-hover table-condensed">
+                        <tr>
+                            <th>Слайдер</th>
+                            <th>Расположение файла</th>
+                            <th>Ссылка</th>
+                        </tr>
+                        {% for slide in app.config.settings.slider %}
+                        <tr>
+                            <td><img class="img-responsive" src="{{slide.src}}" width="250" alt="{{slide.src}}"/></td>
+                            <td>{{slide.src}}<input type="hidden" name="settings[slider][src]" value="{{slide.src}}"></td>
+                            <td><input type="text" name="settings[slider][link]" value="{{slide.link}}"></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                     <ul class="list-group" id="uploads">
                         <li class="list-group-item reserve" style="display: none">{{element('file', 'files[]', {'text':'Выберите файл'})}}</li>
-                        <li class="list-group-item">{{element('file', 'files[]', {'text':'Выберите файл'})}}</li>
+                        <li class="list-group-item">{{element('file', 'files[]', {'text':'Выберите файл'})}}1140*261 px</li>
                     </ul>
                     <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
                         <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще один файл</button>

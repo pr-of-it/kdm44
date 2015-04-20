@@ -59,6 +59,19 @@
                     <t4:editor name="text">{{item.text}}</t4:editor>
                 </label>
             </section>
+            {% if 0!=item.images.count %}
+            <section>
+                <label class="label">Изображения:</label>
+                <div class="row" style="margin: inherit">
+                    {% for image in item.images %}
+                    <div class="col-sm-3" style="padding: 2em;">
+                        <img src="{{image.path}}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
+                        <a href="#" class="item-image-delete" data-id="{{image.Pk}}"><i class="fa fa-trash-o fa-2x text-danger"></i>&nbsp;</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
             <section>
                 <label class="label">Файлы</label>
 
@@ -77,6 +90,16 @@
                 </ul>
                 <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
                     <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще один файл</button>
+                </a>
+            </section>
+            <section>
+                <label class="label">Изображения:</label>
+                <ul class="list-group" id="imguploads">
+                    <li class="list-group-item reserve" style="display: none">{{element('file', 'images[]', {'text':'Изображение'})}}</li>
+                    <li class="list-group-item">{{element('file', 'images[]', {'text':'Изображение'})}}</li>
+                </ul>
+                <a href="#" onclick="$('#imguploads li.reserve').clone().removeClass('reserve').appendTo('#imguploads').show();return false;">
+                    <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще изображение</button>
                 </a>
             </section>
         </fieldset>

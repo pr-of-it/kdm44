@@ -6,7 +6,6 @@
     <li class="active"><a href="/news/topics/{{item.topic.Pk}}.html">{{item.topic.title}}</a></li>
     <li></li>
 </ol>
-
     {% block meta_extra %}
         <meta propery="og:type" content="article">
         <meta property="og:title" content="{{item.title}}">
@@ -43,16 +42,14 @@
     {{item.lead|raw}}
     <hr>
     {{item.text|raw}}
-    
     {% if 0!=item.images.count %}
-    <div class="fotorama" data-nav="thumbs">
+    <div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="400px">
         {% for image in item.images %}
-        <a href="{{image.path}}"><img src="{{image.path}}" width="144" height="96"></a>
-        {% endfor %}
+        <div data-img="{{image.path}}"><p class="album-title">Photo</p></div>
+        {% endfor%}
     </div>
     {% endif %}
 </div>
-
 {% if 0 != item.files.count %}
 <ul class="list-group">
     <li class="list-group-item active"><h4 class="list-group-item-heading">Приложенные файлы</h4></li>

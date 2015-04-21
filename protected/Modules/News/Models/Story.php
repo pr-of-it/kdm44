@@ -64,9 +64,9 @@ class Story
     public function uploadFiles($formFieldName)
     {
         $request = Application::getInstance()->request;
-        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
-            return $this;
-
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
+             return $this;
+        }
         $uploader = new Uploader($formFieldName);
         $uploader->setPath('/public/news/stories/files');
         foreach ($uploader() as $uploadedFilePath) {
@@ -76,10 +76,26 @@ class Story
         return $this;
     }
 
+    public function uploadImages($formFieldName)
+    {
+        $request = Application::getInstance()->request;
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
+            return $this;
+        }
+        $uploader = new Uploader($formFieldName);
+        $uploader->setPath('/public/news/photoes');
+        foreach ($uploader() as $uploadedFilePath) {
+            if (false !== $uploadedFilePath)
+                $this->images->append(new Image(['path' => $uploadedFilePath]));
+        }
+        return $this;
+    }
+
     public function beforeDelete()
     {
         $this->deleteImage();
         $this->deleteFiles();
+        $this->deleteImages();
         return parent::beforeDelete();
     }
 
@@ -111,4 +127,16 @@ class Story
         return true;
     }
 
+    public function deleteImages()
+    {
+        if ($this->path) {
+            try {
+                $this->path = '';
+                Helpers::removeFile(ROOT_PATH_PUBLIC . $this->path);
+            } catch (\T4\Fs\Exception $e) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

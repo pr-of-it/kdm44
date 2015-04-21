@@ -40,9 +40,6 @@ class Settings
         if ($this->app->request->existsFilesData() || $this->app->request->isUploadedArray('files')) {
             $uploader = new Uploader('files');
             $uploader->setPath('/public/settings/slider');
-            if (!isset($config->slider)) {
-                $config->slider = new Config();
-            }
             foreach ($uploader() as $uploadedFilePath) {
                 if (false !== $uploadedFilePath)
                     $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);

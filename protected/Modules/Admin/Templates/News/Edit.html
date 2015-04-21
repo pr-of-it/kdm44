@@ -153,7 +153,7 @@
             var $this = $(this);
             var id = $this.attr('data-id');
             if (0 != id) {
-                $.post('/admin/news/deleteImage.json', {"id":id}, function (r) {
+                $.post('/admin/news/DeleteOneImage.json', {"id":id}, function (r) {
                     if (r.result) {
                         $this.parent().remove();
                     }

@@ -35,7 +35,7 @@ class Settings
             $config->slider = new Config($this->app->request->post->slider->toArray());
         }
         else {
-            $config->slider = new Config($this->app->request->post->slider);
+            $config->slider = new Config();
         }
         if ($this->app->request->existsFilesData() || $this->app->request->isUploadedArray('files')) {
             $uploader = new Uploader('files');

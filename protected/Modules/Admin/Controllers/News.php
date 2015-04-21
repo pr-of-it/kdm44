@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\News\Models\File;
 use App\Modules\News\Models\Story;
 use App\Modules\News\Models\Topic;
+use App\Modules\News\Models\Image;
 use T4\Core\Exception;
 use T4\Mvc\Controller;
 
@@ -58,6 +59,7 @@ class News
         $item
             ->uploadImage('image')
             ->uploadFiles('files')
+            ->uploadImages('images')
             ->save();
         if ($redirect) {
             $this->redirect('/news/' . $item->getPk() . '.html');
@@ -73,18 +75,6 @@ class News
         $this->redirect('/admin/news/');
     }
 
-    public function actionDeleteImage($id)
-    {
-        $item = Story::findByPK($id);
-        if ($item) {
-            $item->deleteImage();
-            $item->save();
-            $this->data->result = true;
-        } else {
-            $this->data->result = false;
-        }
-    }
-
     public function actionDeleteFile($id)
     {
         $item = File::findByPK($id);
@@ -93,6 +83,17 @@ class News
             $this->data->result = true;
         } else {
             $this->data->result = false;
+        }
+    }
+
+    public function actionDeleteOneImage($id)
+    {
+        $item=Image::findByPk($id);
+        if($item){
+            $item->delete();
+            $this->data->result=true;
+        }else{
+            $this->data->result=false;
         }
     }
 

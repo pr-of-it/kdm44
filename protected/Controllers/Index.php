@@ -15,11 +15,7 @@ class Index
 
     public function actionDefault()
     {
-        if (!$this->app->user) {
-            $this->data->not_authorized = "Вы не авторизованы";
-        } else {
-            $this->data->user_role = $this->app->user->role->name;
-        }
+
     }
 
     public function action404()

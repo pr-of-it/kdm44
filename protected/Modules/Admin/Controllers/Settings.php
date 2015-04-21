@@ -25,17 +25,27 @@ class Settings
     {
         if (!empty($this->app->config->settings)) {
             $config = $this->app->config->settings;
-        } else {
+        }
+        else {
             $config = new Config();
         }
         $config->setPath(ROOT_PATH_PROTECTED . '/settings.php');
         $config->merge($this->app->request->post->settings);
+        if (isset($this->app->request->post->slider)) {
+            $config->slider = new Config($this->app->request->post->slider->toArray());
+        }
+        else {
+            $config->slider = new Config($this->app->request->post->slider);
+        }
         if ($this->app->request->existsFilesData() || $this->app->request->isUploadedArray('files')) {
             $uploader = new Uploader('files');
             $uploader->setPath('/public/settings/slider');
+            if (!isset($config->slider)) {
+                $config->slider = new Config();
+            }
             foreach ($uploader() as $uploadedFilePath) {
                 if (false !== $uploadedFilePath)
-                    $config->slider[count($config->slider)] = ['src' => $uploadedFilePath, 'link' => ''];
+                    $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);
             }
         }
         $config->save();

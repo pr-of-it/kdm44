@@ -50,8 +50,8 @@
                         <tr>
                             <td>{{n+1}}</td>
                             <td><img class="img-responsive" src="{{slide.src}}" width="250" alt="{{slide.src}}"/></td>
-                            <td>{{slide.src}}<input type="hidden" name="settings[slider][{{n}}][src]" value="{{slide.src}}"></td>
-                            <td><input type="text" name="settings[slider][{{n}}][link]" value="{{slide.link}}"></td>
+                            <td>{{slide.src}}<input type="hidden" name="slider[{{n}}][src]" value="{{slide.src}}"></td>
+                            <td><input type="text" name="slider[{{n}}][link]" value="{{slide.link}}"></td>
                         </tr>
                         {% endfor %}
                     </table>

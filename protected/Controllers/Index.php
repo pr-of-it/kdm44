@@ -16,12 +16,9 @@ class Index
     public function actionDefault()
     {
         if (!$this->app->user) {
-            return false; // добавить линк на авторизацию /login
+            $this->data->not_authorized = "Вы не авторизованы";
         } else {
-            $string = trim($this->app->user['email']);
-            $name = substr($string, 0, strpos($string, '@'));
-            $welcome = 'Hello, ' . $name;
-            return true; // добавить линк на смену пароля /password
+            $this->data->user_role = $this->app->user->role->name;
         }
     }
 

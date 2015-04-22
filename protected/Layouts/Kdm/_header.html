@@ -12,10 +12,10 @@
                             {% if not app.user %}
                             <a href="/login">Вы не авторизованы</a>
                             {% else %}
-                            <a href="/password">Сменить пароль</a> | <a href="/logout">Выход</a> |
                             {% if  app.user.role.name == 'admin' %}
-                            <a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a>
+                            <a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a> |
                             {% endif %}
+                            <a href="/password">Сменить пароль</a> | <a href="/logout">Выход</a>
                             {% endif %}
                         </div>
                     </div>

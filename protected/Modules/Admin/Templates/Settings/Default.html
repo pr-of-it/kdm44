@@ -52,6 +52,7 @@
                             <td><img class="img-responsive" src="{{slide.src}}" width="250" alt="{{slide.src}}"/></td>
                             <td>{{slide.src}}<input type="hidden" name="slider[{{n}}][src]" value="{{slide.src}}"></td>
                             <td><input type="text" name="slider[{{n}}][link]" value="{{slide.link}}"></td>
+                            <td style="white-space: nowrap"><a href="#" class="confirmable" onclick="$(this).parents('tr').remove()"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
                         {% endfor %}
                     </table>

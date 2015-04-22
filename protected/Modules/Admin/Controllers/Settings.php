@@ -29,6 +29,7 @@ class Settings
         else {
             $config = new Config();
         }
+
         $config->setPath(ROOT_PATH_PROTECTED . '/settings.php');
         $config->merge($this->app->request->post->settings);
         if (isset($this->app->request->post->slider)) {
@@ -45,6 +46,8 @@ class Settings
                     $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);
             }
         }
+        //$config->slider = array_values($config->slider);
+        var_dump($config); die;
         $config->save();
         $this->redirect('/admin/settings');
     }

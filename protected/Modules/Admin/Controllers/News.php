@@ -8,6 +8,7 @@ use App\Modules\News\Models\Topic;
 use App\Modules\News\Models\Image;
 use T4\Core\Exception;
 use T4\Mvc\Controller;
+use T4\Fs\Helpers;
 
 class News
     extends Controller
@@ -79,7 +80,8 @@ class News
     {
         $item = File::findByPK($id);
         if ($item) {
-            $item->delete();
+            $item->delete()
+                 ->deleteFile();
             $this->data->result = true;
         } else {
             $this->data->result = false;
@@ -90,7 +92,8 @@ class News
     {
         $item=Image::findByPk($id);
         if($item){
-            $item->delete();
+            $item->delete()
+                 ->deleteImage();
             $this->data->result=true;
         }else{
             $this->data->result=false;

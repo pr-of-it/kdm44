@@ -7,12 +7,8 @@
  */
 
 namespace App\Modules\News\Models;
-
-use T4\Core\Collection;
-use T4\Core\Exception;
 use T4\Fs\Helpers;
-use T4\Http\Uploader;
-use T4\Mvc\Application;
+
 use T4\Orm\Model;
 
 class Image extends Model
@@ -27,5 +23,17 @@ class Image extends Model
         ]
     ];
 
-
+    public function deleteImage()
+    {
+        if($this->path){
+            try {
+                Helpers::removeFile(ROOT_PATH_PUBLIC.$this->path);
+                $this->path='';
+                return true;
+            }
+            catch (\T4\Fs\Exception $e) {
+                return false;
+            }
+        }
+    }
 }

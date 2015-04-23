@@ -23,17 +23,17 @@ class Image extends Model
         ]
     ];
 
-    public function deleteImage()
+    public function afterDelete()
     {
         if($this->path){
             try {
                 Helpers::removeFile(ROOT_PATH_PUBLIC.$this->path);
                 $this->path='';
-                return true;
             }
             catch (\T4\Fs\Exception $e) {
                 return false;
             }
         }
+        return parent::afterDelete();
     }
 }

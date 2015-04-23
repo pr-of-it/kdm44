@@ -80,8 +80,7 @@ class News
     {
         $item = File::findByPK($id);
         if ($item) {
-            $item->delete()
-                 ->deleteFile();
+            $item->delete();
             $this->data->result = true;
         } else {
             $this->data->result = false;
@@ -92,8 +91,7 @@ class News
     {
         $item=Image::findByPk($id);
         if($item){
-            $item->delete()
-                 ->deleteImage();
+            $item->delete();
             $this->data->result=true;
         }else{
             $this->data->result=false;

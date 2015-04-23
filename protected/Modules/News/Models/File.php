@@ -19,17 +19,17 @@ class File
         ],
     ];
 
-    public function deleteFile()
+    public function afterDelete()
     {
         if($this->file){
             try {
                 Helpers::removeFile(ROOT_PATH_PUBLIC . $this->file);
                 $this->file='';
-                return true;
             }
             catch (\T4\Fs\Exception $e) {
                 return false;
             }
         }
+        return parent::afterDelete();
     }
 } 

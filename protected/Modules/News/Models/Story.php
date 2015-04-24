@@ -24,13 +24,13 @@ class Story
         'relations' => [
             'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic'],
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
+            'images' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\Image'],
         ]
     ];
 
     public function getShortLead($maxLength=120)
     {
-        if ( mb_strlen( $this->lead) > $maxLength)
-        {
+        if (mb_strlen( $this->lead) > $maxLength){
             $sourceStr=strip_tags($this->lead);
             $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
             array_pop($words);
@@ -64,14 +64,31 @@ class Story
     public function uploadFiles($formFieldName)
     {
         $request = Application::getInstance()->request;
-        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
-            return $this;
-
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
+             return $this;
+        }
         $uploader = new Uploader($formFieldName);
         $uploader->setPath('/public/news/stories/files');
         foreach ($uploader() as $uploadedFilePath) {
-            if (false !== $uploadedFilePath)
+            if (false !== $uploadedFilePath) {
                 $this->files->append(new File(['file' => $uploadedFilePath]));
+            }
+        }
+        return $this;
+    }
+
+    public function uploadImages($formFieldName)
+    {
+        $request = Application::getInstance()->request;
+        if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
+            return $this;
+        }
+        $uploader = new Uploader($formFieldName);
+        $uploader->setPath('/public/news/photos');
+        foreach ($uploader() as $uploadedFilePath) {
+            if (false !== $uploadedFilePath) {
+                $this->images->append(new Image(['path' => $uploadedFilePath]));
+            }
         }
         return $this;
     }
@@ -80,6 +97,7 @@ class Story
     {
         $this->deleteImage();
         $this->deleteFiles();
+        $this->deleteImages();
         return parent::beforeDelete();
     }
 
@@ -87,8 +105,9 @@ class Story
     {
         if ($this->image) {
             try {
-                $this->image = '';
                 Helpers::removeFile(ROOT_PATH_PUBLIC . $this->image);
+                $this->image = '';
+                return true;
             } catch (\T4\Fs\Exception $e) {
                 return false;
             }
@@ -100,10 +119,10 @@ class Story
     {
         if (!empty($this->files)) {
             try {
-                $this->files = new Collection();
                 foreach ($this->files as $file) {
                     Helpers::removeFile(ROOT_PATH_PUBLIC . $file->file);
                 }
+                $this->files = new Collection();
             } catch (\T4\Fs\Exception $e) {
                 return false;
             }
@@ -111,4 +130,18 @@ class Story
         return true;
     }
 
+    public function deleteImages()
+    {
+        if (!empty($this->images)) {
+            try {
+                foreach ($this->images as $image) {
+                    Helpers::removeFile(ROOT_PATH_PUBLIC . $image->path);
+                }
+                $this->images = new Collection();
+            } catch (\T4\Fs\Exception $e) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

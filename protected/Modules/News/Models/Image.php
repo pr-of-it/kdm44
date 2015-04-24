@@ -31,7 +31,6 @@ class Image extends Model
                 $this->path='';
             }
             catch (\T4\Fs\Exception $e) {
-                return parent::afterDelete();
             }
         }
         return parent::afterDelete();

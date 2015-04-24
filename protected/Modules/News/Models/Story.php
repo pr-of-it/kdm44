@@ -24,7 +24,7 @@ class Story
         'relations' => [
             'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic'],
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
-           // 'images' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\Image'],
+            'images' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\Image'],
         ]
     ];
 

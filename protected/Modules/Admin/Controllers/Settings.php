@@ -3,10 +3,8 @@
 namespace App\Modules\Admin\Controllers;
 
 use T4\Core\Config;
-use T4\Core\Std;
 use T4\Mvc\Controller;
 use T4\Http\Uploader;
-use T4\Core\Collection;
 
 class Settings
     extends Controller

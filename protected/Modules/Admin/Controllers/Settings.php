@@ -46,8 +46,19 @@ class Settings
                     $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);
             }
         }
+        //Переиндексация слайдов
         $reindexingSlides = array_values($config->slider->toArray());
-        $config->fromArray(['slider' =>$reindexingSlides]);
+        $config->fromArray(['slider' => $reindexingSlides]);
+        //Удаление слайдов из каталога
+        $directoryFiles = scandir($_SERVER['DOCUMENT_ROOT'] . '/public/settings/slider');
+        $sliderFiles = array_column($config->slider->toArray(), 'src');
+        foreach ($directoryFiles as $file) {
+            if ($file == '.' || $file == '..') continue;
+
+            if (!in_array('/public/settings/slider/' . $file, $sliderFiles)) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/public/settings/slider/' . $file);
+            }
+        }
         $config->save();
         $this->redirect('/admin/settings');
     }

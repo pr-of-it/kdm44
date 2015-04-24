@@ -46,7 +46,8 @@ class Settings
                     $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);
             }
         }
-        $config->slider = array_values($config->slider->toArray());
+        $reindexingSlides = array_values($config->slider->toArray());
+        $config->fromArray(['slider' =>$reindexingSlides]);
         $config->save();
         $this->redirect('/admin/settings');
     }

@@ -46,6 +46,7 @@ class Settings
                     $config->slider[] = new Config(['src' => $uploadedFilePath, 'link' => '']);
             }
         }
+        $config->slider = array_values($config->slider->toArray());
         $config->save();
         $this->redirect('/admin/settings');
     }

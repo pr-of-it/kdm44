@@ -1,0 +1,24 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li class="active">Галерея</li>
+    <li></li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+{% for item in items %}
+    {% if not item.countPhotos == 0 %}
+    <div class="col-sm-5 text-center">
+        <a href="/gallery/albums/{{item.url}}.html"><img src="{% if item.cover %}{{item.cover.image}} {% else %}{{ item.photos[0].image}} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
+        <p>
+            <a href="/gallery/albums/{{item.url}}.html"><p style="font-size: 15px">{{item.title}}</p></a>
+        </p>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+{% endblock %}

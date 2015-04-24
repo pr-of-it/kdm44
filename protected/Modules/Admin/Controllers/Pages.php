@@ -11,6 +11,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Modules\Pages\Models\File;
 use App\Modules\Pages\Models\Page;
 use T4\Core\Exception;
+use T4\Html\Form\Errors;
 use T4\Mvc\Controller;
 
 class Pages
@@ -27,18 +28,24 @@ class Pages
         $this->data->items = Page::findAllTree();
     }
 
-    public function actionEdit($id=null, $parent=null)
+    public function actionEdit($id = null, $parent = null)
     {
         $this->app->extensions->ckeditor->init();
         $this->app->extensions->ckfinder->init();
 
-        if (null === $id || 'new' == $id) {
+        if (isset($this->app->flash->item)) {
+            $this->data->item = $this->app->flash->item;
+        } elseif (null === $id || 'new' == $id) {
             $this->data->item = new Page();
             if (null !== $parent) {
                 $this->data->item->parent = $parent;
             }
         } else {
             $this->data->item = Page::findByPK($id);
+        }
+
+        if (isset($this->app->flash->errors)) {
+            $this->data->errors = $this->app->flash->errors;
         }
     }
 
@@ -49,18 +56,28 @@ class Pages
         } else {
             $item = new Page();
         }
-        $item
-            ->fill($_POST)
-            ->uploadFiles('files')
-            ->save();
-        if ($item->wasNew()) {
-            $item->moveToFirstPosition();
+
+        try {
+
+            $item
+                ->fill($_POST)
+                ->uploadFiles('files')
+                ->save();
+            if ($item->wasNew()) {
+                $item->moveToFirstPosition();
+            }
+
+        } catch (Errors $errors) {
+            $this->app->flash->item = $item;
+            $this->app->flash->errors = $errors;
+            $this->redirect('/admin/pages/edit');
         }
+
         if ($redirect) {
             $this->redirect('/pages/' . $item->url . '.html');
         } else {
-            $this->redirect('/admin/pages/');        }
-
+            $this->redirect('/admin/pages/');
+        }
     }
 
     public function actionDelete($id)

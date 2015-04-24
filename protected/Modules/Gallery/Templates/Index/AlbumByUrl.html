@@ -1,0 +1,61 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block head %}
+<meta name="viewport" content="width=device-width">
+<link href="lib/css/fotorama.css" rel="stylesheet">
+<script src="lib/js/fotorama.js"></script>
+{%endblock%}
+
+{% block content %}
+
+<link href="{{ asset('/Modules/Gallery/Templates/assets/css/gallery.css') }}" rel="stylesheet">
+
+<ol class="breadcrumb" xmlns="http://www.w3.org/1999/html">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/gallery/">Галерея</a></li>
+    {% for subalbum in album.getBreadCrumbs %}
+    <li><a href="/gallery/albums/{{subalbum.url}}.html">{{subalbum.title}}</a></li>
+    {% endfor %}
+    <li></li>
+</ol>
+
+{% if app.user.role.name == 'admin' %}
+<div class="well pull-right" style="margin: 0 0 10px 10px;">
+    <a href="/admin/gallery/AlbumEditContent/?id={{album.Pk}}"><span class="btn btn-sm btn-default"><i class="glyphicon glyphicon-pencil"></i></span></a>
+    <a href="/admin/gallery/AlbumDelete/?id={{album.Pk}}" class="confirmable"><span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></span></a>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+    });
+</script>
+{% endif %}
+
+<h1>{{ album.title }}</h1>
+{% if album.__rgt - album.__lft > 1  %}
+<div class="row">
+    {% for item in items %}
+    {% if not item.countPhotos == 0 and item.parent.Pk == album.Pk %}
+    <div class="col-sm-5 text-center">
+        <a href="/gallery/albums/{{item.url}}.html"><img src="{{item.cover}}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
+        <p>
+            <a href="/gallery/albums/{{item.url}}.html">{{item.title}}</a>
+        </p>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="700px">
+    {% for item in items %}
+    <div data-img="{{item.image}}"><p class="album-title">{{item.title}}</p></div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div style="padding-top: 10px;"><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="big" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter"></div>
+    <br></div>
+
+{% endblock %}

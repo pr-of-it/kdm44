@@ -37,6 +37,33 @@
                         <input type="text" name="settings[title]" value="{{items.title}}">
                     </label>
                 </section>
+                <section>
+                    <label class="label">Слайдер</label>
+                    <table class="table table-striped table-hover table-condensed" id="slider">
+                        <tr>
+                            <th>#</th>
+                            <th>Слайдер</th>
+                            <th>Расположение файла</th>
+                            <th>Ссылка</th>
+                        </tr>
+                        {% for n, slide in app.config.settings.slider %}
+                        <tr>
+                            <td>{{n+1}}</td>
+                            <td><img class="img-responsive" src="{{slide.src}}" width="250" alt="{{slide.src}}"/></td>
+                            <td>{{slide.src}}<input type="hidden" name="slider[{{n}}][src]" value="{{slide.src}}"></td>
+                            <td><input type="text" name="slider[{{n}}][link]" value="{{slide.link}}"></td>
+                            <td style="white-space: nowrap"><a href="#" class="confirmable" onclick="$(this).parents('tr').remove()"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <ul class="list-group" id="uploads">
+                        <li class="list-group-item reserve" style="display: none">{{element('file', 'files[]', {'text':'Выберите файл'})}}</li>
+                        <li class="list-group-item">{{element('file', 'files[]', {'text':'Выберите файл'})}}1140*261 px</li>
+                    </ul>
+                    <a href="#" onclick="$('#uploads li.reserve').clone().removeClass('reserve').appendTo('#uploads').show();return false;">
+                        <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Еще один файл</button>
+                    </a>
+                </section>
             </fieldset>
             <footer>
                 <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -51,4 +78,10 @@
 {% endblock %}
 
 {% block pagescript %}
+        <script>
+            $(function(){
+                $("#slider tbody").sortable();
+            }
+            );
+        </script>
 {% endblock %}

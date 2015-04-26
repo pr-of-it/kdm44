@@ -44,7 +44,7 @@
     {{item.text|raw}}
 </div>
 {% if 0!=item.images.count %}
-<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="400px" style="margin-left:200px;">
+<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="700px" style="margin-left:80px;">
     {% for image in item.images %}
        <div data-img="{{image.path}}">&nbsp;</div>
     {% endfor%}

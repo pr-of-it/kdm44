@@ -43,9 +43,15 @@
     <hr>
     {{item.text|raw}}
 </div>
-
+{% if 0!=item.images.count %}
+<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="400px" style="margin-left:200px;">
+    {% for image in item.images %}
+       <div data-img="{{image.path}}">&nbsp;</div>
+    {% endfor%}
+</div>
+{% endif %}
 <div style="padding-top: 10px;"><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="big" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter"></div>
-<br></div>
+    <br></div>
 {% if 0 != item.files.count %}
 <ul class="list-group">
     <li class="list-group-item active"><h4 class="list-group-item-heading">Приложенные файлы</h4></li>

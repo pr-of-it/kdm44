@@ -43,6 +43,7 @@
     <hr>
     {{item.text|raw}}
 </div>
+
 {% if 0!=item.images.count %}
 <div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="700px" style="margin-left:80px;">
     {% for image in item.images %}
@@ -50,6 +51,7 @@
     {% endfor%}
 </div>
 {% endif %}
+<br><br><br>
 <div style="padding-top: 10px;"><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="big" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter"></div>
     <br></div>
 {% if 0 != item.files.count %}

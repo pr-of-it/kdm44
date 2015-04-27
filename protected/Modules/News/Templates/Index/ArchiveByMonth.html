@@ -1,0 +1,52 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+{% set rusmonths = {1 : 'Январь', 2 : 'Февраль', 3 : 'Март', 4 : 'Апрель', 5 : 'Май', 6 : 'Июнь',
+7 : 'Июль', 8 : 'Август', 9 : 'Сентябрь', 10 : 'Октябрь', 11 : 'Ноябрь', 12 : 'Декабрь'} %}
+
+<ol class="breadcrumb" xmlns="http://www.w3.org/1999/html">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/news/">Новости</a></li>
+    <li><a href="/news/archives/all">Архивы</a></li>
+    <li><a href="/news/archive/{{year}}">Архив {{year}}</a></li>
+    <li class="active">{{rusmonths[monthnum]}}</li>
+</ol>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4 style="color: #0044cc">Рубрики новостей</h4>
+        <ul>
+            <li><p><i>Все новости</i></p></li>
+            {% for topic in topics %}
+            {% if topic.stories is empty %}
+            {% else %}
+            <li><p><a href="/news/archive/topic/{{year}}/{{monthnum}}/{{topic.Pk}}.html"><i>{{topic.title}}</i></a></p></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<h3 style="color: #0055aa">Архив новостей за {{month}} {{year}} года. (всего - {{total}}) </h3>
+{% for i, item in items %}
+<article>
+    <div class="main-page-news top-news clearfix">
+        <div class="date-news">{{item.published|date('d.m.Y')}}</div>
+        <div class="title-news">
+            <strong>
+                <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
+            </strong>
+        </div>
+        {% if item.image %}<img class="media-object img-responsive img-thumbnail pull-left" src="{{item.image}}"
+                                style="max-width: 200px; margin-right: 10px;">{% endif %}
+        <div class="description-news">{{item.lead|striptags|raw}}</div>
+    </div>
+</article>
+
+{% endfor %}
+<p class="pull-right"><a href="/news/archive/{{year}}">
+    <i class="glyphicon glyphicon-chevron-right"></i>вернуться к выбору месяца</a></p>
+
+{{widget('pager', {total: total, size: size, active: page})}}
+{% endblock %}

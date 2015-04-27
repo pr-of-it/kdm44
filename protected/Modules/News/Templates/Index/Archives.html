@@ -1,0 +1,27 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/news/">Новости</a></li>
+    <li class="active">Архивы</li>
+</ol>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h1>Архивы новостей</h1>
+        <ul>
+            {% for years in items %}
+            {% for year in years %}
+            <li>
+                <a href="/news/archive/{{year}}">{{year}}</a>
+            </li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+        <p class="pull-right"><a href="/news/">
+            <i class="glyphicon glyphicon-chevron-right"></i>вернуться к новостям</a></p>
+    </div>
+</section>
+{% endblock %}

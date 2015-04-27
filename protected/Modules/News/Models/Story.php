@@ -15,29 +15,27 @@ class Story
     static protected $schema = [
         'table' => 'newsstories',
         'columns' => [
-            'title' => ['type'=>'string'],
-            'published' => ['type'=>'datetime'],
-            'lead' => ['type'=>'text'],
-            'image' => ['type'=>'string', 'default'=>''],
-            'text' => ['type'=>'text'],
+            'title' => ['type' => 'string'],
+            'published' => ['type' => 'datetime'],
+            'lead' => ['type' => 'text'],
+            'image' => ['type' => 'string', 'default' => ''],
+            'text' => ['type' => 'text'],
         ],
         'relations' => [
-            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic'],
+            'topic' => ['type' => self::BELONGS_TO, 'model' => 'App\Modules\News\Models\Topic'],
             'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
             'images' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\Image'],
         ]
     ];
 
-    public function getShortLead($maxLength=120)
+    public function getShortLead($maxLength = 120)
     {
-        if (mb_strlen( $this->lead) > $maxLength){
-            $sourceStr=strip_tags($this->lead);
-            $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
+        if (mb_strlen($this->lead) > $maxLength) {
+            $sourceStr = strip_tags($this->lead);
+            $words = explode(' ', mb_substr($sourceStr, 0, $maxLength));
             array_pop($words);
-            return implode(' ',$words);
-        }
-        else
-        {
+            return implode(' ', $words);
+        } else {
             return $this->lead;
         }
     }
@@ -65,7 +63,7 @@ class Story
     {
         $request = Application::getInstance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
-             return $this;
+            return $this;
         }
         $uploader = new Uploader($formFieldName);
         $uploader->setPath('/public/news/stories/files');
@@ -143,5 +141,59 @@ class Story
             }
         }
         return true;
+    }
+
+    static public function getYears()
+    {
+        $query = 'SELECT DISTINCT(YEAR(published)) FROM ' . self::getTableName() . ' ORDER BY YEAR(published) DESC';
+        return self::findAllByQuery($query);
+    }
+
+    static public function countAllByDate($year = null, $month = null, $day = null)
+    {
+        $valuewhere =
+            (!empty($year) ? ' YEAR(published) = :year' : '') .
+            (!empty($month) ? ' AND MONTH(published) = :month' : '') .
+            (!empty($day) ? ' AND DAY(published) = :day' : '');
+        if (!empty($year)) {
+            $params = [':year' => $year];
+        }
+        if (!empty($month)) {
+            $params += [':month' => $month];
+        }
+        if (!empty($day)) {
+            $params += [':day' => $day];
+        }
+        $options = [
+            'where' => $valuewhere,
+            'params' => $params,
+        ];
+        return self::countAll($options);
+    }
+
+    static public function countAllByDateColumn($column, $value, $year = null, $month = null, $day = null)
+    {
+        $wherevalue =
+            (!empty($year) ? ' YEAR(published) = :year' : '') .
+            (!empty($month) ? ' AND MONTH(published) = :month' : '') .
+            (!empty($day) ? ' AND DAY(published) = :day' : '') .
+            (!empty($column) ? ' AND `' . $column . '`=:value ' : '');
+        if (!empty($year)) {
+            $params = [':year' => $year];
+        }
+        if (!empty($month)) {
+            $params += [':month' => $month];
+        }
+        if (!empty($day)) {
+            $params += [':day' => $day];
+        }
+        if (!empty($value)) {
+            $params += [':value' => $value];
+        }
+        $options = [
+            'where' => $wherevalue,
+            'params' => $params,
+        ];
+        return self::countAll($options);
     }
 }

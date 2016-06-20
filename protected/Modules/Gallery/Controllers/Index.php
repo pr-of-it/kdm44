@@ -11,11 +11,11 @@ use T4\Mvc\Controller;
 class Index extends Controller
 {
 
-    const PAGE_SIZE = 20;
+    const PAGE_SIZE = 10;
 
     public function actionDefault($page = 1)
     {
-        $this->data->itemsCount = Photo::countAll();
+        $this->data->itemsCount = Album::countAll();
         $this->data->pageSize = self::PAGE_SIZE;
         $this->data->activePage = $page;
         $this->data->items = Album::findAll([

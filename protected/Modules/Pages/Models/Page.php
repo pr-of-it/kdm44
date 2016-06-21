@@ -61,7 +61,7 @@ class Page
 
     public function uploadFiles($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
             return $this;
 

@@ -25,7 +25,7 @@ class Photo extends Model
 
     public function uploadImage($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploaded($formFieldName))
             return $this;
         try {

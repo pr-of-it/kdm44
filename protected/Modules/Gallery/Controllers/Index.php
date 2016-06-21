@@ -6,24 +6,18 @@ use App\Modules\Gallery\Models\Album;
 use App\Modules\Gallery\Models\Photo;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
+use T4\Orm\ModelDataProvider;
 
 
 class Index extends Controller
 {
-
-    const PAGE_SIZE = 10;
-
-    public function actionDefault($page = 1)
+    public function actionDefault(int $page = 1)
     {
-        $this->data->itemsCount = Album::countAll();
-        $this->data->pageSize = self::PAGE_SIZE;
-        $this->data->activePage = $page;
-        $this->data->items = Album::findAll([
-            'offset' => ($page - 1) * self::PAGE_SIZE,
-            'limit' => self::PAGE_SIZE,
+        $this->data->provider = new ModelDataProvider(Album::class, [
             'where' => '__prt = 0',
             'order' => 'published DESC',
         ]);
+        $this->data->page = $page;
     }
 
 

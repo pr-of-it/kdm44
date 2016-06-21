@@ -11,6 +11,7 @@ use T4\Orm\ModelDataProvider;
 
 class Index extends Controller
 {
+    
     public function actionDefault(int $page = 1)
     {
         $this->data->provider = new ModelDataProvider(Album::class, [

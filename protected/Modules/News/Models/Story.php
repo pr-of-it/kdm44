@@ -44,7 +44,7 @@ class Story
 
     public function uploadImage($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploaded($formFieldName) || $request->isUploadedArray($formFieldName))
             return $this;
 
@@ -63,7 +63,7 @@ class Story
 
     public function uploadFiles($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
              return $this;
         }
@@ -79,7 +79,7 @@ class Story
 
     public function uploadImages($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
             return $this;
         }

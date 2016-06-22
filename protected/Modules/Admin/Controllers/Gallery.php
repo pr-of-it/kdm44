@@ -15,7 +15,7 @@ class Gallery
 
     const PAGE_SIZE = 20;
 
-    protected function access($action)
+    protected function access($action,  $params = [])
     {
         return !empty($this->app->user) && $this->app->user->hasRole('admin');
     }

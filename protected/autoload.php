@@ -5,7 +5,6 @@ spl_autoload_register(function ($className) {
     if ('App' == substr($className, 0, 3)) {
         $className = preg_replace('~^App~', '', $className);
         $fileName = ROOT_PATH_PROTECTED . str_replace('\\', DS, $className) . '.php';
-        //var_dump($fileName);
     } else {
         return false;
     }

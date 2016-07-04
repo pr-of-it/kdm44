@@ -41,6 +41,31 @@ class Documents
         }
     }
 
+    public function actionSave($redirect = 0)
+    {
+        if (!empty($_POST[Document::PK])) {
+            $item = Document::findByPK($_POST[Document::PK]);
+        } else {
+            $item = new Document();
+        }
+        $item->fill($_POST);
+        if ($item->isNew()) {
+            $item->published = date('Y-m-d H:i:s', time());
+        }
+        $item->save();
+        if ($redirect) {
+            $this->redirect('/documents/' . $item->getPk() . '.html');
+        } else {
+            $this->redirect('/admin/documents/');
+        }
+    }
+    public function actionDelete($id)
+    {
+        $item = Document::findByPK($id);
+        $item->delete();
+        $this->redirect('/admin/documents/');
+    }
+
     public function actionCategories()
     {
         $this->data->items = Category::findAllTree();

@@ -13,7 +13,7 @@
 
 <div class="row">
 {% for item in provider.getPage(page) %}
-    {% if not item.countPhotos == 0 %}
+   {% if not item.countPhotos == 0 %}
     <div class="col-sm-5 text-center">
         <a href="/gallery/albums/{{item.url}}.html"><img src="{% if item.cover %}{{item.cover.image}} {% else %}{{ item.photos[0].image}} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 300px;"></a>
         <p>
@@ -23,5 +23,5 @@
     {% endif %}
 {% endfor %}
 </div>
-{{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': url~'?page=%d'}) }}
+{{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/gallery/?page=%d'}) }}
 {% endblock %}

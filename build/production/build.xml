@@ -2,8 +2,7 @@
 
 <project name="KDM" default="build" basedir=".">
 
-    <target name="build" depends="vars, copy, composer, configs, migrate" />
-    <!--<target name="build" depends="vars, copy, composer, configs, migrate, symlinks, switch" />-->
+    <target name="build" depends="vars, copy, composer, configs, migrate, symlinks, switch" />
 
     <!-- ============================================  -->
     <!-- Target: vars                                  -->
@@ -72,10 +71,10 @@
     <!-- Target: symlinks                              -->
     <!-- ============================================  -->
     <target name="symlinks">
-        <symlink target="/home/kdm/files" link="${current.dir}/public/files" overwrite="true" />
-        <symlink target="/home/kdm/file" link="${current.dir}/public/file" overwrite="true" />
-        <symlink target="/home/kdm/public" link="${current.dir}/public/public" overwrite="true" />
-        <symlink target="/home/kdm/images" link="${current.dir}/public/images" overwrite="true" />
+        <symlink target="${home.dir}/files" link="${current.dir}/public/files" overwrite="true" />
+        <symlink target="${home.dir}/file" link="${current.dir}/public/file" overwrite="true" />
+        <symlink target="${home.dir}/public" link="${current.dir}/public/public" overwrite="true" />
+        <symlink target="${home.dir}/images" link="${current.dir}/public/images" overwrite="true" />
     </target>
 
     <!-- ============================================  -->

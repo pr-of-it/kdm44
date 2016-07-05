@@ -12,7 +12,7 @@ class Documents
 
     const PAGE_SIZE = 20;
 
-    protected function access($action)
+    protected function access($action,  $params = [])
     {
         return !empty($this->app->user) && $this->app->user->hasRole('admin');
     }
@@ -25,7 +25,8 @@ class Documents
 
         $this->data->items = Document::findAll([
             'order' => 'published DESC',
-            'limit'=>[($page-1)*self::PAGE_SIZE, self::PAGE_SIZE]
+            'offset'=> ($page-1)*self::PAGE_SIZE,
+            'limit'=> self::PAGE_SIZE
         ]);
     }
 
@@ -39,6 +40,31 @@ class Documents
         } else {
             $this->data->item = Document::findByPK($id);
         }
+    }
+
+    public function actionSave($redirect = 0)
+    {
+        if (!empty($_POST[Document::PK])) {
+            $item = Document::findByPK($_POST[Document::PK]);
+        } else {
+            $item = new Document();
+        }
+        $item->fill($_POST);
+        if ($item->isNew()) {
+            $item->published = date('Y-m-d H:i:s', time());
+        }
+        $item->save();
+        if ($redirect) {
+            $this->redirect('/documents/' . $item->getPk() . '.html');
+        } else {
+            $this->redirect('/admin/documents/');
+        }
+    }
+    public function actionDelete($id)
+    {
+        $item = Document::findByPK($id);
+        $item->delete();
+        $this->redirect('/admin/documents/');
     }
 
     public function actionCategories()

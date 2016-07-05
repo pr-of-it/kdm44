@@ -34,7 +34,7 @@ class Identity
             throw new Exception('Invalid password', self::ERROR_INVALID_PASSWORD);
         }
         $this->login($user);
-        Application::getInstance()->user = $user;
+        Application::instance()->user = $user;
         return $user;
     }
 

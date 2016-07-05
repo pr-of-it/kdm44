@@ -23,19 +23,19 @@ class Block
 
     public function getTitle()
     {
-        return Application::getInstance()->config->blocks->{$this->path}->title;
+        return Application::instance()->config->blocks->{$this->path}->title;
     }
 
     public function getDesc()
     {
-        return Application::getInstance()->config->blocks->{$this->path}->desc;
+        return Application::instance()->config->blocks->{$this->path}->desc;
     }
 
     public function getAllOptions()
     {
         $_options = (array)json_decode($this->__data['options'], true);
         $ret = [];
-        foreach (Application::getInstance()->config->blocks->{$this->path}->options as $name => $option) {
+        foreach (Application::instance()->config->blocks->{$this->path}->options as $name => $option) {
             if (isset($_options[$name])) {
                 $ret[$name] = $_options[$name];
             } else {
@@ -48,7 +48,7 @@ class Block
     public function getAllTemplates()
     {
         $route = new Route($this->path);
-        $controller = Application::getInstance()->createController($route->module, $route->controller);
+        $controller = Application::instance()->createController($route->module, $route->controller);
         $templates = [];
         foreach ($controller->getTemplatePaths() as $path) {
             foreach (glob($path . DS . $route->action . '.*.block.html') as $filename) {

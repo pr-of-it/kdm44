@@ -14,7 +14,7 @@ class UserSession
             'userAgentHash' => ['type'=>'string'],
         ],
         'relations' => [
-            'user' => ['type'=>self::BELONGS_TO, 'model'=>'\App\Models\User'],
+            'user' => ['type'=>self::BELONGS_TO, 'model'=>\App\Models\User::class],
         ],
     ];
 

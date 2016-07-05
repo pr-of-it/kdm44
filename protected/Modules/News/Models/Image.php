@@ -19,7 +19,7 @@ class Image extends Model
             'path' => ['type'=>'string']
         ],
         'relations' => [
-            'story' => ['type'=>self::BELONGS_TO, 'model'=>'\App\Modules\News\Models\Story'],
+            'story' => ['type'=>self::BELONGS_TO, 'model'=>\App\Modules\News\Models\Story::class],
         ]
     ];
 

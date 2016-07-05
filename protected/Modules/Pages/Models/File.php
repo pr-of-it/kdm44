@@ -14,7 +14,7 @@ class File
             'file' => ['type' => 'string'],
         ],
         'relations' => [
-            'page' => ['type' => self::BELONGS_TO, 'model' => '\App\Modules\Pages\Models\Page'],
+            'page' => ['type' => self::BELONGS_TO, 'model' => \App\Modules\Pages\Models\Page::class],
         ],
     ];
 

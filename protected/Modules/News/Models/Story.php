@@ -22,9 +22,9 @@ class Story
             'text' => ['type'=>'text'],
         ],
         'relations' => [
-            'topic' => ['type'=>self::BELONGS_TO, 'model'=>'App\Modules\News\Models\Topic'],
-            'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\File'],
-            'images' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\News\Models\Image'],
+            'topic' => ['type'=>self::BELONGS_TO, 'model'=>\App\Modules\News\Models\Topic::class],
+            'files' => ['type' => self::HAS_MANY, 'model' => \App\Modules\News\Models\File::class],
+            'images' => ['type' => self::HAS_MANY, 'model' => \App\Modules\News\Models\Image::class],
         ]
     ];
 
@@ -44,7 +44,7 @@ class Story
 
     public function uploadImage($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploaded($formFieldName) || $request->isUploadedArray($formFieldName))
             return $this;
 
@@ -63,7 +63,7 @@ class Story
 
     public function uploadFiles($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
              return $this;
         }
@@ -79,7 +79,7 @@ class Story
 
     public function uploadImages($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName)) {
             return $this;
         }

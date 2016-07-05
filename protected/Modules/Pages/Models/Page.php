@@ -34,12 +34,9 @@ class Page
                 'type' => 'int',
                 'default' => 0
             ],
-            'file' => [
-                'type' => 'string',
-            ],
         ],
         'relations' => [
-            'files' => ['type' => self::HAS_MANY, 'model' => '\App\Modules\Pages\Models\File']
+            'files' => ['type' => self::HAS_MANY, 'model' => \App\Modules\Pages\Models\File::class]
         ],
     ];
 
@@ -61,7 +58,7 @@ class Page
 
     public function uploadFiles($formFieldName)
     {
-        $request = Application::getInstance()->request;
+        $request = Application::instance()->request;
         if (!$request->existsFilesData() || !$request->isUploadedArray($formFieldName))
             return $this;
 

@@ -23,10 +23,7 @@ class Document
             ],
         ],
         'relations' => [
-            'category' => [
-                'type'=>self::BELONGS_TO,
-                'model'=>'App\Modules\Documents\Models\Category'
-            ]
+            'category' => ['type'=>self::BELONGS_TO, 'model'=>\App\Modules\Documents\Models\Category::class]
         ],
     ];
 

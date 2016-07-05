@@ -1,6 +1,5 @@
 {
   "require": {
-    "pr-of-it/t4": "dev-master",
-    "phpunit/phpunit": "5.3.*"
+    "pr-of-it/t4": "dev-master"
   }
 }

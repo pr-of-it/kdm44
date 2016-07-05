@@ -2,7 +2,7 @@
 
 <project name="KDM" default="build" basedir=".">
 
-    <target name="build" depends="vars, copy, composer" />
+    <target name="build" depends="vars, copy, composer, configs, migrate" />
     <!--<target name="build" depends="vars, copy, composer, configs, migrate, symlinks, switch" />-->
 
     <!-- ============================================  -->
@@ -55,7 +55,7 @@
     <!-- ============================================  -->
     <target name="configs">
         <copy file="${current.dir}/build/production/config.php" tofile="${current.dir}/protected/config.php" overwrite="true" />
-        <symlink target="/home/kdm/settings.php" link="${current.dir}/protected/settings.php" overwrite="true" />
+        <symlink target="${home.dir}/settings.php" link="${current.dir}/protected/settings.php" overwrite="true" />
     </target>
 
     <!-- ============================================  -->
@@ -63,23 +63,9 @@
     <!-- ============================================  -->
     <target name="migrate">
         <echo msg="Migrations import..." />
-        <exec command="php t4.php /migrate/import" dir="${current.dir}/t4/framework" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
-        <if>
-            <not><equals arg1="0" arg2="${exec.return}" /></not>
-            <then>
-                <fail message="${exec.output}" />
-            </then>
-        </if>
-        <echo msg="${exec.output}" />
+        <exec command="php protected/t4.php /migrate/import" dir="${current.dir}" checkreturn="true" passthru="true" />
         <echo msg="Migrations up..." />
-        <exec command="php t4.php /migrate/up" dir="${current.dir}/t4/framework" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
-        <if>
-            <not><equals arg1="0" arg2="${exec.return}" /></not>
-            <then>
-                <fail message="${exec.output}" />
-            </then>
-        </if>
-        <echo msg="${exec.output}" />
+        <exec command="php protected/t4.php /migrate/up" dir="${current.dir}" checkreturn="true" passthru="true" />
     </target>
 
     <!-- ============================================  -->

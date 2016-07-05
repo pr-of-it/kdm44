@@ -47,7 +47,7 @@
     <!-- ============================================  -->
     <target name="composer">
         <echo msg="Install composer depedencies..." />
-        <exec command="composer install" dir="${current.dir}" checkreturn="true" passthru="true" error="php://stdout" />
+        <exec command="composer install" dir="${current.dir}" checkreturn="true" passthru="true" />
     </target>
 
     <!-- ============================================  -->

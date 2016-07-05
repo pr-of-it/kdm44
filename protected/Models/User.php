@@ -14,10 +14,7 @@ class User
             'password'  => ['type'=>'string'],
         ],
         'relations' => [
-            'role'=>[
-                'type'=>self::BELONGS_TO,
-                'model'=>'\App\Models\Role'
-            ]
+            'role'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\Role::class]
         ],
     ];
 

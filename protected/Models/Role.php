@@ -13,10 +13,7 @@ class Role
             'title'  => ['type'=>'string'],
         ],
         'relations' => [
-            'users'=>[
-                'type'=>self::HAS_MANY,
-                'model'=>'\App\Models\User'
-            ]
+            'users'=>['type'=>self::HAS_MANY, 'model'=>\App\Models\User::class]
         ],
     ];
 

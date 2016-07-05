@@ -2,52 +2,28 @@
 
 <project name="KDM" default="build" basedir=".">
 
+    <target name="build" depends="vars, copy, composer" />
+    <!--<target name="build" depends="vars, copy, composer, configs, migrate, symlinks, switch" />-->
+
     <!-- ============================================  -->
     <!-- Target: vars                                  -->
     <!-- ============================================  -->
     <target name="vars">
+
         <echo msg="Setting local variables..." />
+
         <echo msg="Build branch is ${build.branch}" />
+
         <resolvepath propertyName="project.dir" file="${project.basedir}" />
         <echo msg="Project source dir is: ${project.dir}" />
-        <resolvepath propertyName="t4.dir" file="${project.dir}/t4" />
-        <echo msg="T4 dir is: ${t4.dir}" />
-        <property name="t4.repo" value="https://github.com/pr-of-it/t4.git" />
+
         <php returnProperty="build.time" function="date">
             <param value="Y-m-d-H-i-s" />
         </php>
-        <resolvepath propertyName="current.dir" file="/home/kdm/deploy/${build.branch}/${build.time}" />
+        <resolvepath propertyName="home.dir" file="/home/kdm" />
+        <resolvepath propertyName="current.dir" file="${home.dir}/deploy/${build.branch}/${build.time}" />
         <echo msg="Current build dir is: ${current.dir}" />
-    </target>
 
-    <!-- ============================================  -->
-    <!-- Target: t4                                    -->
-    <!-- ============================================  -->
-    <target name="t4">
-        <echo msg="Cloning T4 framework..." />
-        <exec command="git clone https://github.com/pr-of-it/t4.git ${t4.dir}" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
-        <if>
-            <not><equals arg1="0" arg2="${exec.return}" /></not>
-            <then>
-                <fail message="${exec.output}" />
-            </then>
-        </if>
-        <echo msg="${exec.output}" />
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Target: composer                              -->
-    <!-- ============================================  -->
-    <target name="composer">
-        <echo msg="Install composer depedencies for T4 framework..." />
-        <exec command="composer install" dir="${t4.dir}" checkreturn="true" returnProperty="exec.return" outputProperty="exec.output" />
-        <if>
-            <not><equals arg1="0" arg2="${exec.return}" /></not>
-            <then>
-                <fail message="${exec.output}" />
-            </then>
-        </if>
-        <echo msg="${exec.output}" />
     </target>
 
     <!-- ============================================  -->
@@ -63,8 +39,15 @@
         </copy>
         <chmod file="${current.dir}/public" mode="0777" />
         <chmod file="${current.dir}/protected" mode="0777" />
-        <!-- @todo: Зачем это??? -->
         <mkdir dir="${current.dir}/protected/Cache" mode="0777" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer                              -->
+    <!-- ============================================  -->
+    <target name="composer">
+        <echo msg="Install composer depedencies..." />
+        <exec command="composer install" dir="${current.dir}" checkreturn="true" passthru="true" error="stdout" />
     </target>
 
     <!-- ============================================  -->
@@ -115,7 +98,5 @@
     <target name="switch">
         <symlink target="${current.dir}" link="/home/kdm/deploy/${build.branch}/current" overwrite="true" />
     </target>
-
-    <target name="build" depends="vars, t4, composer, copy, configs, migrate, symlinks, switch" />
 
 </project>

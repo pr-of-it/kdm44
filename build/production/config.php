@@ -9,7 +9,7 @@ return [
             'driver' => 'mysql',
             'host' => 'localhost',
             'dbname' => 'db_kdm44',
-            'user' => 'kdm',
+            'user' => 'kdm44',
             'password' => 'M6y4T5c6',
         ]
     ],

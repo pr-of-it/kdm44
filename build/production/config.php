@@ -8,9 +8,9 @@ return [
         'default' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'dbname' => 'kdm',
+            'dbname' => 'db_kdm44',
             'user' => 'kdm',
-            'password' => '123456',
+            'password' => 'M6y4T5c6',
         ]
     ],
     'auth' => [

@@ -15,18 +15,4 @@
 {% endfor %}
 </ul>
 
-{% for topic in topics %}
-    {% if topic.stories is empty %}
-    {% else %}
-    <section class="panel panel-default">
-        <div class="panel-body">
-            <h1><a href="/news/topics/{{topic.Pk}}.html">{{topic.title}}</a></h1>
-            <t4:block path="/News//NewsByTopic" template="main" id="{{topic.Pk}}" count="4"/>
-            <p class="pull-right"><a href="/news/topics/{{topic.Pk}}.html"><i class="glyphicon glyphicon-chevron-right"></i>
-                все новости раздела</a></p>
-        </div>
-    </section>
-    {% endif %}
-{% endfor %}
-
 {% endblock %}

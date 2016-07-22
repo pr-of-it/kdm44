@@ -148,6 +148,6 @@ class Story
      public static function getYears()
     {
         $query = 'SELECT DISTINCT YEAR(published) AS year FROM ' . self::getTableName() . ' ORDER BY YEAR(published) DESC';
-        return self::getDbConnection()->query($query)->fetchAll();
+        return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

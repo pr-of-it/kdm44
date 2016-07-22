@@ -4,11 +4,23 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
-    <li class="active">Новости</li>
+    <li><a href="/news/">Новости</a></li>
+    <li class="active">Архив</li>
     <li></li>
 </ol>
 
-{% for topic in topics %}
+
+
+{% for item in items %}
+    <div class="list-group">
+        <a href="#" class="list-group-item">
+            {{ item.year }}
+        </a>
+    </div>
+{% endfor %}
+
+
+    {% for topic in topics %}
 {% if topic.stories is empty %}
 {% else %}
 <section class="panel panel-default">
@@ -21,11 +33,5 @@
 </section>
 {% endif %}
 {% endfor %}
-
-<section class="panel panel-default">
-    <div class="panel-body">
-        <h1><a href="/news/archive/">Архив</a></h1>
-    </div>
-</section>
 
 {% endblock %}

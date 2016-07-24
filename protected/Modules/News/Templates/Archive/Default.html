@@ -10,11 +10,15 @@
     </ol>
 
     <h3 style="color: #10437e;">Архив новостей</h3>
-    <table class="table table-hover">
+    <table class="table">
         <tbody>
         {% for item in items %}
-            <tr onclick="window.location.href='/news/archive/year/{{ item.year }}'" style="cursor: pointer">
-                <td width="80%">{{ item.year }} год</td>
+            <tr>
+                <td width="80%">
+                    <a href="/news/archive/year/{{ item.year }}" style="display: block">
+                        {{ item.year }} год
+                    </a>
+                </td>
                 <td>
                     <span>новостей: &nbsp;</span>
                     <span class="badge">{{ item.count }}</span>

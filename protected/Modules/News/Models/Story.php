@@ -144,4 +144,11 @@ class Story
         }
         return true;
     }
+
+     public static function getYears()
+    {
+        $query = 'SELECT YEAR(published) AS year, COUNT(__id) AS count FROM ' . self::getTableName() .' GROUP BY YEAR(published) DESC';
+        return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 }

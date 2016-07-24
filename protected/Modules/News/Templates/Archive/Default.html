@@ -9,7 +9,7 @@
         <li></li>
     </ol>
 
-    <h3 style="color: #10437e;">Архив новостей</h3>
+    <h2 style="margin-top: 0">Архив новостей</h2>
     <table class="table">
         <tbody>
         {% for item in items %}
@@ -20,8 +20,10 @@
                     </a>
                 </td>
                 <td>
-                    <span>новостей: &nbsp;</span>
-                    <span class="badge">{{ item.count }}</span>
+                    <a href="/news/archive/year/{{ item.year }}" style="display: block; text-decoration: none">
+                        <span>новостей: &nbsp;</span>
+                        <span class="badge">{{ item.count }}</span>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

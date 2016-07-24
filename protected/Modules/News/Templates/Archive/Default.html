@@ -2,17 +2,26 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-    <li><a href="/">Главная страница</a></li>
-    <li><a href="/news/">Новости</a></li>
-    <li class="active">Архив</li>
-    <li></li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="/">Главная страница</a></li>
+        <li><a href="/news/">Новости</a></li>
+        <li class="active">Архив</li>
+        <li></li>
+    </ol>
 
-<ul>
-{% for item in items %}
-    <li><a href="/news/archive/year/{{ item.year }}">{{ item.year }}</a></li>
-{% endfor %}
-</ul>
+    <h3 style="color: #10437e;">Архив новостей</h3>
+    <table class="table table-hover">
+        <tbody>
+        {% for item in items %}
+            <tr onclick="window.location.href='/news/archive/year/{{ item.year }}'" style="cursor: pointer">
+                <td width="80%">{{ item.year }} год</td>
+                <td>
+                    <span>новостей: &nbsp;</span>
+                    <span class="badge">{{ item.count }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

@@ -147,7 +147,8 @@ class Story
 
      public static function getYears()
     {
-        $query = 'SELECT DISTINCT YEAR(published) AS year FROM ' . self::getTableName() . ' ORDER BY YEAR(published) DESC';
+        $query = 'SELECT YEAR(published) AS year, COUNT(__id) AS count FROM ' . self::getTableName() .' GROUP BY YEAR(published) DESC';
         return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
 }

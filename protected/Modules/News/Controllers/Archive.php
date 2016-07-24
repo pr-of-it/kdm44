@@ -12,4 +12,5 @@ class Archive
     {
         $this->data->items = Story::getYears();
     }
+    
 }

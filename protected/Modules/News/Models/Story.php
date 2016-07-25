@@ -153,8 +153,8 @@ class Story
 
     public static function getItemsCountGroupByMonths($year)
     {
-        $query = 'SELECT MONTH(published) AS month, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE YEAR(published)=' . $year . ' GROUP BY MONTH(published)';
-        return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+        $query = 'SELECT MONTH(published) AS month, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE YEAR(published)=:year GROUP BY MONTH(published)';
+        return self::getDbConnection()->query($query, [':year' => $year])->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

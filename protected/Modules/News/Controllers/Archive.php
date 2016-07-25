@@ -14,13 +14,10 @@ class Archive
         $this->data->items = Story::getItemsCountGroupByYears();
     }
 
-    public function actionNewsByMonth($year = null)
+    public function actionNewsByMonth(int $year = null)
     {
         $date = \DateTime::createFromFormat('Y', $year);
         if (null === $year || !$date) {
-            throw new E404Exception;
-        }
-        if ($year !== $date->format('Y')) {
             throw new E404Exception;
         }
 

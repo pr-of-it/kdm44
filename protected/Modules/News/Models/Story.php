@@ -147,8 +147,14 @@ class Story
 
      public static function getYears()
     {
-        $query = 'SELECT YEAR(published) AS year, COUNT(__id) AS count FROM ' . self::getTableName() .' GROUP BY YEAR(published) DESC';
+        $query = 'SELECT YEAR(published) AS year, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE published <> \'1970-01-01 00:00:00\'  GROUP BY YEAR(published) DESC';
         return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getMonths($year)
+    {
+        $query = 'SELECT MONTH(published) AS month, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE YEAR(published)=' . $year . ' GROUP BY MONTH(published)';
+        return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
 }

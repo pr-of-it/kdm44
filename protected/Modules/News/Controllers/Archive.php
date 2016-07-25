@@ -12,5 +12,14 @@ class Archive
     {
         $this->data->items = Story::getYears();
     }
-    
+
+    public function actionNewsByMonth($year = null)
+    {
+        if (null !== $year) {
+            $this->data->items = Story::getMonths($year);
+        }
+        
+        $this->data->year = $year;
+    }
+
 }

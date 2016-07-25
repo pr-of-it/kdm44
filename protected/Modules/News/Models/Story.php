@@ -151,4 +151,10 @@ class Story
         return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getMonths($year)
+    {
+        $query = 'SELECT MONTH(published) AS month, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE YEAR(published)=' . $year . ' GROUP BY MONTH(published)';
+        return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 }

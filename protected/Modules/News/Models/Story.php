@@ -145,10 +145,16 @@ class Story
         return true;
     }
 
-     public static function getYears()
+     public static function getItemsCountGroupByYears()
     {
         $query = "SELECT YEAR(published) AS year, COUNT(__id) AS count FROM " . self::getTableName() . " WHERE published <> '1970-01-01 00:00:00' GROUP BY YEAR(published) DESC";
         return self::getDbConnection()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getItemsCountGroupByMonths($year)
+    {
+        $query = 'SELECT MONTH(published) AS month, COUNT(__id) AS count FROM ' . self::getTableName() . ' WHERE YEAR(published)=:year GROUP BY MONTH(published)';
+        return self::getDbConnection()->query($query, [':year' => $year])->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

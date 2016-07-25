@@ -1,0 +1,38 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+    {% set rusmonths = {1 : 'Январь', 2 : 'Февраль', 3 : 'Март', 4 : 'Апрель', 5 : 'Май', 6 : 'Июнь',
+    7 : 'Июль', 8 : 'Август', 9 : 'Сентябрь', 10 : 'Октябрь', 11 : 'Ноябрь', 12 : 'Декабрь'} %}
+
+    <ol class="breadcrumb">
+        <li><a href="/">Главная страница</a></li>
+        <li><a href="/news/">Новости</a></li>
+        <li><a href="/news/archive/">Архив</a></li>
+        <li class="active">{{ year }} год</li>
+        <li></li>
+    </ol>
+
+    <h2 style="margin-top: 0">Новости за {{ year }} год</h2>
+
+    <table class="table table-hover">
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td width="80%">
+                    <a href="/news/archive/{{ year }}/{{ item.month }}/" style="display: block; text-decoration: none">
+                        {{ rusmonths[item.month] }}
+                    </a>
+                </td>
+                <td>
+                    <a href="/news/archive/{{ year }}/{{ item.month }}/" style="display: block; text-decoration: none">
+                        <span>новостей: &nbsp;</span>
+                        <span class="badge">{{ item.count }}</span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

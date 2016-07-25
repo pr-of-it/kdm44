@@ -9,11 +9,12 @@
         <li><a href="/">Главная страница</a></li>
         <li><a href="/news/">Новости</a></li>
         <li><a href="/news/archive/">Архив</a></li>
-        <li class="active">{{ year }}</li>
+        <li class="active">{{ year }} год</li>
         <li></li>
     </ol>
 
-    <h2 style="margin-top: 0">Архив новостей за {{ year }} год</h2>
+    <h2 style="margin-top: 0">Новости за {{ year }} год</h2>
+
     <table class="table table-hover">
         <tbody>
         {% for item in items %}

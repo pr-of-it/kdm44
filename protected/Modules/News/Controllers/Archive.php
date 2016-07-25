@@ -9,6 +9,8 @@ use T4\Mvc\Controller;
 class Archive
     extends Controller
 {
+    const DEFAULT_STORIES_COUNT = 20;
+
     public function actionDefault()
     {
         $this->data->items = Story::getItemsCountGroupByYears();
@@ -24,4 +26,22 @@ class Archive
         $this->data->year = $year;
     }
 
+    public function actionNewsByDay(int $year = null, int $month = null)
+    {
+        if (null  === $year  || 
+            null  === $month ||
+            false === \DateTime::createFromFormat('Y', $year) ||
+            false === \DateTime::createFromFormat('m', $month)
+        ) {
+            throw new E404Exception;
+        }
+
+        $this->data->page = $this->app->request->get->page ?: 1;
+        $this->data->total = Story::countItemsByMonth($year, $month);
+        $this->data->size = self::DEFAULT_STORIES_COUNT;
+
+        $this->data->items = Story::getItemsByMonth($year, $month, $this->data->page, self::DEFAULT_STORIES_COUNT);
+        $this->data->year = $year;
+        $this->data->month = $month;
+    }
 }

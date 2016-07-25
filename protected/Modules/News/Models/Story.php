@@ -4,6 +4,7 @@ namespace App\Modules\News\Models;
 
 use T4\Core\Collection;
 use T4\Core\Exception;
+use T4\Dbal\QueryBuilder;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
@@ -157,4 +158,26 @@ class Story
         return self::getDbConnection()->query($query, [':year' => $year])->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+
+    public static function countItemsByMonth($year, $month)
+    {
+        $query = 'SELECT COUNT(__id) FROM ' . self::getTableName() . ' WHERE YEAR(published)=:year AND MONTH(published)=:month';
+        return self::countAllByQuery($query, [':year' => $year, ':month' => $month]);
+    }
+
+    public static function getItemsByMonth($year, $month, $page, $count)
+    {
+        $query = new QueryBuilder();
+        $query
+            ->select('*')
+            ->from(self::getTableName())
+            ->where('YEAR(published)=:year AND MONTH(published)=:month')
+            ->order('published')
+            ->limit($count)
+            ->offset(($page-1)*$count)
+            ->params([':year' => $year, ':month' => $month,]);
+
+        return self::findAllByQuery($query);
+    }    
+    
 }

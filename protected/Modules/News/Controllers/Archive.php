@@ -16,12 +16,12 @@ class Archive
 
     public function actionNewsByMonth(int $year = null)
     {
-        $date = \DateTime::createFromFormat('Y', $year);
-        if (null === $year || !$date) {
+        if (null !== $year || \DateTime::createFromFormat('Y', $year)) {
+            $this->data->items = Story::getItemsCountGroupByMonths($year);
+        } else {
             throw new E404Exception;
         }
 
-        $this->data->items = Story::getItemsCountGroupByMonths($year);
         $this->data->year = $year;
     }
 

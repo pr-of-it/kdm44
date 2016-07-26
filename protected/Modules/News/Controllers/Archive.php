@@ -10,7 +10,6 @@ use T4\Orm\ModelDataProvider;
 class Archive
     extends Controller
 {
-    const DEFAULT_STORIES_COUNT = 20;
 
     public function actionDefault()
     {
@@ -29,11 +28,8 @@ class Archive
 
     public function actionNewsByDay(int $year = null, int $month = null, int $page = 1)
     {
-        if (null  === $year  || 
-            null  === $month ||
-            false === \DateTime::createFromFormat('Y', $year) ||
-            false === \DateTime::createFromFormat('m', $month)
-        ) {
+        if (0 > $month || 12 <= $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month))
+        {
             throw new E404Exception;
         }
 
@@ -42,8 +38,7 @@ class Archive
                 'where' => 'YEAR(published)=:year AND MONTH(published)=:month',
                 'order' => 'published',
                 'params' => [':year' => $year, ':month' => $month],
-            ]))
-            ->setPageSize(self::DEFAULT_STORIES_COUNT);
+            ]));
         
         $this->data->provider = $provider;
         $this->data->page = $page;

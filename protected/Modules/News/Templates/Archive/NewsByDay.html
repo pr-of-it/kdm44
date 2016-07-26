@@ -9,7 +9,7 @@
         <li><a href="/">Главная страница</a></li>
         <li><a href="/news/">Новости</a></li>
         <li><a href="/news/archive">Архив</a></li>
-        <li><a href="/news/archive/{{ year }}">{{ year }} год</a></li>
+        <li><a href="/news/archive/{{ year }}/">{{ year }} год</a></li>
         <li class="active">{{ rusmonths[month] }}</li>
         <li></li>
     </ol>
@@ -18,24 +18,24 @@
 
     <section class="panel panel-default">
         <div class="panel-body">
-        {% for item in items %}
-            <h1><a href="/news/topics/{{item.topic.Pk}}.html">{{item.topic.title}}</a></h1>
+        {% for item in provider.getPage(page) %}
+            <h1><a href="/news/topics/{{ item.topic.Pk }}.html">{{ item.topic.title }}</a></h1>
             <article>
                 <div class="main-page-news top-news clearfix">
-                    <div class="date-news">{{item.published|date('d.m.Y')}}</div>
+                    <div class="date-news">{{ item.published|date('d.m.Y') }}</div>
                     <div class="title-news">
                         <strong>
-                            <a href="/news/{{item.Pk}}.html" alt="#" title="#">{{item.title}}</a>
+                            <a href="/news/{{ item.Pk }}.html">{{ item.title }}</a>
                         </strong>
                     </div>
-                    {% if item.image %}<img class="media-object img-responsive img-thumbnail pull-left" src="{{item.image}}" style="max-width: 200px; margin-right: 10px;">{% endif %}
-                    <div class="description-news">{{item.lead|striptags|raw}}</div>
+                    {% if item.image %}<img class="media-object img-responsive img-thumbnail pull-left" src="{{ item.image }}" style="max-width: 200px; margin-right: 10px;">{% endif %}
+                    <div class="description-news">{{ item.lead|striptags|raw }}</div>
                 </div>
             </article>
         {% endfor %}
         </div>
     </section>
 
-    {{widget('pager', {total: total, size: size, active: page})}}
+    {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}
 
 {% endblock %}

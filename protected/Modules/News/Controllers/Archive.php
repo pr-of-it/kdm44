@@ -5,6 +5,7 @@ namespace App\Modules\News\Controllers;
 use App\Modules\News\Models\Story;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
+use T4\Orm\ModelDataProvider;
 
 class Archive
     extends Controller
@@ -26,7 +27,7 @@ class Archive
         $this->data->year = $year;
     }
 
-    public function actionNewsByDay(int $year = null, int $month = null)
+    public function actionNewsByDay(int $year = null, int $month = null, int $page = 1)
     {
         if (null  === $year  || 
             null  === $month ||
@@ -36,11 +37,17 @@ class Archive
             throw new E404Exception;
         }
 
-        $this->data->page = $this->app->request->get->page ?: 1;
-        $this->data->total = Story::countItemsByMonth($year, $month);
-        $this->data->size = self::DEFAULT_STORIES_COUNT;
-
-        $this->data->items = Story::getItemsByMonth($year, $month, $this->data->page, self::DEFAULT_STORIES_COUNT);
+        $provider = 
+            (new ModelDataProvider(Story::class, [
+                'where' => 'YEAR(published)=:year AND MONTH(published)=:month',
+                'order' => 'published',
+                'params' => [':year' => $year, ':month' => $month],
+            ]))
+            ->setPageSize(self::DEFAULT_STORIES_COUNT);
+        
+        $this->data->provider = $provider;
+        $this->data->page = $page;
+        
         $this->data->year = $year;
         $this->data->month = $month;
     }

@@ -28,7 +28,7 @@ class Archive
 
     public function actionNewsByDay(int $year = null, int $month = null, int $page = 1)
     {
-        if (0 > $month || 12 <= $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month))
+        if (0 > $month || 12 < $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month))
         {
             throw new E404Exception;
         }

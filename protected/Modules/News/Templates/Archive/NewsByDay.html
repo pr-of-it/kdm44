@@ -19,6 +19,8 @@
 
     <h2 style="margin-top: 0">Архив новостей за {{ rusmonths[month] }}, {{ year }} год</h2>
 
+    {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}
+
     <section class="panel panel-default">
         <div class="panel-body">
         {% for item in provider.getPage(page) %}

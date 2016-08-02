@@ -19,7 +19,14 @@
     {{"</li></ul>"|repeat(lastLevel-currentLevel)|raw}}</li>
     {% endif %}
 
-    <li data-id="{{item.Pk}}"{% if item.__rgt-item.__lft>1 %} class="dropdown{% if currentLevel>0 %} dropdown-submenu{% endif %}"{% endif %}>
+    <li data-id="{{item.Pk}}"{% if item.url in app.request.url and item.url is not empty %} class="active" {% endif %}
+        {% if item.__rgt-item.__lft>1 %}class="dropdown
+        {% for page in item.findAllChildren %}
+            {% if page.url in app.request.url%}
+                active
+            {% endif %}
+        {% endfor %}
+        {% if currentLevel>0 %} dropdown-submenu{% endif %}"{% endif %}>
         <a href="{{item.url}}"{% if item.__rgt-item.__lft>1 %} class="dropdown-toggle" data-toggle="dropdown" data-target="#"{% endif %}>
             {{item.title}}{% if item.__rgt-item.__lft>1 and currentLevel==0 %} <span class="caret"></span>{% endif %}
         </a>

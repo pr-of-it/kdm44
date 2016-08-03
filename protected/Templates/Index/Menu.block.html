@@ -19,7 +19,7 @@
     {{"</li></ul>"|repeat(lastLevel-currentLevel)|raw}}</li>
     {% endif %}
 
-    <li data-id="{{item.Pk}}"{% if item.url in app.request.url and item.url is not empty %} class="active" {% endif %}
+    <li data-id="{{item.Pk}}"{% if item.url in app.request.url~'' and item.url is not empty %} class="active" {% endif %}
         {% if item.__rgt-item.__lft>1 %}class="dropdown
         {% for page in item.findAllChildren %}
             {% if page.url in app.request.url%}

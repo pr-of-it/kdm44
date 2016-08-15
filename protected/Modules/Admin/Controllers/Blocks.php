@@ -23,10 +23,10 @@ class Blocks
 
         $installed = Block::findAll(['order' => '`order`']);
         $this->data->blocksInstalledCount = count($installed);
-        $this->data->blocksInstalled = new Collection();
         foreach ($installed as $block) {
-            $this->data->blocksInstalled[$block->section][] = $block;
+            $blocksInstalled[$block->section][] = $block;
         }
+        $this->data->blocksInstalled = new Collection($blocksInstalled);
     }
 
     public function actionSetupBlock($sectionId, $blockPath)

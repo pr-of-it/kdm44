@@ -5,7 +5,6 @@ namespace App\Components\Auth;
 use App\Models\User;
 use T4\Mvc\Application;
 use T4\Core\Session;
-use T4\Crypt\Helpers;
 use T4\Auth\Exception;
 
 class Identity
@@ -18,7 +17,7 @@ class Identity
         if (empty($user)) {
             throw new Exception('User with email ' . $data->email . ' does not exists', self::ERROR_INVALID_EMAIL);
         }
-        if (!Helpers::checkPassword($data->password, $user->password)) {
+        if (!password_verify($data->password, $user->password)) {
             throw new Exception('Invalid password', self::ERROR_INVALID_PASSWORD);
         }
         return true;
@@ -30,7 +29,7 @@ class Identity
         if (empty($user)) {
             throw new Exception('User with email '.$data->email.' does not exists', self::ERROR_INVALID_EMAIL);
         }
-        if (!Helpers::checkPassword($data->password, $user->password)) {
+        if (!password_verify($data->password, $user->password)) {
             throw new Exception('Invalid password', self::ERROR_INVALID_PASSWORD);
         }
         $this->login($user);

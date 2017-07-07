@@ -22,9 +22,13 @@
 
     <script>
         $(document).ready(function () {
-            $('.bxslider').bxSlider({
+            var slider = $('.bxslider');
+            slider.bxSlider({
                 auto: true,
-                mode: 'fade'
+                mode: 'fade',
+                onSliderLoad: function(){
+                    slider.css("visibility", "visible");
+                }
             });
         });
     </script>

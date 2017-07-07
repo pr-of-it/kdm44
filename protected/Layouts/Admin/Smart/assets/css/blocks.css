@@ -1,0 +1,5 @@
+.jarviswidget .col-sm-8 > select,
+.jarviswidget .col-sm-8 > input,
+.jarviswidget .col-sm-8 > textarea {
+    width: 100%;
+}

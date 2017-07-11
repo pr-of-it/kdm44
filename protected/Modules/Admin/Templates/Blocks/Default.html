@@ -36,6 +36,24 @@
 </style>
 
 <div class="row">
+    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid">
+    <!-- row -->
+    <div class="row">
+
+        {% for path, block in blocksAvailable %}
+        {% include '_block_available.html' %}
+        {% endfor %}
+
+    </div>
+    <!-- end row -->
+</section>
+<!-- end widget grid -->
+
+<div class="row">
 
     <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Размещенные на сайте </h2>
 
@@ -73,24 +91,6 @@
     </div>
 
 </div>
-
-<div class="row">
-    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
-</div>
-
-<!-- widget grid -->
-<section id="widget-grid">
-    <!-- row -->
-    <div class="row">
-
-        {% for path, block in blocksAvailable %}
-        {% include '_block_available.html' %}
-        {% endfor %}
-
-    </div>
-    <!-- end row -->
-</section>
-<!-- end widget grid -->
 
 {% endblock %}
 

@@ -29,6 +29,7 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/Layouts/Admin/Smart/assets/css/smartadmin-production.css') }}">
 		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/Layouts/Admin/Smart/assets/css/smartadmin-skins.css') }}">
 		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/Layouts/Admin/Smart/assets/css/blocks.css') }}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/Layouts/Admin/popBox/popBox1.3.0.css') }}">
 
 		<!-- SmartAdmin RTL Support is under construction
 		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.css"> -->
@@ -163,6 +164,8 @@
 		<!-- SmartClick: For mobile devices -->
 		<script src="{{ asset('/Layouts/Admin/Smart/assets/js/plugin/smartclick/smartclick.js') }}"></script>
 
+		<script src="{{ asset('/Layouts/Admin/popBox/popBox1.3.1.min.js') }}"></script>
+
 		<!--[if IE 7]>
 		<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
 		<![endif]-->
@@ -180,7 +183,8 @@
 		// DO NOT REMOVE : GLOBAL FUNCTIONS!
 		$(document).ready(function() {
 			pageSetUp();
-		})
+            $('textarea').popBox({width:800, height:500});
+        })
 		</script>
         {% block pagescript %}{% endblock %}
 

@@ -3,3 +3,12 @@
 .jarviswidget .col-sm-8 > textarea {
     width: 100%;
 }
+
+#widget-grid header {
+    padding: 13px;
+    height: auto;
+}
+
+#widget-grid header > h6 {
+    margin: 0;
+}

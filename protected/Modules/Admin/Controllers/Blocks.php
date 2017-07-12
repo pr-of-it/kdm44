@@ -50,6 +50,15 @@ class Blocks
         if (false !== $block->save()) {
             $this->data->id = $block->getPK();
             $this->data->result = true;
+            $this->data->html = $this->view->render(
+                '_block_by_id.html',
+                [
+                    'id' => $block->getPK(),
+                    'sectionId' => $sectionId,
+                    'blocksInstalled' => Block::findAllByColumn('section', $sectionId, ['order' => '`order`']),
+                    'blocksAvailable' => $this->app->config->blocks
+                ]
+            );
         } else {
             $this->data->result = false;
         }

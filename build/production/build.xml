@@ -34,6 +34,7 @@
         <copy todir="${current.dir}">
             <fileset dir="${project.dir}" defaultexcludes="true">
                 <include name="**" />
+                <exclude name="${project.dir}/protected/settings.php" />
             </fileset>
         </copy>
         <chmod file="${current.dir}/public" mode="0777" />

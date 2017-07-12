@@ -1,0 +1,5 @@
+{% for block in blocksInstalled %}
+{% if id == block.PK %}
+    {% include '_block_installed.html' %}
+{% endif %}
+{% endfor %}

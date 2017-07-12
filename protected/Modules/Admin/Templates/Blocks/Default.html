@@ -36,6 +36,24 @@
 </style>
 
 <div class="row">
+    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid">
+    <!-- row -->
+    <div class="row">
+
+        {% for path, block in blocksAvailable %}
+        {% include '_block_available.html' %}
+        {% endfor %}
+
+    </div>
+    <!-- end row -->
+</section>
+<!-- end widget grid -->
+
+<div class="row">
 
     <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Размещенные на сайте </h2>
 
@@ -74,24 +92,6 @@
 
 </div>
 
-<div class="row">
-    <h2 class="row-seperator-header"><i class="fa fa-th-list"></i> Доступные для размещения </h2>
-</div>
-
-<!-- widget grid -->
-<section id="widget-grid">
-    <!-- row -->
-    <div class="row">
-
-        {% for path, block in blocksAvailable %}
-        {% include '_block_available.html' %}
-        {% endfor %}
-
-    </div>
-    <!-- end row -->
-</section>
-<!-- end widget grid -->
-
 {% endblock %}
 
 {% block pagescript %}
@@ -108,9 +108,12 @@
             id: blockId
         }, function (data) {
             if (data.result) {
+                var counter = $('#sparks').find('li:nth-child(3) > h5 > span');
+                counter.html(parseInt(counter.html(), 10) - 1);
                 block.remove();
             }
         });
+        return false;
     };
     $("section.section article a.jarviswidget-delete-btn").click(function (event) {
         uninstallBlock($(this), event);
@@ -169,23 +172,19 @@
                 blockPath: blockPath
             }, function (data) {
                 if (data.result) {
-                    var installedBlock = block.clone();
-                    installedBlock.removeClass('ui-draggable').removeClass('ui-draggable-dragging').removeClass('block-available-draggable');
-                    installedBlock.removeAttr('style');
-                    installedBlock.removeAttr('data-block-path');
-                    installedBlock.attr('data-block-id', data.id);
-                    installedBlock.find('form :disabled').removeAttr('disabled');
-                    installedBlock.find('form').append('<div class="form-group"><div class="col-sm-offset-4 col-sm-8"><input type="submit" value="Сохранить" class="btn btn-default"></div></div>');
-                    installedBlock.find('header').append('<div class="jarviswidget-ctrls" role="menu"><a href="#" class="button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Удалить"><i class="fa fa-times"></i></a></div>');
-                    $('#section-'+sectionId+' .row').append(installedBlock);
+                    $('#section-'+sectionId+' .row').append(data.html);
+                    var installedBlock = $('[data-block-id="' + data.id + '"]');
                     installedBlock.find('form input[type=submit]').click(function (event) {
                         saveBlockOptions($(this), event);
                     });
                     installedBlock.find('a.jarviswidget-delete-btn').click(function (event) {
                         uninstallBlock($(this), event);
                     });
+                    var counter = $('#sparks').find('li:nth-child(3) > h5 > span');
+                    counter.html(parseInt(counter.html(), 10) + 1);
                 };
             });
+            return false;
         }
     });
 </script>

@@ -751,12 +751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pr-of-it/t4.git",
-                "reference": "d3522d931e10ce43e54ba8488268fa137258af3a"
+                "reference": "e40fc80b9e0b81453ec95d2c1ebcc6da6d398b14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pr-of-it/t4/zipball/d3522d931e10ce43e54ba8488268fa137258af3a",
-                "reference": "d3522d931e10ce43e54ba8488268fa137258af3a",
+                "url": "https://api.github.com/repos/pr-of-it/t4/zipball/e40fc80b9e0b81453ec95d2c1ebcc6da6d398b14",
+                "reference": "e40fc80b9e0b81453ec95d2c1ebcc6da6d398b14",
                 "shasum": ""
             },
             "require": {
@@ -786,7 +786,7 @@
                 "php",
                 "t4"
             ],
-            "time": "2017-07-07 10:27:44"
+            "time": "2017-07-09 08:46:54"
         },
         {
             "name": "psr/log",

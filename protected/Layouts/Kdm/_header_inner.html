@@ -9,13 +9,12 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12" style="text-align: right; padding: 0">
-                            {% if app.user %}
-                            {% if  app.user.role.name == 'admin' %}
-                            <a href="/admin">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить новость</a> |
-                            <a href="/password">Сменить пароль</a> | <a href="/logout">Выход</a>
-                            {% else %}
-                            <a href="/logout">Выход</a>
-                            {% endif %}
+                            {% if app.user and 'admin' == app.user.role.name %}
+                                <a href="/admin/">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить
+                                    новость
+                                </a>
+                                <a href="/password">Сменить пароль</a> | <a href="/logout">Выход</a>
+                                <a href="/logout">Выход</a>
                             {% endif %}
                         </div>
                     </div>
@@ -30,6 +29,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

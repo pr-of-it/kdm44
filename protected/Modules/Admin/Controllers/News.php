@@ -76,6 +76,18 @@ class News
         $this->redirect('/admin/news/');
     }
 
+    public function actionDeleteStoryImage($id)
+    {
+        $item = Story::findByPK($id);
+        if ($item) {
+            $item->image = null;
+            $item->save();
+            $this->data->result = true;
+        } else {
+            $this->data->result = false;
+        }
+    }
+
     public function actionDeleteFile($id)
     {
         $item = File::findByPK($id);

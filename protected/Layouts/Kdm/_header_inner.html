@@ -3,10 +3,21 @@
         <div class="header clearfix">
 
             <div class="header-top" style="margin-bottom: 15px;">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     {% include 'Kdm/__logo.html' %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right; padding: 0">
+                            {% if app.user and 'admin' == app.user.role.name %}
+                                <a href="/admin/">Панель администратора</a> | <a href="/admin/news/edit/?id=new">Добавить
+                                    новость
+                                </a>
+                                <a href="/password">Сменить пароль</a> | <a href="/logout">Выход</a>
+                                <a href="/logout">Выход</a>
+                            {% endif %}
+                        </div>
+                    </div>
                     {% include 'Kdm/__social.html' %}
                 </div>
             </div>
@@ -18,6 +29,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

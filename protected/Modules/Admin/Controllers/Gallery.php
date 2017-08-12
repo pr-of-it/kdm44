@@ -15,7 +15,7 @@ class Gallery
 
     const PAGE_SIZE = 20;
 
-    protected function access($action,  $params = [])
+    protected function access($action, $params = [])
     {
         return !empty($this->app->user) && $this->app->user->hasRole('admin');
     }
@@ -66,6 +66,7 @@ class Gallery
             'offset' => ($page - 1) * self::PAGE_SIZE,
             'limit' => self::PAGE_SIZE
         ]);
+
         if (isset($this->app->flash->errors)) {
             $this->data->errors = $this->app->flash->errors;
         }
@@ -74,18 +75,19 @@ class Gallery
     public function actionAlbumSave($redirect = 0)
     {
         $id = $this->app->request->post->id;
+
         if (!empty($id)) {
             $item = Album::findByPK($id);
         } else {
             $item = new Album();
         }
+
         try {
             $item->fill($this->app->request->post);
             $item->save();
             if ($item->wasNew()) {
                 $item->moveToFirstPosition();
             }
-
         } catch (Errors $errors) {
             $this->app->flash->item = $item;
             $this->app->flash->errors = $errors;

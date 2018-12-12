@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\Models;
 
 /**
  * Интерфейс поиска
  *
  * Interface SearchableInterface
- * @package App\Interfaces
+ * @package App\Models
  */
 interface SearchableInterface
 {

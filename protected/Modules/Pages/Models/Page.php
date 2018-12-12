@@ -2,6 +2,7 @@
 
 namespace App\Modules\Pages\Models;
 
+use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Std;
 use T4\Dbal\QueryBuilder;
@@ -12,7 +13,7 @@ use T4\Mvc\Application;
 use T4\Orm\Model;
 
 class Page
-    extends Model
+    extends Model implements SearchableInterface
 {
 
     static protected $schema = [
@@ -41,6 +42,26 @@ class Page
     ];
 
     static protected $extensions = ['tree'];
+
+    public static function search(string $string): SearchableInterface
+    {
+        // TODO: Implement search() method.
+    }
+
+    public function getTitle(): string
+    {
+        // TODO: Implement getTitle() method.
+    }
+
+    public function getLead(): string
+    {
+        // TODO: Implement getLead() method.
+    }
+
+    public function getUrl(): string
+    {
+        // TODO: Implement getUrl() method.
+    }
 
     public function getBreadCrumbs()
     {

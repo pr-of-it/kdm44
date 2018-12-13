@@ -32,7 +32,7 @@ class Story extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @return SearchableInterface[]|Story
+     * @return Story[]
      */
     public static function search(string $string)
     {
@@ -71,6 +71,10 @@ class Story extends Model implements SearchableInterface
         return '/news/' . $this->__id;
     }
 
+    /**
+     * @param int $maxLength
+     * @return string|null
+     */
     public function getShortLead($maxLength=120)
     {
         if (mb_strlen( $this->lead) > $maxLength){

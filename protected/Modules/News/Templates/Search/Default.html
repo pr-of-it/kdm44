@@ -4,13 +4,12 @@
 
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
-        <li><a href="/news/">Новости</a></li>
         <li class="active">Поиск</li>
         <li></li>
     </ol>
 
-    <h2 style="margin-top: 0">Поиск новостей</h2>
-    <form action="/news/search">
+    <h2 style="margin-top: 0">Поиск</h2>
+    <form action="/search.html">
         <input type="text" name="text" value="{{ text }}">
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
@@ -29,7 +28,7 @@
                             {{ item.getTitle() }}
                         </a>
                         <br>
-                        <div>{{item.getLead()|striptags|raw}}</div>
+                        <div>{{item.getShortLead()|striptags|raw}}</div>
                     </td>
                 </tr>
             {% endfor %}

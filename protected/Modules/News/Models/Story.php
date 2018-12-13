@@ -2,15 +2,16 @@
 
 namespace App\Modules\News\Models;
 
+use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Exception;
+use T4\Dbal\Query;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
 
-class Story
-    extends Model
+class Story extends Model implements SearchableInterface
 {
     static protected $schema = [
         'table' => 'newsstories',
@@ -27,6 +28,48 @@ class Story
             'images' => ['type' => self::HAS_MANY, 'model' => \App\Modules\News\Models\Image::class],
         ]
     ];
+
+    /**
+     * @param string $string
+     * @return SearchableInterface[]
+     */
+    public static function search(string $string): array
+    {
+        if (!empty($string)) {
+            $query = (new Query())
+                ->select()
+                ->from(static::getTableName())
+                ->where('CONCAT(title,text,url) like :search')
+                ->param(':search', '%' . $string . '%');
+            /** @var SearchableInterface[] $response */
+            $response = static::findAllByQuery($query);
+            return $response;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->__data['title'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLead(): string
+    {
+        return $this->__data['lead'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->__data['url'];
+    }
 
     public function getShortLead($maxLength=120)
     {

@@ -14,9 +14,9 @@ interface SearchableInterface
      * Поиск по ключевым словам
      *
      * @param string $string
-     * @return SearchableInterface
+     * @return SearchableInterface[]
      */
-    public static function search(string $string): SearchableInterface;
+    public static function search(string $string): array;
 
     /**
      * Получение заголовка

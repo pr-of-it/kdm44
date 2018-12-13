@@ -2,8 +2,8 @@
 
 namespace App\Modules\News\Models;
 
+use App\Controllers\Search;
 use App\Models\SearchableInterface;
-use App\Modules\News\Controllers\Search;
 use T4\Core\Collection;
 use T4\Core\Exception;
 use T4\Dbal\Query;
@@ -68,7 +68,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getUrl(): string
     {
-        return '/news/' . $this->__id;
+        return '/news/' . $this->getPk();
     }
 
     /**

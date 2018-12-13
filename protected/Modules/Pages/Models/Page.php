@@ -2,9 +2,11 @@
 
 namespace App\Modules\Pages\Models;
 
+use App\Controllers\Search;
 use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Dbal\Query;
 use T4\Dbal\QueryBuilder;
 use T4\Fs\Helpers;
 use T4\Html\Form\Errors;
@@ -43,24 +45,45 @@ class Page
 
     static protected $extensions = ['tree'];
 
-    public static function search(string $string): SearchableInterface
+    /**
+     * @param string $string
+     * @return Page[]
+     */
+    public static function search(string $string)
     {
-        // TODO: Implement search() method.
+        if (!empty($string)) {
+            $query = (new Query())
+                ->select()
+                ->from(static::getTableName())
+                ->where('CONCAT(title,text,url) like :search')
+                ->limit(Search::DEFAULT_STORIES_COUNT)
+                ->param(':search', '%' . $string . '%');
+            return static::findAllByQuery($query);
+        }
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
-        // TODO: Implement getTitle() method.
+        return $this->__data['title'];
     }
 
+    /**
+     * @return string
+     */
     public function getLead(): string
     {
-        // TODO: Implement getLead() method.
+        return $this->__data['lead'];
     }
 
+    /**
+     * @return string
+     */
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return $this->__data['url'];
     }
 
     public function getBreadCrumbs()

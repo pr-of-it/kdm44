@@ -13,6 +13,9 @@ class Index
     public function actionPageText($id)
     {
         $page = Page::findByPK($id);
+
+       // $page = Page::search($id);
+
         $this->data->item = $page;
     }
 
@@ -25,6 +28,7 @@ class Index
     public function actionPageByUrl($url)
     {
         $page = Page::findByUrl($url);
+        //$page = Page::search($url);
         $this->data->item = $page;
         if (empty($this->data->item)) {
             throw new E404Exception;

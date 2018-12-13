@@ -28,7 +28,7 @@
                             {{ item.getTitle() }}
                         </a>
                         <br>
-                        <div>{{item.getShortLead()|striptags|raw}}</div>
+                        <div>{{item.getLead()|striptags|raw}}</div>
                     </td>
                 </tr>
             {% endfor %}

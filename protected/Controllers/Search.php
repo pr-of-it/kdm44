@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\News\Controllers;
+namespace App\Controllers;
 
 use App\Modules\News\Models\Story;
 use T4\Mvc\Controller;
 
 /**
  * Class Search
- * @package App\Modules\News\Controllers
+ * @package App\Controllers
  */
 class Search extends Controller
 {

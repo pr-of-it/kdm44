@@ -3,7 +3,8 @@
 return [
 
     '/index' => '///',
-
+    '/search' => '/News/Search/Default',
+    '/search?text=<1>' => '/News/Search/Default(text=<1>)',
     '/news/archive' => '/News/Archive/Default',
     '/news/archive/<1>/<2>' => '/News/Archive/NewsByDay(year=<1>,month=<2>)',
     '/news/archive/<1>' => '/News/Archive/NewsByMonth(year=<1>)',

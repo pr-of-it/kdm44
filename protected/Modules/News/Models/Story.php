@@ -3,6 +3,7 @@
 namespace App\Modules\News\Models;
 
 use App\Models\SearchableInterface;
+use App\Modules\News\Controllers\Search;
 use T4\Core\Collection;
 use T4\Core\Exception;
 use T4\Dbal\Query;
@@ -39,7 +40,8 @@ class Story extends Model implements SearchableInterface
             $query = (new Query())
                 ->select()
                 ->from(static::getTableName())
-                ->where('CONCAT(title,text,url) like :search')
+                ->where('CONCAT(title,lead,text) like :search')
+                ->limit(Search::DEFAULT_STORIES_COUNT)
                 ->param(':search', '%' . $string . '%');
             return static::findAllByQuery($query);
         }
@@ -66,7 +68,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getUrl(): string
     {
-        return $this->__data['url'];
+        return '/news/' . $this->__id;
     }
 
     public function getShortLead($maxLength=120)

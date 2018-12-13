@@ -1,0 +1,40 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="/">Главная страница</a></li>
+        <li><a href="/news/">Новости</a></li>
+        <li class="active">Поиск</li>
+        <li></li>
+    </ol>
+
+    <h2 style="margin-top: 0">Поиск новостей</h2>
+    <form action="/news/search">
+        <input type="text" name="text" value="{{ text }}">
+        <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+
+    <table class="table table-hover">
+        <tbody>
+        {% if items is empty %}
+            {% if text is not null %}
+                <p>Поиск не дал результатов</p>
+            {% endif %}
+        {% else %}
+            {% for item in items %}
+                <tr>
+                    <td width="80%">
+                        <a href="{{ item.getUrl() }}" style="display: block; text-decoration: none">
+                            {{ item.getTitle() }}
+                        </a>
+                        <br>
+                        <div>{{item.getLead()|striptags|raw}}</div>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

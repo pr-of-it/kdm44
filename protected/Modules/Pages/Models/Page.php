@@ -56,7 +56,7 @@ class Page
                 ->select()
                 ->from(static::getTableName())
                 ->where('CONCAT(title,text,url) like :search')
-                ->limit(Search::DEFAULT_STORIES_COUNT)
+                ->limit(Search::DEFAULT_COUNT)
                 ->param(':search', '%' . $string . '%');
             return static::findAllByQuery($query);
         }

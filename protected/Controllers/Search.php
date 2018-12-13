@@ -11,7 +11,7 @@ use T4\Mvc\Controller;
  */
 class Search extends Controller
 {
-    const DEFAULT_STORIES_COUNT = 10;
+    const DEFAULT_COUNT = 10;
 
     /**
      * @param string $text

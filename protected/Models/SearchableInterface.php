@@ -16,7 +16,7 @@ interface SearchableInterface
      * @param string $string
      * @return SearchableInterface[]
      */
-    public static function search(string $string): array;
+    public static function search(string $string);
 
     /**
      * Получение заголовка

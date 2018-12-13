@@ -31,9 +31,9 @@ class Story extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @return SearchableInterface[]
+     * @return SearchableInterface[]|Story
      */
-    public static function search(string $string): array
+    public static function search(string $string)
     {
         if (!empty($string)) {
             $query = (new Query())
@@ -41,9 +41,7 @@ class Story extends Model implements SearchableInterface
                 ->from(static::getTableName())
                 ->where('CONCAT(title,text,url) like :search')
                 ->param(':search', '%' . $string . '%');
-            /** @var SearchableInterface[] $response */
-            $response = static::findAllByQuery($query);
-            return $response;
+            return static::findAllByQuery($query);
         }
     }
 
@@ -52,7 +50,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return $this->__data['title'];
     }
 
     /**
@@ -60,7 +58,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getLead(): string
     {
-        return $this->lead;
+        return $this->__data['lead'];
     }
 
     /**
@@ -68,7 +66,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getUrl(): string
     {
-        return $this->url;
+        return $this->__data['url'];
     }
 
     public function getShortLead($maxLength=120)

@@ -52,7 +52,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getTitle(): string
     {
-        return $this->__data['title'];
+        return $this->title;
     }
 
     /**
@@ -60,7 +60,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getLead(): string
     {
-        return $this->__data['lead'];
+        return $this->lead;
     }
 
     /**
@@ -68,7 +68,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getUrl(): string
     {
-        return $this->__data['url'];
+        return $this->url;
     }
 
     public function getShortLead($maxLength=120)

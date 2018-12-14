@@ -2,7 +2,6 @@
 
 namespace App\Modules\News\Models;
 
-use App\Controllers\Search;
 use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Exception;
@@ -36,16 +35,17 @@ class Story extends Model implements SearchableInterface
 
     /**
      * @param string $string
+     * @param int $count
      * @return Story[]
      */
-    public static function search(string $string)
+    public static function search(string $string, $count = 120)
     {
         if (!empty($string)) {
             $query = (new Query())
                 ->select()
                 ->from(static::getTableName())
                 ->where('CONCAT(title,lead,text) like :search')
-                ->limit(Search::DEFAULT_COUNT)
+                ->limit($count)
                 ->param(':search', '%' . $string . '%');
             return static::findAllByQuery($query);
         }

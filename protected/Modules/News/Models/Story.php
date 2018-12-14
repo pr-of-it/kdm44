@@ -38,7 +38,7 @@ class Story extends Model implements SearchableInterface
      * @param int $count
      * @return Story[]
      */
-    public static function search(string $string, $count = 120)
+    public static function search(string $string, $count = 10)
     {
         if (!empty($string)) {
             $query = (new Query())

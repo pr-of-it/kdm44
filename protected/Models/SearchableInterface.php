@@ -20,21 +20,21 @@ interface SearchableInterface
     /**
      * Получение заголовка
      *
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string;
+    public function getTitle();
 
     /**
      * Получение лида
      *
-     * @return string
+     * @return string|null
      */
-    public function getLead(): string;
+    public function getLead();
 
     /**
      * Получение URL
      *
-     * @return string
+     * @return string|null
      */
-    public function getUrl(): string;
+    public function getUrl();
 }

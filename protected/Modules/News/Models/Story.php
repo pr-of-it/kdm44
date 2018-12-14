@@ -12,6 +12,10 @@ use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
 
+/**
+ * Class Story
+ * @package App\Modules\News\Models
+ */
 class Story extends Model implements SearchableInterface
 {
     static protected $schema = [
@@ -48,17 +52,17 @@ class Story extends Model implements SearchableInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle()
     {
-        return $this->__data['title'];
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLead(): string
+    public function getLead()
     {
         return $this->getShortLead();
     }
@@ -75,18 +79,19 @@ class Story extends Model implements SearchableInterface
      * @param int $maxLength
      * @return string|null
      */
-    public function getShortLead($maxLength=120)
+    public function getShortLead($maxLength = 120)
     {
-        if (mb_strlen( $this->lead) > $maxLength){
-            $sourceStr=strip_tags($this->lead);
-            $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
+        $lead = isset($this->__data['lead']) ? $this->__data['lead'] : null;
+        if (null === $lead) {
+            return $lead;
+        }
+        if (mb_strlen($lead) > $maxLength) {
+            $sourceStr = strip_tags($lead);
+            $words = explode(' ', mb_substr($sourceStr, 0, $maxLength));
             array_pop($words);
-            return implode(' ',$words);
+            return implode(' ', $words);
         }
-        else
-        {
-            return $this->lead;
-        }
+        return $lead;
     }
 
     public function uploadImage($formFieldName)

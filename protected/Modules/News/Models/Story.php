@@ -35,20 +35,23 @@ class Story extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @param int $count
+     * @param null $limit
      * @return Story[]
      */
-    public static function search(string $string, $count = 10)
+    public static function search(string $string, $limit = null)
     {
-        if (!empty($string)) {
-            $query = (new Query())
-                ->select()
-                ->from(static::getTableName())
-                ->where('CONCAT(title,lead,text) like :search')
-                ->limit($count)
-                ->param(':search', '%' . $string . '%');
-            return static::findAllByQuery($query);
+        if (empty($string)) {
+            return [];
         }
+        $query = (new Query())
+            ->select()
+            ->from(static::getTableName())
+            ->where('CONCAT(title,lead,text) like :search')
+            ->param(':search', '%' . $string . '%');
+        if (null !== $limit) {
+            $query->limit($limit);
+        }
+        return static::findAllByQuery($query);
     }
 
     /**
@@ -83,7 +86,7 @@ class Story extends Model implements SearchableInterface
     {
         $lead = isset($this->__data['lead']) ? $this->__data['lead'] : null;
         if (null === $lead) {
-            return $lead;
+            return;
         }
         if (mb_strlen($lead) > $maxLength) {
             $sourceStr = strip_tags($lead);

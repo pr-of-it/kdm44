@@ -46,8 +46,8 @@ class Story extends Model implements SearchableInterface
         $query = (new Query())
             ->select()
             ->from(static::getTableName())
-            ->where('CONCAT(title,lead,text) like :search')
-            ->param(':search', '%' . $string . '%');
+            ->where('MATCH (`title`, `lead`, `text`) AGAINST (:search)')
+            ->param(':search', $string);
         if (null !== $limit) {
             $query->limit($limit);
         }

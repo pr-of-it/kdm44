@@ -11,7 +11,7 @@ class m_1545037003_addFullTextIndex
     public function up()
     {
         $this->db->execute('CREATE FULLTEXT INDEX `title_lead_text` ON newsstories(`title`, `lead`, `text`);');
-        $this->db->execute('CREATE FULLTEXT INDEX `title_text_url` ON pages(title, text, url);');
+        $this->db->execute('CREATE FULLTEXT INDEX `title_text_url` ON pages(`title`, `text`, `url`);');
     }
 
     public function down()

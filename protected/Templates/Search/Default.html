@@ -16,23 +16,58 @@
 
     <table class="table table-hover">
         <tbody>
-        {% if items is empty %}
+
+        {% if stories is empty
+        and pages is empty
+        and albums is empty %}
+
             {% if text is not null %}
                 <p>Поиск не дал результатов</p>
             {% endif %}
+
         {% else %}
-            {% for item in items %}
+            {% if stories is not empty %}
+                {% for story in stories %}
                 <tr>
                     <td width="80%">
-                        <a href="{{ item.getUrl() }}" style="display: block; text-decoration: none">
-                            {{ item.getTitle() }}
+                        <a href="{{ story.getUrl() }}" style="display: block; text-decoration: none">
+                            {{ story.getTitle() }}
                         </a>
                         <br>
-                        <div>{{item.getLead()|striptags|raw}}</div>
+                        <div>{{story.getLead()|striptags|raw}}</div>
                     </td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% if pages is not empty %}
+                {% for page in pages %}
+                <tr>
+                    <td width="80%">
+                        <a href="{{ page.getUrl() }}" style="display: block; text-decoration: none">
+                            {{ page.getTitle() }}
+                        </a>
+                        <br>
+                        <div>{{page.getLead()|striptags|raw}}</div>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+
+            {% if albums is not empty %}
+                {% for album in albums %}
+                <tr>
+                    <td width="80%">
+                        <a href="{{ album.getUrl() }}" style="display: block; text-decoration: none">
+                            {{ album.getTitle() }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+
         {% endif %}
+
         </tbody>
     </table>
 

@@ -3,14 +3,19 @@
 namespace App\Modules\Gallery\Models;
 
 
+use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Dbal\Query;
 use T4\Dbal\QueryBuilder;
 use T4\Html\Form\Errors;
 use T4\Orm\Model;
 
-class Album
-    extends Model
+/**
+ * Class Album
+ * @package App\Modules\Gallery\Models
+ */
+class Album extends Model implements SearchableInterface
 {
 
     protected static $schema = [
@@ -26,6 +31,51 @@ class Album
     ];
 
     static protected $extensions = ['tree'];
+
+    /**
+     * @param string $string
+     * @param null $limit
+     * @return Album|array
+     */
+    public static function search(string $string, $limit = null)
+    {
+        if (empty($string)) {
+            return [];
+        }
+        $query = (new Query())
+            ->select()
+            ->from(static::getTableName())
+            ->where('MATCH (`title`, `url`) AGAINST (:search)')
+            ->param(':search', $string);
+        if (null !== $limit) {
+            $query->limit($limit);
+        }
+        return static::findAllByQuery($query);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLead()
+    {
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return '/gallery/albums/' . $this->__data['url'];
+    }
 
     public function beforeSave()
     {

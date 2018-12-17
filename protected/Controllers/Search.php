@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Modules\Gallery\Models\Album;
 use App\Modules\News\Models\Story;
+use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
 
 /**
@@ -20,6 +22,9 @@ class Search extends Controller
         if (null === $text || '' === $text) {
             return;
         }
-        $this->data->items = Story::search($text);
+
+        $this->data->stories = Story::search($text);
+        $this->data->pages = Page::search($text);
+        $this->data->albums = Album::search($text);
     }
 }

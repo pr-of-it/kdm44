@@ -2,7 +2,6 @@
 
 namespace App\Modules\Pages\Models;
 
-use App\Controllers\Search;
 use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Std;
@@ -14,8 +13,11 @@ use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
 
-class Page
-    extends Model implements SearchableInterface
+/**
+ * Class Page
+ * @package App\Modules\Pages\Models
+ */
+class Page extends Model implements SearchableInterface
 {
 
     static protected $schema = [
@@ -47,35 +49,39 @@ class Page
 
     /**
      * @param string $string
+     * @param null $limit
      * @return Page[]
      */
-    public static function search(string $string)
+    public static function search(string $string, $limit = null)
     {
-        if (!empty($string)) {
-            $query = (new Query())
-                ->select()
-                ->from(static::getTableName())
-                ->where('CONCAT(title,text,url) like :search')
-                ->limit(Search::DEFAULT_COUNT)
-                ->param(':search', '%' . $string . '%');
-            return static::findAllByQuery($query);
+        if (empty($string)) {
+            return [];
         }
+        $query = (new Query())
+            ->select()
+            ->from(static::getTableName())
+            ->where('MATCH (`title`, `url`, `text`) AGAINST (:search)')
+            ->param(':search', $string);
+        if (null !== $limit) {
+            $query->limit($limit);
+        }
+        return static::findAllByQuery($query);
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle()
     {
-        return $this->__data['title'];
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLead(): string
+    public function getLead()
     {
-        return $this->__data['lead'];
+        return $this->getShortLead();
     }
 
     /**
@@ -83,7 +89,26 @@ class Page
      */
     public function getUrl(): string
     {
-        return $this->__data['url'];
+        return '/pages/' . $this->__data['url'];
+    }
+
+    /**
+     * @param int $maxLength
+     * @return string|null
+     */
+    public function getShortLead($maxLength = 120)
+    {
+        $lead = isset($this->__data['text']) ? $this->__data['text'] : null;
+        if (null === $lead) {
+            return;
+        }
+        if (mb_strlen($lead) > $maxLength) {
+            $sourceStr = strip_tags($lead);
+            $words = explode(' ', mb_substr($sourceStr, 0, $maxLength));
+            array_pop($words);
+            return implode(' ', $words);
+        }
+        return $lead;
     }
 
     public function getBreadCrumbs()

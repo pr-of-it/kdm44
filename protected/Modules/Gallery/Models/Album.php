@@ -66,7 +66,7 @@ class Album extends Model implements SearchableInterface
      */
     public function getLead()
     {
-        return isset($this->__data['title']) ? $this->__data['title'] : null;
+        return isset($this->__data['published']) ? $this->__data['published'] : null;
     }
 
     /**

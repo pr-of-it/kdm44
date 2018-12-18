@@ -23,34 +23,34 @@
 
     <div>
         {% if searchstring is not null %}
-        {% import _self as row %}
+        {% import _self as block %}
 
-        <div>
+        <section>
             <h2>Новости</h2>
         {% for item in stories %}
-            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
             <p>Поиск новостей не дал результатов</p>
         {% endfor %}
-        </div>
+        </section>
 
-        <div>
+        <section>
             <h2>Страницы</h2>
         {% for item in pages %}
-            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
             <p>Поиск страниц не дал результатов</p>
         {% endfor %}
-        </div>
+        </section>
 
-        <div>
+        <section>
             <h2>Альбомы</h2>
         {% for item in albums %}
-            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
             <p>Поиск альбомов не дал результатов</p>
         {% endfor %}
-        </div>
+        </section>
 
         {% endif %}
     </div>

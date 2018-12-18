@@ -17,27 +17,39 @@
     <table class="table table-hover">
         <tbody>
 
+        {% macro result(title, lead, url) %}
+        <tr>
+            <td width="80%">
+                <a href="{{ url }}" style="display: block; text-decoration: none">
+                    {{ title }}
+                </a>
+                <div>{{lead|striptags|raw}}</div>
+            </td>
+        </tr>
+        {% endmacro %}
+
         {% if searchstring is not null %}
+        {% import _self as row %}
 
-        {% for story in stories %}
-            {% import "Search.html" as search %}
-            {{ search.result(story.getTitle(), story.getLead(), story.getUrl()) }}
+        <tr><th>Новости</th></tr>
+        {% for item in stories %}
+            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-            <p>Поиск статей не дал результатов</p>
+        <tr><td>Поиск статей не дал результатов</td></tr>
         {% endfor %}
 
-        {% for page in pages %}
-            {% import "Search.html" as search %}
-            {{ search.result(page.getTitle(), page.getLead(), page.getUrl()) }}
+        <tr><th>Страницы</th></tr>
+        {% for item in pages %}
+            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-            <p>Поиск страниц не дал результатов</p>
+        <tr><td>Поиск страниц не дал результатов</td></tr>
         {% endfor %}
 
-        {% for album in albums %}
-            {% import "Search.html" as search %}
-            {{ search.result(album.getTitle(), album.getLead(), album.getUrl()) }}
+        <tr><th>Альбомы</th></tr>
+        {% for item in albums %}
+            {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-            <p>Поиск альбомов не дал результатов</p>
+        <tr><td>Поиск альбомов не дал результатов</td></tr>
         {% endfor %}
 
         {% endif %}

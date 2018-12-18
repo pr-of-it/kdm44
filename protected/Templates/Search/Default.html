@@ -33,7 +33,6 @@
                         <a href="{{ story.getUrl() }}" style="display: block; text-decoration: none">
                             {{ story.getTitle() }}
                         </a>
-                        <br>
                         <div>{{story.getLead()|striptags|raw}}</div>
                     </td>
                 </tr>
@@ -47,7 +46,6 @@
                         <a href="{{ page.getUrl() }}" style="display: block; text-decoration: none">
                             {{ page.getTitle() }}
                         </a>
-                        <br>
                         <div>{{page.getLead()|striptags|raw}}</div>
                     </td>
                 </tr>
@@ -61,7 +59,6 @@
                         <a href="{{ album.getUrl() }}" style="display: block; text-decoration: none">
                             {{ album.getTitle() }}
                         </a>
-                        <br>
                         <div>{{album.getLead()}}</div>
                     </td>
                 </tr>

@@ -10,16 +10,15 @@ class m_1545037003_addFullTextIndex
 
     public function up()
     {
-        $this->db->execute('CREATE FULLTEXT INDEX `title_lead_text` ON newsstories(`title`, `lead`, `text`);');
-        $this->db->execute('CREATE FULLTEXT INDEX `title_text_url` ON pages(`title`, `text`, `url`);');
-        $this->db->execute('CREATE FULLTEXT INDEX `title_url` ON albums(`title`, `url`);');
+        $this->db->execute('CREATE FULLTEXT INDEX `newsstories_fulltext_idx` ON newsstories(`title`, `lead`, `text`);');
+        $this->db->execute('CREATE FULLTEXT INDEX `pages_fulltext_idx` ON pages(`title`, `text`, `url`);');
+        $this->db->execute('CREATE FULLTEXT INDEX `albums_fulltext_idx` ON albums(`title`, `url`);');
     }
 
     public function down()
     {
-        $this->dropIndex('newsstories', 'title_lead_text');
-        $this->dropIndex('pages', 'title_text_url');
-        $this->dropIndex('albums', 'title_url');
+        $this->dropIndex('newsstories', 'newsstories_fulltext_idx');
+        $this->dropIndex('pages', 'pages_fulltext_idx');
+        $this->dropIndex('albums', 'albums_fulltext_idx');
     }
-    
 }

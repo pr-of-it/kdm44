@@ -10,59 +10,35 @@
 
     <h2 style="margin-top: 0">Поиск</h2>
     <form action="/search.html">
-        <input type="text" name="text" value="{{ text }}">
+        <input type="text" name="searchstring" value="{{ searchstring }}">
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
 
     <table class="table table-hover">
         <tbody>
 
-        {% if stories is empty
-        and pages is empty
-        and albums is empty %}
+        {% if searchstring is not null %}
 
-            {% if text is not null %}
-                <p>Поиск не дал результатов</p>
-            {% endif %}
-
+        {% for story in stories %}
+            {% import "Search.html" as search %}
+            {{ search.result(story.getTitle(), story.getLead(), story.getUrl()) }}
         {% else %}
-            {% if stories is not empty %}
-                {% for story in stories %}
-                <tr>
-                    <td width="80%">
-                        <a href="{{ story.getUrl() }}" style="display: block; text-decoration: none">
-                            {{ story.getTitle() }}
-                        </a>
-                        <div>{{story.getLead()|striptags|raw}}</div>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% endif %}
+            <p>Поиск статей не дал результатов</p>
+        {% endfor %}
 
-            {% if pages is not empty %}
-                {% for page in pages %}
-                <tr>
-                    <td width="80%">
-                        <a href="{{ page.getUrl() }}" style="display: block; text-decoration: none">
-                            {{ page.getTitle() }}
-                        </a>
-                        <div>{{page.getLead()|striptags|raw}}</div>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% endif %}
+        {% for page in pages %}
+            {% import "Search.html" as search %}
+            {{ search.result(page.getTitle(), page.getLead(), page.getUrl()) }}
+        {% else %}
+            <p>Поиск страниц не дал результатов</p>
+        {% endfor %}
 
-            {% if albums is not empty %}
-                {% for album in albums %}
-                <tr>
-                    <td width="80%">
-                        <a href="{{ album.getUrl() }}" style="display: block; text-decoration: none">
-                            {{ album.getTitle() }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% endif %}
+        {% for album in albums %}
+            {% import "Search.html" as search %}
+            {{ search.result(album.getTitle(), album.getLead(), album.getUrl()) }}
+        {% else %}
+            <p>Поиск альбомов не дал результатов</p>
+        {% endfor %}
 
         {% endif %}
 

@@ -1,0 +1,10 @@
+{% macro result(title, lead, url) %}
+    <tr>
+        <td width="80%">
+            <a href="{{ url }}" style="display: block; text-decoration: none">
+                {{ title }}
+            </a>
+            <div>{{lead|striptags|raw}}</div>
+        </td>
+    </tr>
+{% endmacro %}

@@ -1,3 +1,10 @@
+{% macro result(title, lead, url) %}
+<div>
+    <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
+    <div>{{lead|striptags|raw}}</div><hr>
+</div>
+{% endmacro %}
+
 {% extends 'Kdm/Inner.html' %}
 
 {% block content %}
@@ -14,47 +21,38 @@
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
 
-    <table class="table table-hover">
-        <tbody>
-
-        {% macro result(title, lead, url) %}
-        <tr>
-            <td width="80%">
-                <a href="{{ url }}" style="display: block; text-decoration: none">
-                    {{ title }}
-                </a>
-                <div>{{lead|striptags|raw}}</div>
-            </td>
-        </tr>
-        {% endmacro %}
-
+    <div>
         {% if searchstring is not null %}
         {% import _self as row %}
 
-        <tr><th>Новости</th></tr>
+        <div>
+            <h2>Новости</h2>
         {% for item in stories %}
             {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-        <tr><td>Поиск новостей не дал результатов</td></tr>
+            <p>Поиск новостей не дал результатов</p>
         {% endfor %}
+        </div>
 
-        <tr><th>Страницы</th></tr>
+        <div>
+            <h2>Страницы</h2>
         {% for item in pages %}
             {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-        <tr><td>Поиск страниц не дал результатов</td></tr>
+            <p>Поиск страниц не дал результатов</p>
         {% endfor %}
+        </div>
 
-        <tr><th>Альбомы</th></tr>
+        <div>
+            <h2>Альбомы</h2>
         {% for item in albums %}
             {{ row.result(item.getTitle(), item.getLead(), item.getUrl()) }}
         {% else %}
-        <tr><td>Поиск альбомов не дал результатов</td></tr>
+            <p>Поиск альбомов не дал результатов</p>
         {% endfor %}
+        </div>
 
         {% endif %}
-
-        </tbody>
-    </table>
+    </div>
 
 {% endblock %}

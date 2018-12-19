@@ -1,7 +1,7 @@
 {% macro result(title, lead, url) %}
 <div>
     <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
-    <div>{{lead|striptags|raw}}</div><hr>
+    <p>{{lead|striptags|raw}}</p><hr>
 </div>
 {% endmacro %}
 

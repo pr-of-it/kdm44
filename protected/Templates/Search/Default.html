@@ -17,11 +17,11 @@
 
     <h2 style="margin-top: 0">Поиск</h2>
     <form action="/search.html">
-        <input type="text" name="searchstring" value="{{ searchstring }}">
+        <input type="text" name="query" value="{{ query }}">
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
 
-    {% if searchstring is not null %}
+    {% if query is not null %}
         <div>
             {% import _self as block %}
 

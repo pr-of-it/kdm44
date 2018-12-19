@@ -14,17 +14,17 @@ use T4\Mvc\Controller;
 class Search extends Controller
 {
     /**
-     * @param null $searchstring
+     * @param null $query
      */
-    public function actionDefault($searchstring = null)
+    public function actionDefault($query = null)
     {
-        $this->data->searchstring = $searchstring;
-        if (null === $searchstring || '' === $searchstring) {
+        $this->data->query = $query;
+        if (null === $query || '' === $query) {
             return;
         }
 
-        $this->data->stories = Story::search($searchstring);
-        $this->data->pages = Page::search($searchstring);
-        $this->data->albums = Album::search($searchstring);
+        $this->data->stories = Story::search($query);
+        $this->data->pages = Page::search($query);
+        $this->data->albums = Album::search($query);
     }
 }

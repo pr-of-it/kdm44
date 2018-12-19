@@ -1,8 +1,8 @@
 {% macro result(title, lead, url) %}
-<div>
-    <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
-    <p>{{lead|striptags|raw}}</p><hr>
-</div>
+    <div>
+        <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
+        <p>{{lead|striptags|raw}}</p><hr>
+    </div>
 {% endmacro %}
 
 {% extends 'Kdm/Inner.html' %}
@@ -21,38 +21,38 @@
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
 
-    <div>
-        {% if searchstring is not null %}
-        {% import _self as block %}
+    {% if searchstring is not null %}
+        <div>
+            {% import _self as block %}
 
-        <section>
-            <h2>Новости</h2>
-        {% for item in stories %}
-            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
-        {% else %}
-            <p>Поиск новостей не дал результатов</p>
-        {% endfor %}
-        </section>
+            <section>
+                <h2>Новости</h2>
+                {% for item in stories %}
+                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                {% else %}
+                    <p>Поиск новостей не дал результатов</p>
+                {% endfor %}
+            </section>
 
-        <section>
-            <h2>Страницы</h2>
-        {% for item in pages %}
-            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
-        {% else %}
-            <p>Поиск страниц не дал результатов</p>
-        {% endfor %}
-        </section>
+            <section>
+                <h2>Страницы</h2>
+                {% for item in pages %}
+                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                {% else %}
+                    <p>Поиск страниц не дал результатов</p>
+                {% endfor %}
+            </section>
 
-        <section>
-            <h2>Альбомы</h2>
-        {% for item in albums %}
-            {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
-        {% else %}
-            <p>Поиск альбомов не дал результатов</p>
-        {% endfor %}
-        </section>
+            <section>
+                <h2>Альбомы</h2>
+                {% for item in albums %}
+                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                {% else %}
+                    <p>Поиск альбомов не дал результатов</p>
+                {% endfor %}
+            </section>
 
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

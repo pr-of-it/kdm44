@@ -14,8 +14,9 @@ interface SearchableInterface
      * Поиск по ключевым словам
      *
      * @param string $string
+     * @param null $limit
      */
-    public static function search(string $string);
+    public static function search(string $string, $limit = null);
 
     /**
      * Получение заголовка
@@ -34,7 +35,7 @@ interface SearchableInterface
     /**
      * Получение URL
      *
-     * @return string|null
+     * @return string
      */
-    public function getUrl();
+    public function getUrl(): string;
 }

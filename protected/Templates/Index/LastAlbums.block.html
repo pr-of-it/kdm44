@@ -1,0 +1,14 @@
+{% extends "Main/NoBlocks.html" %}
+{% block content %}
+    <section>
+        <h2>Последние фотоальбомы</h2>
+        {% for item in albums %}
+            <div>
+                <h3><a href="{{item.getUrl()}}" style="display: block; text-decoration: none">{{ item.getTitle() }}</a></h3>
+                <p>{{item.getLead()|striptags|raw}}</p><hr>
+            </div>
+        {% else %}
+            <p>Альбомов нет</p>
+        {% endfor %}
+    </section>
+{% endblock %}

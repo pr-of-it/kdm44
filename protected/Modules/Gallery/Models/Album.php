@@ -27,6 +27,42 @@ class Album
 
     static protected $extensions = ['tree'];
 
+    /**
+     * @param int $count
+     * @return Album[]
+     */
+    public static function findLastAlbums($count = null)
+    {
+        return static::findAll(
+            [
+                'order' => 'published DESC',
+                'limit' => $count,
+            ]
+        );
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
+    }
+    /**
+     * @return string|null
+     */
+    public function getLead()
+    {
+        return null;
+    }
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return '/gallery/albums/' . $this->__data['url'];
+    }
+
     public function beforeSave()
     {
         if ($this->isNew()) {

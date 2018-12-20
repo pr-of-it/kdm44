@@ -12,10 +12,10 @@ use T4\Mvc\Controller;
 class LastAlbums extends Controller
 {
     /**
-     * @param null $limit
+     * @param null $count
      */
-    public function actionDefault($limit = null)
+    public function actionDefault($count = null)
     {
-        $this->data->albums = Album::findLastAlbums($limit);
+        $this->data->albums = Album::findLastAlbums($count);
     }
 }

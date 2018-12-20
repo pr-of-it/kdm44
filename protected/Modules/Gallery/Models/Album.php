@@ -28,15 +28,15 @@ class Album
     static protected $extensions = ['tree'];
 
     /**
-     * @param int|null $limit
+     * @param int|null $count
      * @return Album[]
      */
-    public static function findLastAlbums(int $limit = null)
+    public static function findLastAlbums(int $count = null)
     {
         return static::findAll(
             [
                 'order' => 'published DESC',
-                'limit' => $limit,
+                'limit' => $count,
             ]
         );
     }

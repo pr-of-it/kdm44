@@ -2,8 +2,10 @@
 
 namespace App\Modules\Pages\Models;
 
+use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Std;
+use T4\Dbal\Query;
 use T4\Dbal\QueryBuilder;
 use T4\Fs\Helpers;
 use T4\Html\Form\Errors;
@@ -11,8 +13,11 @@ use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
 
-class Page
-    extends Model
+/**
+ * Class Page
+ * @package App\Modules\Pages\Models
+ */
+class Page extends Model implements SearchableInterface
 {
 
     static protected $schema = [
@@ -41,6 +46,70 @@ class Page
     ];
 
     static protected $extensions = ['tree'];
+
+    /**
+     * @param string $string
+     * @param null $limit
+     * @return Page[]
+     */
+    public static function search(string $string, $limit = null)
+    {
+        if (empty($string)) {
+            return [];
+        }
+        $query = (new Query())
+            ->select()
+            ->from(static::getTableName())
+            ->where('MATCH (`title`, `url`, `text`) AGAINST (:search)')
+            ->param(':search', $string);
+        if (null !== $limit) {
+            $query->limit($limit);
+        }
+        return static::findAllByQuery($query);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLead()
+    {
+        return $this->getShortLead();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return '/pages/' . $this->__data['url'];
+    }
+
+    /**
+     * @param int $maxLength
+     * @return string|null
+     */
+    public function getShortLead($maxLength = 120)
+    {
+        $lead = isset($this->__data['text']) ? $this->__data['text'] : null;
+        if (null === $lead) {
+            return;
+        }
+        if (mb_strlen($lead) > $maxLength) {
+            $sourceStr = strip_tags($lead);
+            $words = explode(' ', mb_substr($sourceStr, 0, $maxLength));
+            array_pop($words);
+            return implode(' ', $words);
+        }
+        return $lead;
+    }
 
     public function getBreadCrumbs()
     {

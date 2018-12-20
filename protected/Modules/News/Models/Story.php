@@ -2,15 +2,20 @@
 
 namespace App\Modules\News\Models;
 
+use App\Models\SearchableInterface;
 use T4\Core\Collection;
 use T4\Core\Exception;
+use T4\Dbal\Query;
 use T4\Fs\Helpers;
 use T4\Http\Uploader;
 use T4\Mvc\Application;
 use T4\Orm\Model;
 
-class Story
-    extends Model
+/**
+ * Class Story
+ * @package App\Modules\News\Models
+ */
+class Story extends Model implements SearchableInterface
 {
     static protected $schema = [
         'table' => 'newsstories',
@@ -28,18 +33,68 @@ class Story
         ]
     ];
 
-    public function getShortLead($maxLength=120)
+    /**
+     * @param string $string
+     * @param null $limit
+     * @return Story[]
+     */
+    public static function search(string $string, $limit = null)
     {
-        if (mb_strlen( $this->lead) > $maxLength){
-            $sourceStr=strip_tags($this->lead);
-            $words=explode(' ',mb_substr( $sourceStr,0,$maxLength));
+        if (empty($string)) {
+            return [];
+        }
+        $query = (new Query())
+            ->select()
+            ->from(static::getTableName())
+            ->where('MATCH (`title`, `lead`, `text`) AGAINST (:search)')
+            ->param(':search', $string);
+        if (null !== $limit) {
+            $query->limit($limit);
+        }
+        return static::findAllByQuery($query);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return isset($this->__data['title']) ? $this->__data['title'] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLead()
+    {
+        return $this->getShortLead();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return '/news/' . $this->getPk();
+    }
+
+    /**
+     * @param int $maxLength
+     * @return string|null
+     */
+    public function getShortLead($maxLength = 120)
+    {
+        $lead = isset($this->__data['lead']) ? $this->__data['lead'] : null;
+        if (null === $lead) {
+            return;
+        }
+        if (mb_strlen($lead) > $maxLength) {
+            $sourceStr = strip_tags($lead);
+            $words = explode(' ', mb_substr($sourceStr, 0, $maxLength));
             array_pop($words);
-            return implode(' ',$words);
+            return implode(' ', $words);
         }
-        else
-        {
-            return $this->lead;
-        }
+        return $lead;
     }
 
     public function uploadImage($formFieldName)

@@ -20,7 +20,7 @@ return [
         ]
     ],
 
-    '///LastAlbums' => [
+    '/Gallery/LastAlbums/' => [
         'title' => 'Блок последних фотоальбомов',
         'desc' => 'Вывод последних фотоальбомов',
         'options' => [],

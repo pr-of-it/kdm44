@@ -28,15 +28,15 @@ class Album
     static protected $extensions = ['tree'];
 
     /**
-     * @param int $count
+     * @param int|null $limit
      * @return Album[]
      */
-    public static function findLastAlbums($count = null)
+    public static function findLastAlbums(int $limit = null)
     {
         return static::findAll(
             [
                 'order' => 'published DESC',
-                'limit' => $count,
+                'limit' => $limit,
             ]
         );
     }
@@ -48,13 +48,7 @@ class Album
     {
         return isset($this->__data['title']) ? $this->__data['title'] : null;
     }
-    /**
-     * @return string|null
-     */
-    public function getLead()
-    {
-        return null;
-    }
+
     /**
      * @return string
      */

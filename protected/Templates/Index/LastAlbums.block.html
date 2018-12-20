@@ -3,7 +3,7 @@
     {% for item in albums %}
         <div class="text-center">
             <h4><a href="{{item.getUrl()}}" style="display: block; text-decoration: none">{{ item.getTitle() }}</a></h4>
-            <p>{{item.getLead()|striptags|raw}}</p><hr>
+            <hr>
         </div>
     {% else %}
         <p>Фотоальбомов нет</p>

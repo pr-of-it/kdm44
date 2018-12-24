@@ -1,14 +1,16 @@
 <div class="section-title text-upp"><strong>Последние фотоальбомы</strong></div>
 <section>
     {% for item in albums %}
-        <div class="main-page">
-            <strong>
-                <a href="{{item.getUrl()}}" style="display: block; text-decoration: none">{{ item.getTitle() }}</a>
-            </strong>
-            <hr>
+        <div class="main-page-news">
+            <div class="date-news">{{ item.published|date('d.m.Y') }}</div>
+            <div class="title color-title">
+                <strong>
+                    <a href="{{ item.getUrl() }}" style="display: block; text-decoration: none">{{ item.getTitle() }}</a>
+                </strong>
+            </div>
         </div>
     {% else %}
         <div class="title color-title">Фотоальбомов нет</div>
-        <hr>
     {% endfor %}
+    <hr>
 </section>

@@ -23,7 +23,32 @@ return [
     '/Gallery/LastAlbums/' => [
         'title' => 'Блок последних фотоальбомов',
         'desc' => 'Вывод последних фотоальбомов',
-        'options' => [],
+        'options' => [
+            'id' => [
+                'title' => 'Альбом',
+                'type' => 'select:tree',
+                'model' => 'App\Modules\Gallery\Models\Album',
+                'default' => 1,
+            ],
+            'count' => [
+                'title' => 'Число выводимых фотоальбомов',
+                'type' => 'int',
+                'default' => 5,
+            ],
+            'color' => [
+                'title' => 'Класс цвета блока',
+                'type' => 'select',
+                'values' => [
+                    'default' => 'default',
+                    'primary' => 'primary',
+                    'success' => 'success',
+                    'warning' => 'warning',
+                    'danger' => 'danger',
+                    'info' => 'info',
+                ],
+                'default' => 'default',
+            ],
+        ],
     ],
 
     '///Menu' => [

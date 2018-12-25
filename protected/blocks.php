@@ -27,7 +27,7 @@ return [
             'count' => [
                 'title' => 'Число выводимых фотоальбомов',
                 'type' => 'int',
-                'default' => 5,
+                'default' => 4,
             ],
         ],
     ],

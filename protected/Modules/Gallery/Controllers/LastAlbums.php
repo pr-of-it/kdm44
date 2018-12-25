@@ -12,9 +12,9 @@ use T4\Mvc\Controller;
 class LastAlbums extends Controller
 {
     /**
-     * @param null $count
+     * @param int|null $count
      */
-    public function actionDefault($count = null)
+    public function actionDefault(int $count = null)
     {
         $this->data->albums = Album::findLastAlbums($count);
     }

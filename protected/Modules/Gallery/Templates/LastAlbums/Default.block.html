@@ -1,15 +1,23 @@
-<div class="section-title text-upp"><strong>Последние фотоальбомы</strong></div>
-<section>
+<div class="section-title text-upp">
+    <strong>
+        <a href="/gallery">Фотоальбомы</a>
+    </strong>
+</div>
+<div class="row">
     {% for item in albums %}
-        <div class="main-page-news">
-            <div class="date-news">{{ item.published|date('d.m.Y') }}</div>
-            <div class="title color-title">
-                <strong>
-                    <a href="{{ item.getUrl() }}" style="display: block; text-decoration: none">{{ item.getTitle() }}</a>
-                </strong>
+        <div class="col-sm-5 text-center" style="margin-bottom: 20px">
+            <div style="height: 220px; overflow: hidden;">
+                <a href="{{ item.getUrl() }}">
+                    <img src="{% if item.cover %} {{ item.cover.image }} {% else %} {{ item.photos[0].image }} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 210px;">
+                </a>
+            </div>
+            <div style="height: 100px; overflow: hidden">
+                <p>
+                    <a href="{{ item.getUrl() }}"><p style="font-size: 15px">{{ item.getTitle() }}</p></a>
+                </p>
             </div>
         </div>
     {% else %}
         <div class="title color-title">Фотоальбомов нет</div>
     {% endfor %}
-</section>
+</div>

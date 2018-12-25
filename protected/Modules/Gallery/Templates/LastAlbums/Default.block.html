@@ -1,0 +1,23 @@
+<div class="section-title text-upp">
+    <strong>
+        <a href="/gallery">Фотоальбомы</a>
+    </strong>
+</div>
+<div class="row">
+    {% for item in albums %}
+        <div class="col-sm-6 text-center" style="margin-bottom: 20px">
+            <div style="height: 220px; overflow: hidden;">
+                <a href="{{ item.getUrl() }}">
+                    <img src="{% if item.cover %} {{ item.cover.image }} {% else %} {{ item.photos[0].image }} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 210px;">
+                </a>
+            </div>
+            <div style="height: 100px; overflow: hidden;">
+                <p>
+                    <a href="{{ item.getUrl() }}"><p style="font-size: 15px">{{ item.getTitle() }}</p></a>
+                </p>
+            </div>
+        </div>
+    {% else %}
+        <div class="title color-title">Фотоальбомов нет</div>
+    {% endfor %}
+</div>

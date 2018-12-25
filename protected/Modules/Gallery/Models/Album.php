@@ -33,6 +33,20 @@ class Album extends Model implements SearchableInterface
     static protected $extensions = ['tree'];
 
     /**
+     * @param int|null $count
+     * @return Album[]
+     */
+    public static function findLastAlbums(int $count = null)
+    {
+        return static::findAll(
+            [
+                'order' => 'published DESC',
+                'limit' => $count,
+            ]
+        );
+    }
+
+    /**
      * @param string $string
      * @param null $limit
      * @return Album|array

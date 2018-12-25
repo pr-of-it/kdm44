@@ -11,7 +11,7 @@
                     <img src="{% if item.cover %} {{ item.cover.image }} {% else %} {{ item.photos[0].image }} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 210px;">
                 </a>
             </div>
-            <div style="height: 100px; overflow: hidden">
+            <div style="height: 100px; overflow: hidden;">
                 <p>
                     <a href="{{ item.getUrl() }}"><p style="font-size: 15px">{{ item.getTitle() }}</p></a>
                 </p>

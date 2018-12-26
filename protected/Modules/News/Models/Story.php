@@ -73,7 +73,7 @@ class Story extends Model implements SearchableInterface
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getSearchableItemUrl(): string
     {
         return '/news/' . $this->getPk();
     }

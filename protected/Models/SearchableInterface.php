@@ -37,5 +37,5 @@ interface SearchableInterface
      *
      * @return string
      */
-    public function getUrl(): string;
+    public function getSearchableItemUrl(): string;
 }

@@ -86,7 +86,7 @@ class Album extends Model implements SearchableInterface
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getSearchableItemUrl(): string
     {
         return '/gallery/albums/' . $this->__data['url'];
     }

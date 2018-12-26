@@ -87,7 +87,7 @@ class Page extends Model implements SearchableInterface
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getSearchableItemUrl(): string
     {
         return '/pages/' . $this->__data['url'];
     }

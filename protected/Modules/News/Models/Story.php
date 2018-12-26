@@ -59,7 +59,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getSearchableItemTitle()
     {
-        return isset($this->__data['title']) ? $this->__data['title'] : null;
+        return isset($this->title) ? $this->title : null;
     }
 
     /**
@@ -84,7 +84,7 @@ class Story extends Model implements SearchableInterface
      */
     public function getShortLead($maxLength = 120)
     {
-        $lead = isset($this->__data['lead']) ? $this->__data['lead'] : null;
+        $lead = isset($this->lead) ? $this->lead : null;
         if (null === $lead) {
             return;
         }

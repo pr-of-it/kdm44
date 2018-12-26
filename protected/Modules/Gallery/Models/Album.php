@@ -72,7 +72,7 @@ class Album extends Model implements SearchableInterface
      */
     public function getSearchableItemTitle()
     {
-        return isset($this->__data['title']) ? $this->__data['title'] : null;
+        return isset($this->title) ? $this->title : null;
     }
 
     /**
@@ -88,7 +88,7 @@ class Album extends Model implements SearchableInterface
      */
     public function getSearchableItemUrl(): string
     {
-        return '/gallery/albums/' . $this->__data['url'];
+        return '/gallery/albums/' . $this->url;
     }
 
     public function beforeSave()

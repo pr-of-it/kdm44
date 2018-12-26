@@ -23,14 +23,14 @@ interface SearchableInterface
      *
      * @return string|null
      */
-    public function getTitle();
+    public function getSearchableItemTitle();
 
     /**
      * Получение лида
      *
      * @return string|null
      */
-    public function getLead();
+    public function getSearchableItemLead();
 
     /**
      * Получение URL

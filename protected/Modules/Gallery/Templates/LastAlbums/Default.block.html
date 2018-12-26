@@ -7,13 +7,13 @@
     {% for item in albums %}
         <div class="col-sm-6 text-center" style="margin-bottom: 20px">
             <div style="height: 220px; overflow: hidden;">
-                <a href="/gallery/albums/{{item.url}}.html">
+                <a href="/gallery/albums/{{ item.url }}.html">
                     <img src="{% if item.cover %} {{ item.cover.image }} {% else %} {{ item.photos[0].image }} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 210px;">
                 </a>
             </div>
             <div style="height: 100px; overflow: hidden;">
                 <p>
-                    <a href="/gallery/albums/{{item.url}}.html"><p style="font-size: 15px">{{ item.getSearchableItemTitle() }}</p></a>
+                    <a href="/gallery/albums/{{ item.url }}.html"><p style="font-size: 15px">{{ item.title }}</p></a>
                 </p>
             </div>
         </div>

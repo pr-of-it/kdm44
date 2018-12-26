@@ -71,15 +71,15 @@ class Page extends Model implements SearchableInterface
     /**
      * @return string|null
      */
-    public function getTitle()
+    public function getSearchableItemTitle()
     {
-        return isset($this->__data['title']) ? $this->__data['title'] : null;
+        return isset($this->title) ? $this->title : null;
     }
 
     /**
      * @return string|null
      */
-    public function getLead()
+    public function getSearchableItemLead()
     {
         return $this->getShortLead();
     }
@@ -87,9 +87,9 @@ class Page extends Model implements SearchableInterface
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getSearchableItemUrl(): string
     {
-        return '/pages/' . $this->__data['url'];
+        return '/pages/' . $this->url;
     }
 
     /**
@@ -98,7 +98,7 @@ class Page extends Model implements SearchableInterface
      */
     public function getShortLead($maxLength = 120)
     {
-        $lead = isset($this->__data['text']) ? $this->__data['text'] : null;
+        $lead = isset($this->text) ? $this->text : null;
         if (null === $lead) {
             return;
         }

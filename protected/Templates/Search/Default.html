@@ -28,7 +28,7 @@
             <section>
                 <h2>Новости</h2>
                 {% for item in stories %}
-                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск новостей не дал результатов</p>
                 {% endfor %}
@@ -37,7 +37,7 @@
             <section>
                 <h2>Страницы</h2>
                 {% for item in pages %}
-                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск страниц не дал результатов</p>
                 {% endfor %}
@@ -46,7 +46,7 @@
             <section>
                 <h2>Альбомы</h2>
                 {% for item in albums %}
-                    {{ block.result(item.getTitle(), item.getLead(), item.getUrl()) }}
+                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск альбомов не дал результатов</p>
                 {% endfor %}

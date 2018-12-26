@@ -15,5 +15,6 @@ class m_1545822990_fixPagesTreeColumns
 
     public function down()
     {
+        $this->db->execute('ALTER TABLE `pages` CHANGE `__prt` `__prt` BIGINT UNSIGNED NOT NULL DEFAULT 0;');
     }
 }

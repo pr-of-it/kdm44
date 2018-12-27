@@ -213,13 +213,21 @@ class Story extends Model implements SearchableInterface
     }
 
     /**
-     * @param $year
-     * @param $month
+     * @param int $year
+     * @param int $month
      * @return array
      */
     public static function getItemsCountGroupByTopic(int $year, int $month)
     {
-        $query = 'SELECT (SELECT newstopics.`title` FROM newstopics WHERE `__id` = `__topic_id`) AS `topic`, COUNT(`__id`) AS count FROM ' . self::getTableName() . ' WHERE YEAR(`published`)=:year AND MONTH(`published`)=:month GROUP BY `topic`;';
+        $query = <<<'SQL'
+SELECT newstopics.`__id` AS id, newstopics.title, COUNT(newstopics.title) AS count
+FROM newstopics
+INNER JOIN newsstories 
+  ON newstopics.`__id` = newsstories.`__topic_id`
+       AND YEAR(`published`) = :year
+       AND MONTH(`published`) = :month
+GROUP BY newstopics.`__id`;
+SQL;
         return self::getDbConnection()->query($query, [':year' => $year, ':month' => $month])->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

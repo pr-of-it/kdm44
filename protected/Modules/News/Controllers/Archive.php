@@ -26,24 +26,39 @@ class Archive
         $this->data->year = $year;
     }
 
-    public function actionNewsByDay(int $year = null, int $month = null, int $page = 1)
+    public function actionNewsByTopic(int $year = null, int $month = null)
+    {
+        if (0 > $month || 12 < $month
+            || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
+            throw new E404Exception;
+        }
+
+        $this->data->topics = Story::getItemsCountGroupByTopic($year, $month);
+
+        $this->data->year = $year;
+        $this->data->month = $month;
+    }
+
+    public function actionNewsByDay(int $year = null, int $month = null, int $topic = null, int $page = 1)
     {
         if (0 > $month || 12 < $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month))
         {
             throw new E404Exception;
         }
 
-        $provider = 
-            (new ModelDataProvider(Story::class, [
-                'where' => 'YEAR(published)=:year AND MONTH(published)=:month',
+        $provider = Story::getStoriesByTopic($year, $month, $topic);
+          /*  (new ModelDataProvider(Story::class, [
+                'where' => 'YEAR(published)=:year AND MONTH(published)=:month AND __topic_id=:topic',
                 'order' => 'published DESC',
-                'params' => [':year' => $year, ':month' => $month],
-            ]));
-        
+                'params' => [':year' => $year, ':month' => $month, ':topic' => $topic],
+            ]));*/
+        var_dump($provider);
         $this->data->provider = $provider;
         $this->data->page = $page;
         
         $this->data->year = $year;
         $this->data->month = $month;
     }
+
+
 }

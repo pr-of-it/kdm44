@@ -57,8 +57,12 @@ class Pages
             $item = new Page();
         }
 
-        try {
+        if (Page::findByColumn('url', $_POST['url'])) {
+            $this->app->flash->errors = [new Exception('Страница с таким URL уже существует')];
+            $this->redirect('/admin/pages/edit');
+        }
 
+        try {
             $item
                 ->fill($_POST)
                 ->uploadFiles('files')

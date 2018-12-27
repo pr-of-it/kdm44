@@ -47,12 +47,6 @@ class Archive
         }
 
         $provider = Story::getStoriesByTopic($year, $month, $topic);
-          /*  (new ModelDataProvider(Story::class, [
-                'where' => 'YEAR(published)=:year AND MONTH(published)=:month AND __topic_id=:topic',
-                'order' => 'published DESC',
-                'params' => [':year' => $year, ':month' => $month, ':topic' => $topic],
-            ]));*/
-        var_dump($provider);
         $this->data->provider = $provider;
         $this->data->page = $page;
         

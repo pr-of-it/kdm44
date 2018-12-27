@@ -212,4 +212,14 @@ class Story extends Model implements SearchableInterface
         return self::getDbConnection()->query($query, [':year' => $year])->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $year
+     * @param $month
+     * @return array
+     */
+    public static function getItemsCountGroupByTopic(int $year, int $month)
+    {
+        $query = 'SELECT (SELECT newstopics.`title` FROM newstopics WHERE `__id` = `__topic_id`) AS `topic`, COUNT(`__id`) AS count FROM ' . self::getTableName() . ' WHERE YEAR(`published`)=:year AND MONTH(`published`)=:month GROUP BY `topic`;';
+        return self::getDbConnection()->query($query, [':year' => $year, ':month' => $month])->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

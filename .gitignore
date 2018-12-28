@@ -11,3 +11,4 @@ public/public
 public/images
 protected/Cache
 vendor
+protected/settings.php

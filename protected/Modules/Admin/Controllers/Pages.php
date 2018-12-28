@@ -58,7 +58,7 @@ class Pages
         }
 
         if ($item->url !== $_POST['url']) {
-            if (Page::findByColumn('url', $_POST['url'])) {
+            if (0 !== Page::countAllByColumn('url', $_POST['url'])) {
                 $this->app->flash->errors = [new Exception('Страница с таким URL уже существует')];
                 $this->redirect('/admin/pages/edit/?id=' . $_POST[Page::PK]);
             }

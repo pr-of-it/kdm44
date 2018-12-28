@@ -3,6 +3,7 @@
 namespace App\Modules\News\Controllers;
 
 use App\Modules\News\Models\Story;
+use App\Modules\News\Models\Topic;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 use T4\Orm\ModelDataProvider;
@@ -41,12 +42,19 @@ class Archive
 
     public function actionNewsByDay(int $year = null, int $month = null, int $topic = null, int $page = 1)
     {
-        if (0 > $month || 12 < $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month))
-        {
+        if (0 > $month || 12 < $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
             throw new E404Exception;
         }
 
-        $provider = Story::getStoriesByTopic($year, $month, $topic);
+        $provider =
+            (new ModelDataProvider(Story::class, [
+                'where' => 'YEAR(published)=:year AND MONTH(published)=:month AND `__topic_id`=:topic',
+                'order' => 'published DESC',
+                'params' => [':year' => $year, ':month' => $month, ':topic' => $topic],
+            ]));
+
+        $this->data->topic = Topic::findByPK($topic);
+
         $this->data->provider = $provider;
         $this->data->page = $page;
         

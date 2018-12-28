@@ -229,21 +229,4 @@ GROUP BY newstopics.`__id`, year, month;
 SQL;
         return self::getDbConnection()->query($query, [':year' => $year, ':month' => $month])->fetchAll(\PDO::FETCH_ASSOC);
     }
-
-    /**
-     * @param int $year
-     * @param int $month
-     * @param int $topic
-     * @return Story[]
-     */
-    public static function getStoriesByTopic(int $year, int $month, int $topic)
-    {
-        $query = $query = (new Query())
-            ->select()
-            ->from(static::getTableName())
-            ->where('YEAR(published)=:year AND MONTH(published)=:month AND `__topic_id`=:topic ORDER BY published DESC')
-            ->param([':year'=>$year, ':month'=>$month, ':topic'=>$topic]);
-
-        return static::findAllByQuery($query);
-    }
 }

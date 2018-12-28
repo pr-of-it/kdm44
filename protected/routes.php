@@ -5,7 +5,9 @@ return [
     '/index' => '///',
 
     '/news/archive' => '/News/Archive/Default',
-    '/news/archive/<1>/<2>' => '/News/Archive/NewsByDay(year=<1>,month=<2>)',
+    '/news/archive/<1>/<2>/<3>' => '/News/Archive/NewsByDay(year=<1>,month=<2>,topic=<3>)',
+    '/news/archive/<1>/<2>' => '/News/Archive/NewsByTopic(year=<1>,month=<2>)',
+
     '/news/archive/<1>' => '/News/Archive/NewsByMonth(year=<1>)',
 
     '/news/topics/<1>' => '/News/Index/NewsByTopic(id=<1>)',

@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-   kdm_php:
+   kdm44_php:
       image: registry.ucann.ru/php/php7.3-fpm:latest
       volumes:
         - ./build/dev/docker/config/php/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -12,9 +12,9 @@ services:
         - 80:80
         - 443:443
       depends_on:
-        - kdm_mysql
+        - kdm44_mysql
 
-   kdm_mysql:
+   kdm44_mysql:
       image: mysql:5.7
       volumes:
 
@@ -23,10 +23,10 @@ services:
         - 3306:3306
       environment:
         TZ: Europe/Moscow
-        MYSQL_ROOT_PASSWORD: kdm
-        MYSQL_PASSWORD: kdm
-        MYSQL_USER: kdm
-        MYSQL_DATABASE: kdm
+        MYSQL_ROOT_PASSWORD: kdm44
+        MYSQL_PASSWORD: kdm44
+        MYSQL_USER: kdm44
+        MYSQL_DATABASE: kdm44
 
 volumes:
   mysql_data:

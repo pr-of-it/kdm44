@@ -5,3 +5,9 @@ protected/Cache
 /*.log
 /*.pid
 docker-compose.yml
+public/files
+public/file
+public/public
+public/images
+protected/Cache
+vendor

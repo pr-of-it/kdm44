@@ -38,8 +38,8 @@ kdm44.ru
   - Запустите proxy из реп `ssh://git@git.ucann.ru/devops/proxy.git` (описние в readme.md)
   - Переименуйте docker-compose-proxy.yml в docker-compose.yml и `docker-compose up` или `docker-compose up -d` для работы в фоне
 - Собираем проект
-  - `docker-compose exec kdm_php phing -f build/dev/build.xml`
-- Заходите на https://dev.kdm.ucann.ru/
+  - `docker-compose exec kdm44_php phing -f build/dev/build.xml`
+- Заходите на https://dev.kdm44.ucann.ru/
 
 ## Выключение и удаление
 - ``` `docker-compose down`  или `docker-compose down -v` для удаления базы ```
@@ -47,4 +47,4 @@ kdm44.ru
 
 ## База данных
 - Подключение к БД geo из шторма:
-- ```jdbc:mysql://127.0.0.1:3306/kdm?user=kdm&password=kdm```
+- ```jdbc:mysql://127.0.0.1:3306/kdm44?user=kdm44&password=kdm44```

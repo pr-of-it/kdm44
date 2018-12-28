@@ -2,3 +2,6 @@
 www/Assets
 public/Assets
 protected/Cache
+/*.log
+/*.pid
+docker-compose.yml

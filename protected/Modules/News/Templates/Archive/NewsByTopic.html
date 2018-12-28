@@ -26,10 +26,10 @@
                 {% for item in topics %}
                     <tr>
                         <td width="80%">
-                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.__id }}">{{ item.title }}</a>
+                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}">{{ item.title }}</a>
                         </td>
                         <td>
-                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.__id }}" style="display: block; text-decoration: none">
+                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}" style="display: block; text-decoration: none">
                                 <span>новостей: &nbsp;</span>
                                 <span class="badge">{{ item.count }}</span>
                             </a>

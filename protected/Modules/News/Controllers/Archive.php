@@ -27,6 +27,11 @@ class Archive
         $this->data->year = $year;
     }
 
+    /**
+     * @param int|null $year
+     * @param int|null $month
+     * @throws E404Exception
+     */
     public function actionNewsByTopic(int $year = null, int $month = null)
     {
         if (0 > $month || 12 < $month
@@ -40,6 +45,14 @@ class Archive
         $this->data->month = $month;
     }
 
+    /**
+     * @param int|null $year
+     * @param int|null $month
+     * @param int|null $topic
+     * @param int $page
+     * @throws E404Exception
+     * @throws \T4\Orm\Exception
+     */
     public function actionNewsByDay(int $year = null, int $month = null, int $topic = null, int $page = 1)
     {
         if (0 > $month || 12 < $month || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
@@ -61,6 +74,4 @@ class Archive
         $this->data->year = $year;
         $this->data->month = $month;
     }
-
-
 }

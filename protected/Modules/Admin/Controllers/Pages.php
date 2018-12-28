@@ -57,8 +57,15 @@ class Pages
             $item = new Page();
         }
 
-        try {
+        if ($item->url !== $_POST['url']) {
+            if (0 !== Page::countAllByColumn('url', $_POST['url'])) {
+                $this->app->flash->errors = [new Exception('Страница с таким URL уже существует')];
+                $this->redirect('/admin/pages/edit/?id=' . $_POST[Page::PK]);
+            }
+        }
 
+
+        try {
             $item
                 ->fill($_POST)
                 ->uploadFiles('files')

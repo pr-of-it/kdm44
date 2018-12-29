@@ -17,7 +17,6 @@ class Archive
         $this->data->items = Story::getItemsCountGroupByYears();
     }
 
-    /** TODO: Нужно добавить Value Object */
     public function actionNewsByMonth(int $year = null)
     {
         if (null === $year || false === \DateTime::createFromFormat('Y', $year)) {
@@ -35,7 +34,6 @@ class Archive
      */
     public function actionNewsByTopic(int $year = null, int $month = null)
     {
-        /** TODO: Нужно добавить Value Object */
         if (0 >= $month || 12 < $month || 0 >= $year
             || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
             throw new E404Exception;
@@ -57,7 +55,6 @@ class Archive
      */
     public function actionNewsByDay(int $year = null, int $month = null, int $topic = null, int $page = 1)
     {
-        /** TODO: Нужно добавить Value Object */
         if (0 >= $month || 12 < $month || 0 >= $year
             || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
             throw new E404Exception;

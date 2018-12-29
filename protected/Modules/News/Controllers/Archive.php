@@ -8,18 +8,25 @@ use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 use T4\Orm\ModelDataProvider;
 
+/**
+ * Class Archive
+ * @package App\Modules\News\Controllers
+ */
 class Archive
     extends Controller
 {
-
     public function actionDefault()
     {
         $this->data->items = Story::getItemsCountGroupByYears();
     }
 
-    public function actionNewsByMonth(int $year = null)
+    /**
+     * @param null $year
+     * @throws E404Exception
+     */
+    public function actionNewsByMonth($year = null)
     {
-        if (null === $year || false === \DateTime::createFromFormat('Y', $year)) {
+        if (false === \DateTime::createFromFormat('Y', $year)) {
             throw new E404Exception;
         }
 
@@ -28,14 +35,14 @@ class Archive
     }
 
     /**
-     * @param int|null $year
-     * @param int|null $month
+     * @param null $year
+     * @param null $month
      * @throws E404Exception
      */
-    public function actionNewsByTopic(int $year = null, int $month = null)
+    public function actionNewsByTopic($year = null, $month = null)
     {
         if (0 >= $month || 12 < $month || 0 >= $year
-            || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
+            || false === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
             throw new E404Exception;
         }
 
@@ -46,17 +53,23 @@ class Archive
     }
 
     /**
-     * @param int|null $year
-     * @param int|null $month
-     * @param int|null $topic
+     * @param null $year
+     * @param null $month
+     * @param null $topic
      * @param int $page
      * @throws E404Exception
      * @throws \T4\Orm\Exception
      */
-    public function actionNewsByDay(int $year = null, int $month = null, int $topic = null, int $page = 1)
+    public function actionNewsByDay($year = null, $month = null, $topic = null, $page = 1)
     {
-        if (0 >= $month || 12 < $month || 0 >= $year
-            || null === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
+        if (!is_numeric($topic)) {
+            throw new E404Exception;
+        }
+        if (!is_numeric($page)) {
+            throw new E404Exception;
+        }
+        if (0 >= $month || 12 < $month || 0 >= $year || 0 > $topic || 0 >= $page
+            || false === \DateTime::createFromFormat('Y-m', $year . '-' . $month)) {
             throw new E404Exception;
         }
 

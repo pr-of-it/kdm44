@@ -17,28 +17,23 @@
         <li></li>
     </ol>
 
-    <h2 style="margin-top: 0">Новости за {{ rusmonths[month] }}, {{ year }} год</h2>
+    <h2 style="margin-top: 0">Новости за {{ rusmonths[month] | lower}}, {{ year }} год</h2>
 
-    <section class="panel panel-default">
-        <div class="panel-body">
-            <table class="table table-hover">
-                <tbody>
-                {% for item in topics %}
-                    <tr>
-                        <td width="80%">
-                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}">{{ item.title }}</a>
-                        </td>
-                        <td>
-                            <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}" style="display: block; text-decoration: none">
-                                <span>новостей: &nbsp;</span>
-                                <span class="badge">{{ item.count }}</span>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
-
+    <table class="table table-hover">
+        <tbody>
+        {% for item in topics %}
+            <tr>
+                <td width="80%">
+                    <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}">{{ item.title }}</a>
+                </td>
+                <td>
+                    <a href="/news/archive/{{ year }}/{{ month }}/{{ item.id }}" style="display: block; text-decoration: none">
+                        <span>новостей: &nbsp;</span>
+                        <span class="badge">{{ item.count }}</span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

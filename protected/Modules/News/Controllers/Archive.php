@@ -76,7 +76,6 @@ class Archive
         $provider =
             (new ModelDataProvider(Story::class, [
                 'where' => 'YEAR(published)=:year AND MONTH(published)=:month AND `__topic_id`=:topic',
-                'order' => 'published DESC',
                 'params' => [':year' => $year, ':month' => $month, ':topic' => $topic],
             ]));
 

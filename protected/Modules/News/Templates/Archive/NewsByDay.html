@@ -18,9 +18,9 @@
         <li></li>
     </ol>
     {% if topic.title %}
-        <h2 style="margin-top: 0">{{ topic.title }} за {{ rusmonths[month] }}, {{ year }} год</h2>
+        <h2 style="margin-top: 0">{{ topic.title }} за {{ rusmonths[month] | lower }}, {{ year }} год</h2>
     {% else %}
-        <h2 style="margin-top: 0">Новости за {{ rusmonths[month] }}, {{ year }} год</h2>
+        <h2 style="margin-top: 0">Новости за {{ rusmonths[month] | lower }}, {{ year }} год</h2>
     {% endif %}
 
     {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}

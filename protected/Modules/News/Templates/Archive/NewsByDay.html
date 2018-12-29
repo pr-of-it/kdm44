@@ -13,18 +13,21 @@
         <li><a href="/news/">Новости</a></li>
         <li><a href="/news/archive">Архив</a></li>
         <li><a href="/news/archive/{{ year }}/">{{ year }} год</a></li>
-        <li class="active">{{ rusmonths[month] }}</li>
+        <li><a href="/news/archive/{{ year }}/{{ month }}/">{{ rusmonths[month] }}</a></li>
+        <li class="active">{{ topic.title }}</li>
         <li></li>
     </ol>
-
-    <h2 style="margin-top: 0">Архив новостей за {{ rusmonths[month] }}, {{ year }} год</h2>
+    {% if topic.title %}
+        <h2 style="margin-top: 0">{{ topic.title }} за {{ rusmonths[month] | lower }}, {{ year }} год</h2>
+    {% else %}
+        <h2 style="margin-top: 0">Новости за {{ rusmonths[month] | lower }}, {{ year }} год</h2>
+    {% endif %}
 
     {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}
 
     <section class="panel panel-default">
         <div class="panel-body">
         {% for item in provider.getPage(page) %}
-            <h1><a href="/news/topics/{{ item.topic.Pk }}.html">{{ item.topic.title }}</a></h1>
             <article>
                 <div class="main-page-news top-news clearfix">
                     <div class="date-news">{{ item.published|date('d.m.Y') }}</div>

@@ -33,16 +33,16 @@ kdm44.ru
 
 - Вы склонировали репозиторий
 ## Запуск
-- Если вам нужен только этот проект то переименуйте docker-compose-only.yml в docker-compose.yml и `docker-compose up` или `docker-compose up -d` для работы в фоне
+- Если вам нужен только этот проект то переименуйте docker-compose-only.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
 - Если вы испольуете множество контейнеров с разными проектами то
   - Запустите proxy из реп `ssh://git@git.ucann.ru/devops/proxy.git` (описние в readme.md)
-  - Переименуйте docker-compose-proxy.yml в docker-compose.yml и `docker-compose up` или `docker-compose up -d` для работы в фоне
+  - Переименуйте docker-compose-proxy.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
 - Собираем проект
-  - `docker-compose exec kdm44_php phing -f build/dev/build.xml`
+  - `docker-compose -p kdm44 exec php phing -f build/dev/build.xml`
 - Заходите на https://dev.kdm44.ucann.ru/
 
 ## Выключение и удаление
-- ``` `docker-compose down`  или `docker-compose down -v` для удаления базы ```
+- ``` `docker-compose -p kdm44 down`  или `docker-compose -p kdm44 down -v` для удаления базы ```
 
 
 ## База данных

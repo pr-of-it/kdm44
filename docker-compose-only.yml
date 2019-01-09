@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-   kdm44_php:
+   php:
       image: registry.ucann.ru/php/php7.3-fpm:latest
       volumes:
         - ./build/dev/docker/config/php/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -12,12 +12,11 @@ services:
         - 80:80
         - 443:443
       depends_on:
-        - kdm44_mysql
+        - mysql
 
-   kdm44_mysql:
+   mysql:
       image: mysql:5.7
       volumes:
-
         - mysql_data:/var/lib/mysql
       ports:
         - 3306:3306

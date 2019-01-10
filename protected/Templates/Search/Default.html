@@ -16,9 +16,13 @@
     </ol>
 
     <h2 style="margin-top: 0">Поиск</h2>
-    <form action="/search.html">
-        <input type="text" name="query" value="{{ query }}">
-        <button type="submit" class="btn btn-primary">Поиск</button>
+    <form class="form-horizontal" action="/search.html">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <input  type="text" name="query" class="form-control" value="{{ query }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Поиск</button>
+        </div>
     </form>
 
     {% if query is not null %}

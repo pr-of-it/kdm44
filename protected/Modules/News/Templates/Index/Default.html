@@ -7,17 +7,15 @@
         <li class="active">Новости</li>
         <li></li>
     </ol>
-    <div class="breadcrumb">
-        <nav class="navbar" style="font-size: 15px;">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    {% for topic in topics %}
-                    <li><a href="/news/topics/{{ topic.Pk }}.html">{{ topic.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <nav class="navbar breadcrumb" style="font-size: 15px;">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                {% for topic in topics %}
+                <li><a href="/news/topics/{{ topic.Pk }}.html">{{ topic.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
 
 {% for topic in topics %}
 {% if topic.stories is empty %}

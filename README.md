@@ -33,7 +33,9 @@ kdm44.ru
 
 - Вы склонировали репозиторий
 ## Запуск
-- Подключаемся к хранилищу образов `docker login https://registry.ucann.ru -u ucann -p ucann2018`
+- ``` docker-compose -p kdm44 exec php usermod -u $(id -u ${USER}) www-data ```
+- ``` docker-compose -p kdm44 exec php groupmod -g $(id -u ${USER}) www-data ```
+
 - Если вам нужен только этот проект то переименуйте docker-compose-only.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
 - Если вы испольуете множество контейнеров с разными проектами то
   - Запустите proxy из реп `ssh://git@git.ucann.ru/devops/proxy.git` (описние в readme.md)

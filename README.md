@@ -38,7 +38,7 @@ kdm44.ru
   - Запустите proxy из реп `ssh://git@git.ucann.ru/devops/proxy.git` (описние в readme.md)
   - Переименуйте docker-compose-proxy.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
 - Собираем проект
-  - `docker-compose -p kdm44 exec php phing -f build/dev/build.xml`
+  - `docker-compose -p kdm44 exec --user www-data php-fpm phing -f build/dev/build.xml`
 - Заходите на https://dev.kdm44.ucann.ru/
 
 ## Выключение и удаление

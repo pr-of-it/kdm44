@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-   php:
+   php-fpm:
       image: registry.ucann.ru/php/php7.3-fpm:latest
       volumes:
         - ./build/dev/docker/config/php/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -26,6 +26,6 @@ services:
         MYSQL_PASSWORD: kdm44
         MYSQL_USER: kdm44
         MYSQL_DATABASE: kdm44
-
+      command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
 volumes:
   mysql_data:

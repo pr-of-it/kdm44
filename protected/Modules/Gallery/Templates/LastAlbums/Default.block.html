@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     {% for item in albums %}
-        <div class="col-sm-6 text-center" style="margin-bottom: 20px">
+        <div class="col-sm-6 text-center" style="margin-bottom: 10px">
             <div style="height: 210px; overflow: hidden;">
                 <a href="/gallery/albums/{{ item.url }}.html">
                     <img src="{% if item.cover %} {{ item.cover.image }} {% else %} {{ item.photos[0].image }} {% endif %}" class="img-responsive" style="display:inline-block; max-height: 210px;">

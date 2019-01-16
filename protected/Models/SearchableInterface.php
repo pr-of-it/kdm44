@@ -14,9 +14,9 @@ interface SearchableInterface
      * Поиск по ключевым словам
      *
      * @param string $string
-     * @param null $limit
+     * @param int $limit
      */
-    public static function search(string $string, $limit = null);
+    public static function search(string $string, $limit = 100);
 
     /**
      * Получение заголовка

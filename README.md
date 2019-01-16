@@ -32,24 +32,21 @@ kdm44.ru
 ## Настройки локального окружения для U'CANN
 
 - Вы склонировали репозиторий
+
 ## Запуск
+- Если вам нужен только этот проект то ``` make up ```
+- Если вы испольуете множество контейнеров с разными проектами то ``` make up-proxy ```
 
-- Если вам нужен только этот проект то переименуйте docker-compose-only.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
-- Если вы испольуете множество контейнеров с разными проектами то
-  - Запустите proxy из реп `ssh://git@git.ucann.ru/devops/proxy.git` (описние в readme.md)
-  - Переименуйте docker-compose-proxy.yml в docker-compose.yml и `docker-compose -p kdm44 up` или `docker-compose -p kdm44 up -d` для работы в фоне
-- ``` docker-compose -p kdm44 exec php-fpm usermod -u $(id -u ${USER}) www-data ```
-- ``` docker-compose -p kdm44 exec php-fpm groupmod -g $(id -u ${USER}) www-data ```
-- ``` docker-compose -p kdm44 restart ```
-- Собираем проект
-  - `docker-compose -p kdm44 exec --user www-data php-fpm phing -f build/dev/build.xml`
+## Собираем проект (все выполняем в папке с проектом)
 
+- Полная сборка  ``` make build ```
 
+- Соберите приложение командой  ``` make phing-build ```
 
 - Заходите на https://dev.kdm44.ucann.ru/
 
 ## Выключение и удаление
-- ``` `docker-compose -p kdm44 down`  или `docker-compose -p kdm44 down -v` для удаления базы ```
+- ``` `make down`  или `make down-all` для удаления базы ```
 
 
 ## База данных

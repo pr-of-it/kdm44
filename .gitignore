@@ -4,7 +4,6 @@ public/Assets
 protected/Cache
 /*.log
 /*.pid
-docker-compose.yml
 public/files
 public/file
 public/public

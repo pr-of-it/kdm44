@@ -35,10 +35,10 @@ class Story extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @param null $limit
-     * @return Story[]
+     * @param int $limit
+     * @return Story|array
      */
-    public static function search(string $string, $limit = null)
+    public static function search(string $string, $limit = 100)
     {
         if (empty($string)) {
             return [];

@@ -49,10 +49,10 @@ class Page extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @param null $limit
-     * @return Page[]
+     * @param int $limit
+     * @return Page|array
      */
-    public static function search(string $string, $limit = null)
+    public static function search(string $string, $limit = 100)
     {
         if (empty($string)) {
             return [];

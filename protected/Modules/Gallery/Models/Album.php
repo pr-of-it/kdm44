@@ -48,10 +48,10 @@ class Album extends Model implements SearchableInterface
 
     /**
      * @param string $string
-     * @param null $limit
+     * @param int $limit
      * @return Album|array
      */
-    public static function search(string $string, $limit = null)
+    public static function search(string $string, $limit = 100)
     {
         if (empty($string)) {
             return [];

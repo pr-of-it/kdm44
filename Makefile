@@ -15,10 +15,10 @@ up-proxy:
 	echo "Not work"
 
 db:
-	${RUN} exec --user www-data -f ./build/dev/docker-compose.yml php-fpm phing -f build/dev/db.xml
+	${RUN} exec --user www-data php-fpm phing -f build/dev/db.xml
 
 phing-build:
-	${RUN} exec --user www-data -f ./build/dev/docker-compose.yml php-fpm phing -f build/dev/build.xml
+	${RUN} exec --user www-data php-fpm phing -f build/dev/build.xml
 
 restart:
 	${RUN} restart

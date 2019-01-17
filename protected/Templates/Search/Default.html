@@ -39,7 +39,9 @@
                 {% else %}
                     <p>Поиск новостей не дал результатов</p>
                 {% endfor %}
-                {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }}
+               <!-- {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }} -->
+                <hr>
+                {{widget('pager', {total: total, size: size, active: page})}}
                 <hr>
             </section>
 

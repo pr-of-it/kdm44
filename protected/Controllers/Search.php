@@ -23,11 +23,19 @@ class Search extends Controller
         if (null === $query || '' === $query) {
             return;
         }
-        $page = 1;
 
-        $this->data->provider = new ModelDataProvider(Story::class);
-        $this->data->page = $page;
+
+        //$page = 1;
+
+        //$this->data->provider = new ModelDataProvider(Story::class);
+        //$this->data->page = $page;
         //var_dump($this->data->provider);die;
+
+
+        $count = 5;
+        $this->data->page = $this->app->request->get->page ?: 1;
+        $this->data->total = Story::search($query)->count();
+        $this->data->size = $count;
 
         $this->data->stories = Story::search($query);
         $this->data->pages = Page::search($query);

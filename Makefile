@@ -1,24 +1,30 @@
+SHELL  := /bin/bash
+USERID := ${shell id -u}
+RUN = docker-compose -p kdm44 -f ./build/dev/docker-compose.yml --project-directory ${PWD}
 up:
-	docker-compose -p kdm44 -f ./build/dev/docker-compose.yml up -d
-	docker-compose -p kdm44 exec php usermod -u $(id -u ${USER}) www-data
-	docker-compose -p kdm44 exec php groupmod -g $(id -u ${USER}) www-data
-	docker-compose -p kdm44 -f ./build/dev/docker-compose.yml restart
+	${RUN} up -d
+	${RUN} exec php-fpm usermod -u ${USERID} www-data
+	${RUN} exec php-fpm groupmod -g ${USERID} www-data
 
-build:
-	docker-compose -p kdm44 exec --user www-data php phing -f build/dev/build.xml
+build-all:
+	${RUN} exec php-fpm usermod -u ${USERID} www-data
+	${RUN} exec php-fpm groupmod -g ${USERID} www-data
+	${RUN} exec --user go php-fpm phing -f build/dev/build.xml
 
 up-proxy:
 	echo "Not work"
 
+db:
+	${RUN} exec --user www-data php-fpm phing -f build/dev/db.xml
+
 phing-build:
-	docker-compose -p kdm44 exec --user www-data php-fpm phing -f build/dev/build.xml
+	${RUN} exec --user www-data php-fpm phing -f build/dev/build.xml
 
 restart:
-	docker-compose -p kdm44 -f ./build/dev/docker-compose.yml restart
+	${RUN} restart
 
 down:
-	docker-compose -p kdm44 -f ./build/dev/docker-compose.yml down
+	${RUN} down
 
 down-all:
-	docker-compose -p kdm44 -f ./build/dev/docker-compose.yml down -v
-
+	${RUN} down -v

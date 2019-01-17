@@ -7,7 +7,7 @@ return [
     'db' => [
         'default' => [
             'driver' => 'mysql',
-            'host' => 'kdm44_mysql',
+            'host' => 'mysql',
             'dbname' => 'kdm44',
             'user' => 'kdm44',
             'password' => 'kdm44',

@@ -9,6 +9,9 @@
 
 {% block content %}
 
+{% set pageSize = 20 %}
+{% do provider.setPageSize(pageSize) %}
+
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
         <li class="active">Поиск</li>
@@ -36,6 +39,8 @@
                 {% else %}
                     <p>Поиск новостей не дал результатов</p>
                 {% endfor %}
+                {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }}
+                <hr>
             </section>
 
             <section>

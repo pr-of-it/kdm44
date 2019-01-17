@@ -24,10 +24,10 @@ class Search extends Controller
             return;
         }
         $page = 1;
-        $this->data->page = $this->app->request->get->page ?: 1;
 
         $this->data->provider = new ModelDataProvider(Story::class);
         $this->data->page = $page;
+        //var_dump($this->data->provider);die;
 
         $this->data->stories = Story::search($query);
         $this->data->pages = Page::search($query);

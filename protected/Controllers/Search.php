@@ -24,12 +24,18 @@ class Search extends Controller
             return;
         }
 
-        $this->data->provider = new ModelDataProvider(Story::class, [
+        $this->data->providerStory = new ModelDataProvider(Story::class, [
             'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
-        $this->data->page = $page;
+        $this->data->pageStory = $page;
         //var_dump($this->data->provider);die;
+
+        $this->data->providerPage = new ModelDataProvider(Page::class, [
+            'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
+            'params' => [':search' => $query],
+        ]);
+        $this->data->pagePage = $page;
 
 
         /*$count = 5;
@@ -38,7 +44,7 @@ class Search extends Controller
         $this->data->size = $count;*/
 
         //$this->data->stories = Story::search($query);
-        $this->data->pages = Page::search($query);
+        //$this->data->pages = Page::search($query);
         $this->data->albums = Album::search($query);
     }
 }

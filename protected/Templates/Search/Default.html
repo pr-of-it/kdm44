@@ -11,8 +11,9 @@
 
 <!--{% set pageSize = 20 %}
 {% do provider.setPageSize(pageSize) %}-->
-
-{% set provider = provider.setPageSize(10) %}
+{% set pageSize = 3 %}
+{% set providerStory = providerStory.setPageSize(pageSize) %}
+{% set providerPage = providerPage.setPageSize(pageSize) %}
 
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
@@ -36,32 +37,30 @@
 
             <section>
                 <h2>Новости</h2>
-                <!--{% for item in stories %}
-                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
-                {% else %}
-                    <p>Поиск новостей не дал результатов</p>
-                {% endfor %}-->
-                <hr>111<hr>
-                {% for item in provider.getPage(page) %}
+                {% for item in providerStory.getPage(pageStory) %}
                     {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск новостей не дал результатов</p>
                 {% endfor %}
-
-                {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}
-                <!--{{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }}-->
-                <hr>
-                <!--{{widget('pager', {total: total, size: size, active: page})}}-->
-                <hr>
+                {{ widget('pager', {'total': providerStory.total, 'size': providerStory.pageSize, 'active': pageStory, 'url': '/search/?query=' ~ query ~'&subject=news&page=%d'}) }}
             </section>
 
             <section>
                 <h2>Страницы</h2>
-                {% for item in pages %}
+                {% for item in providerPage.getPage(pagePage) %}
+                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
+                {% else %}
+                    <p>Поиск новостей не дал результатов</p>
+                {% endfor %}
+
+                {{ widget('pager', {'total': providerPage.total, 'size': providerPage.pageSize, 'active': pagePage, 'url': '/search/?query=' ~ query ~'&subject=pages&page=%d'}) }}
+
+
+                <!--{% for item in pages %}
                     {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск страниц не дал результатов</p>
-                {% endfor %}
+                {% endfor %}-->
             </section>
 
             <section>

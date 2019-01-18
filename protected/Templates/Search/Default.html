@@ -9,8 +9,10 @@
 
 {% block content %}
 
-{% set pageSize = 20 %}
-{% do provider.setPageSize(pageSize) %}
+<!--{% set pageSize = 20 %}
+{% do provider.setPageSize(pageSize) %}-->
+
+{% set provider = provider.setPageSize(10) %}
 
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
@@ -34,14 +36,22 @@
 
             <section>
                 <h2>Новости</h2>
-                {% for item in stories %}
+                <!--{% for item in stories %}
+                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
+                {% else %}
+                    <p>Поиск новостей не дал результатов</p>
+                {% endfor %}-->
+                <hr>111<hr>
+                {% for item in provider.getPage(page) %}
                     {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                 {% else %}
                     <p>Поиск новостей не дал результатов</p>
                 {% endfor %}
-               <!-- {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }} -->
+
+                {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page}) }}
+                <!--{{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url': '/search/?query=query&subject=news&page=%d'}) }}-->
                 <hr>
-                {{widget('pager', {total: total, size: size, active: page})}}
+                <!--{{widget('pager', {total: total, size: size, active: page})}}-->
                 <hr>
             </section>
 

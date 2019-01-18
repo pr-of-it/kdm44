@@ -16,35 +16,52 @@ class Search extends Controller
 {
     /**
      * @param null $query
+     * @param int $page
+     * @param string|null $subject
+     * @throws \T4\Orm\Exception
      */
-    public function actionDefault($query = null, $page = 1)
+    public function actionDefault($query = null, $page = 1, string $subject = null)
     {
         $this->data->query = $query;
         if (null === $query || '' === $query) {
             return;
         }
 
+        switch ($subject) {
+            case null:
+                $this->data->activate = 'all';
+                break;
+            case 'news':
+                $this->data->activate = 'news';
+                break;
+            case 'pages':
+                $this->data->activate = 'pages';
+                break;
+            case 'albums':
+                $this->data->activate = 'albums';
+                break;
+        }
+        /** Провайдер для новостей */
         $this->data->providerStory = new ModelDataProvider(Story::class, [
             'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
         $this->data->pageStory = $page;
-        //var_dump($this->data->provider);die;
 
+        /** Провайдер для страниц */
         $this->data->providerPage = new ModelDataProvider(Page::class, [
             'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
         $this->data->pagePage = $page;
 
+        /** Провайдер для альбомов */
+        $this->data->providerAlbum = new ModelDataProvider(Album::class, [
+            'where' => 'MATCH (`title`, `url`) AGAINST (:search)',
+            'params' => [':search' => $query],
+        ]);
+        $this->data->pageAlbum = $page;
 
-        /*$count = 5;
-        $this->data->page = $this->app->request->get->page ?: 1;
-        $this->data->total = Story::search($query)->count();
-        $this->data->size = $count;*/
-
-        //$this->data->stories = Story::search($query);
-        //$this->data->pages = Page::search($query);
-        $this->data->albums = Album::search($query);
+        $this->data->subject = $subject;
     }
 }

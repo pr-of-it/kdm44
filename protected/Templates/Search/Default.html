@@ -34,7 +34,7 @@
         <div>
             {% import _self as block %}
 
-            {% if subject == null or subject == 'news' %}
+            {% if activate == 'all' or activate == 'news' %}
                 <section>
                     <h2>Новости</h2>
                     {% for item in providerStory.getPage(pageStory) %}

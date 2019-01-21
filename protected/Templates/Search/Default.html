@@ -72,6 +72,9 @@
                 </section>
                 {% set subject = albums %}
             {% endif %}
+            {% if query == '' %}
+                <p>Задан пустой поисковый запрос</p>
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}

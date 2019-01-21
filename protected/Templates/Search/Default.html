@@ -9,6 +9,8 @@
 
 {% block content %}
 
+{% set count = 10 %}
+
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
         <li class="active">Поиск</li>
@@ -29,34 +31,44 @@
         <div>
             {% import _self as block %}
 
-            <section>
-                <h2>Новости</h2>
-                {% for item in stories %}
-                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
-                {% else %}
-                    <p>Поиск новостей не дал результатов</p>
-                {% endfor %}
-            </section>
+            {% if section == 'all' or section == 'news' %}
+                <section>
+                    <h2>Новости</h2>
+                    {% for item in providers['stories'].setPageSize(count).getPage(page) %}
+                        {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
+                    {% else %}
+                        <p>Поиск новостей не дал результатов</p>
+                    {% endfor %}
+                    {{ widget('pager', {'total': providers['stories'].total, 'size': providers['stories'].pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=news&page=%d'}) }}
+                </section>
+            {% endif %}
 
-            <section>
-                <h2>Страницы</h2>
-                {% for item in pages %}
-                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
-                {% else %}
-                    <p>Поиск страниц не дал результатов</p>
-                {% endfor %}
-            </section>
+            {% if section == 'all' or section == 'pages' %}
+                <section>
+                    <h2>Страницы</h2>
+                    {% for item in providers['pages'].setPageSize(count).getPage(page) %}
+                        {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
+                    {% else %}
+                        <p>Поиск страниц не дал результатов</p>
+                    {% endfor %}
+                    {{ widget('pager', {'total': providers['pages'].total, 'size': providers['pages'].pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=pages&page=%d'}) }}
+                </section>
+            {% endif %}
 
-            <section>
-                <h2>Альбомы</h2>
-                {% for item in albums %}
-                    {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
-                {% else %}
-                    <p>Поиск альбомов не дал результатов</p>
-                {% endfor %}
-            </section>
-
+            {% if section == 'all' or section == 'albums' %}
+                <section>
+                    <h2>Альбомы</h2>
+                    {% for item in providers['albums'].setPageSize(count).getPage(page) %}
+                        {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
+                    {% else %}
+                        <p>Поиск альбомов не дал результатов</p>
+                    {% endfor %}
+                    {{ widget('pager', {'total': providers['albums'].total, 'size': providers['albums'].pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=albums&page=%d'}) }}
+                </section>
+            {% endif %}
+            {% if query == '' %}
+                <p>Задан пустой поисковый запрос</p>
+            {% endif %}
         </div>
     {% endif %}
-
 {% endblock %}

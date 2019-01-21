@@ -31,36 +31,33 @@ class Search extends Controller
 
         switch ($subject) {
             case null:
-                $this->data->activate = 'all';
+                $this->data->section = 'all';
                 break;
             case 'news':
-                $this->data->activate = 'news';
+                $this->data->section = 'news';
                 break;
             case 'pages':
-                $this->data->activate = 'pages';
+                $this->data->section = 'pages';
                 break;
             case 'albums':
-                $this->data->activate = 'albums';
+                $this->data->section = 'albums';
                 break;
         }
 
-        /** Провайдер для новостей */
-        $this->data->providerStories = new ModelDataProvider(Story::class, [
-            'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
-            'params' => [':search' => $query],
-        ]);
-
-        /** Провайдер для страниц */
-        $this->data->providerPages = new ModelDataProvider(Page::class, [
-            'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
-            'params' => [':search' => $query],
-        ]);
-
-        /** Провайдер для альбомов */
-        $this->data->providerAlbums = new ModelDataProvider(Album::class, [
-            'where' => 'MATCH (`title`, `url`) AGAINST (:search)',
-            'params' => [':search' => $query],
-        ]);
+        $this->data->providers = [
+            'stories' => new ModelDataProvider(Story::class, [
+                'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
+                'params' => [':search' => $query]
+            ]),
+            'pages' => new ModelDataProvider(Page::class, [
+                'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
+                'params' => [':search' => $query]
+            ]),
+            'albums' => new ModelDataProvider(Album::class, [
+                'where' => 'MATCH (`title`, `url`) AGAINST (:search)',
+                'params' => [':search' => $query]
+            ])
+        ];
 
         $this->data->page = $page;
 

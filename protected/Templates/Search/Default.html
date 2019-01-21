@@ -10,9 +10,9 @@
 {% block content %}
 
 {% set count = 10 %}
-{% set providerStories = providerStories.setPageSize(count) %}
-{% set providerPages = providerPages.setPageSize(count) %}
-{% set providerAlbums = providerAlbums.setPageSize(count) %}
+{% set providerStories = providers['stories'].setPageSize(count) %}
+{% set providerPages = providers['pages'].setPageSize(count) %}
+{% set providerAlbums = providers['albums'].setPageSize(count) %}
 
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
@@ -34,7 +34,7 @@
         <div>
             {% import _self as block %}
 
-            {% if activate == 'all' or activate == 'news' %}
+            {% if section == 'all' or section == 'news' %}
                 <section>
                     <h2>Новости</h2>
                     {% for item in providerStories.getPage(page) %}
@@ -46,7 +46,7 @@
                 </section>
             {% endif %}
 
-            {% if activate == 'all' or activate == 'pages' %}
+            {% if section == 'all' or section == 'pages' %}
                 <section>
                     <h2>Страницы</h2>
                     {% for item in providerPages.getPage(page) %}
@@ -58,7 +58,7 @@
                 </section>
             {% endif %}
 
-            {% if activate == 'all' or activate == 'albums' %}
+            {% if section == 'all' or section == 'albums' %}
                 <section>
                     <h2>Альбомы</h2>
                     {% for item in providerAlbums.getPage(page) %}

@@ -10,9 +10,9 @@
 {% block content %}
 
 {% set count = 10 %}
-{% set providerStory = providerStory.setPageSize(count) %}
-{% set providerPage = providerPage.setPageSize(count) %}
-{% set providerAlbum = providerAlbum.setPageSize(count) %}
+{% set providerStories = providerStories.setPageSize(count) %}
+{% set providerPages = providerPages.setPageSize(count) %}
+{% set providerAlbums = providerAlbums.setPageSize(count) %}
 
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
@@ -37,12 +37,12 @@
             {% if activate == 'all' or activate == 'news' %}
                 <section>
                     <h2>Новости</h2>
-                    {% for item in providerStory.getPage(page) %}
+                    {% for item in providerStories.getPage(page) %}
                         {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                     {% else %}
                         <p>Поиск новостей не дал результатов</p>
                     {% endfor %}
-                    {{ widget('pager', {'total': providerStory.total, 'size': providerStory.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=news&page=%d'}) }}
+                    {{ widget('pager', {'total': providerStories.total, 'size': providerStories.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=news&page=%d'}) }}
                 </section>
                 {% set subject = news %}
             {% endif %}
@@ -50,12 +50,12 @@
             {% if activate == 'all' or activate == 'pages' %}
                 <section>
                     <h2>Страницы</h2>
-                    {% for item in providerPage.getPage(page) %}
+                    {% for item in providerPages.getPage(page) %}
                         {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                     {% else %}
                         <p>Поиск новостей не дал результатов</p>
                     {% endfor %}
-                    {{ widget('pager', {'total': providerPage.total, 'size': providerPage.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=pages&page=%d'}) }}
+                    {{ widget('pager', {'total': providerPages.total, 'size': providerPages.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=pages&page=%d'}) }}
                 </section>
                 {% set subject = pages %}
             {% endif %}
@@ -63,12 +63,12 @@
             {% if activate == 'all' or activate == 'albums' %}
                 <section>
                     <h2>Альбомы</h2>
-                    {% for item in providerAlbum.getPage(page) %}
+                    {% for item in providerAlbums.getPage(page) %}
                         {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                     {% else %}
                         <p>Поиск альбомов не дал результатов</p>
                     {% endfor %}
-                    {{ widget('pager', {'total': providerAlbum.total, 'size': providerAlbum.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=albums&page=%d'}) }}
+                    {{ widget('pager', {'total': providerAlbums.total, 'size': providerAlbums.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=albums&page=%d'}) }}
                 </section>
                 {% set subject = albums %}
             {% endif %}

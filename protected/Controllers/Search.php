@@ -15,6 +15,8 @@ use T4\Orm\ModelDataProvider;
 class Search extends Controller
 {
     /**
+     * Поиск
+     *
      * @param null $query
      * @param int $page
      * @param string|null $subject
@@ -43,19 +45,19 @@ class Search extends Controller
         }
 
         /** Провайдер для новостей */
-        $this->data->providerStory = new ModelDataProvider(Story::class, [
+        $this->data->providerStories = new ModelDataProvider(Story::class, [
             'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
 
         /** Провайдер для страниц */
-        $this->data->providerPage = new ModelDataProvider(Page::class, [
+        $this->data->providerPages = new ModelDataProvider(Page::class, [
             'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
 
         /** Провайдер для альбомов */
-        $this->data->providerAlbum = new ModelDataProvider(Album::class, [
+        $this->data->providerAlbums = new ModelDataProvider(Album::class, [
             'where' => 'MATCH (`title`, `url`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);

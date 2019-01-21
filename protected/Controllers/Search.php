@@ -60,7 +60,5 @@ class Search extends Controller
         ];
 
         $this->data->page = $page;
-
-        $this->data->subject = $subject;
     }
 }

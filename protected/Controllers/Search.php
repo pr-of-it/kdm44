@@ -41,26 +41,26 @@ class Search extends Controller
                 $this->data->activate = 'albums';
                 break;
         }
+
         /** Провайдер для новостей */
         $this->data->providerStory = new ModelDataProvider(Story::class, [
             'where' => 'MATCH (`title`, `lead`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
-        $this->data->pageStory = $page;
 
         /** Провайдер для страниц */
         $this->data->providerPage = new ModelDataProvider(Page::class, [
             'where' => 'MATCH (`title`, `url`, `text`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
-        $this->data->pagePage = $page;
 
         /** Провайдер для альбомов */
         $this->data->providerAlbum = new ModelDataProvider(Album::class, [
             'where' => 'MATCH (`title`, `url`) AGAINST (:search)',
             'params' => [':search' => $query],
         ]);
-        $this->data->pageAlbum = $page;
+
+        $this->data->page = $page;
 
         $this->data->subject = $subject;
     }

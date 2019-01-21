@@ -44,7 +44,6 @@
                     {% endfor %}
                     {{ widget('pager', {'total': providerStories.total, 'size': providerStories.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=news&page=%d'}) }}
                 </section>
-                {% set subject = news %}
             {% endif %}
 
             {% if activate == 'all' or activate == 'pages' %}
@@ -57,7 +56,6 @@
                     {% endfor %}
                     {{ widget('pager', {'total': providerPages.total, 'size': providerPages.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=pages&page=%d'}) }}
                 </section>
-                {% set subject = pages %}
             {% endif %}
 
             {% if activate == 'all' or activate == 'albums' %}
@@ -70,7 +68,6 @@
                     {% endfor %}
                     {{ widget('pager', {'total': providerAlbums.total, 'size': providerAlbums.pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=albums&page=%d'}) }}
                 </section>
-                {% set subject = albums %}
             {% endif %}
             {% if query == '' %}
                 <p>Задан пустой поисковый запрос</p>

@@ -49,7 +49,7 @@
                     {% for item in providers['pages'].setPageSize(count).getPage(page) %}
                         {{ block.result(item.getSearchableItemTitle(), item.getSearchableItemLead(), item.getSearchableItemUrl()) }}
                     {% else %}
-                        <p>Поиск новостей не дал результатов</p>
+                        <p>Поиск страниц не дал результатов</p>
                     {% endfor %}
                     {{ widget('pager', {'total': providers['pages'].total, 'size': providers['pages'].pageSize, 'active': page, 'url': '/search/?query=' ~ query ~ '&subject=pages&page=%d'}) }}
                 </section>

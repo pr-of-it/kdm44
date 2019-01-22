@@ -202,6 +202,34 @@ only screen and (min-resolution: 1.5dppx) {
   .main-navigation-menu > li .dropdown:first-child > a
     {
     width: 100%; }
+  /* dropdown-menu */
+  .dropdown-menu {
+    font-size: 13px;
+  }
+  /* table */
+  table, td {
+    display: block;
+  }
+  td {
+    width: 100%!important;
+    position: relative;
+  }
+  /* block .t4 */
+  .t4 div, p, img{
+    height: unset!important;
+    width: 100%!important;
+  }
+  /* pull-left */
+  .pull-left div, table, td {
+    display: block;
+    width: 100%!important;
+    position: relative;
+  }
+  /* pagination */
+  .pagination a {
+    padding: 7px!important;
+  }
+
 }
 /*-------------------------------------------
               social-icons list
@@ -328,6 +356,13 @@ ul.social-icons {
     -webkit-border-radius:6px 0 6px 6px;
     -moz-border-radius:6px 0 6px 6px;
     border-radius:6px 0 6px 6px;
+}
+
+/* pull-left */
+.pull-left div, table {
+  display: block;
+  max-width: 100%!important;
+  position: relative;
 }
 
 /* ---- */

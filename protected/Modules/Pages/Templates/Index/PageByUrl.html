@@ -28,7 +28,7 @@
 <div>
 
     {% if item.template=='list' %}
-    <t4:block path="/Pages//SubTree(id={{item.Pk}})" />
+    <div class="t4"><t4:block path="/Pages//SubTree(id={{item.Pk}})" /></div>
     {% endif %}
 
     {{item.text|raw}}

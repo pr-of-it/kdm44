@@ -225,6 +225,10 @@ only screen and (min-resolution: 1.5dppx) {
     width: 100%!important;
     position: relative;
   }
+  /* pagination */
+  .pagination a {
+    padding: 7px!important;
+  }
 
 }
 /*-------------------------------------------

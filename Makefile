@@ -19,22 +19,22 @@ RUN = export DOCKERHOST=${HOSTIP} && docker-compose ${PROJECT} -f ./build/${STAG
 
 up:
 	${RUN} up -d
-	${RUN} exec php-fpm usermod -u ${USERID} www-data
-	${RUN} exec php-fpm groupmod -g ${USERID} www-data
+	${RUN} exec  ${OPT} php-fpm usermod -u ${USERID} www-data
+	${RUN} exec  ${OPT} php-fpm groupmod -g ${USERID} www-data
 
 build-all:
-	${RUN} exec php-fpm usermod -u ${USERID} www-data
-	${RUN} exec php-fpm groupmod -g ${USERID} www-data
-	${RUN} exec --user www-data php-fpm phing -f build/dev/build.xml
+	${RUN} exec  ${OPT} php-fpm usermod -u ${USERID} www-data
+	${RUN} exec  ${OPT} php-fpm groupmod -g ${USERID} www-data
+	${RUN} exec  ${OPT} --user www-data php-fpm phing -f build/dev/build.xml
 
 up-proxy:
 	echo "Not work"
 
 db:
-	${RUN} exec --user www-data php-fpm phing -f build/dev/db.xml
+	${RUN} exec  ${OPT} --user www-data php-fpm phing -f build/dev/db.xml
 
 phing-build:
-	${RUN} exec --user www-data php-fpm phing -f build/dev/build.xml
+	${RUN} exec  ${OPT} --user www-data php-fpm phing -f build/dev/build.xml
 
 restart:
 	${RUN} restart
@@ -44,3 +44,7 @@ down:
 
 down-all:
 	${RUN} down -v
+run:
+	${RUN} exec ${OPT} --user www-data php-fpm $(command)
+ps:
+	${RUN} ps

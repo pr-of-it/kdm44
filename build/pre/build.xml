@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="KDM" default="build" basedir=".">
+
+    <target name="build" depends="vars, copy, composer, configs, migrate, symlinks" />
+
+    <!-- ============================================  -->
+    <!-- Target: vars                                  -->
+    <!-- ============================================  -->
+    <target name="vars">
+
+        <echo msg="Setting local variables..." />
+
+        <echo msg="Build branch is ${build.branch}" />
+
+        <resolvepath propertyName="project.dir" file="${project.basedir}" />
+        <echo msg="Project source dir is: ${project.dir}" />
+
+        <php returnProperty="build.time" function="date">
+            <param value="Y-m-d-H-i-s" />
+        </php>
+        <resolvepath propertyName="home.dir" file="/app" />
+        <resolvepath propertyName="current.dir" file="${home.dir}/" />
+        <echo msg="Current build dir is: ${current.dir}" />
+
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: copy                                  -->
+    <!-- ============================================  -->
+    <target name="copy">
+        <mkdir dir="${current.dir}" />
+        <echo msg="Mkdir ${current.dir}" />
+        <copy todir="${current.dir}">
+            <fileset dir="${project.dir}" defaultexcludes="true">
+                <include name="**" />
+                <exclude name="${project.dir}/protected/settings.php" />
+            </fileset>
+        </copy>
+        <chmod file="${current.dir}/public" mode="0777" />
+        <chmod file="${current.dir}/protected" mode="0777" />
+        <mkdir dir="${current.dir}/protected/Cache" mode="0777" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer                              -->
+    <!-- ============================================  -->
+    <target name="composer">
+        <echo msg="Install composer depedencies..." />
+        <exec command="composer install" dir="${current.dir}" checkreturn="true" passthru="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: configs                               -->
+    <!-- ============================================  -->
+    <target name="configs">
+        <copy file="${current.dir}/build/dev/config.php" tofile="${current.dir}/protected/config.php" overwrite="true" />
+        <copy file="${current.dir}/build/dev/settings.php" tofile="${current.dir}/protected/settings.php" overwrite="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: migrate                               -->
+    <!-- ============================================  -->
+    <target name="migrate">
+        <echo msg="Migrations import..." />
+        <exec command="php protected/t4.php /migrate/import" dir="${current.dir}" checkreturn="true" passthru="true" />
+        <echo msg="Migrations up..." />
+        <exec command="php protected/t4.php /migrate/up" dir="${current.dir}" checkreturn="true" passthru="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: symlinks                              -->
+    <!-- ============================================  -->
+    <target name="symlinks">
+        <mkdir dir="${current.dir}/public/files" mode="0777" />
+        <mkdir dir="${current.dir}/public/file" mode="0777" />
+        <mkdir dir="${current.dir}/public/public" mode="0777" />
+        <mkdir dir="${current.dir}/public/images" mode="0777" />
+    </target>
+
+
+</project>

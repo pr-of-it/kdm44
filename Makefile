@@ -1,6 +1,22 @@
 SHELL  := /bin/bash
 USERID := ${shell id -u}
-RUN = docker-compose -p kdm44 -f ./build/dev/docker-compose.yml --project-directory ${PWD}
+STAGE := $(shell echo $$STAGE)
+
+ifeq ($(STAGE),)
+STAGE = dev
+PROJECT = -p kdm44
+else
+STAGE := $(shell echo $$STAGE)
+PROJECT = -p kdm44
+endif
+
+OPT =
+
+
+HOSTIP := ${shell /sbin/ifconfig | grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -v 127.0.0.1 | awk '{ print $$2 }' | cut -f2 -d: | head -n1}
+RUN = export DOCKERHOST=${HOSTIP} && docker-compose ${PROJECT} -f ./build/${STAGE}/docker-compose.yml --project-directory ${PWD}
+
+
 up:
 	${RUN} up -d
 	${RUN} exec php-fpm usermod -u ${USERID} www-data
@@ -9,7 +25,7 @@ up:
 build-all:
 	${RUN} exec php-fpm usermod -u ${USERID} www-data
 	${RUN} exec php-fpm groupmod -g ${USERID} www-data
-	${RUN} exec --user go php-fpm phing -f build/dev/build.xml
+	${RUN} exec --user www-data php-fpm phing -f build/dev/build.xml
 
 up-proxy:
 	echo "Not work"

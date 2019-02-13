@@ -18,6 +18,7 @@ RUN = export DOCKERHOST=${HOSTIP} && docker-compose ${PROJECT} -f ./build/${STAG
 
 
 up:
+	${RUN} pull && \
 	${RUN} up -d
 	${RUN} exec  ${OPT} php-fpm usermod -u ${USERID} www-data
 	${RUN} exec  ${OPT} php-fpm groupmod -g ${USERID} www-data

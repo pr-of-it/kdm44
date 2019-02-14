@@ -217,7 +217,7 @@ only screen and (min-resolution: 1.5dppx) {
   /* block .t4 */
   .t4 div, p, img{
     height: unset!important;
-    width: 100%!important;
+    max-width: 100%!important;
   }
   /* pull-left */
   .pull-left div, table, td {

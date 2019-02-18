@@ -48,7 +48,7 @@
     {% endfor %}
 </div>
 {% else %}
-<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-max-width="700px">
+<div class="fotorama" data-keyboard="true" data-nav="thumbs" data-ratio="700/467" data-width="100%">
     {% for item in items %}
     <div data-img="{{item.image}}"><p class="album-title">{{item.title}}</p></div>
     {% endfor %}

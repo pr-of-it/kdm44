@@ -15,4 +15,13 @@
             <t4:block path="///Menu"/>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.dropdown-submenu a.submenu').on("click", function(e){
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    </script>
 </nav>

@@ -163,6 +163,19 @@ article:first-child .main-page-news.top-news {
   .main-page-news.top-news.top-news-important .description-news {
     color: #fff; }
 
+/* block .t4 */
+.t4 div,td{
+  height: unset!important;
+  width: unset!important;
+}
+/* table */
+table, td {
+  height: unset!important;
+  width: 100%!important;
+  overflow: auto!important;
+  -webkit-overflow-scrolling: touch!important;
+}
+
 /*-------------------------------------------
                    footer
 --------------------------------------------*/
@@ -207,10 +220,8 @@ only screen and (min-resolution: 1.5dppx) {
     font-size: 13px;
   }
   /* table */
-  table, td {
+  table {
     display: block;
-  }
-  td {
     width: 100%!important;
     position: relative;
   }
@@ -220,7 +231,7 @@ only screen and (min-resolution: 1.5dppx) {
     max-width: 100%!important;
   }
   /* pull-left */
-  .pull-left div, table, td {
+  .pull-left div {
     display: block;
     width: 100%!important;
     position: relative;

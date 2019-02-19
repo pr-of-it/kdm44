@@ -164,16 +164,19 @@ article:first-child .main-page-news.top-news {
     color: #fff; }
 
 /* block .t4 */
-.t4 div,td{
+.t4 div{
   height: unset!important;
   width: unset!important;
 }
 /* table */
-table, td {
+table {
   height: unset!important;
   width: 100%!important;
   overflow: auto!important;
   -webkit-overflow-scrolling: touch!important;
+}
+td {
+  width: 10%!important;
 }
 
 /*-------------------------------------------

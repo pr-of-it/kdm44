@@ -245,6 +245,11 @@ only screen and (min-resolution: 1.5dppx) {
   }
 
 }
+@media screen and (max-width: 350px) {
+    .img-responsive {
+        width: 320px!important;
+    }
+}
 /*-------------------------------------------
               social-icons list
 --------------------------------------------*/

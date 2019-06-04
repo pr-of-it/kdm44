@@ -1,0 +1,37 @@
+{% macro result(title, lead, url) %}
+    <div>
+        <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
+        <p>{{lead|striptags|raw}}</p><hr>
+    </div>
+{% endmacro %}
+
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+{% set count = 10 %}
+
+    <ol class="breadcrumb">
+        <li><a href="/">Главная страница</a></li>
+        <li class="active">{{ item.title}}</li>
+        <li></li>
+    </ol>
+    <h3 align="center">{{ item.title }}</h3>
+
+    {% if item.template =='list' %}
+        <div class="t4"><t4:block path="/Pages//SubTree(id={{item.Pk}})" /></div>
+    {% endif %}
+
+    {{item.text|raw}}
+
+    <div class="container-fluid">
+        <p><a class="btn btn-primary col-sm-12" href="/letter/send">Написать письмо</a></p>
+
+        <p><a class="btn btn-primary col-sm-12" href="/letter/corruption">Сообщить о коррупции</a></p>
+
+        <p><a class="btn btn-primary col-sm-12" href="/letter/collective-send">Написать коллективное обращение</a></p>
+
+        <p><a class="btn btn-primary col-sm-12" href="/letter/public-answers">Ответы на обращения, затрагивающие интересы неопределённого круга лиц</a></p>
+    </div>
+
+{% endblock %}

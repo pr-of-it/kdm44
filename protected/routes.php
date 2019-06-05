@@ -5,6 +5,8 @@ return [
     '/index' => '///',
 
     '/letter/send' => '//Send/Default',
+    '/letter/corruption' => '//Corruption/Default',
+    '/letter/collective-send' => '//CollectiveSend/Default',
 
     '/news/archive' => '/News/Archive/Default',
     '/news/archive/<1>/<2>/<3>' => '/News/Archive/NewsByDay(year=<1>,month=<2>,topic=<3>)',

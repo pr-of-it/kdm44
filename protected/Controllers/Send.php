@@ -6,13 +6,13 @@ use App\Modules\Pages\Models\Page;
 use T4\Mvc\Controller;
 
 /**
- * Class Letter
+ * Class Send
  * @package App\Controllers
  */
-class Letter extends Controller
+class Send extends Controller
 {
     /**
-     * Электронная приёмная
+     * Написать письмо
      *
      * @throws \T4\Orm\Exception
      */

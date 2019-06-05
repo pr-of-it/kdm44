@@ -202,9 +202,25 @@
                 </p>
             </div>
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="personal_account" value="1">
+                <input type="checkbox" class="custom-control-input" id="personal_account" value="1" onclick="show('personal_account', 'pass')">
                 <label class="col-form-label" for="personal_account">Создать личный кабинет</label>
             </div>
+            <div id="pass" style="display: none">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="password">Пароль (не менее шести символов) <span style="color: red">*</span></label>
+                    <div class="col-sm-5">
+                        <input required  type="password" id="password" class="form-control" name="password" placeholder="Введите пароль">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="password_confirmation">Повторите пароль <span style="color: red">*</span></label>
+                    <div class="col-sm-5">
+                        <input required  type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="Повторите пароль">
+                    </div>
+                </div>
+            </div>
+
+
             <p>
                 В случае успешной отправки письма в электронной форме появляется информационное сообщение,
                 содержащее дату и номер отправления ID, подтверждающие факт отправки Вашего письма.

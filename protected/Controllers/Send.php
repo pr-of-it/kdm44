@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Modules\Pages\Models\Page;
+use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
 /**
@@ -14,11 +14,27 @@ class Send extends Controller
     /**
      * Написать письмо
      *
-     * @throws \T4\Orm\Exception
+     * @param null $url
+     * @throws E404Exception
      */
-    public function actionDefault()
+    public function actionDefault($url = null)
     {
-        $page = Page::findByColumn('url', 'letter');
-        $this->data->item = $page;
+        $this->data->query = $url;
+
+        if ('send' === $url || 'corruption' === $url || 'collective-send' === $url) {
+            switch ($url) {
+                case 'send':
+                    $this->data->query = 'send';
+                    break;
+                case 'corruption':
+                    $this->data->query = 'corruption';
+                    break;
+                case 'collective-send':
+                    $this->data->query = 'collective-send';
+                    break;
+            }
+        } else {
+            throw new E404Exception;
+        }
     }
 }

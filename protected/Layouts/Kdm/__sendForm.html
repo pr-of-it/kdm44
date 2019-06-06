@@ -117,7 +117,7 @@
                 <label class="form-check-label" for="add_coauthor">
                     Добавить соавтора обращения
                 </label>
-                <div class="form-group row" id="coauthor" style="display:none;">
+                <div id="coauthor" style="display:none;">
                     <div class="form-group row">
                         <label for="coauthor_name" class="col-sm-5 col-form-label">ФИО соавтора <span style="color: red">*</span></label>
                         <div class="col-sm-7">
@@ -192,7 +192,7 @@
                     - свыше 10 Мб может быть не осуществлена.
                 </p>
             </div>
-            <div class="form-group row">
+            <div >
                 <label class="custom-file-label" for="customFile">Прикрепить файл(ы)</label>
                 <input type="file" class="custom-file-input" id="customFile" name="customFile">
                 <input type="file" class="custom-file-input" id="customFile2" name="customFile2">
@@ -207,14 +207,14 @@
             </div>
             <div id="pass" style="display: none">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="password">Пароль (не менее шести символов) <span style="color: red">*</span></label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-5 col-form-label" for="password">Пароль (не менее шести символов) <span style="color: red">*</span></label>
+                    <div class="col-sm-7">
                         <input required  type="password" id="password" class="form-control" name="password" placeholder="Введите пароль">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="password_confirmation">Повторите пароль <span style="color: red">*</span></label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-5 col-form-label" for="password_confirmation">Повторите пароль <span style="color: red">*</span></label>
+                    <div class="col-sm-7">
                         <input required  type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="Повторите пароль">
                     </div>
                 </div>

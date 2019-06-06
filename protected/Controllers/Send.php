@@ -12,7 +12,7 @@ use T4\Mvc\Controller;
 class Send extends Controller
 {
     /**
-     * Написать письмо
+     * Обращение
      *
      * @param null $url
      * @throws E404Exception

@@ -26,7 +26,7 @@ class Sending extends Controller
             $errors[] = $exception;
         }
 
-        if (!empty($errors)) {
+        if (empty($errors)) {
             /** Если в запросе имеется personalAccount, то пробуем зарегистрировать пользователя */
             if (!empty($data->personalAccount)) {
                 try {

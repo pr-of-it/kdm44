@@ -18,7 +18,9 @@
 {% if query == 'collective-send' %}
     {% set sendTitle = 'Написать коллективное обращение' %}
 {% endif %}
-
+{% if error %}
+    <div class="alert alert-danger">{{error}}</div>
+{% endif %}
     <ol class="breadcrumb">
         <li><a href="/">Главная страница</a></li>
         <li class="active"><a href="/letter">Электронная приёмная</a></li>
@@ -26,7 +28,6 @@
         <li></li>
     </ol>
     <h3 align="center">{{ sendTitle }}</h3>
-
 {% if sendTitle == 'Сообщить о коррупции' %}
     <div>
         <p>

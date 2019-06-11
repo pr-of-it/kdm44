@@ -47,13 +47,15 @@ class Send extends Controller
             $form->setValue($_POST['data']);
 
             if ($form->errors()->empty()) {
-                try {
-                    (new Identity())->register($form->getValue(RequestDto::class));
-                    $this->redirect('/letter');
-                } catch (MultiException $exception) {
-                    $this->data->errors = $exception;
-                } catch (\Throwable $exception) {
-                    $this->data->errors = [$exception];
+                if (!empty($_POST['personalAccount'])) {
+                    try {
+                        (new Identity())->register($form->getValue(RequestDto::class));
+                        $this->redirect('/letter');
+                    } catch (MultiException $exception) {
+                        $this->data->errors = $exception;
+                    } catch (\Throwable $exception) {
+                        $this->data->errors = [$exception];
+                    }
                 }
             }
         }

@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Components\Auth\Identity;
+use App\Dto\UserRegister\RequestDto;
+use App\Forms\SendForm;
+use T4\Core\MultiException;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
@@ -36,5 +40,27 @@ class Send extends Controller
         } else {
             throw new E404Exception;
         }
+
+        $form = new SendForm();
+
+        if (!empty($_POST)) {
+            $form->setValue($_POST['data']);
+
+            if ($form->errors()->empty()) {
+                try {
+                    (new Identity())->register($form->getValue(RequestDto::class));
+                    $this->redirect('/letter');
+                } catch (MultiException $exception) {
+                    $this->data->errors = $exception;
+                } catch (\Throwable $exception) {
+                    $this->data->errors = [$exception];
+                }
+            }
+        }
+        /** TODO: В дальнейшем будет добавлена регистрация обращений */
+
+        $this->data->old = $form->getValue();
+
+        $this->data->form = $form;
     }
 }

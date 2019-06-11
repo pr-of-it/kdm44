@@ -3,7 +3,6 @@
 namespace App\Dto\UserRegister;
 
 use App\Dto\Values\EmailOrNullValue;
-use App\Dto\Values\MinimalStringLengthValue;
 use App\Dto\Values\PhoneNumber;
 use Runn\ValueObjects\ComplexValueObject;
 use Runn\ValueObjects\Values\BooleanValue;
@@ -36,7 +35,7 @@ class RequestDto extends ComplexValueObject
 {
     protected static $schema = [
         'email' => ['class' => EmailValue::class],
-        'password' => ['class' => MinimalStringLengthValue::class],
+        'password' => ['class' => StringValue::class],
         'firstName' => ['class' => StringValue::class],
         'name' => ['class' => StringValue::class],
         'fatherName' => ['class' => StringValue::class, 'default' => null],
@@ -46,7 +45,7 @@ class RequestDto extends ComplexValueObject
         'recipient' => ['class' => IntValue::class],
         'executive' => ['class' => StringValue::class, 'default' => null],
         'emailConfirmation' => ['class' => EmailValue::class],
-        'passwordConfirmation' => ['class' => MinimalStringLengthValue::class],
+        'passwordConfirmation' => ['class' => StringValue::class],
 
         'coauthorName' => ['class' => StringValue::class, 'default' => null],
         'coauthorEmail' => ['class' => EmailOrNullValue::class, 'default' => null],
@@ -54,31 +53,4 @@ class RequestDto extends ComplexValueObject
         'message' => ['class' => StringValue::class],
         'personalAccount' => ['class' => BooleanValue::class, 'default' => null],
     ];
-
-    /**
-     * @param $request
-     * @return RequestDto
-     */
-    public static function createFromRequest($request): self
-    {
-        return new self([
-            'email' => $request->email,
-            'password' => $request->password,
-            'firstName' => $request->firstName,
-            'name' => $request->name,
-            'fatherName' => $request->fatherName,
-            'organization' => $request->organization,
-            'phone' => $request->phone,
-
-            'recipient' => $request->recipient,
-            'executive' => $request->executive,
-            'emailConfirmation' => $request->emailConfirmation,
-            'passwordConfirmation' => $request->passwordConfirmation,
-            'coauthorName' => $request->coauthorName,
-            'coauthorEmail' => $request->coauthorEmail,
-
-            'message' => $request->message,
-            'personalAccount' => $request->personalAccount
-        ]);
-    }
 }

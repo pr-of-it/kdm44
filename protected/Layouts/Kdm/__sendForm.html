@@ -33,7 +33,7 @@
     </p>
 </div>
 <div class="form-style">
-    <form action="/sending.html" enctype="multipart/form-data" id="contact_body" method="post">
+    <form action="/letter/send.html" enctype="multipart/form-data" id="contact_body" method="post">
         <div>
             <div class="recipient_block">
                 <label>
@@ -77,25 +77,25 @@
             <div class="form-group row">
                 <label for="firstName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
                 <div class="col-sm-7">
-                    <input required type="text" class="form-control" id="firstName" name="data[firstName]" placeholder="Фамилия">
+                    <input required type="text" class="form-control" id="firstName" name="data[firstName]" placeholder="Фамилия" value="{{ old['firstName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="name" class="col-sm-5 col-form-label">Имя <span style="color: red">*</span></label>
                 <div class="col-sm-7">
-                    <input required type="text" class="form-control" id="name" name="data[name]" placeholder="Имя">
+                    <input required type="text" class="form-control" id="name" name="data[name]" placeholder="Имя" value="{{ old['name'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="fathersName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
+                <label for="fatherName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="fathersName" name="data[fathersName]" placeholder="Отчество">
+                    <input type="text" class="form-control" id="fatherName" name="data[fatherName]" placeholder="Отчество" value="{{ old['fatherName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="organization" class="col-sm-5 col-form-label">Наименование организации (юридического лица)</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="organization" name="data[organization]" placeholder="Наименование организации (юридического лица)">
+                    <input type="text" class="form-control" id="organization" name="data[organization]" placeholder="Наименование организации (юридического лица)" value="{{ old['organization'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -104,7 +104,7 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-7">
-                    <input required  type="email" id="email" class="form-control" name="data[email]" placeholder="email">
+                    <input required  type="email" id="email" class="form-control" name="data[email]" placeholder="email" value="{{ old['email'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -113,13 +113,13 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-7">
-                    <input required  type="email" id="emailConfirmation" class="form-control" name="data[emailConfirmation]" placeholder="Повторите email">
+                    <input required  type="email" id="emailConfirmation" class="form-control" name="data[emailConfirmation]" placeholder="Повторите email" value="{{ old['emailConfirmation'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-5 col-form-label" for="phone">Номер телефона</label>
                 <div class="col-sm-7">
-                    <input type="text" id="phone" class="form-control phone"  name="data[phone]" placeholder="+7987XXXXXXX">
+                    <input type="text" id="phone" class="form-control phone"  name="data[phone]" placeholder="+7987XXXXXXX" value="{{ old['phone'] ?? '' }}">
                 </div>
             </div>
 
@@ -133,13 +133,13 @@
                     <div class="form-group row">
                         <label for="coauthorName" class="col-sm-5 col-form-label">ФИО соавтора <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="data[coauthorName]" id="coauthorName" placeholder="ФИО соавтора">
+                            <input type="text" class="form-control" name="data[coauthorName]" id="coauthorName" placeholder="ФИО соавтора" value="{{ old['coauthorName'] ?? '' }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="coauthorEmail" class="col-sm-5 col-form-label">Почта соавтора <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="email" class="form-control" name="data[coauthorEmail]" id="coauthorEmail" placeholder="Почта соавтора">
+                            <input type="email" class="form-control" name="data[coauthorEmail]" id="coauthorEmail" placeholder="Почта соавтора" value="{{ old['coauthorEmail'] ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-12">
-                    <textarea required type="text" id="message" class="form-control"  name="data[message]" placeholder="Текст обращения"></textarea>
+                    <textarea required type="text" id="message" class="form-control"  name="data[message]" placeholder="Текст обращения">{{ old['message'] ?? '' }}</textarea>
                 </div>
             </div>
             <div>

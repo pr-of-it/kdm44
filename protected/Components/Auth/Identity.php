@@ -4,7 +4,6 @@ namespace App\Components\Auth;
 
 use App\Dto\UserRegister\RequestDto;
 use App\Exceptions\ConflictException;
-use App\Exceptions\NotCompareException;
 use App\Models\Role;
 use App\Models\User;
 use T4\Core\MultiException;
@@ -31,14 +30,6 @@ class Identity
 
         if (!empty(User::findByEmail($data->email))) {
             $errors->add(new ConflictException('Пользователь с таким email уже зарегистрирован'));
-        }
-
-        if ($data->emailConfirmation != $data->email) {
-            $errors->add(new NotCompareException('E-mail и повтор e-mail не совпадают'));
-        }
-
-        if ($data->passwordConfirmation != $data->password) {
-            $errors->add(new NotCompareException('Пароль и повтор пароля не совпадают'));
         }
 
         if (!$errors->isEmpty()) {

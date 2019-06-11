@@ -1,6 +1,7 @@
 {
   "require": {
     "pr-of-it/t4": "dev-master",
-    "runn/valueobjects": "*"
+    "runn/valueobjects": "*",
+    "runn/html": "*"
   }
 }

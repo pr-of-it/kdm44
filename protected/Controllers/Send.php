@@ -50,13 +50,13 @@ class Send extends Controller
                 if (!empty($_POST['personalAccount'])) {
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
+                        $this->redirect('/letter');
                     } catch (MultiException $exception) {
                         $this->data->errors = $exception;
                     } catch (\Throwable $exception) {
                         $this->data->errors = [$exception];
                     }
                 }
-                $this->redirect('/letter');
             }
         }
         /** TODO: В дальнейшем будет добавлена регистрация обращений */

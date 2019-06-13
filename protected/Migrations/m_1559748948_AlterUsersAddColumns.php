@@ -16,8 +16,8 @@ class m_1559748948_AlterUsersAddColumns
     {
         $this->addColumn('__users', [
             'first_name' => ['type'=>'string'],
-            'name' => ['type'=>'string'],
-            'father_name' => ['type'=>'string'],
+            'middle_name' => ['type'=>'string'],
+            'last_name' => ['type'=>'string'],
             'organization' => ['type'=>'string'],
             'phone' => ['type'=>'string'],
         ]);
@@ -27,8 +27,8 @@ class m_1559748948_AlterUsersAddColumns
     {
         $this->dropColumn('__users', [
             'first_name',
-            'name',
-            'father_name',
+            'middle_name',
+            'last_name',
             'organization',
             'phone'
         ]);

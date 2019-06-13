@@ -17,7 +17,6 @@ use Runn\Html\Form\Fields\TextField;
 use Runn\Html\Form\Form;
 use Runn\Validation\Validators\BooleanValidator;
 use Runn\Validation\Validators\EmailValidator;
-use Runn\Validation\Validators\IntValidator;
 use Runn\Validation\Validators\StringValidator;
 
 /**
@@ -33,10 +32,10 @@ class SendForm extends Form
     public function __construct(?iterable $data = null)
     {
         parent::__construct($data);
-        $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         $this->emailConfirmation->setValidator(new CompareValuesValidator($this->email));
         if (!empty($_POST['data']['personalAccount'])) {
             $this->password->setValidator(new MinimalLengthAndHasDigitsValidator());
+            $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         }
 
         $this->setTemplate(new File(__DIR__ . '/Form.template.php'));

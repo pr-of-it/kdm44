@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use T4\Fs\Helpers;
 use T4\Orm\Model;
 
 /**
@@ -19,8 +18,8 @@ class Statement
             'recipient'     => ['type'=>'string'],
             'email'         => ['type'=>'string'],
             'first_name'    => ['type'=>'string'],
-            'name'          => ['type'=>'string'],
-            'father_name'   => ['type'=>'string'],
+            'middle_name'   => ['type'=>'string'],
+            'last_name'     => ['type'=>'string'],
             'organization'  => ['type'=>'string'],
             'phone'         => ['type'=>'string'],
             'coauthor_name' => ['type'=>'string'],
@@ -43,11 +42,11 @@ class Statement
     {
         $this->type = $data['type'];
         $this->recipient = '3' !== $data['recipient'] ?
-            $data['recipient'] : 'Должностному лицу комитета по делам молодёжи: ' . $data['executive'];
+            $data['recipient'] : 'Должностное лицо комитета по делам молодёжи: ' . $data['executive'];
         $this->email = $data['email'];
         $this->first_name = $data['firstName'];
-        $this->name = $data['name'];
-        $this->father_name = $data['fatherName'];
+        $this->middle_name = $data['middleName'];
+        $this->last_name = $data['lastName'];
         $this->organization = $data['organization'];
         $this->phone = $data['phone'];
         $this->coauthor_name = $data['coauthorName'];

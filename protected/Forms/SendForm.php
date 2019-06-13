@@ -35,7 +35,9 @@ class SendForm extends Form
         parent::__construct($data);
         $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         $this->emailConfirmation->setValidator(new CompareValuesValidator($this->email));
-        $this->password->setValidator(new MinimalLengthAndHasDigitsValidator($this->personalAccount));
+        if (!empty($_POST['data']['personalAccount'])) {
+            $this->password->setValidator(new MinimalLengthAndHasDigitsValidator());
+        }
 
         $this->setTemplate(new File(__DIR__ . '/Form.template.php'));
     }
@@ -64,12 +66,12 @@ class SendForm extends Form
             'title' => 'Фамилия',
             'validator' => StringValidator::class
         ],
-        'name' => [
+        'middleName' => [
             'class' => TextField::class,
             'title' => 'Имя',
             'validator' => StringValidator::class
         ],
-        'fatherName' => [
+        'lastName' => [
             'class' => TextField::class,
             'title' => 'Отчество',
             'validator' => StringValidator::class

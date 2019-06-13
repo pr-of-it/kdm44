@@ -17,8 +17,8 @@ use Runn\ValueObjects\Values\StringValue;
  * @property string $email
  * @property string $password
  * @property string $firstName
- * @property string $name
- * @property string $fatherName
+ * @property string $middleName
+ * @property string $lastName
  * @property string $organization
  * @property string $phone
  * @property string $recipient
@@ -36,8 +36,8 @@ class RequestDto extends ComplexValueObject
         'email' => ['class' => EmailValue::class],
         'password' => ['class' => StringValue::class],
         'firstName' => ['class' => StringValue::class],
-        'name' => ['class' => StringValue::class],
-        'fatherName' => ['class' => StringValue::class, 'default' => null],
+        'middleName' => ['class' => StringValue::class],
+        'lastName' => ['class' => StringValue::class, 'default' => null],
         'organization' => ['class' => StringValue::class, 'default' => null],
         'phone' => ['class' => PhoneNumber::class, 'default' => null],
 

@@ -5,7 +5,6 @@ namespace App\Dto\Validation\Validators;
 use App\Dto\Validation\Exceptions\MinimalLengthException;
 use App\Dto\Validation\Exceptions\NoDigitsException;
 use Runn\Core\Exceptions;
-use Runn\Html\Form\Field;
 use Runn\Validation\Exceptions\EmptyValue;
 use Runn\Validation\Validator;
 
@@ -16,16 +15,6 @@ use Runn\Validation\Validator;
 class MinimalLengthAndHasDigitsValidator extends Validator
 {
     protected const MINIMAL_LENGTH = 6;
-    protected $field;
-
-    /**
-     * CompareValuesValidator constructor.
-     * @param Field $field
-     */
-    public function __construct($field)
-    {
-        $this->field = $field;
-    }
 
     /**
      * @param mixed $value
@@ -36,17 +25,15 @@ class MinimalLengthAndHasDigitsValidator extends Validator
     {
         $errors = new Exceptions();
 
-        if (!empty($this->field->getValue())) {
-            if (empty($value)) {
-                $errors[] = new EmptyValue($value);
-            } else {
-                if (strlen($value) < static::MINIMAL_LENGTH) {
-                    $errors[] = new MinimalLengthException($value, static::MINIMAL_LENGTH);
-                }
+        if (empty($value)) {
+            $errors[] = new EmptyValue($value);
+        } else {
+            if (strlen($value) < static::MINIMAL_LENGTH) {
+                $errors[] = new MinimalLengthException($value, static::MINIMAL_LENGTH);
+            }
 
-                if (1 !== preg_match('/\d/', $value)) {
-                    $errors[] = new NoDigitsException($value);
-                }
+            if (1 !== preg_match('/\d/', $value)) {
+                $errors[] = new NoDigitsException($value);
             }
         }
 

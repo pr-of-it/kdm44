@@ -17,14 +17,13 @@ class User
             'email'     => ['type'=>'string'],
             'password'  => ['type'=>'string'],
             'first_name' => ['type' => 'string'],
-            'name' => ['type' => 'string'],
-            'father_name' => ['type' => 'string'],
+            'middle_name' => ['type' => 'string'],
+            'last_name' => ['type' => 'string'],
             'organization' => ['type' => 'string'],
             'phone' => ['type' => 'string'],
         ],
         'relations' => [
             'role'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\Role::class],
-            'statements'=>['type'=>self::HAS_MANY, 'model'=>\App\Models\Statement::class]
         ],
     ];
 

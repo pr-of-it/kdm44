@@ -58,13 +58,12 @@ class Send extends Controller
                         $errors = [$exception];
                     }
                 }
-                $data = array_merge($_POST['data'], ['type' => $url]);
-                $data = array_merge($data, $_FILES);
+                $data = array_merge($_POST['data'], $_FILES, ['type' => $url]);
 
                 if (empty($errors)) {
                     $statement = new Statement();
                     try {
-                        $statement->setFillByRequest($data);
+                        $statement->setFieldsByRequest($data);
                         $statement->save();
                         $this->redirect('/letter');
                     } catch (\Throwable $exception) {

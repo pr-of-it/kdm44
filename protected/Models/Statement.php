@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use T4\Fs\Helpers;
 use T4\Orm\Model;
 
 /**
@@ -38,7 +39,7 @@ class Statement
      * @param array $data
      * @throws \Exception
      */
-    public function setFillByRequest(array $data): void
+    public function setFieldsByRequest(array $data): void
     {
         $this->type = $data['type'];
         $this->recipient = '3' !== $data['recipient'] ?

@@ -47,7 +47,7 @@ class Send extends Controller
             $form->setValue($_POST['data']);
 
             if ($form->errors()->empty()) {
-                if (!empty($_POST['personalAccount'])) {
+                if (!empty($_POST['data']['personalAccount'])) {
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                         $this->redirect('/letter');

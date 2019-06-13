@@ -6,7 +6,7 @@ use Runn\Validation\ValidationError;
 
 /**
  * Class NoDigitsException
- * @package App\Exceptions
+ * @package App\Dto\Validation\Exceptions
  */
 class NoDigitsException extends ValidationError
 {

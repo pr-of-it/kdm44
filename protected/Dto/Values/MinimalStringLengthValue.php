@@ -8,7 +8,7 @@ use Runn\Validation\Validator;
 
 /**
  * Class MinimalStringLengthValue
- * @package App\Http\Dto\V1\Values
+ * @package App\Dto\Values
  */
 class MinimalStringLengthValue extends StringValue
 {

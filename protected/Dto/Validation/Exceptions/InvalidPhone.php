@@ -6,7 +6,7 @@ use Runn\Validation\ValidationError;
 
 /**
  * Class InvalidPhone
- * @package App\Http\Dto\V1\Validation\Exceptions
+ * @package App\Dto\Validation\Exceptions
  */
 class InvalidPhone extends ValidationError
 {

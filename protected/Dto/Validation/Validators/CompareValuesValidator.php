@@ -8,6 +8,10 @@ use Runn\Html\Form\Field;
 use Runn\Validation\Exceptions\EmptyValue;
 use Runn\Validation\Validator;
 
+/**
+ * Class CompareValuesValidator
+ * @package App\Dto\Validation\Validators
+ */
 class CompareValuesValidator extends Validator
 {
 

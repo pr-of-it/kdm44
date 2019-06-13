@@ -6,7 +6,7 @@ use Runn\Validation\ValidationError;
 
 /**
  * Class MinimalLengthException
- * @package App\Exceptions
+ * @package App\Dto\Validation\Exceptions
  */
 class MinimalLengthException extends ValidationError
 {

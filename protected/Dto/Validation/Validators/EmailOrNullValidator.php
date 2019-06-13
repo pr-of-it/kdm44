@@ -6,8 +6,8 @@ use Runn\Validation\Exceptions\InvalidEmail;
 use Runn\Validation\Validator;
 
 /**
- * Class PhoneNumberValidator
- * @package App\Http\DtoValidation\Validators
+ * Class EmailOrNullValidator
+ * @package App\Dto\Validation\Validators
  */
 class EmailOrNullValidator extends Validator
 {

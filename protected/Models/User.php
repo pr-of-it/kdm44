@@ -23,7 +23,8 @@ class User
             'phone' => ['type' => 'string'],
         ],
         'relations' => [
-            'role'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\Role::class]
+            'role'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\Role::class],
+            'statements'=>['type'=>self::HAS_MANY, 'model'=>\App\Models\Statement::class]
         ],
     ];
 

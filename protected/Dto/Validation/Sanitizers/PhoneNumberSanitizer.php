@@ -6,7 +6,7 @@ use Runn\Sanitization\Sanitizer;
 
 /**
  * Class PhoneNumberSanitizer
- * @package App\Http\Dto\V1\Validation\Sanitizers
+ * @package App\Dto\Validation\Sanitizers
  */
 class PhoneNumberSanitizer extends Sanitizer
 {

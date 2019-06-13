@@ -8,6 +8,10 @@ use Runn\Sanitization\Sanitizers\EmailSanitizer;
 use Runn\Validation\Validator;
 use Runn\ValueObjects\Values\EmailValue;
 
+/**
+ * Class EmailOrNullValue
+ * @package App\Dto\Values
+ */
 class EmailOrNullValue extends EmailValue
 {
     /**

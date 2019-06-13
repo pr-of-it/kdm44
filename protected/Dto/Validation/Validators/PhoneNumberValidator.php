@@ -7,7 +7,7 @@ use Runn\Validation\Validator;
 
 /**
  * Class PhoneNumberValidator
- * @package App\Http\DtoValidation\Validators
+ * @package App\Dto\Validation\Validators
  */
 class PhoneNumberValidator extends Validator
 {

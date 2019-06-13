@@ -7,7 +7,6 @@ use App\Dto\Values\PhoneNumber;
 use Runn\ValueObjects\ComplexValueObject;
 use Runn\ValueObjects\Values\BooleanValue;
 use Runn\ValueObjects\Values\EmailValue;
-use Runn\ValueObjects\Values\IntValue;
 use Runn\ValueObjects\Values\StringValue;
 
 /**
@@ -29,7 +28,7 @@ use Runn\ValueObjects\Values\StringValue;
  * @property string $coauthorName
  * @property string $coauthorEmail
  * @property string $message
- * @property string $personalAccount
+ * @property boolean $personalAccount
  */
 class RequestDto extends ComplexValueObject
 {
@@ -42,7 +41,7 @@ class RequestDto extends ComplexValueObject
         'organization' => ['class' => StringValue::class, 'default' => null],
         'phone' => ['class' => PhoneNumber::class, 'default' => null],
 
-        'recipient' => ['class' => IntValue::class],
+        'recipient' => ['class' => StringValue::class],
         'executive' => ['class' => StringValue::class, 'default' => null],
         'emailConfirmation' => ['class' => EmailValue::class],
         'passwordConfirmation' => ['class' => StringValue::class],

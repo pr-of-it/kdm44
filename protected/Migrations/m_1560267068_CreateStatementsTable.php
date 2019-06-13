@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Migrations;
+
+use T4\Orm\Migration;
+
+class m_1560267068_CreateStatementsTable
+    extends Migration
+{
+
+    public function up()
+    {
+        $this->createTable('statements', [
+            'type'          => ['type'=>'string'],
+            'recipient'     => ['type'=>'string'],
+            'email'         => ['type'=>'string'],
+            'first_name'    => ['type'=>'string'],
+            'name'          => ['type'=>'string'],
+            'father_name'   => ['type'=>'string'],
+            'organization'  => ['type'=>'string'],
+            'phone'         => ['type'=>'string'],
+            'coauthor_name' => ['type'=>'string'],
+            'coauthor_email'=> ['type'=>'string'],
+            'message'       => ['type'=>'string'],
+            'file1'         => ['type'=>'string'],
+            'file2'         => ['type'=>'string'],
+            '__user_id'     => ['type'=>'link'],
+            'created_at'    => ['type' => 'timestamp'],
+        ], [
+            'user'=>['columns'=>['__user_id']]
+        ]);
+    }
+
+    public function down()
+    {
+        $this->dropTable('statements');
+    }
+}

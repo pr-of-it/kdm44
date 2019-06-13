@@ -87,7 +87,7 @@ class SendForm extends Form
         'recipient' => [
             'class' => CheckboxField::class,
             'title' => 'Кому направляете',
-            'validator' => IntValidator::class
+            'validator' => StringValidator::class
         ],
         'executive' => [
             'class' => TextField::class,

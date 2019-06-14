@@ -4,13 +4,13 @@ namespace App\Migrations;
 
 use T4\Orm\Migration;
 
-class m_1560267068_CreateStatementsTable
+class m_1560267068_CreateRecoursesTable
     extends Migration
 {
 
     public function up()
     {
-        $this->createTable('statements', [
+        $this->createTable('recourses', [
             'type'          => ['type'=>'string'],
             'recipient'     => ['type'=>'string'],
             'email'         => ['type'=>'string'],
@@ -33,6 +33,6 @@ class m_1560267068_CreateStatementsTable
 
     public function down()
     {
-        $this->dropTable('statements');
+        $this->dropTable('recourses');
     }
 }

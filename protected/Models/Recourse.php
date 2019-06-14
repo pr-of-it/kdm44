@@ -5,14 +5,14 @@ namespace App\Models;
 use T4\Orm\Model;
 
 /**
- * Class Statement
+ * Class Recourse
  * @package App\Models
  */
-class Statement
+class Recourse
     extends Model
 {
     public static $schema = [
-        'table' => 'statements',
+        'table' => 'recourses',
         'columns' => [
             'type'          => ['type'=>'string'],
             'recipient'     => ['type'=>'string'],

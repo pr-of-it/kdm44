@@ -4,9 +4,8 @@ namespace App\Controllers\Reception\Recourse;
 
 use App\Components\Auth\Identity;
 use App\Dto\UserRegister\RequestDto;
-use App\Dto\Validation\Validators\CompareValuesValidator;
-use App\Dto\Validation\Validators\MinimalLengthAndHasDigitsValidator;
 use App\Forms\RecourseSendForm;
+use App\Models\Recourse;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
@@ -60,13 +59,13 @@ class Send extends Controller
                         $errors = [$exception];
                     }
                 }
-                $data = array_merge($_POST['data'], $_FILES, ['type' => $url]);
+                $data = array_merge($_POST, $_FILES, ['type' => $url]);
 
                 if (empty($errors)) {
-                    $statement = new Statement();
+                    $recourse = new Recourse();
                     try {
-                        $statement->setFieldsByRequest($data);
-                        $statement->save();
+                        $recourse->setFieldsByRequest($data);
+                        $recourse->save();
                         $this->redirect('/reception');
                     } catch (\Throwable $exception) {
                         $errors = [$exception];

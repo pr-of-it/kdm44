@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Statement;
+use App\Models\Recourse;
 use T4\Mvc\Controller;
 
 /**
@@ -19,10 +19,10 @@ class Cabinet extends Controller
     public function actionDefault($count = self::DEFAULT_STATMENTS_COUNT)
     {
         $this->data->page = $this->app->request->get->page ?: 1;
-        $this->data->total = Statement::countAll();
+        $this->data->total = Recourse::countAll();
         $this->data->size = $count;
 
-        $statements = Statement::findAll(
+        $recourses = Recourse::findAll(
             [
                 'order' => 'created_at DESC',
                 'offset' => ($this->data->page-1)*$count,
@@ -30,6 +30,6 @@ class Cabinet extends Controller
             ]
         );
 
-        $this->data->items = $statements;
+        $this->data->items = $recourses;
     }
 }

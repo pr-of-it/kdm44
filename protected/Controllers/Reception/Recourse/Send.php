@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Reception\Recourse;
 
 use App\Components\Auth\Identity;
 use App\Dto\UserRegister\RequestDto;
-use App\Forms\SendForm;
-use App\Models\Statement;
+use App\Dto\Validation\Validators\CompareValuesValidator;
+use App\Dto\Validation\Validators\MinimalLengthAndHasDigitsValidator;
+use App\Forms\RecourseSendForm;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
 /**
  * Class Send
- * @package App\Controllers
+ * @package App\Controllers\Reception\Recourse
  */
 class Send extends Controller
 {
@@ -42,14 +43,15 @@ class Send extends Controller
             throw new E404Exception;
         }
 
-        $form = new SendForm();
+        $form = new RecourseSendForm();
         $errors = [];
 
         if (!empty($_POST)) {
-            $form->setValue($_POST['data']);
+            $form->setValue($_POST);
+            $form->validatePassword();
 
             if ($form->errors()->empty()) {
-                if (!empty($_POST['data']['personalAccount'])) {
+                if (!empty($_POST['personalAccount'])) {
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                     } catch (MultiException $exception) {
@@ -65,7 +67,7 @@ class Send extends Controller
                     try {
                         $statement->setFieldsByRequest($data);
                         $statement->save();
-                        $this->redirect('/letter');
+                        $this->redirect('/reception');
                     } catch (\Throwable $exception) {
                         $errors = [$exception];
                     }

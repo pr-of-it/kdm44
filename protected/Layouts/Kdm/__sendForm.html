@@ -33,7 +33,7 @@
     </p>
 </div>
 <div class="form-style">
-    <form action="/letter/{{ query }}" enctype="multipart/form-data" id="contact_body" method="post">
+    <form action="/reception/recourse/{{ query }}" enctype="multipart/form-data" id="contact_body" method="post">
         <div>
             <div class="recipient_block">
                 <label>
@@ -55,14 +55,14 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="data[recipient]" id="recipient3" value="3" onclick="show('recipient3', 'recipient4')">
+                                <input class="form-check-input" type="radio" name="recipient" id="recipient3" value="3" onclick="show('recipient3', 'recipient4')">
                                 <label class="form-check-label" for="recipient3">
                                     Должностному лицу комитета по делам молодёжи
                                 </label>
                                 <div class="form-group row" id="recipient4" style="display:none;">
                                     <label class="col-sm-5 col-form-label" for="executive">Выберите должностное лицо</label>
                                     <div class="col-sm-7">
-                                        <select class="form-control select2-container" id="executive" name="data[executive]">
+                                        <select class="form-control select2-container" id="executive" name="executive">
                                             <option value="Заместитель председателя комитета Виноградова Христина Александровна">
                                                 Заместитель председателя комитета Виноградова Христина Александровна
                                             </option>
@@ -75,27 +75,27 @@
                 </fieldset>
             </div>
             <div class="form-group row">
-                <label for="middleName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
+                <label for="lastName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
                 <div class="col-sm-7">
-                    <input required type="text" class="form-control" id="middleName" name="data[middleName]" placeholder="Фамилия" value="{{ old['middleName'] ?? '' }}">
+                    <input required type="text" class="form-control" id="lastName" name="lastName" placeholder="Фамилия" value="{{ old['lastName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="firstName" class="col-sm-5 col-form-label">Имя <span style="color: red">*</span></label>
                 <div class="col-sm-7">
-                    <input required type="text" class="form-control" id="firstName" name="data[firstName]" placeholder="Имя" value="{{ old['firstName'] ?? '' }}">
+                    <input required type="text" class="form-control" id="firstName" name="firstName" placeholder="Имя" value="{{ old['firstName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="lastName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
+                <label for="middleName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="lastName" name="data[lastName]" placeholder="Отчество" value="{{ old['lastName'] ?? '' }}">
+                    <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Отчество" value="{{ old['middleName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="organization" class="col-sm-5 col-form-label">Наименование организации (юридического лица)</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="organization" name="data[organization]" placeholder="Наименование организации (юридического лица)" value="{{ old['organization'] ?? '' }}">
+                    <input type="text" class="form-control" id="organization" name="organization" placeholder="Наименование организации (юридического лица)" value="{{ old['organization'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -104,7 +104,7 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-7">
-                    <input required  type="email" id="email" class="form-control" name="data[email]" placeholder="email" value="{{ old['email'] ?? '' }}">
+                    <input required  type="email" id="email" class="form-control" name="email" placeholder="email" value="{{ old['email'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -113,18 +113,18 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-7">
-                    <input required  type="email" id="emailConfirmation" class="form-control" name="data[emailConfirmation]" placeholder="Повторите email" value="{{ old['emailConfirmation'] ?? '' }}">
+                    <input required  type="email" id="emailConfirmation" class="form-control" name="emailConfirmation" placeholder="Повторите email" value="{{ old['emailConfirmation'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-5 col-form-label" for="phone">Номер телефона</label>
                 <div class="col-sm-7">
-                    <input type="text" id="phone" class="form-control phone"  name="data[phone]" placeholder="+7987XXXXXXX" value="{{ old['phone'] ?? '' }}">
+                    <input type="text" id="phone" class="form-control phone"  name="phone" placeholder="+7987XXXXXXX" value="{{ old['phone'] ?? '' }}">
                 </div>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="data[addCoauthor]" id="addCoauthor" value="3"
+                <input class="form-check-input" type="checkbox" name="addCoauthor" id="addCoauthor" value="3"
                        onclick="show('addCoauthor', 'coauthor'); makeRequired('addCoauthor', 'coauthorName', 'coauthorEmail');">
                 <label class="form-check-label" for="addCoauthor">
                     Добавить соавтора обращения
@@ -133,13 +133,13 @@
                     <div class="form-group row">
                         <label for="coauthorName" class="col-sm-5 col-form-label">ФИО соавтора <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="data[coauthorName]" id="coauthorName" placeholder="ФИО соавтора" value="{{ old['coauthorName'] ?? '' }}">
+                            <input type="text" class="form-control" name="coauthorName" id="coauthorName" placeholder="ФИО соавтора" value="{{ old['coauthorName'] ?? '' }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="coauthorEmail" class="col-sm-5 col-form-label">Почта соавтора <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="email" class="form-control" name="data[coauthorEmail]" id="coauthorEmail" placeholder="Почта соавтора" value="{{ old['coauthorEmail'] ?? '' }}">
+                            <input type="email" class="form-control" name="coauthorEmail" id="coauthorEmail" placeholder="Почта соавтора" value="{{ old['coauthorEmail'] ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                     <span style="color: red">*</span>
                 </label>
                 <div class="col-sm-12">
-                    <textarea required type="text" id="message" class="form-control"  name="data[message]" placeholder="Текст обращения">{{ old['message'] ?? '' }}</textarea>
+                    <textarea required type="text" id="message" class="form-control"  name="message" placeholder="Текст обращения">{{ old['message'] ?? '' }}</textarea>
                 </div>
             </div>
             <div>
@@ -214,7 +214,7 @@
                 </p>
             </div>
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="personalAccount" name="data[personalAccount]" value="1"
+                <input type="checkbox" class="custom-control-input" id="personalAccount" name="personalAccount" value="1"
                        onclick="show('personalAccount', 'pass'); makeRequired('personalAccount', 'password', 'passwordConfirmation');">
                 <label class="col-form-label" for="personalAccount">Создать личный кабинет</label>
             </div>
@@ -222,13 +222,13 @@
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label" for="password">Пароль (не менее шести символов) <span style="color: red">*</span></label>
                     <div class="col-sm-7">
-                        <input type="password" id="password" class="form-control" name="data[password]" placeholder="Введите пароль">
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Введите пароль">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label" for="passwordConfirmation">Повторите пароль <span style="color: red">*</span></label>
                     <div class="col-sm-7">
-                        <input type="password" id="passwordConfirmation" class="form-control" name="data[passwordConfirmation]" placeholder="Повторите пароль">
+                        <input type="password" id="passwordConfirmation" class="form-control" name="passwordConfirmation" placeholder="Повторите пароль">
                     </div>
                 </div>
             </div>

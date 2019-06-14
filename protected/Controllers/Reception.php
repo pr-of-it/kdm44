@@ -5,10 +5,10 @@ namespace App\Controllers;
 use T4\Mvc\Controller;
 
 /**
- * Class Letter
+ * Class Reception
  * @package App\Controllers
  */
-class Letter extends Controller
+class Reception extends Controller
 {
     /**
      * Электронная приёмная

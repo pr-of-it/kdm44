@@ -21,7 +21,7 @@ class CompareValuesValidator extends Validator
      * CompareValuesValidator constructor.
      * @param Field $field
      */
-    public function __construct($field)
+    public function __construct(Field $field)
     {
         $this->field = $field;
     }

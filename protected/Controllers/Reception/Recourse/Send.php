@@ -4,6 +4,8 @@ namespace App\Controllers\Reception\Recourse;
 
 use App\Components\Auth\Identity;
 use App\Dto\UserRegister\RequestDto;
+use App\Dto\Validation\Validators\CompareValuesValidator;
+use App\Dto\Validation\Validators\MinimalLengthAndHasDigitsValidator;
 use App\Forms\RecourseSendForm;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
@@ -44,11 +46,12 @@ class Send extends Controller
         $form = new RecourseSendForm();
 
         if (!empty($_POST)) {
-//            $form = new RecourseSendForm($_POST['data']);
-            $form->setValue($_POST['data']);
+            $form->setValue($_POST);
 
             if ($form->errors()->empty()) {
-                if (!empty($_POST['data']['personalAccount'])) {
+                if (!empty($_POST['personalAccount'])) {
+                    $form->password->setValidator(new MinimalLengthAndHasDigitsValidator());
+                    $form->passwordConfirmation->setValidator(new CompareValuesValidator($form->password));
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                         $this->redirect('/reception');

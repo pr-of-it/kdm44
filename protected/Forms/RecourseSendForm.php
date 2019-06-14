@@ -21,22 +21,23 @@ use Runn\Validation\Validators\IntValidator;
 use Runn\Validation\Validators\StringValidator;
 
 /**
- * Class SendForm
+ * Class RecourseSendForm
  * @package App\Forms
  */
-class SendForm extends Form
+class RecourseSendForm extends Form
 {
     /**
-     * SendForm constructor.
+     * RecourseSendForm constructor.
      * @param iterable|null $data
      */
     public function __construct(?iterable $data = null)
     {
         parent::__construct($data);
-        $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         $this->emailConfirmation->setValidator(new CompareValuesValidator($this->email));
-        if (!empty($_POST['data']['personalAccount'])) {
+
+        if (!empty($_POST['personalAccount'])) {
             $this->password->setValidator(new MinimalLengthAndHasDigitsValidator());
+            $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         }
 
         $this->setTemplate(new File(__DIR__ . '/Form.template.php'));
@@ -63,17 +64,17 @@ class SendForm extends Form
         ],
         'firstName' => [
             'class' => TextField::class,
-            'title' => 'Фамилия',
+            'title' => 'Имя',
             'validator' => StringValidator::class
         ],
         'middleName' => [
             'class' => TextField::class,
-            'title' => 'Имя',
+            'title' => 'Отчество',
             'validator' => StringValidator::class
         ],
         'lastName' => [
             'class' => TextField::class,
-            'title' => 'Отчество',
+            'title' => 'Фамилия',
             'validator' => StringValidator::class
         ],
         'organization' => [
@@ -119,15 +120,4 @@ class SendForm extends Form
 
         'submit' => ['class' => SubmitButton::class, 'title' => 'Направить письмо']
     ];
-
-    /**
-     * Метод возвращает массив данных формы как объект DTO
-     * нужно для методов, где на вход нужно передавать именно объекты, но не массивы
-     * @return RequestDto
-     */
-    public function getValueAsObject(): RequestDto
-    {
-        return new RequestDto($this->getValue());
-    }
-
 }

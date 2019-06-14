@@ -1,0 +1,60 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+<!--{% set count = 1 %}-->
+
+<!--{% if errors %}-->
+<!--    {% for error in errors %}-->
+<!--        <div class="alert alert-danger">{{error.getMessage()}}</div>-->
+<!--    {% endfor %}-->
+<!--{% endif %}-->
+
+
+<!--    <div class="table-responsive">-->
+<!--        <table class="table table-striped table-sm">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Тип заявки</th>-->
+<!--                <th>Кому направлено</th>-->
+<!--                <th>Соавторы</th>-->
+<!--                <th>Текст обращения</th>-->
+<!--                <th>Дата создания</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            {% for statement in statements %}-->
+<!--            <tr>-->
+<!--                <td>{{ statement.type }}</td>-->
+<!--                <td>{{ statement.recipient }}</td>-->
+<!--                <td>{{ statement.coauthor_name }}</td>-->
+<!--                <td>{{ statement.message }}</td>-->
+<!--                <td>{{ statement.created_at }}</td>-->
+<!--            </tr>-->
+<!--            {% endfor %}-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+
+<h3 align="center">Личный кабинет</h3>
+<h4 align="center">Обращения</h4>
+
+{% for item in items %}
+    <div class="media" style="margin-top: 0; margin-bottom: 15px;">
+        <div class="pull-left">
+            <span class="label label-info">{{ item.created_at|date('d.m.Y h:i:s') }}</span>
+        </div>
+        <br>
+        <p>Тип обращения: {{ item.type }}</p>
+        <p>Кому направлено: {{ item.recipient }}</p>
+        <p>Соавторы: {{ item.coauthor_name }}</p>
+        <p>Текст обращения: {{ item.message }}</p>
+    </div>
+{% else %}
+    <p>Нет обращений</p>
+{% endfor %}
+
+
+{{widget('pager', {total: total, size: size, active: page})}}
+
+{% endblock %}

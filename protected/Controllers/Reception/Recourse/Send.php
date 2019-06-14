@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Reception\Recourse;
 
 use App\Components\Auth\Identity;
 use App\Dto\UserRegister\RequestDto;
-use App\Forms\SendForm;
+use App\Forms\RecourseSendForm;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
 /**
  * Class Send
- * @package App\Controllers
+ * @package App\Controllers\Reception\Recourse
  */
 class Send extends Controller
 {
@@ -41,16 +41,17 @@ class Send extends Controller
             throw new E404Exception;
         }
 
-        $form = new SendForm();
+        $form = new RecourseSendForm();
 
         if (!empty($_POST)) {
+//            $form = new RecourseSendForm($_POST['data']);
             $form->setValue($_POST['data']);
 
             if ($form->errors()->empty()) {
                 if (!empty($_POST['data']['personalAccount'])) {
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
-                        $this->redirect('/letter');
+                        $this->redirect('/reception');
                     } catch (MultiException $exception) {
                         $this->data->errors = $exception;
                     } catch (\Throwable $exception) {

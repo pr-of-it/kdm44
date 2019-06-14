@@ -21,7 +21,7 @@ class CompareValuesValidator extends Validator
      * CompareValuesValidator constructor.
      * @param Field $field
      */
-    public function __construct($field)
+    public function __construct(Field $field)
     {
         $this->field = $field;
     }
@@ -35,15 +35,15 @@ class CompareValuesValidator extends Validator
     {
         $errors = new Exceptions();
 
-        if (!empty($this->field->getValue())) {
-            if (empty($value)) {
-                $errors[] = new EmptyValue($value);
-            } else {
-                if ($this->field->getValue() !== $value) {
-                    $errors[] = new CompareException($value, $this->field);
-                }
+//        if (!empty($this->field->getValue())) {
+        if (empty($value)) {
+            $errors[] = new EmptyValue($value);
+        } else {
+            if ($this->field->getValue() !== $value) {
+                $errors[] = new CompareException($value, $this->field);
             }
         }
+//        }
 
         if (!$errors->empty()) {
             throw $errors;

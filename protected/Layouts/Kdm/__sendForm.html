@@ -33,7 +33,7 @@
     </p>
 </div>
 <div class="form-style">
-    <form action="/letter/{{ query }}" enctype="multipart/form-data" id="contact_body" method="post">
+    <form action="/reception/recourse/{{ query }}" enctype="multipart/form-data" id="contact_body" method="post">
         <div>
             <div class="recipient_block">
                 <label>
@@ -75,9 +75,9 @@
                 </fieldset>
             </div>
             <div class="form-group row">
-                <label for="middleName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
+                <label for="lastName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
                 <div class="col-sm-7">
-                    <input required type="text" class="form-control" id="middleName" name="data[middleName]" placeholder="Фамилия" value="{{ old['middleName'] ?? '' }}">
+                    <input required type="text" class="form-control" id="lastName" name="data[lastName]" placeholder="Фамилия" value="{{ old['lastName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -87,9 +87,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="lastName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
+                <label for="middleName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="lastName" name="data[lastName]" placeholder="Отчество" value="{{ old['lastName'] ?? '' }}">
+                    <input type="text" class="form-control" id="middleName" name="data[middleName]" placeholder="Отчество" value="{{ old['middleName'] ?? '' }}">
                 </div>
             </div>
             <div class="form-group row">

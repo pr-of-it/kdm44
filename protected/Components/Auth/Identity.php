@@ -42,10 +42,10 @@ class Identity
                 'email'     => $data->email,
                 'password'  => password_hash($data->password, PASSWORD_DEFAULT),
                 'first_name' => $data->firstName,
-                'middle_name'  => $data->middleName,
-                'last_name' => $data->lastName ?? null,
-                'organization' => $data->organization ?? null,
-                'phone' => $data->phone ?? null,
+                'last_name'  => $data->lastName,
+                'middle_name' => $data->middleName,
+                'organization' => $data->organization,
+                'phone' => $data->phone,
                 'role' => (Role::findByColumn('name','user'))->getPk(),
             ]);
         } catch (MultiException $e) {

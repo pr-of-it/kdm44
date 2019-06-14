@@ -47,11 +47,10 @@ class Send extends Controller
 
         if (!empty($_POST)) {
             $form->setValue($_POST);
+            $form->validatePassword();
 
             if ($form->errors()->empty()) {
                 if (!empty($_POST['personalAccount'])) {
-                    $form->password->setValidator(new MinimalLengthAndHasDigitsValidator());
-                    $form->passwordConfirmation->setValidator(new CompareValuesValidator($form->password));
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                         $this->redirect('/reception');

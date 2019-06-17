@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Dto\UserUpdate\RequestDto;
 use T4\Orm\Model;
 
 /**
@@ -30,5 +31,13 @@ class User
     public function hasRole($role)
     {
         return !empty($this->role) && ( ($role == $this->role->name) || ($role == $this->role->title) );
+    }
+
+    /**
+     * @param RequestDto $data
+     */
+    public function setFieldsByRequest(RequestDto $data)
+    {
+        $this->password = password_hash($data->password, PASSWORD_DEFAULT);
     }
 }

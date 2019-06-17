@@ -34,6 +34,7 @@ class CompareValuesValidator extends Validator
     public function validate($value): bool
     {
         $errors = new Exceptions();
+
         if (empty($value)) {
             $errors[] = new EmptyValue($value);
         } else {
@@ -41,9 +42,11 @@ class CompareValuesValidator extends Validator
                 $errors[] = new CompareException($value, $this->field);
             }
         }
+
         if (!$errors->empty()) {
             throw $errors;
         }
+
         return true;
     }
 

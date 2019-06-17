@@ -2,7 +2,6 @@
 
 namespace App\Forms;
 
-use App\Dto\UserRegister\RequestDto;
 use App\Dto\Validation\Validators\CompareValuesValidator;
 use App\Dto\Validation\Validators\EmailOrNullValidator;
 use App\Dto\Validation\Validators\MinimalLengthAndHasDigitsValidator;
@@ -33,8 +32,18 @@ class RecourseSendForm extends Form
     {
         parent::__construct($data);
         $this->emailConfirmation->setValidator(new CompareValuesValidator($this->email));
-
         $this->setTemplate(new File(__DIR__ . '/Form.template.php'));
+    }
+
+    /**
+     * Если personalAccount не пустой, то валидируем пароль и повтор пароля
+     */
+    public function validatePassword(): void
+    {
+        if (!empty($this->personalAccount->getValue())) {
+            $this->password->setValidator(new MinimalLengthAndHasDigitsValidator())->validate();
+            $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password))->validate();
+        }
     }
 
     protected static $schema = [

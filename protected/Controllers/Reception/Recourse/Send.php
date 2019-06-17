@@ -4,6 +4,8 @@ namespace App\Controllers\Reception\Recourse;
 
 use App\Components\Auth\Identity;
 use App\Dto\UserRegister\RequestDto;
+use App\Dto\Validation\Validators\CompareValuesValidator;
+use App\Dto\Validation\Validators\MinimalLengthAndHasDigitsValidator;
 use App\Forms\RecourseSendForm;
 use App\Models\Recourse;
 use T4\Core\MultiException;
@@ -47,10 +49,12 @@ class Send extends Controller
 
         if (!empty($_POST)) {
             $form->setValue($_POST);
-            $form->validatePassword();
 
             if ($form->errors()->empty()) {
                 if (!empty($_POST['personalAccount'])) {
+                    /** Валидируем пароль и повтор пароля, если personalAccount не пустой  */
+                    $form->password->setValidator(new MinimalLengthAndHasDigitsValidator())->validate();
+                    $form->passwordConfirmation->setValidator(new CompareValuesValidator($form->password))->validate();
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                     } catch (MultiException $exception) {

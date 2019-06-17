@@ -33,20 +33,8 @@ class RecourseSendForm extends Form
     {
         parent::__construct($data);
         $this->emailConfirmation->setValidator(new CompareValuesValidator($this->email));
-        $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
 
         $this->setTemplate(new File(__DIR__ . '/Form.template.php'));
-    }
-
-    /**
-     * Валидация пароля, если personalAccount не пустой
-     */
-    public function validatePassword(): void
-    {
-        if (!empty($this->personalAccount->getValue())) {
-            $this->password->setValidator(new MinimalLengthAndHasDigitsValidator());
-            $this->password->validate();
-        }
     }
 
     protected static $schema = [

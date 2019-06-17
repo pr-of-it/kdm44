@@ -41,15 +41,4 @@ class SignInForm extends Form
 
         'submit' => ['class' => SubmitButton::class, 'title' => 'Войти в личный кабинет']
     ];
-
-    /**
-     * Метод возвращает массив данных формы как объект DTO
-     * нужно для методов, где на вход нужно передавать именно объекты, но не массивы
-     * @return RequestDto
-     */
-    public function getValueAsObject(): RequestDto
-    {
-        return new RequestDto($this->getValue());
-    }
-
 }

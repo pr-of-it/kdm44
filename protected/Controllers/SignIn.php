@@ -3,13 +3,10 @@
 namespace App\Controllers;
 
 use App\Components\Auth\Identity;
-use App\Dto\UserRegister\RequestDto;
-use App\Forms\SendForm;
+use App\Dto\UserLogin\RequestDto;
 use App\Forms\SignInForm;
-use App\Models\Statement;
 use function T4\app;
 use T4\Core\MultiException;
-use T4\Http\E404Exception;
 use T4\Mvc\Controller;
 
 /**
@@ -36,8 +33,8 @@ class SignIn extends Controller
 
             if ($form->errors()->empty()) {
                 try {
-                    (new Identity())->authenticate($form->getValueAsObject());
-                    $this->redirect($return ?: '/letter');
+                    (new Identity())->authenticate($form->getValue(RequestDto::class));
+                    $this->redirect($return ?: '/cabinet');
                 } catch (MultiException $error) {
                     $this->data->errors = $error;
                 } catch (\Throwable $exception) {
@@ -45,6 +42,7 @@ class SignIn extends Controller
                 }
             }
         }
+        $this->data->old = $form->getValue();
 
         $this->data->form = $form;
     }

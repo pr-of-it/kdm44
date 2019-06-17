@@ -35,13 +35,11 @@ class CompareValuesValidator extends Validator
     {
         $errors = new Exceptions();
 
-        if (!empty($this->field->getValue())) {
-            if (empty($value)) {
-                $errors[] = new EmptyValue($value);
-            } else {
-                if ($this->field->getValue() !== $value) {
-                    $errors[] = new CompareException($value, $this->field);
-                }
+        if (empty($value)) {
+            $errors[] = new EmptyValue($value);
+        } else {
+            if ($this->field->getValue() !== $value) {
+                $errors[] = new CompareException($value, $this->field);
             }
         }
 

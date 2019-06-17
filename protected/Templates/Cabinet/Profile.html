@@ -9,7 +9,7 @@
     <li></li>
 </ol>
 <div>
-    <p>{{ user.first_name }}, добро пожаловать в личный кабинет!</p>
+    <p>{{ user.first_name ?? user.email }}, Вы вошли в личный кабинет!</p>
     <p><a href="/cabinet/logout">Выход из личного кабинета</a></p>
 </div>
 <h3 align="center"><strong>Личный кабинет</strong></h3>

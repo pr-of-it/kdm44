@@ -14,7 +14,6 @@ class m_1560951663_AlterRecoursesAddColumns
 
     public function up()
     {
-        $this->
         $this->addColumn('recourses', [
             'status' => ['type'=>'string'],
         ]);

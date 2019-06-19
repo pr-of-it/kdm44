@@ -38,6 +38,11 @@ class User
      */
     public function setFieldsByRequest(RequestDto $data)
     {
+        $this->first_name = $data->firstName;
+        $this->last_name = $data->lastName;
+        $this->middle_name = $data->middleName;
+        $this->organization = $data->organization;
+        $this->phone = $data->phone;
         $this->password = password_hash($data->password, PASSWORD_DEFAULT);
     }
 }

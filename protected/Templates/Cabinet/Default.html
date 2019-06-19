@@ -35,7 +35,8 @@
             <br>
             <p>Тип обращения: {{ type }}</p>
             <p>Кому направлено: {{ item.recipient }}</p>
-            <p>Соавторы (ФИО, email):
+            <p>
+                Соавторы (ФИО, email):
                 {% if item.coauthor_email is not empty %}
                     {{ item.coauthor_name }}, {{ item.coauthor_email }}
                 {% else %}
@@ -43,6 +44,14 @@
                 {% endif %}
             </p>
             <p>Текст обращения: {{ item.message }}</p>
+            <p>
+                Прикреплённый документ:
+                {% if item.file1 is not empty %}
+                    {{ item.file1 }}
+                {% else %}
+                    Нет
+                {% endif %}
+            </p>
         </div>
     {% else %}
         <p>Нет обращений</p>

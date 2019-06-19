@@ -7,11 +7,16 @@ use Runn\ValueObjects\ComplexValueObject;
 use Runn\ValueObjects\Values\StringValue;
 
 /**
- * ДТО для обновления пароля
+ * ДТО для обновления данных пользователя
  *
  * Class RequestDto
  * @package App\Dto\UserUpdate
  *
+ * @property string $firstName
+ * @property string $middleName
+ * @property string $lastName
+ * @property string $organization
+ * @property string $phone
  * @property string $password
  * @property string $passwordConfirmation
  */

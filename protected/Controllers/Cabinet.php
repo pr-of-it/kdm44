@@ -6,7 +6,6 @@ use App\Components\Auth\Identity;
 use App\Dto\UserUpdate\RequestDto;
 use App\Forms\UserUpdateForm;
 use App\Models\Recourse;
-use function T4\app;
 use T4\Mvc\Controller;
 
 /**
@@ -22,11 +21,11 @@ class Cabinet extends Controller
      */
     public function actionDefault($count = self::DEFAULT_STATMENTS_COUNT)
     {
-        if (!empty(app()->user)) {
+        if (!empty($this->app->user)) {
             $this->data->page = $this->app->request->get->page ?: 1;
             $this->data->total = Recourse::countAllByColumn('__user_id', $this->app->user->getPk());
             $this->data->size = $count;
-            $this->data->user = app()->user;
+            $this->data->user = $this->app->user;
 
             $recourses = Recourse::findAllByColumn(
                 '__user_id', $this->app->user->getPk(),
@@ -84,7 +83,7 @@ class Cabinet extends Controller
      */
     public function actionLogout(): void
     {
-        if (!empty(app()->user)) {
+        if (!empty($this->app->user)) {
             (new Identity())->logout();
         }
         $this->redirect('/reception');

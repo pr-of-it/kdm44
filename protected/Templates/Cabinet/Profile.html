@@ -17,13 +17,13 @@
 {{ form.render()|raw }}
 
 {% if errors %}
-    {% for error in errors %}
-        <div class="alert alert-danger">
-            <ul>
-                <li>{{error.getMessage()}}</li>
-            </ul>
-        </div>
-    {% endfor %}
+{% for error in errors %}
+<div class="alert alert-danger">
+    <ul>
+        <li>{{error.getMessage()}}</li>
+    </ul>
+</div>
+{% endfor %}
 {% endif %}
 
 <div>
@@ -31,39 +31,9 @@
         <h4 align="center">Профиль</h4>
         <br>
         <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="lastName">Фамилия</label>
-            <div class="col-sm-7">
-                <input class="form-control" id="lastName" type="text" value="{{ user.last_name }}" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="firstName">Имя</label>
-            <div class="col-sm-7">
-                <input class="form-control" id="firstName" type="text" value="{{ user.first_name }}" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="middleName">Отчество</label>
-            <div class="col-sm-7">
-                <input class="form-control" id="middleName" type="text" value="{{ user.middle_name }}" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="email">Адрес электронной почты</label>
             <div class="col-sm-7">
                 <input required  type="email" id="email" class="form-control" name="email" value="{{ user.email }}" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="phone">Номер телефона</label>
-            <div class="col-sm-7">
-                <input type="text" id="phone" class="form-control phone"  name="phone" value="{{ user.phone }}" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="organization" class="col-sm-5 col-form-label">Наименование организации (юридического лица)</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="organization" name="organization" value="{{ user.organization }}" readonly>
             </div>
         </div>
     </div>
@@ -72,15 +42,45 @@
             <div>
                 <div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="password">Введите новый пароль (не менее шести символов)  <span style="color: red">*</span></label>
+                        <label class="col-sm-5 col-form-label" for="lastName">Фамилия <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="password" id="password" class="form-control" name="password" placeholder="Введите новый пароль">
+                            <input required class="form-control" id="lastName" type="text" name="lastName" value="{{ old['lastName'] ?? user.last_name }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="passwordConfirmation">Повторите пароль  <span style="color: red">*</span></label>
+                        <label class="col-sm-5 col-form-label" for="firstName">Имя <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input type="password" id="passwordConfirmation" class="form-control" name="passwordConfirmation" placeholder="Повторите пароль">
+                            <input required class="form-control" id="firstName" type="text" name="firstName" value="{{ old['firstName'] ?? user.first_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="middleName">Отчество</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="middleName" type="text" name="middleName" value="{{ old['middleName'] ?? user.middle_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="phone">Номер телефона</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="phone" class="form-control phone" name="phone" value="{{ old['phone'] ?? user.phone }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="organization" class="col-sm-5 col-form-label">Наименование организации (юридического лица)</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="organization" name="organization" value="{{ old['organization'] ?? user.organization }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="password">Введите новый пароль (не менее шести символов) <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input required type="password" id="password" class="form-control" name="password" placeholder="Введите новый пароль">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="passwordConfirmation">Повторите пароль <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input required type="password" id="passwordConfirmation" class="form-control" name="passwordConfirmation" placeholder="Повторите пароль">
                         </div>
                     </div>
                 </div>

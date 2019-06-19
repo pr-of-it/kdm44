@@ -67,6 +67,7 @@ class Cabinet extends Controller
 
                     $this->data->errors = $errors;
                 }
+                $this->data->old = $form->getValue();
             }
 
             $this->data->form = $form;

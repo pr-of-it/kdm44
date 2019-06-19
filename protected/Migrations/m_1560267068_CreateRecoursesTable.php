@@ -21,7 +21,7 @@ class m_1560267068_CreateRecoursesTable
             'phone'         => ['type'=>'string'],
             'coauthor_name' => ['type'=>'string'],
             'coauthor_email'=> ['type'=>'string'],
-            'message'       => ['type'=>'string'],
+            'message'       => ['type'=>'text', 'length' => 'big'],
             'file1'         => ['type'=>'string'],
             'file2'         => ['type'=>'string'],
             '__user_id'     => ['type'=>'link'],

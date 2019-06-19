@@ -11,6 +11,13 @@ use T4\Orm\Model;
 class Recourse
     extends Model
 {
+    public $status =
+        [
+            'new' => 'new',
+            'registered' => 'registered',
+            'withAnswer' => 'withAnswer',
+        ];
+
     public static $schema = [
         'table' => 'recourses',
         'columns' => [
@@ -27,6 +34,7 @@ class Recourse
             'message'       => ['type'=>'string'],
             'file1'         => ['type'=>'string'],
             'file2'         => ['type'=>'string'],
+            'status'        => ['type'=>'string'],
             'created_at'    => ['type' => 'timestamp'],
         ],
         'relations' => [
@@ -54,6 +62,7 @@ class Recourse
         $this->message = $data['message'];
         $this->file1 = $data['customFile']['name'];
         $this->file2 = $data['customFile2']['name'];
+        $this->status = $this->status['new'];
 
         $user = User::findByColumn('email', $data['email']);
 

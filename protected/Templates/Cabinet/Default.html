@@ -17,14 +17,31 @@
 <div>
     <h4 align="center">Обращения</h4>
     {% for item in items %}
+
+        {% if item.type == 'send' %}
+            {% set type = 'письмо' %}
+        {% elseif item.type == 'corruption' %}
+            {% set type = 'сообщить о коррупции' %}
+        {% elseif item.type == 'collective-send' %}
+            {% set type = 'коллективное обращение' %}
+        {% else %}
+            {% set type = item.type %}
+        {% endif %}
+
         <div class="media" style="margin-top: 0; margin-bottom: 15px;">
             <div class="pull-left">
                 <span class="label label-info">{{ item.created_at|date('d.m.Y h:i:s') }}</span>
             </div>
             <br>
-            <p>Тип обращения: {{ item.type }}</p>
+            <p>Тип обращения: {{ type }}</p>
             <p>Кому направлено: {{ item.recipient }}</p>
-            <p>Соавторы: {{ item.coauthor_name }}</p>
+            <p>Соавторы (ФИО, email):
+                {% if item.coauthor_email is not empty %}
+                    {{ item.coauthor_name }}, {{ item.coauthor_email }}
+                {% else %}
+                    Нет
+                {% endif %}
+            </p>
             <p>Текст обращения: {{ item.message }}</p>
         </div>
     {% else %}

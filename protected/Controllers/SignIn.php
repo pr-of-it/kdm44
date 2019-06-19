@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Components\Auth\Identity;
 use App\Dto\UserLogin\RequestDto;
 use App\Forms\SignInForm;
-use function T4\app;
 use T4\Core\MultiException;
 use T4\Mvc\Controller;
 
@@ -22,7 +21,7 @@ class SignIn extends Controller
      */
     public function actionDefault($return = null)
     {
-        if (!empty(app()->user)) {
+        if (!empty($this->app->user)) {
             $this->redirect('/cabinet');
         }
 

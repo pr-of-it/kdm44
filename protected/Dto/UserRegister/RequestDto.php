@@ -28,7 +28,7 @@ use Runn\ValueObjects\Values\StringValue;
  * @property string $coauthorName
  * @property string $coauthorEmail
  * @property string $message
- * @property boolean $personalAccount
+ * @property boolean $makePersonalAccount
  */
 class RequestDto extends ComplexValueObject
 {
@@ -50,6 +50,6 @@ class RequestDto extends ComplexValueObject
         'coauthorEmail' => ['class' => EmailOrNullValue::class, 'default' => null],
 
         'message' => ['class' => StringValue::class],
-        'personalAccount' => ['class' => BooleanValue::class, 'default' => null],
+        'makePersonalAccount' => ['class' => BooleanValue::class, 'default' => null],
     ];
 }

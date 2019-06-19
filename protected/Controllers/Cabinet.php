@@ -48,29 +48,25 @@ class Cabinet extends Controller
      */
     public function actionProfile()
     {
-        if (!empty(app()->user)) {
+        if (!empty($this->app->user)) {
 
-            $user = app()->user;
+            $user = $this->app->user;
             if (!empty($_POST)) {
-                if (!empty($_POST['password'])) {
-                    $form = new UserUpdateForm();
-                    $errors = [];
+                $form = new UserUpdateForm();
+                $errors = [];
 
-                    $form->setValue($_POST);
+                $form->setValue($_POST);
 
-                    if ($form->errors()->empty()) {
-                        try {
-                            $user->setFieldsByRequest($form->getValue(RequestDto::class));
-                            $user->save();
-                            $this->redirect('/cabinet');
-                        } catch (\Throwable $exception) {
-                            $errors = [$exception];
-                        }
-
-                        $this->data->errors = $errors;
+                if ($form->errors()->empty()) {
+                    try {
+                        $user->setFieldsByRequest($form->getValue(RequestDto::class));
+                        $user->save();
+                        $this->redirect('/cabinet');
+                    } catch (\Throwable $exception) {
+                        $errors = [$exception];
                     }
-                } else {
-                    $this->redirect('/cabinet');
+
+                    $this->data->errors = $errors;
                 }
             }
 

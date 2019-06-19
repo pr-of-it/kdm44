@@ -50,7 +50,7 @@ class Send extends Controller
             $form->validatePassword();
 
             if ($form->errors()->empty()) {
-                if (!empty($_POST['personalAccount'])) {
+                if (!empty($_POST['makePersonalAccount'])) {
                     try {
                         (new Identity())->register($form->getValue(RequestDto::class));
                     } catch (MultiException $exception) {

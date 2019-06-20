@@ -16,6 +16,7 @@ class m_1560951663_AlterRecoursesAddColumns
     {
         $this->addColumn('recourses', [
             'status' => ['type'=>'string'],
+            'number' => ['type'=>'string']
         ]);
     }
 
@@ -23,6 +24,7 @@ class m_1560951663_AlterRecoursesAddColumns
     {
         $this->dropColumn('recourses', [
             'status',
+            'number'
         ]);
     }
 }

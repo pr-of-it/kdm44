@@ -35,6 +35,7 @@ class Recourse
             'file1'         => ['type'=>'string'],
             'file2'         => ['type'=>'string'],
             'status'        => ['type'=>'string'],
+            'number'        => ['type'=>'string'],
             'created_at'    => ['type' => 'timestamp'],
         ],
         'relations' => [

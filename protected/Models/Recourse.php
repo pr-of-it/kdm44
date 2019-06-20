@@ -36,10 +36,11 @@ class Recourse
             'file2'         => ['type'=>'string'],
             'status'        => ['type'=>'string'],
             'number'        => ['type'=>'string'],
+            'comment'       => ['type'=>'string'],
             'created_at'    => ['type' => 'timestamp'],
         ],
         'relations' => [
-            'user'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\User::class]
+            'user' => ['type' => self::BELONGS_TO, 'model' => User::class]
         ],
     ];
 

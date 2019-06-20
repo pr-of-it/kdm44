@@ -17,6 +17,17 @@ use T4\Mvc\Controller;
  */
 class Send extends Controller
 {
+    protected const ALLOWED_EXTENSIONS =
+        [
+            'txt', 'doc', 'docx', 'rtf',
+            'xls', 'xlsx', 'pps', 'ppt',
+            'odt', 'ods', 'odp', 'pub',
+            'pdf', 'jpg', 'jpeg', 'bmp',
+            'png', 'tif', 'gif', 'pcx',
+            'mp3', 'wma', 'avi', 'mp4',
+            'mkv', 'wmv', 'mov', 'flv'
+        ];
+
     /**
      * Обращение
      *
@@ -68,7 +79,7 @@ class Send extends Controller
                         $recourse->setFieldsByRequest($data);
                         $recourse->save();
 
-                        $uploader = new Uploader('customFile');
+                        $uploader = new Uploader('customFile', self::ALLOWED_EXTENSIONS);
                         $uploader->setPath('/public/recourses');
                         $files = $uploader();
                         $this->data->items = $files;

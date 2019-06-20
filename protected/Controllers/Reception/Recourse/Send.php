@@ -8,6 +8,7 @@ use App\Forms\RecourseSendForm;
 use App\Models\Recourse;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
+use T4\Http\Uploader;
 use T4\Mvc\Controller;
 
 /**
@@ -66,6 +67,12 @@ class Send extends Controller
                     try {
                         $recourse->setFieldsByRequest($data);
                         $recourse->save();
+
+                        $uploader = new Uploader('customFile');
+                        $uploader->setPath('/public/recourses');
+                        $files = $uploader();
+                        $this->data->items = $files;
+
                         $this->redirect('/reception');
                     } catch (\Throwable $exception) {
                         $errors = [$exception];

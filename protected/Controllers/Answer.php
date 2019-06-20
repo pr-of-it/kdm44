@@ -11,6 +11,10 @@ use T4\Mvc\Controller;
  */
 class Answer extends Controller
 {
+    /**
+     * @param null $date
+     * @param null $number
+     */
     public function actionDefault($date = null, $number = null)
     {
         $this->data->date = $date;

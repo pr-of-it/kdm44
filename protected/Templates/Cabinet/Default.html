@@ -28,6 +28,16 @@
             {% set type = item.type %}
         {% endif %}
 
+        {% if item.status == 'new' %}
+            {% set status = 'Новое' %}
+        {% elseif item.status == 'registered' %}
+            {% set status = 'Зарегистрировано' %}
+        {% elseif item.status == 'withAnswer' %}
+            {% set status = 'Дан ответ' %}
+        {% else %}
+            {% set status = item.status %}
+        {% endif %}
+
         <div class="media" style="margin-top: 0; margin-bottom: 15px;">
             <div class="pull-left">
                 <span class="label label-info">{{ item.created_at|date('d.m.Y h:i:s') }}</span>
@@ -52,6 +62,8 @@
                     Нет
                 {% endif %}
             </p>
+            <p>Статус обращения: {{ status }}</p>
+            <p>Номер обращения: {{ item.number }}</p>
         </div>
     {% else %}
         <p>Нет обращений</p>

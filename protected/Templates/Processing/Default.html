@@ -1,0 +1,82 @@
+{% extends 'Kdm/NoBlocks.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li class="active">Обработка обращений</li>
+    <li></li>
+</ol>
+<div>
+    <p>{{ user.first_name ?? user.email }}, Вы вошли в раздел обработок обращений!</p>
+    <p><a href="/processing/logout">Выход из раздела обработок обращений</a></p>
+</div>
+<h3 align="center"><strong>Обработка обращений</strong></h3>
+<hr>
+<div>
+    <h4 align="center">Список обращений</h4>
+    <div class="table-responsive сol-sm-1">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Тип</th>
+                <th>Кому направлено</th>
+                <th>ФИО автора</th>
+                <th>Email автора</th>
+                <th>ФИО соавтора</th>
+                <th>Email соавтора</th>
+                <th>Текст обращения</th>
+                <th>Дата отправки</th>
+                <th>Прикреплённый документ обращения</th>
+                <th>Прикреплённый документ ответа</th>
+                <th>Комментарий</th>
+                <th>Статус</th>
+                <th>Номер</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    {% if item.type == 'send' %}
+                        {% set type = 'письмо' %}
+                    {% elseif item.type == 'corruption' %}
+                        {% set type = 'сообщить о коррупции' %}
+                    {% elseif item.type == 'collective-send' %}
+                        {% set type = 'коллективное обращение' %}
+                    {% else %}
+                        {% set type = item.type %}
+                    {% endif %}
+
+                    {% if item.status == 'new' %}
+                        {% set status = 'Новое' %}
+                    {% elseif item.status == 'registered' %}
+                        {% set status = 'Зарегистрировано' %}
+                    {% elseif item.status == 'withAnswer' %}
+                        {% set status = 'Дан ответ' %}
+                    {% else %}
+                        {% set status = item.status %}
+                    {% endif %}
+                    <tr>
+                        <td>{{ type }}</td>
+                        <td>{{ item.recipient }}</td>
+                        <td>{{ item.last_name }} {{ item.first_name }} {{ item.middle_name }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.coauthor_name }}</td>
+                        <td>{{ item.coauthor_email }}</td>
+                        <td>{{ item.message }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td>{{ item.file1 }}</td>
+                        <td>{{ item.file2 }}</td>
+                        <td>{{ item.comment }}</td>
+                        <td>{{ status }}</td>
+                        <td>{{ item.number }}</td>
+                        <td><a class="btn btn-primary" href="/processing/edit?id={{ item.getPk }}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{widget('pager', {total: total, size: size, active: page})}}
+</div>
+
+{% endblock %}

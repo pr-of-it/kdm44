@@ -1,0 +1,175 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li><a href="/processing">Обработка обращений</a></li>
+    <li class="active">Редактирование</li>
+    <li></li>
+</ol>
+<div>
+    <p>{{ user.first_name ?? user.email }}, Вы вошли в раздел обработок обращений!</p>
+    <p><a href="/processing/logout">Выход из раздела обработок обращений</a></p>
+</div>
+<h3 align="center"><strong>Обработка обращений</strong></h3>
+<hr>
+{{ form.render()|raw }}
+
+{% if errors %}
+    {% for error in errors %}
+        <div class="alert alert-danger">
+            <ul>
+                <li>{{error.getMessage()}}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div>
+    <div>
+        <h4 align="center">Редактирование</h4>
+        <br>
+        {% if item.type == 'send' %}
+            {% set type = 'письмо' %}
+            {% set send = 'selected' %}
+        {% elseif item.type == 'corruption' %}
+            {% set type = 'сообщить о коррупции' %}
+            {% set corruption = 'selected' %}
+        {% elseif item.type == 'collective-send' %}
+            {% set type = 'коллективное обращение' %}
+            {% set collective = 'selected' %}
+        {% elseif item.type == 'answer-to-recourse' %}
+            {% set type = 'ответ на обращение' %}
+            {% set answer = 'selected' %}
+        {% else %}
+            {% set type = item.type %}
+        {% endif %}
+
+        {% if item.status == 'new' %}
+            {% set status = 'Новое' %}
+            {% set new = 'selected' %}
+        {% elseif item.status == 'registered' %}
+            {% set status = 'Зарегистрировано' %}
+            {% set registered = 'selected' %}
+        {% elseif item.status == 'withAnswer' %}
+            {% set status = 'Дан ответ' %}
+            {% set withAnswer = 'selected' %}
+        {% else %}
+            {% set status = item.status %}
+        {% endif %}
+<!--        <div class="form-group row">-->
+<!--            <label class="col-sm-5 col-form-label" for="type">Тип</label>-->
+<!--            <div class="col-sm-7">-->
+<!--                <input required  type="text" id="type" class="form-control" name="type" value="{{ type }}" readonly>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="recipient">Кому направлено</label>
+            <div class="col-sm-7">
+                <input type="text" id="recipient" class="form-control" name="recipient" value="{{ item.recipient }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="name">ФИО автора</label>
+            <div class="col-sm-7">
+                <input type="text" id="name" class="form-control" name="name" value="{{ item.last_name }} {{ item.first_name }} {{ item.middle_name }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="email">Email автора</label>
+            <div class="col-sm-7">
+                <input type="text" id="email" class="form-control" name="email" value="{{ item.email }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="coauthor_name">ФИО соавтора</label>
+            <div class="col-sm-7">
+                <input type="text" id="coauthor_name" class="form-control" name="coauthor_name" value="{{ item.coauthor_name }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="coauthor_email">Email соавтора</label>
+            <div class="col-sm-7">
+                <input type="text" id="coauthor_email" class="form-control" name="coauthor_email" value="{{ item.coauthor_email }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="message">Текст обращения</label>
+            <div class="col-sm-7">
+                <textarea type="text" id="message" class="form-control" name="message" readonly>{{ item.message }}</textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="created_at">Дата</label>
+            <div class="col-sm-7">
+                <input type="text" id="created_at" class="form-control" name="created_at" value="{{ item.created_at }}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="file1">Прикреплённый файл обращения</label>
+            <div class="col-sm-7">
+                <input type="text" id="file1" class="form-control" name="file1" value="{{ item.file1 }}" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="form-style">
+        <form action="/cabinet/profile" enctype="multipart/form-data" id="contact_body" method="post">
+            <div>
+                <div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="type">Тип обращения <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <select class="form-control select-container" id="type" name="type">
+                                <option value="answer-to-recourse" {{ answer }}>Ответ на обращение</option>
+                                <option value="send" {{ send }}>Письмо</option>
+                                <option value="corruption" {{ corruption }}>Сообщить о коррупции</option>
+                                <option value="collective-send" {{ collective }}>Коллективное обращение</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="status">Статус обращения <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <select class="form-control select-container" id="status" name="status">
+                                <option value="new" {{ new }}>Новое</option>
+                                <option value="registered" {{ registered }}>Зарегистрировано</option>
+                                <option value="withAnswer" {{ withAnswer }}>Дан ответ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="number">Номер обращения <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input required class="form-control" id="number" type="text" name="number" value="{{ item.number }}">
+                        </div>
+                    </div>
+                    <div >
+                        <label class="custom-file-label" for="file2">Прикрепить файл ответа</label>
+                        <input type="file" class="custom-file-input" id="file2" name="file2">
+                        <p>
+                            Обращаем Ваше внимание, что подтверждением прикрепления файла вложения является появление строки
+                            с наименованием выбранного Вами файла.
+                        </p>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-form-label" for="comment">
+                            Комментарий
+                        </label>
+                        <div class="col-sm-12">
+                            <textarea required type="text" id="comment" class="form-control"  name="comment" placeholder="Текст комментария">{{ item.comment }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

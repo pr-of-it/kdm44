@@ -32,38 +32,25 @@
         <br>
         {% if item.type == 'send' %}
             {% set type = 'письмо' %}
-            {% set send = 'selected' %}
         {% elseif item.type == 'corruption' %}
             {% set type = 'сообщить о коррупции' %}
-            {% set corruption = 'selected' %}
         {% elseif item.type == 'collective-send' %}
             {% set type = 'коллективное обращение' %}
-            {% set collective = 'selected' %}
         {% elseif item.type == 'answer-to-recourse' %}
             {% set type = 'ответ на обращение' %}
-            {% set answer = 'selected' %}
         {% else %}
             {% set type = item.type %}
         {% endif %}
 
         {% if item.status == 'new' %}
             {% set status = 'Новое' %}
-            {% set new = 'selected' %}
         {% elseif item.status == 'registered' %}
             {% set status = 'Зарегистрировано' %}
-            {% set registered = 'selected' %}
         {% elseif item.status == 'withAnswer' %}
             {% set status = 'Дан ответ' %}
-            {% set withAnswer = 'selected' %}
         {% else %}
             {% set status = item.status %}
         {% endif %}
-<!--        <div class="form-group row">-->
-<!--            <label class="col-sm-5 col-form-label" for="type">Тип</label>-->
-<!--            <div class="col-sm-7">-->
-<!--                <input required  type="text" id="type" class="form-control" name="type" value="{{ type }}" readonly>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="recipient">Кому направлено</label>
             <div class="col-sm-7">
@@ -121,10 +108,10 @@
                         <label class="col-sm-5 col-form-label" for="type">Тип обращения <span style="color: red">*</span></label>
                         <div class="col-sm-7">
                             <select class="form-control select-container" id="type" name="type">
-                                <option value="answer-to-recourse" {{ answer }}>Ответ на обращение</option>
-                                <option value="send" {{ send }}>Письмо</option>
-                                <option value="corruption" {{ corruption }}>Сообщить о коррупции</option>
-                                <option value="collective-send" {{ collective }}>Коллективное обращение</option>
+                                <option value="send">Письмо</option>
+                                <option value="corruption">Сообщить о коррупции</option>
+                                <option value="collective-send">Коллективное обращение</option>
+                                <option value="answer-to-recourse">Ответ на обращение</option>
                             </select>
                         </div>
                     </div>
@@ -132,9 +119,9 @@
                         <label class="col-sm-5 col-form-label" for="status">Статус обращения <span style="color: red">*</span></label>
                         <div class="col-sm-7">
                             <select class="form-control select-container" id="status" name="status">
-                                <option value="new" {{ new }}>Новое</option>
-                                <option value="registered" {{ registered }}>Зарегистрировано</option>
-                                <option value="withAnswer" {{ withAnswer }}>Дан ответ</option>
+                                <option value="new">Новое</option>
+                                <option value="registered">Зарегистрировано</option>
+                                <option value="withAnswer">Дан ответ</option>
                             </select>
                         </div>
                     </div>

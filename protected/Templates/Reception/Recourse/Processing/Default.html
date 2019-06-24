@@ -2,15 +2,13 @@
 
 {% block content %}
 
+{% set count = 5 %}
+
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
     <li class="active">Обработка обращений</li>
     <li></li>
 </ol>
-<div>
-    <p>{{ user.first_name ?? user.email }}, Вы вошли в раздел обработок обращений!</p>
-    <p><a href="/processing/logout">Выход из раздела обработок обращений</a></p>
-</div>
 <h3 align="center"><strong>Обработка обращений</strong></h3>
 <hr>
 <div>
@@ -31,7 +29,7 @@
             </tr>
             </thead>
             <tbody>
-                {% for item in items %}
+                {% for item in providers['recourses'].setPageSize(count).getPage(page) %}
                     {% if item.type == 'send' %}
                         {% set type = 'письмо' %}
                     {% elseif item.type == 'corruption' %}
@@ -60,13 +58,14 @@
                         <td>{{ item.created_at }}</td>
                         <td>{{ item.number }}</td>
                         <td>{{ item.comment }}</td>
-                        <td><a class="btn btn-primary" href="/processing/edit?id={{ item.getPk }}">Редактировать</a></td>
+                        <td><a class="btn btn-primary" href="/reception/recourse/processing/edit/{{ item.getPk }}">Редактировать</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {{widget('pager', {total: total, size: size, active: page})}}
+    {{ widget('pager', {'total': providers['recourses'].total, 'size': providers['recourses'].pageSize, 'active': page, 'url': '/reception/recourse/processing/?page=%d'}) }}
+
 </div>
 
 {% endblock %}

@@ -4,6 +4,8 @@ return [
 
     '/index' => '///',
 
+    '/reception/recourse/processing' => '//App\Controllers\Reception\Recourse\Processing/Default',
+    '/reception/recourse/processing/edit/<1>' => '//App\Controllers\Reception\Recourse\Processing/Edit(id=<1>)',
     '/reception/recourse/<1>' => '//App\Controllers\Reception\Recourse\Send/Default(url=<1>)',
 
     '/news/archive' => '/News/Archive/Default',

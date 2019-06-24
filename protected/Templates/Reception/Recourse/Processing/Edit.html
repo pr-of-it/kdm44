@@ -4,14 +4,10 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Главная страница</a></li>
-    <li><a href="/processing">Обработка обращений</a></li>
+    <li><a href="/reception/recourse/processing">Обработка обращений</a></li>
     <li class="active">Редактирование</li>
     <li></li>
 </ol>
-<div>
-    <p>{{ user.first_name ?? user.email }}, Вы вошли в раздел обработок обращений!</p>
-    <p><a href="/processing/logout">Выход из раздела обработок обращений</a></p>
-</div>
 <h3 align="center"><strong>Обработка обращений</strong></h3>
 <hr>
 {{ form.render()|raw }}

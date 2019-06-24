@@ -21,7 +21,7 @@ class Answer extends Controller
         $this->data->number = $number;
         $this->data->item = Recourse::find(
             [
-                'where' => 'type = :type && status = :status && number LIKE :number && DATE(created_at) = :date',
+                'where' => 'type = :type AND status = :status AND number LIKE :number AND DATE(created_at) = :date',
                 'params' => [':number' => $number, ':date' => $date, ':type' => 'answer-to-recourse', ':status' => 'withAnswer']
             ]
         );

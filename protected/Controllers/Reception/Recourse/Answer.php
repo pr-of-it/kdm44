@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Reception\Recourse;
 
 use App\Models\Recourse;
 use T4\Mvc\Controller;
 
 /**
  * Class Answer
- * @package App\Controllers
+ * @package App\Controllers\Reception\Recourse
  */
 class Answer extends Controller
 {

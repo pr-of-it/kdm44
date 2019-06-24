@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Dto\RecourseUpdate\RequestDto;
+use App\Exceptions\ConflictException;
+use T4\Core\MultiException;
 use T4\Orm\Model;
 
 /**
@@ -69,5 +72,16 @@ class Recourse
         $user = User::findByColumn('email', $data['email']);
 
         $this->user = false !== $user ? $user->getPk() : null;
+    }
+
+    /**
+     * @param RequestDto $data
+     */
+    public function changeFieldsByRequest(RequestDto $data): void
+    {
+        $this->type = $data->type;
+        $this->status = $data->status;
+        $this->number = $data->number;
+        $this->comment = $data->comment;
     }
 }

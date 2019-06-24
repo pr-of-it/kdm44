@@ -97,7 +97,7 @@
         </div>
     </div>
     <div class="form-style">
-        <form action="/cabinet/profile" enctype="multipart/form-data" id="contact_body" method="post">
+        <form action="/reception/recourse/processing/edit/{{ item.getPk() }}" enctype="multipart/form-data" id="contact_body" method="post">
             <div>
                 <div>
                     <div class="form-group row">
@@ -128,8 +128,8 @@
                         </div>
                     </div>
                     <div>
-                        <label class="custom-file-label" for="file2">Прикрепить файл ответа</label>
-                        <input type="file" class="custom-file-input" id="file2" name="file2">
+                        <label class="custom-file-label" for="fileAnswer">Прикрепить файл ответа</label>
+                        <input type="file" class="custom-file-input" id="fileAnswer" name="fileAnswer">
                         <p>
                             Обращаем Ваше внимание, что подтверждением прикрепления файла вложения является появление строки
                             с наименованием выбранного Вами файла.

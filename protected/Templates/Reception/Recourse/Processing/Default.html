@@ -36,6 +36,8 @@
                         {% set type = 'сообщить о коррупции' %}
                     {% elseif item.type == 'collective-send' %}
                         {% set type = 'коллективное обращение' %}
+                    {% elseif item.type == 'answer-to-recourse' %}
+                        {% set type = 'ответ на обращение' %}
                     {% else %}
                         {% set type = item.type %}
                     {% endif %}

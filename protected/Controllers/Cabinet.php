@@ -21,19 +21,18 @@ class Cabinet extends Controller
      */
     public function actionDefault($page = 1)
     {
-        if (!empty($this->app->user)) {
-            $this->data->user = $this->app->user;
-            $this->data->providers = [
-                'recourses' => new ModelDataProvider(Recourse::class, [
-                    'order' => 'created_at DESC'
-                ]),
-            ];
-
-            $this->data->page = $page;
-
-        } else {
+        if (empty($this->app->user)) {
             $this->redirect('/signIn');
         }
+
+        $this->data->user = $this->app->user;
+        $this->data->providers = [
+            'recourses' => new ModelDataProvider(Recourse::class, [
+                'order' => 'created_at DESC'
+            ]),
+        ];
+
+        $this->data->page = $page;
     }
 
     /**
@@ -41,34 +40,33 @@ class Cabinet extends Controller
      */
     public function actionProfile()
     {
-        if (!empty($this->app->user)) {
-
-            $user = $this->app->user;
-            if (!empty($_POST)) {
-                $form = new UserUpdateForm();
-                $errors = [];
-
-                $form->setValue($_POST);
-
-                if ($form->errors()->empty()) {
-                    try {
-                        $user->setFieldsByRequest($form->getValue(RequestDto::class));
-                        $user->save();
-                        $this->redirect('/cabinet');
-                    } catch (\Throwable $exception) {
-                        $errors = [$exception];
-                    }
-
-                    $this->data->errors = $errors;
-                }
-                $this->data->old = $form->getValue();
-            }
-
-            $this->data->form = $form;
-            $this->data->user = $user;
-        } else {
+        if (empty($this->app->user)) {
             $this->redirect('/signIn');
         }
+
+        $user = $this->app->user;
+        if (!empty($_POST)) {
+            $form = new UserUpdateForm();
+            $errors = [];
+
+            $form->setValue($_POST);
+
+            if ($form->errors()->empty()) {
+                try {
+                    $user->setFieldsByRequest($form->getValue(RequestDto::class));
+                    $user->save();
+                    $this->redirect('/cabinet');
+                } catch (\Throwable $exception) {
+                    $errors = [$exception];
+                }
+
+                $this->data->errors = $errors;
+            }
+            $this->data->old = $form->getValue();
+        }
+
+        $this->data->form = $form;
+        $this->data->user = $user;
     }
 
     /**

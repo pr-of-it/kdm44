@@ -7,6 +7,7 @@ use App\Dto\UserUpdate\RequestDto;
 use App\Forms\UserUpdateForm;
 use App\Models\Recourse;
 use T4\Mvc\Controller;
+use T4\Orm\ModelDataProvider;
 
 /**
  * Class Сabinet
@@ -14,29 +15,22 @@ use T4\Mvc\Controller;
  */
 class Cabinet extends Controller
 {
-    const DEFAULT_STATMENTS_COUNT = 5;
-
     /**
-     * @param int $count
+     * @param int $page
+     * @throws \T4\Orm\Exception
      */
-    public function actionDefault($count = self::DEFAULT_STATMENTS_COUNT)
+    public function actionDefault($page = 1)
     {
         if (!empty($this->app->user)) {
-            $this->data->page = $this->app->request->get->page ?: 1;
-            $this->data->total = Recourse::countAllByColumn('__user_id', $this->app->user->getPk());
-            $this->data->size = $count;
             $this->data->user = $this->app->user;
+            $this->data->providers = [
+                'recourses' => new ModelDataProvider(Recourse::class, [
+                    'order' => 'created_at DESC'
+                ]),
+            ];
 
-            $recourses = Recourse::findAllByColumn(
-                '__user_id', $this->app->user->getPk(),
-                [
-                    'order' => 'created_at DESC',
-                    'offset' => ($this->data->page - 1) * $count,
-                    'limit' => $count,
-                ]
-            );
+            $this->data->page = $page;
 
-            $this->data->items = $recourses;
         } else {
             $this->redirect('/signIn');
         }

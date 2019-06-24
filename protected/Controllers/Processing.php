@@ -31,7 +31,7 @@ class Processing extends Controller
 
             $recourses = Recourse::findAll(
                 [
-                    'order' => 'created_at DESC',
+                    'order' => 'status, created_at DESC',
                     'offset' => ($this->data->page - 1) * $count,
                     'limit' => $count,
                 ]

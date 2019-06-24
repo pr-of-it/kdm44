@@ -45,7 +45,9 @@ class Processing extends Controller
     }
 
     /**
-     * Профиль пользователя
+     * Редактирование обращений
+     *
+     * @param null $id
      */
     public function actionEdit($id = null)
     {
@@ -60,7 +62,7 @@ class Processing extends Controller
     }
 
     /**
-     * Выход из личного кабинета
+     * Выход из раздела обработки обращений
      *
      * @return void
      */

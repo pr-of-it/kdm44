@@ -76,10 +76,9 @@ class Cabinet extends Controller
      */
     public function actionLogout(): void
     {
-        if (empty($this->app->user)) {
-            $this->redirect('/reception');
+        if (!empty($this->app->user)) {
+            (new Identity())->logout();
         }
-
-        (new Identity())->logout();
+        $this->redirect('/reception');
     }
 }

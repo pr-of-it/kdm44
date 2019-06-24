@@ -36,14 +36,18 @@ class RecourseSendForm extends Form
     }
 
     /**
-     * Если personalAccount не пустой, то валидируем пароль и повтор пароля
+     * Если makePersonalAccount не пустой, то валидируем пароль и повтор пароля
+     *
+     * @param iterable $value
+     * @return Form
      */
-    public function validatePassword(): void
+    public function setValue($value)
     {
-        if (!empty($this->personalAccount->getValue())) {
-            $this->password->setValidator(new MinimalLengthAndHasDigitsValidator())->validate();
-            $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password))->validate();
+        if (!empty($value['makePersonalAccount'])) {
+            $this->password->setValidator(new MinimalLengthAndHasDigitsValidator());
+            $this->passwordConfirmation->setValidator(new CompareValuesValidator($this->password));
         }
+        return parent::setValue($value);
     }
 
     protected static $schema = [

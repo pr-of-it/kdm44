@@ -59,7 +59,6 @@ class Send extends Controller
 
         if (!empty($_POST)) {
             $form->setValue($_POST);
-            $form->validatePassword();
 
             if ($form->errors()->empty()) {
                 if (!empty($_POST['makePersonalAccount'])) {

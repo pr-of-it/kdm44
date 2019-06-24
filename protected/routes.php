@@ -4,6 +4,8 @@ return [
 
     '/index' => '///',
 
+    '/reception/recourse/<1>' => '//App\Controllers\Reception\Recourse\Send/Default(url=<1>)',
+
     '/news/archive' => '/News/Archive/Default',
     '/news/archive/<1>/<2>/<3>' => '/News/Archive/NewsByDay(year=<1>,month=<2>,topic=<3>)',
     '/news/archive/<1>/<2>' => '/News/Archive/NewsByTopic(year=<1>,month=<2>)',

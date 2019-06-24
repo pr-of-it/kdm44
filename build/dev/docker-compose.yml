@@ -2,17 +2,23 @@ version: '3'
 
 services:
    php-fpm:
-      image: registry.ucann.ru/php/php7.3-fpm:latest
+      image: registry.ucann.ru/php/php7.3-fpm-xdebug:latest
       volumes:
         - ./build/dev/docker/config/php/php-fpm.d:/usr/local/etc/php-fpm.d
         - ./build/dev/docker/config/nginx/ssl:/etc/nginx/ssl
         - ./build/dev/docker/config/nginx/sites-enabled/site.conf:/etc/nginx/sites-enabled/site.conf
         - ./:/app
+      environment:
+        XDEBUG_CONFIG: "remote_host=dockerhost remote_port=9000 remote_autostart=1 remote_enable=1 profiler_enable=0"
+        PHP_IDE_CONFIG: "serverName=dev.kdm44"
       ports:
         - 80:80
         - 443:443
       depends_on:
         - mysql
+
+      extra_hosts:
+        - "dockerhost:$DOCKERHOST"
 
    mysql:
       image: mysql:5.7

@@ -1,0 +1,246 @@
+<script type="text/javascript">
+    //id1 - id чекбокса, который должен быть checked, id2 - id элемента, который должен быть виден при нажатии на чекбокс
+    function show (id1, id2) {
+        console.log('show');
+        if (document.getElementById(id1).checked) {
+            document.getElementById(id2).style.display = 'block';
+        } else {
+            document.getElementById(id2).style.display = 'none';
+        }
+    }
+    //id1 - id чекбокса, который должен быть checked, id2, id3 - id элементов, которые должны быть обязательными при нажатии на чекбокс
+    function makeRequired(id1, id2, id3) {
+        console.log('required');
+        if (document.getElementById(id1).checked) {
+            document.getElementById(id2).setAttribute('required', true);
+            document.getElementById(id3).setAttribute('required', true);
+        } else {
+            document.getElementById(id2).removeAttribute('required');
+            document.getElementById(id3).removeAttribute('required');
+        }
+    }
+</script>
+<div>
+    <p>
+        Поля, отмеченные <span style="color: red">*</span>, обязательны для заполнения.
+    </p>
+    <p>
+        Информация о персональных данных авторов обращений, направленных в электронном виде,
+        хранится и обрабатывается с соблюдением требований российского законодательства о персональных данных.
+    </p>
+    <p>
+        В электронной анкете в Вашем обращении укажите:
+    </p>
+</div>
+<div class="form-style">
+    <form action="/reception/recourse/{{ query }}" enctype="multipart/form-data" id="contact_body" method="post">
+        <div>
+            <div class="recipient_block">
+                <label>
+                    Кому Вы его направляете или куда Вы его направляете <span style="color: red">*</span>
+                </label>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recipient" id="recipient1" value="Председатель комитета" onclick="show('recipient3', 'recipient4')" checked>
+                                <label class="form-check-label" for="recipient1">
+                                    Председатель комитета
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recipient" id="recipient2" value="Комитет по делам молодёжи" onclick="show('recipient3', 'recipient4')">
+                                <label class="form-check-label" for="recipient2">
+                                    Комитет по делам молодёжи
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recipient" id="recipient3" value="3" onclick="show('recipient3', 'recipient4')">
+                                <label class="form-check-label" for="recipient3">
+                                    Должностному лицу комитета по делам молодёжи
+                                </label>
+                                <div class="form-group row" id="recipient4" style="display:none;">
+                                    <label class="col-sm-5 col-form-label" for="executive">Выберите должностное лицо</label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control select2-container" id="executive" name="executive">
+                                            <option value="Заместитель председателя комитета Виноградова Христина Александровна">
+                                                Заместитель председателя комитета Виноградова Христина Александровна
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group row">
+                <label for="lastName" class="col-sm-5 col-form-label">Фамилия <span style="color: red">*</span></label>
+                <div class="col-sm-7">
+                    <input required type="text" class="form-control" id="lastName" name="lastName" placeholder="Фамилия" value="{{ old['lastName'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-5 col-form-label">Имя <span style="color: red">*</span></label>
+                <div class="col-sm-7">
+                    <input required type="text" class="form-control" id="firstName" name="firstName" placeholder="Имя" value="{{ old['firstName'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="middleName" class="col-sm-5 col-form-label">Отчество (при наличии)</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Отчество" value="{{ old['middleName'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="organization" class="col-sm-5 col-form-label">Наименование организации (юридического лица)</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="organization" name="organization" placeholder="Наименование организации (юридического лица)" value="{{ old['organization'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label" for="email">
+                    Адрес электронной почты, по которому должны быть направлены ответ, уведомление о переадресации Вашего обращения
+                    <span style="color: red">*</span>
+                </label>
+                <div class="col-sm-7">
+                    <input required  type="email" id="email" class="form-control" name="email" placeholder="email" value="{{ old['email'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label" for="emailConfirmation">
+                    Повторите адрес электронной почты для автоматической проверки правильности его заполнения
+                    <span style="color: red">*</span>
+                </label>
+                <div class="col-sm-7">
+                    <input required  type="email" id="emailConfirmation" class="form-control" name="emailConfirmation" placeholder="Повторите email" value="{{ old['emailConfirmation'] ?? '' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label" for="phone">Номер телефона</label>
+                <div class="col-sm-7">
+                    <input type="text" id="phone" class="form-control phone"  name="phone" placeholder="+7987XXXXXXX" value="{{ old['phone'] ?? '' }}">
+                </div>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="addCoauthor" id="addCoauthor" value="3"
+                       onclick="show('addCoauthor', 'coauthor'); makeRequired('addCoauthor', 'coauthorName', 'coauthorEmail');">
+                <label class="form-check-label" for="addCoauthor">
+                    Добавить соавтора обращения
+                </label>
+                <div id="coauthor" style="display:none;">
+                    <div class="form-group row">
+                        <label for="coauthorName" class="col-sm-5 col-form-label">ФИО соавтора <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="coauthorName" id="coauthorName" placeholder="ФИО соавтора" value="{{ old['coauthorName'] ?? '' }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="coauthorEmail" class="col-sm-5 col-form-label">Почта соавтора <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input type="email" class="form-control" name="coauthorEmail" id="coauthorEmail" placeholder="Почта соавтора" value="{{ old['coauthorEmail'] ?? '' }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Напишите текст обращения</h3>
+                <p>
+                    В соответствии с частью 1 статьи 7 Федерального закона от 2 мая 2006 года № 59-ФЗ
+                    «О порядке рассмотрения обращений граждан Российской Федерации» гражданин в своём обращении в обязательном порядке
+                    излагает суть предложения, заявления или жалобы.
+                </p>
+                <p>
+                    Обращаем Ваше внимание, что в целях объективного и всестороннего рассмотрения Вашего обращения в
+                    установленные сроки необходимо в тексте обращения указывать адрес описанного Вами места действия, факта или события.
+                </p>
+                <p>
+                    В случае, если текст Вашего обращения не позволяет определить суть предложения, заявления или жалобы,
+                    ответ на обращение не дается и оно не подлежит направлению на рассмотрение в государственный орган,
+                    орган местного самоуправления или должностному лицу, в соответствии с их компетенцией,
+                    о чем Вам будет сообщено в течение семи дней со дня регистрации обращения.
+                </p>
+                <p>
+                    Обращаем Ваше внимание, что при написании текста обращения в форме электронного документа в
+                    поле ввода текста обращения в форме электронного документа для изложения сути предложения,
+                    заявления или жалобы отсутствует ограничение по вводимому количеству символов.
+                </p>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label" for="message">
+                    В поле ввода текста обращения в форме электронного документа в Вашем обращении:
+                    изложите суть предложения, заявления или жалобы
+                    <span style="color: red">*</span>
+                </label>
+                <div class="col-sm-12">
+                    <textarea required type="text" id="message" class="form-control"  name="message" placeholder="Текст обращения">{{ old['message'] ?? '' }}</textarea>
+                </div>
+            </div>
+            <div>
+                <p>
+                    В случае необходимости в подтверждение своих доводов гражданин вправе приложить к обращению
+                    необходимые документы и материалы в электронной форме, воспользовавшись функцией «Прикрепить файл».
+                </p>
+                <p>
+                    Обращаем внимание, что прикрепляемые в предложенном на сайте формате документы и материалы служат
+                    лишь подтверждением доводов автора обращения, изложенных в тексте обращения.
+                </p>
+                <p>
+                    Приложить необходимые документы и материалы в электронной форме можно в любой последовательности
+                    двумя самостоятельными вложениями файла без архивирования (файл вложения) по одному из двух разных типов допустимых форматов:
+                    текстового (графического) формата: txt, doc, docx, rtf, xls, xlsx, pps, ppt, odt, ods, odp, pub, pdf, jpg, jpeg, bmp, png, tif, gif, pcx;
+                    аудио- (видео-) формата: mp3, wma, avi, mp4, mkv, wmv, mov, flv.
+                    Иные форматы не обрабатываются в информационных системах Комитета по делам молодёжи.
+                </p>
+                <p>
+                    При подключении оборудования пользователя к сети «Интернет» по выделенным каналам связи с
+                    использованием технологий ADSL, 3G, 4G, WiFi и иных технологий,
+                    обеспечивающих аналогичные скорости передачи данных в сети «Интернет»,
+                    передача и обработка файла(ов) с суммарным размером:<br>
+                    - до 5 Мб осуществляется, как правило, без задержки во времени;<br>
+                    - от 5 Мб до 10 Мб может осуществляться с задержкой во времени;<br>
+                    - свыше 10 Мб может быть не осуществлена.
+                </p>
+            </div>
+            <div >
+                <label class="custom-file-label" for="customFile">Прикрепить файл</label>
+                <input type="file" class="custom-file-input" id="customFile" name="customFile">
+                <p>
+                    Обращаем Ваше внимание, что подтверждением прикрепления файла вложения является появление строки
+                    с наименованием выбранного Вами файла.
+                </p>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="makePersonalAccount" name="makePersonalAccount" value="1"
+                       onclick="show('makePersonalAccount', 'pass'); makeRequired('makePersonalAccount', 'password', 'passwordConfirmation');">
+                <label class="col-form-label" for="makePersonalAccount">Создать личный кабинет</label>
+            </div>
+            <div id="pass" style="display: none">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="password">Пароль (не менее шести символов) <span style="color: red">*</span></label>
+                    <div class="col-sm-7">
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Введите пароль">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="passwordConfirmation">Повторите пароль <span style="color: red">*</span></label>
+                    <div class="col-sm-7">
+                        <input type="password" id="passwordConfirmation" class="form-control" name="passwordConfirmation" placeholder="Повторите пароль">
+                    </div>
+                </div>
+            </div>
+            <p>
+                В случае успешной отправки письма в электронной форме появляется информационное сообщение,
+                содержащее дату и номер отправления ID, подтверждающие факт отправки Вашего письма.
+            </p>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <button type="submit" class="btn btn-primary">Направить письмо</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

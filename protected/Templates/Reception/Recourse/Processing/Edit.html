@@ -124,7 +124,7 @@
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label" for="number">Номер обращения <span style="color: red">*</span></label>
                         <div class="col-sm-7">
-                            <input required class="form-control" id="number" type="text" name="number" value="{{ item.number }}">
+                            <input required class="form-control" id="number" type="text" name="number" value="{{ old['number'] ?? item.number }}">
                         </div>
                     </div>
                     <div>
@@ -140,7 +140,7 @@
                             Комментарий
                         </label>
                         <div class="col-sm-12">
-                            <textarea required type="text" id="comment" class="form-control"  name="comment" placeholder="Текст комментария">{{ item.comment }}</textarea>
+                            <textarea required type="text" id="comment" class="form-control"  name="comment" placeholder="Текст комментария">{{ old['comment'] ?? item.comment }}</textarea>
                         </div>
                     </div>
                 </div>

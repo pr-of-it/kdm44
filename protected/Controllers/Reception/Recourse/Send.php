@@ -78,11 +78,12 @@ class Send extends Controller
                         $recourse->setFieldsByRequest($data);
                         $recourse->save();
 
-                        $uploader = new Uploader('customFile', self::ALLOWED_EXTENSIONS);
-                        $uploader->setPath('/public/recourses');
-                        $files = $uploader();
-                        $this->data->items = $files;
-
+                        if (!empty($_FILES['customFile']['name'])) {
+                            $uploader = new Uploader('customFile', self::ALLOWED_EXTENSIONS);
+                            $uploader->setPath('/public/recourses');
+                            $files = $uploader();
+                            $this->data->items = $files;
+                        }
                         $this->redirect('/reception');
                     } catch (\Throwable $exception) {
                         $errors = [$exception];

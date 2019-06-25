@@ -65,8 +65,6 @@ class Recourse
         $this->coauthor_name = $data['coauthorName'];
         $this->coauthor_email = $data['coauthorEmail'];
         $this->message = $data['message'];
-        $this->file1 = $data['customFile']['name'];
-        $this->file2 = $data['customFile2']['name'];
         $this->status = $this->status['new'];
 
         $user = User::findByColumn('email', $data['email']);

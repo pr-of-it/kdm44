@@ -77,14 +77,15 @@ class Processing extends Controller
 
             if ($form->errors()->empty()) {
                 try {
+                    if (!empty($_FILES['fileAnswer']['name'])) {
+                        $uploader = new Uploader('fileAnswer', self::ALLOWED_EXTENSIONS);
+                        $uploader->setPath('/public/recourses/answers');
+                        $files = $uploader();
+                        $this->data->items = $files;
+                        $recourse->file2 = $_FILES['fileAnswer']['name'];
+                    }
                     $recourse->changeFieldsByRequest($form->getValue(RequestDto::class));
                     $recourse->save();
-
-                    $uploader = new Uploader('fileAnswer', self::ALLOWED_EXTENSIONS);
-                    $uploader->setPath('/public/recourses/answers');
-                    $files = $uploader();
-                    $this->data->items = $files;
-
                     $this->redirect('/reception/recourse/processing');
                 } catch (\Throwable $exception) {
                     $errors = [$exception];
@@ -92,6 +93,9 @@ class Processing extends Controller
 
                 $this->data->errors = $errors;
             }
+
+            $this->data->form = $form;
+
             $this->data->old = $form->getValue();
         }
 

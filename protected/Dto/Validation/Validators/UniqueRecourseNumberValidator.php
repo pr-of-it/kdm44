@@ -2,15 +2,11 @@
 
 namespace App\Dto\Validation\Validators;
 
-use App\Dto\Validation\Exceptions\CompareException;
 use App\Exceptions\ConflictException;
 use App\Models\Recourse;
 use Runn\Core\Exceptions;
-use Runn\Html\Form\Field;
 use Runn\Validation\Exceptions\EmptyValue;
-use Runn\Validation\Validator;
 use Runn\Validation\Validators\StringValidator;
-use T4\Orm\Model;
 
 /**
  * Class CompareValuesValidator
@@ -32,7 +28,7 @@ class UniqueRecourseNumberValidator extends StringValidator
             $errors[] = new EmptyValue($value);
         } else {
             if (!empty(Recourse::countAllByColumn('number', $value))) {
-                $errors[] = new ConflictException('Обращение с таким номером уже существует');
+                $errors[] = new ConflictException();
             }
             parent::validate($value);
         }

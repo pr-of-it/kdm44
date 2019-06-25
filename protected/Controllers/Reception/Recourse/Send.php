@@ -70,20 +70,21 @@ class Send extends Controller
                         $errors = [$exception];
                     }
                 }
-                $data = array_merge($_POST, $_FILES, ['type' => $url]);
+                $data = array_merge($_POST, ['type' => $url]);
 
                 if (empty($errors)) {
                     $recourse = new Recourse();
                     try {
-                        $recourse->setFieldsByRequest($data);
-                        $recourse->save();
-
                         if (!empty($_FILES['customFile']['name'])) {
                             $uploader = new Uploader('customFile', self::ALLOWED_EXTENSIONS);
                             $uploader->setPath('/public/recourses');
                             $files = $uploader();
                             $this->data->items = $files;
+                            $recourse->file1 = $_FILES['customFile']['name'];
                         }
+                        $recourse->setFieldsByRequest($data);
+                        $recourse->save();
+
                         $this->redirect('/reception');
                     } catch (\Throwable $exception) {
                         $errors = [$exception];

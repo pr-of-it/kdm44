@@ -28,6 +28,7 @@ class Cabinet extends Controller
         $this->data->user = $this->app->user;
         $this->data->providers = [
             'recourses' => new ModelDataProvider(Recourse::class, [
+                'where' => '__user_id = '. $this->app->user->getPk(),
                 'order' => 'created_at DESC'
             ]),
         ];

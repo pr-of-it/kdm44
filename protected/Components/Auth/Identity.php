@@ -36,21 +36,17 @@ class Identity
             throw $errors;
         }
 
-        try {
-            $user = new User();
-            $user->fill([
-                'email'     => $data->email,
-                'password'  => password_hash($data->password, PASSWORD_DEFAULT),
-                'first_name' => $data->firstName,
-                'last_name'  => $data->lastName,
-                'middle_name' => $data->middleName,
-                'organization' => $data->organization,
-                'phone' => $data->phone,
-                'role' => (Role::findByColumn('name','user'))->getPk(),
-            ]);
-        } catch (MultiException $e) {
-            throw $e;
-        }
+        $user = new User();
+        $user->fill([
+            'email'     => $data->email,
+            'password'  => password_hash($data->password, PASSWORD_DEFAULT),
+            'first_name' => $data->firstName,
+            'last_name'  => $data->lastName,
+            'middle_name' => $data->middleName,
+            'organization' => $data->organization,
+            'phone' => $data->phone,
+            'role' => (Role::findByColumn('name','user'))->getPk(),
+        ]);
 
         $user->save();
 

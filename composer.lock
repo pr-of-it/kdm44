@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9c8ab7350cb8ba232e7e7804d50ee85",
+    "content-hash": "94a0251877d21bdead5c9fbe91440b2f",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -129,6 +129,55 @@
             "time": "2019-05-30T20:00:29+00:00"
         },
         {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.1.0",
             "source": {
@@ -174,6 +223,332 @@
                 "psr-3"
             ],
             "time": "2018-11-20T15:27:04+00:00"
+        },
+        {
+            "name": "runn/core",
+            "version": "v7.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Core.git",
+                "reference": "59f14876c51460a013743b5848f09276c800f9ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Core/zipball/59f14876c51460a013743b5848f09276c800f9ab",
+                "reference": "59f14876c51460a013743b5848f09276c800f9ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "psr/container": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                },
+                {
+                    "name": "Maxim Fedorov",
+                    "email": "scorp7mix@gmail.com"
+                },
+                {
+                    "name": "Dmitriy Makarov",
+                    "email": "ru.damakarov@gmail.com"
+                },
+                {
+                    "name": "Dmitry Karasev",
+                    "email": "karasev.dmitry@gmail.com"
+                },
+                {
+                    "name": "Julia Kudryashova"
+                }
+            ],
+            "description": "Runn Me! Core Library",
+            "keywords": [
+                "collection",
+                "framework",
+                "multiexception",
+                "runn",
+                "runn.me",
+                "std"
+            ],
+            "time": "2019-01-03T13:17:51+00:00"
+        },
+        {
+            "name": "runn/fs",
+            "version": "v7.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Fs.git",
+                "reference": "0067b2f68edad6ed7fcb69f8d994363de36a552a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Fs/zipball/0067b2f68edad6ed7fcb69f8d994363de36a552a",
+                "reference": "0067b2f68edad6ed7fcb69f8d994363de36a552a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "runn/core": "7.2.*",
+                "runn/serialization": "7.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                },
+                "files": [
+                    "src/Fs/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                }
+            ],
+            "description": "Runn Me! File System Library",
+            "keywords": [
+                "file",
+                "folder",
+                "framework",
+                "runn",
+                "runn.me"
+            ],
+            "time": "2019-05-17T14:14:53+00:00"
+        },
+        {
+            "name": "runn/html",
+            "version": "v7.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Html.git",
+                "reference": "8cd03ebbd65b418d71a2420fe5dd00fb91ed46e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Html/zipball/8cd03ebbd65b418d71a2420fe5dd00fb91ed46e4",
+                "reference": "8cd03ebbd65b418d71a2420fe5dd00fb91ed46e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "runn/core": "7.2.*",
+                "runn/fs": "7.2.*",
+                "runn/validation": "7.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*",
+                "runn/valueobjects": "7.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                },
+                {
+                    "name": "Alexander Gropyanov",
+                    "email": "fasderq@gmail.com"
+                }
+            ],
+            "description": "Runn Me! HTML Library",
+            "keywords": [
+                "element",
+                "form",
+                "framework",
+                "html",
+                "runn",
+                "runn.me"
+            ],
+            "time": "2019-05-22T14:23:28+00:00"
+        },
+        {
+            "name": "runn/serialization",
+            "version": "v7.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Serialization.git",
+                "reference": "6086c1e4432acdf310ab14c4b816419fb3ddb4f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Serialization/zipball/6086c1e4432acdf310ab14c4b816419fb3ddb4f4",
+                "reference": "6086c1e4432acdf310ab14c4b816419fb3ddb4f4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2",
+                "runn/core": "7.2.*",
+                "symfony/yaml": "3.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                }
+            ],
+            "description": "Runn Me! Serialization Library",
+            "keywords": [
+                "decode",
+                "deserialize",
+                "encode",
+                "framework",
+                "runn",
+                "runn.me",
+                "serialization",
+                "serialize",
+                "unserialize"
+            ],
+            "time": "2019-01-05T11:47:31+00:00"
+        },
+        {
+            "name": "runn/validation",
+            "version": "v7.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Validation.git",
+                "reference": "cde03a4678a1388734c4ff47c7d13bad46005772"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Validation/zipball/cde03a4678a1388734c4ff47c7d13bad46005772",
+                "reference": "cde03a4678a1388734c4ff47c7d13bad46005772",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "runn/core": "7.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                },
+                {
+                    "name": "Alexey Maksarov",
+                    "email": "aleksey.maksarov@gmail.com"
+                }
+            ],
+            "description": "Runn Me! Validation and Sanitization Library",
+            "keywords": [
+                "framework",
+                "invalid",
+                "runn",
+                "runn.me",
+                "sanitization",
+                "sanitize",
+                "sanitizer",
+                "valid",
+                "validate",
+                "validation",
+                "validator"
+            ],
+            "time": "2019-01-03T13:54:28+00:00"
+        },
+        {
+            "name": "runn/valueobjects",
+            "version": "v7.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/ValueObjects.git",
+                "reference": "57d581814b9bb78de75616906647d01f92f73413"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/ValueObjects/zipball/57d581814b9bb78de75616906647d01f92f73413",
+                "reference": "57d581814b9bb78de75616906647d01f92f73413",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "runn/core": "7.2.*",
+                "runn/validation": "7.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                },
+                {
+                    "name": "Alexey Maksarov",
+                    "email": "aleksey.maksarov@gmail.com"
+                }
+            ],
+            "description": "Runn Me! Value Objects Library",
+            "keywords": [
+                "Value Object",
+                "ddd",
+                "entity",
+                "framework",
+                "runn",
+                "runn.me"
+            ],
+            "time": "2019-01-04T10:57:03+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -234,17 +609,76 @@
             "time": "2019-02-06T07:57:58+00:00"
         },
         {
-            "name": "twig/twig",
-            "version": "v1.42.0",
+            "name": "symfony/yaml",
+            "version": "v3.4.28",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "2983fcf2e20a4afe95f07e61d89a7590b3c8df2e"
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/2983fcf2e20a4afe95f07e61d89a7590b3c8df2e",
-                "reference": "2983fcf2e20a4afe95f07e61d89a7590b3c8df2e",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/212a27b731e5bfb735679d1ffaac82bd6a1dc996",
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-03-25T07:48:46+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.42.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "671347603760a88b1e7288aaa9378f33687d7edf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/671347603760a88b1e7288aaa9378f33687d7edf",
+                "reference": "671347603760a88b1e7288aaa9378f33687d7edf",
                 "shasum": ""
             },
             "require": {
@@ -297,7 +731,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-05-31T06:20:05+00:00"
+            "time": "2019-06-04T11:31:08+00:00"
         }
     ],
     "packages-dev": [],

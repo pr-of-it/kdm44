@@ -1,0 +1,127 @@
+{% macro result(title, lead, url) %}
+    <div>
+        <h3><a href="{{ url }}" style="display: block; text-decoration: none">{{ title }}</a></h3>
+        <p>{{lead|striptags|raw}}</p><hr>
+    </div>
+{% endmacro %}
+
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="/">Главная страница</a></li>
+        <li><a href="/reception">Электронная приёмная</a></li>
+        <li class="active">Ответы на обращения</li>
+        <li></li>
+    </ol>
+<div>
+    <h4 align="center"><strong>Ответы на обращения, затрагивающие интересы неопределенного круга лиц</strong></h4>
+    <br>
+    <div class="form-style">
+        <form class="form-horizontal" action="/reception/recourse/answer.html">
+            <div>
+                <div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="date">Введите дату обращения <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input required class="form-control" id="date" type="date" name="date" value="{{ old['date'] }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label" for="number">Введите номер обращения <span style="color: red">*</span></label>
+                        <div class="col-sm-7">
+                            <input required class="form-control" id="number" type="text" name="number" placeholder="Введите номер обращения" value="{{ old['number'] }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div>
+    {% if number is not empty and date is not empty %}
+
+        {% if item is not empty %}
+
+            {% if item.type == 'send' %}
+                {% set type = 'письмо' %}
+            {% elseif item.type == 'corruption' %}
+                {% set type = 'сообщить о коррупции' %}
+            {% elseif item.type == 'collective-send' %}
+                {% set type = 'коллективное обращение' %}
+            {% elseif item.type == 'answer-to-recourse' %}
+                {% set type = 'ответ на обращение' %}
+            {% else %}
+                {% set type = item.type %}
+            {% endif %}
+
+            {% if item.status == 'new' %}
+                {% set status = 'Новое' %}
+            {% elseif item.status == 'registered' %}
+                {% set status = 'Зарегистрировано' %}
+            {% elseif item.status == 'withAnswer' %}
+                {% set status = 'Дан ответ' %}
+            {% else %}
+                {% set status = item.status %}
+            {% endif %}
+
+            <div class="media" style="margin-top: 0; margin-bottom: 15px;">
+                <div class="pull-left">
+                    <span class="label label-info">{{ item.created_at|date('d.m.Y h:i:s') }}</span>
+                </div>
+                <br>
+                <p>Тип обращения: {{ type }}</p>
+                <p>Кому направлено: {{ item.recipient }}</p>
+                <p>ФИО автора обращения: {{ item.last_name}} {{ item.first_name }} {{ item.middle_name }}</p>
+                <p>Email автора обращения: {{ item.email}}</p>
+                <p>
+                    Соавторы (ФИО, email):
+                    {% if item.coauthor_email is not empty %}
+                        {{ item.coauthor_name }}, {{ item.coauthor_email }}
+                    {% else %}
+                        Нет
+                    {% endif %}
+                </p>
+                <p>Текст обращения: {{ item.message }}</p>
+                <p>
+                    Прикреплённый документ обращения:
+                    {% if item.file1 is not empty %}
+                        {{ item.file1 }}
+                    {% else %}
+                        Нет
+                    {% endif %}
+                </p>
+                <p>
+                    Прикреплённый документ ответа:
+                    {% if item.file2 is not empty %}
+                        {{ item.file2 }}
+                    {% else %}
+                        Нет
+                    {% endif %}
+                </p>
+                <p>
+                    Комментарий:
+                    {% if item.comment is not empty %}
+                        {{ item.comment }}
+                    {% else %}
+                        Нет
+                    {% endif %}
+                </p>
+                <p>Статус обращения: {{ status }}</p>
+                <p>Номер обращения: {{ item.number }}</p>
+            </div>
+        {% else %}
+            <p>Поиск обращений не дал результатов</p>
+        {% endif %}
+    {% else %}
+        <p>Задан пустой поисковый запрос</p>
+    {% endif %}
+</div>
+{% endblock %}

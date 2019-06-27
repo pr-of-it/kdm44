@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Dto\UserUpdate\RequestDto;
 use T4\Orm\Model;
 
+/**
+ * Class User
+ * @package App\Models
+ */
 class User
     extends Model
 {
@@ -12,6 +17,11 @@ class User
         'columns' => [
             'email'     => ['type'=>'string'],
             'password'  => ['type'=>'string'],
+            'first_name' => ['type' => 'string'],
+            'middle_name' => ['type' => 'string'],
+            'last_name' => ['type' => 'string'],
+            'organization' => ['type' => 'string'],
+            'phone' => ['type' => 'string'],
         ],
         'relations' => [
             'role'=>['type'=>self::BELONGS_TO, 'model'=>\App\Models\Role::class]
@@ -23,4 +33,16 @@ class User
         return !empty($this->role) && ( ($role == $this->role->name) || ($role == $this->role->title) );
     }
 
+    /**
+     * @param RequestDto $data
+     */
+    public function setFieldsByRequest(RequestDto $data)
+    {
+        $this->first_name = $data->firstName;
+        $this->last_name = $data->lastName;
+        $this->middle_name = $data->middleName;
+        $this->organization = $data->organization;
+        $this->phone = $data->phone;
+        $this->password = password_hash($data->password, PASSWORD_DEFAULT);
+    }
 }

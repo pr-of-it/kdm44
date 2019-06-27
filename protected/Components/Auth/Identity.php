@@ -2,14 +2,60 @@
 
 namespace App\Components\Auth;
 
+use App\Dto\UserRegister\RequestDto;
+use App\Exceptions\ConflictException;
+use App\Models\Role;
 use App\Models\User;
+use T4\Core\MultiException;
 use T4\Mvc\Application;
 use T4\Core\Session;
 use T4\Auth\Exception;
 
+/**
+ * Class Identity
+ * @package App\Components\Auth
+ */
 class Identity
     extends \T4\Auth\Identity
 {
+    /**
+     * @param RequestDto $data
+     * @return User
+     * @throws MultiException
+     * @throws \T4\Core\Exception
+     */
+    public function register(RequestDto $data)
+    {
+        $errors = new MultiException();
+
+        if (!empty(User::findByEmail($data->email))) {
+            $errors->add(new ConflictException('Пользователь с таким email уже зарегистрирован'));
+        }
+
+        if (!$errors->isEmpty()) {
+            throw $errors;
+        }
+
+        try {
+            $user = new User();
+            $user->fill([
+                'email'     => $data->email,
+                'password'  => password_hash($data->password, PASSWORD_DEFAULT),
+                'first_name' => $data->firstName,
+                'last_name'  => $data->lastName,
+                'middle_name' => $data->middleName,
+                'organization' => $data->organization,
+                'phone' => $data->phone,
+                'role' => (Role::findByColumn('name','user'))->getPk(),
+            ]);
+        } catch (MultiException $e) {
+            throw $e;
+        }
+
+        $user->save();
+
+        return $user;
+    }
 
     public function check($data)
     {

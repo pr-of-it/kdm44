@@ -1,0 +1,79 @@
+{% extends 'Kdm/Inner.html' %}
+
+{% block content %}
+
+{% set count = 5 %}
+
+<ol class="breadcrumb">
+    <li><a href="/">Главная страница</a></li>
+    <li class="active">Личный кабинет</li>
+    <li><a href="/cabinet/profile">Профиль</a></li>
+    <li></li>
+</ol>
+<div>
+    <p>{{ user.first_name ?? user.email }}, Вы вошли в личный кабинет!</p>
+    <p><a href="/cabinet/logout">Выход из личного кабинета</a></p>
+</div>
+<h3 align="center"><strong>Личный кабинет</strong></h3>
+<hr>
+<div>
+    <h4 align="center">Обращения</h4>
+
+    {% for item in providers['recourses'].setPageSize(count).getPage(page) %}
+
+        {% if item.type == 'send' %}
+            {% set type = 'письмо' %}
+        {% elseif item.type == 'corruption' %}
+            {% set type = 'сообщить о коррупции' %}
+        {% elseif item.type == 'collective-send' %}
+            {% set type = 'коллективное обращение' %}
+        {% else %}
+            {% set type = item.type %}
+        {% endif %}
+
+        {% if item.status == 'new' %}
+            {% set status = 'Новое' %}
+        {% elseif item.status == 'registered' %}
+            {% set status = 'Зарегистрировано' %}
+        {% elseif item.status == 'withAnswer' %}
+            {% set status = 'Дан ответ' %}
+        {% else %}
+            {% set status = item.status %}
+        {% endif %}
+
+        <div class="media" style="margin-top: 0; margin-bottom: 15px;">
+            <div class="pull-left">
+                <span class="label label-info">{{ item.created_at|date('d.m.Y h:i:s') }}</span>
+            </div>
+            <br>
+            <p>Тип обращения: {{ type }}</p>
+            <p>Кому направлено: {{ item.recipient }}</p>
+            <p>
+                Соавторы (ФИО, email):
+                {% if item.coauthor_email is not empty %}
+                {{ item.coauthor_name }}, {{ item.coauthor_email }}
+                {% else %}
+                Нет
+                {% endif %}
+            </p>
+            <p>Текст обращения: {{ item.message }}</p>
+            <p>
+                Прикреплённый документ:
+                {% if item.file1 is not empty %}
+                {{ item.file1 }}
+                {% else %}
+                Нет
+                {% endif %}
+            </p>
+            <p>Статус обращения: {{ status }}</p>
+            <p>Номер обращения: {{ item.number }}</p>
+        </div>
+    {% else %}
+        <p>Нет обращений</p>
+    {% endfor %}
+
+    {{ widget('pager', {'total': providers['recourses'].total, 'size': providers['recourses'].pageSize, 'active': page, 'url': '/cabinet/?page=%d'}) }}
+
+</div>
+
+{% endblock %}

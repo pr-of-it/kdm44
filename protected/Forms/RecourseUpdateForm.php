@@ -39,7 +39,7 @@ class RecourseUpdateForm extends Form
         'number' => [
             'class' => TextField::class,
             'title' => 'Номер',
-            'validator' => UniqueRecourseNumberValidator::class
+            'validator' => StringValidator::class
         ],
         'comment' => [
             'class' => TextField::class,

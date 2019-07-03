@@ -7,6 +7,7 @@ use App\Forms\RecourseUpdateForm;
 use App\Models\Recourse;
 use T4\Http\Uploader;
 use T4\Mvc\Controller;
+use T4\Orm\Exception;
 use T4\Orm\ModelDataProvider;
 
 /**
@@ -85,7 +86,11 @@ class Processing extends Controller
                         $recourse->file2 = $_FILES['fileAnswer']['name'];
                     }
                     $recourse->changeFieldsByRequest($form->getValue(RequestDto::class));
-                    $recourse->save();
+                    try {
+                        $recourse->save();
+                    } catch (\Exception $e) {
+                        throw new Exception('Сохранение не выполнено. Возможно, вы указали уже существующий номер обращения');
+                    }
                     $this->redirect('/reception/recourse/processing');
                 } catch (\Throwable $exception) {
                     $errors = [$exception];

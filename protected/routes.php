@@ -17,6 +17,8 @@ return [
     '/news/topics/<1>' => '/News/Index/NewsByTopic(id=<1>)',
     '/news/<1>' => '/News/Index/Story(id=<1>)',
 
+    '/pages/reception' => '//App\Controllers\Reception/Default',
+    '/pages/signin' => '//App\Controllers\SignIn/Default',
     '/pages/<3>/<2>/<1>' => '/Pages/Index/PageByUrl(url=<1>)',
     '/pages/<2>/<1>' => '/Pages/Index/PageByUrl(url=<1>)',
     '/pages/<1>' => '/Pages/Index/PageByUrl(url=<1>)',

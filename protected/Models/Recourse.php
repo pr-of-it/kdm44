@@ -5,12 +5,26 @@ namespace App\Models;
 use T4\Orm\Model;
 
 /**
+ * Обращения граждан в электронную приемную
+ *
  * Class Recourse
  * @package App\Models
  */
 class Recourse
     extends Model
 {
+    public const TYPES_RUS = [
+        'send' => 'Письмо',
+        'corruption' => 'Сообщение о коррупции',
+        'collective-send' => 'Коллективное письмо',
+    ];
+
+    public const STATUSES_RUS = [
+        'new' => 'Новое',
+        'registered' => 'Зарегистрировано',
+        'withAnswer' => 'Дан ответ',
+    ];
+
     public $status =
         [
             'new' => 'new',
@@ -43,6 +57,24 @@ class Recourse
             'user' => ['type' => self::BELONGS_TO, 'model' => User::class]
         ],
     ];
+
+    /**
+     * Русское значение поля "тип обращения"
+     * @return string
+     */
+    public function getTypeRus(): string
+    {
+        return self::TYPES_RUS[$this->type] ?? $this->type;
+    }
+
+    /**
+     * Русское значение поля "статус обращения"
+     * @return string
+     */
+    public function getStatusRus(): string
+    {
+        return self::STATUSES_RUS[$this->status] ?? $this->status;
+    }
 
     /**
      * @param array $data

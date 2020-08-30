@@ -1,0 +1,104 @@
+{% extends 'Admin/Smart/blank_.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/reception/recourses/">Обращения</a></li>
+    <li>Просмотр обращения</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+<section class="well">
+    <form class="smart-form" method="post" enctype="multipart/form-data" action="/admin/reception/recourseSave">
+        <header>Просмотр обращения</header>
+        <input type="hidden" name="__id" value="{{ item.Pk }}">
+        <fieldset>
+            <section>
+                <label class="label">Номер обращения</label>
+                <label class="input">
+                    <input type="text" name="id" value="{{ item.Pk }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Тип обращения</label>
+                <label class="input">
+                    <input type="text" name="typeRus" value="{{ item.typeRus }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Статус обращения</label>
+                <label class="input">
+                    <input type="text" name="statusRus" value="{{ item.statusRus }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Обращение принято</label>
+                <label class="input">
+                    <input type="datetime-local" name="created_at" value="{{ item.created_at | date('Y-m-d\\TH:i') }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Фамилия</label>
+                <label class="input">
+                    <input type="text" name="last_name" value="{{ item.last_name }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Имя</label>
+                <label class="input">
+                    <input type="text" name="first_name" value="{{ item.first_name }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Отчество</label>
+                <label class="input">
+                    <input type="text" name="middle_name" value="{{ item.middle_name }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Email</label>
+                <label class="input">
+                    <input type="text" name="email" value="{{ item.email }}" readonly>
+                </label>
+            </section>
+            <section>
+                <label class="label">Телефон</label>
+                <label class="input">
+                    <input type="text" name="phone" value="{{ item.phone }}" readonly>
+                </label>
+            </section>
+            {% if item.organization %}
+            <section>
+                <label class="label">Организация</label>
+                <label class="input">
+                    <input type="text" name="organization" value="{{ item.organization }}" readonly>
+                </label>
+            </section>
+            {% endif %}
+            <section>
+                <label class="label">Текст обращения</label>
+                <label class="textarea">
+                    <textarea name="message" rows="10" readonly>{{ item.message }}</textarea>
+                </label>
+            </section>
+        </fieldset>
+        <footer>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        </footer>
+    </form>
+</section>
+
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+    $(function () {
+
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+
+    });
+</script>
+{% endblock %}

@@ -17,9 +17,6 @@ services:
       depends_on:
         - mysql
 
-      extra_hosts:
-        - "dockerhost:$DOCKERHOST"
-
    mysql:
       image: mysql:5.7
       volumes:

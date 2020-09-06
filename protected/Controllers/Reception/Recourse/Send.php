@@ -11,6 +11,7 @@ use T4\Http\E404Exception;
 use T4\Http\Uploader;
 use T4\Mail\Sender;
 use T4\Mvc\Controller;
+use T4\Mvc\Renderers\Twig;
 
 /**
  * Class Send
@@ -92,12 +93,27 @@ class Send extends Controller
                         $this->app->flash->message = $message;
 
                         try {
+
                             $mailer = new Sender(true);
-                            $res = $mailer->sendMail(
+                            $body = (new Twig(ROOT_PATH_PROTECTED . '/Mail'))->render('/RecourseAcceptedSender.html', [
+                                'item' => $recourse
+                            ]);
+                            $mailer->sendMail(
                                 $recourse->email,
-                                'Ваше обращение зарегистрировано',
-                                $message
+                                'Ваше обращение получено',
+                                $body
                             );
+
+                            $mailer = new Sender(true);
+                            $body = (new Twig(ROOT_PATH_PROTECTED . '/Mail'))->render('/RecourseAcceptedKdm.html', [
+                                'item' => $recourse
+                            ]);
+                            $mailer->sendMail(
+                                'kdm@adm44.ru',
+                                'Получено обращение с сайта kdm44.ru',
+                                $body
+                            );
+
                         } catch (\Exception $e) {
                             $errors = [$exception];
                         }

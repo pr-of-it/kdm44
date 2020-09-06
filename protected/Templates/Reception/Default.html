@@ -14,7 +14,18 @@
         <li class="active">Электронная приёмная</li>
         <li></li>
     </ol>
+
+    {% if app.flash.message is defined %}
+    <div>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ app.flash.message }}
+        </div>
+    </div>
+    {% endif %}
+
     <h3 align="center">Электронная приёмная</h3>
+
     <div>
         <h4 align="center">
             <strong>

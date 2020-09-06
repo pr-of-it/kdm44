@@ -73,8 +73,10 @@ class Send extends Controller
                 $data = array_merge($_POST, ['type' => $url]);
 
                 if (empty($errors)) {
-                    $recourse = new Recourse();
+
                     try {
+
+                        $recourse = new Recourse();
                         if (!empty($_FILES['customFile']['name'])) {
                             $uploader = new Uploader('customFile', self::ALLOWED_EXTENSIONS);
                             $uploader->setPath('/public/recourses');
@@ -85,7 +87,10 @@ class Send extends Controller
                         $recourse->setFieldsByRequest($data);
                         $recourse->save();
 
+                        $this->app->flash->message = 'Ваше обращение зарегистрировано за номером ' . $recourse->getPk();
+
                         $this->redirect('/reception');
+
                     } catch (\Throwable $exception) {
                         $errors = [$exception];
                     }

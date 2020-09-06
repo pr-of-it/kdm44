@@ -15,6 +15,5 @@ class Reception extends Controller
      */
     public function actionDefault()
     {
-
     }
 }

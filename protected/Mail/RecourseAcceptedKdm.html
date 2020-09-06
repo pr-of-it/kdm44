@@ -16,6 +16,8 @@
 <p>Отправитель: {{ item.last_name }} {{ item.first_name }} {{ item.middle_name }}</p>
 <p>Email: {{ item.email }}</p>
 <p>Отправлено: {{ item.created_at | date('d.m.Y H:i') }}</p>
+<p>Текст обращения:</p>
+<div>{{ item. message}}</div>
 <p>
     Прикреплённый документ обращения:
     {% if item.file1 is not empty %}

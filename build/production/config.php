@@ -17,7 +17,14 @@ return [
         'expire' => 31536000 // 1 year
     ],
     'mail' => [
-        'method' => 'php',
+        'method' => 'smtp',
+        'host' => 'smtp.yandex.ru',
+        'port' => 465,
+        'secure' => 'ssl',
+        'auth' => [
+            'username' => 'forms@kdm44.ru',
+            'password' => 'JSK1ji4xFRz'
+        ],
     ],
     'extensions' => [
         'jquery' => [

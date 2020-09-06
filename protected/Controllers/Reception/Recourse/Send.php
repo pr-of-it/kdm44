@@ -9,6 +9,7 @@ use App\Models\Recourse;
 use T4\Core\MultiException;
 use T4\Http\E404Exception;
 use T4\Http\Uploader;
+use T4\Mail\Sender;
 use T4\Mvc\Controller;
 
 /**
@@ -87,7 +88,19 @@ class Send extends Controller
                         $recourse->setFieldsByRequest($data);
                         $recourse->save();
 
-                        $this->app->flash->message = 'Ваше обращение зарегистрировано за номером ' . $recourse->getPk();
+                        $message = 'Ваше обращение зарегистрировано за номером ' . $recourse->getPk();
+                        $this->app->flash->message = $message;
+
+                        try {
+                            $mailer = new Sender(true);
+                            $res = $mailer->sendMail(
+                                $recourse->email,
+                                'Ваше обращение зарегистрировано',
+                                $message
+                            );
+                        } catch (\Exception $e) {
+                            $errors = [$exception];
+                        }
 
                         $this->redirect('/reception');
 

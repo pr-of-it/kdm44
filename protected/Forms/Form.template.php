@@ -4,6 +4,7 @@ use App\Dto\Validation\Exceptions\CompareException;
 use App\Dto\Validation\Exceptions\InvalidPhone;
 use App\Dto\Validation\Exceptions\MinimalLengthException;
 use App\Dto\Validation\Exceptions\NoDigitsException;
+use App\Exceptions\ConflictException;
 use Runn\Html\Form\Fields\InputField;
 use Runn\Validation\Exceptions\EmptyValue;
 use Runn\Validation\Exceptions\InvalidEmail;
@@ -43,6 +44,9 @@ foreach ($this as $key => $element):
                             <?php }
                             if ($error->getPrevious() instanceof InvalidString) { ?>
                                 <li><?php echo 'Неверное название поля ' . $element->getTitle(); ?></li>
+                            <?php }
+                            if ($error->getPrevious() instanceof ConflictException) { ?>
+                                <li><?php echo 'Значение поля ' . $element->getTitle() . ' не уникально'; ?></li>
                             <?php }
 
                         }?>
